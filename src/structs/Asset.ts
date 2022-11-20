@@ -6,4 +6,5 @@ export type Asset={
     parentAssetID:number
     groupID:number
     description:string
+    image:string
 }

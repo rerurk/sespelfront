@@ -1,0 +1,40 @@
+.wrapper{
+    flex: none;
+    margin-top: 4rem;
+    width: 100%;
+    height: 100%;
+    background: teal;
+}
+.fieldWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 2rem;
+    color: black;
+    outline: solid 1px white;
+}
+
+.fieldWrapper > span {
+    width: 30%;
+    text-align: right;
+
+}
+
+.fieldWrapper > textarea {
+    resize: none;
+    width: 70%;
+    height: 4rem;
+    margin-left: 1rem;
+}
+
+
+
+.fieldWrapper > input {
+    width: 8rem;
+    margin-left: 1rem;
+}
+.fieldWrapper > select {
+    width: 18rem;
+    margin-left: 1rem;
+}
