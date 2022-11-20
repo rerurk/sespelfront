@@ -1,7 +1,8 @@
 
 import React from "react";
 import Main from "../pages/main/Main";
-import AddAsset from "../pages/addasset/AddAsset";
+import CreateAsset from "../pages/createasset/CreateAsset";
+import MoveAsset from "../pages/moveAsset/MoveAsset";
 
 
 export const privateRoutes = [
@@ -17,7 +18,12 @@ export const publicRoutes = [
     {
         exact:false,
         path: '/addAsset',
-        element:<AddAsset/>
+        element:<CreateAsset/>
+    },
+    {
+        exact:false,
+        path: '/moveAsset',
+        element:<MoveAsset/>
     }
 
 
