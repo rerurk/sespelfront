@@ -4,21 +4,32 @@ import cl from "./SetCatalog.module.css"
 import {Fetches} from "../../fetches/Fetches";
 import {CatalogNode} from "../../structs/catalog";
 import CatalogTree from "../../components/catalogTree/CatalogTree";
-const SetCatalog:FC = () => {
-    const [catalog,setCatalog]=useState<CatalogNode>({
-        name:"",
-        nodes:[]
-    })
-    useEffect(()=>{
 
-        Fetches.GetCatalogNode("").then(r=> {
-            setCatalog(r)
+const SetCatalog: FC = () => {
+    const [catalog, setCatalog] = useState<CatalogNode>({
+        name: "",
+        his_id: "",
+        parent_id: "",
+        nodes: []
+    })
+    useEffect(() => {
+        let rCatalog: CatalogNode
+        Fetches.GetCatalogNode("").then(r => {
+            console.log(r)
+            rCatalog = r
+
+            if (!rCatalog.his_id) {
+                setCatalog(()=>({...catalog,name:"Главная"}))
+            }
+            
+
+
         })
-    },[])
+    }, [])
 
     return (
         <div className={cl.wrapper}>
-           <CatalogTree catalogNode={catalog}/>
+            <CatalogTree catalogNode={catalog}/>
         </div>
     );
 };

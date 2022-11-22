@@ -8,14 +8,11 @@ interface CatalogTreeProps {
     catalogNode: CatalogNode
 }
 
-function showNode(node: CatalogNode) {
-    console.log(node.name)
 
-}
 
 const CatalogTree: FC<CatalogTreeProps> = ({catalogNode}) => {
 
-    showNode(catalogNode)
+console.log("CatalogTree:",catalogNode)
     return (
         <CatalogNodeView node={catalogNode} keyVal={1}/>
     );
