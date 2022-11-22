@@ -9,10 +9,16 @@
 .wrapper>h1{
     margin: 0;
     padding-left: 3rem;
-    color: grey;
     cursor: pointer;
 
+
+}
+.defItem{
+    color: red;
 }
 .wrapper>h1:hover{
-    color: black;
+    color: darkblue;
+}
+.selectedItem{
+    color: blue;
 }

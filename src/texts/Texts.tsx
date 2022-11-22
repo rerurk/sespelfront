@@ -1,7 +1,8 @@
 export enum RouterTexts {
     MAIN="Главная",
     CREATE_ASSET="СОЗДАТЬ",
-    MOVE_ASSET="ПЕРМЕЩЕНИЕ"
+    MOVE_ASSET="ПЕРМЕЩЕНИЕ",
+    SET_CATALOG="Настройка каталога"
 
 
 }
