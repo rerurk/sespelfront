@@ -21,5 +21,12 @@
 }
 
 .wrapper__nodes_show {
+    resize: none;
     display: block;
+    font-size: 2rem;
+    margin: 3px;
+    padding-left: 4rem;
+    width: 40rem;
+    height: 3rem;
+
 }

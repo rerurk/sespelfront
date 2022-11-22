@@ -23,9 +23,24 @@ export class Fetches {
     }
 
     public static async GetCatalogNode(nodeName:string):Promise<any|Error>{
+
         try {
 
             const res = await axios.post<string>(Requests.GET_CATALOG_NODE, nodeName)
+            return res.data
+
+
+        } catch (e) {
+            return Error("ошибка")
+
+        }
+    }
+
+    public static async SaveNewCatalogNode(node:CatalogNode):Promise<any|Error>{
+        console.log(node)
+        try {
+
+            const res = await axios.post<CatalogNode>(Requests.SAVE_NEW_CATALOG_NODE, node)
             return res.data
 
 

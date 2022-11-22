@@ -15,12 +15,13 @@ const SetCatalog: FC = () => {
     useEffect(() => {
         let rCatalog: CatalogNode
         Fetches.GetCatalogNode("").then(r => {
-            console.log(r)
+
             rCatalog = r
 
             if (!rCatalog.his_id) {
-                setCatalog(()=>({...catalog,name:"Главная"}))
+                setCatalog(()=>({...catalog,name:"НЕТ НИРЧЕ"}))
             }
+            setCatalog(rCatalog)
             
 
 
