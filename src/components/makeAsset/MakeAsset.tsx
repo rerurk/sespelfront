@@ -12,12 +12,7 @@ const MakeAsset: FC = () => {
 
 
     const [newAsset,setNewAsset]=useState<Asset>({
-        description: "",
-        groupID: 0,
-        id: 0,
-        name: "",
-        parentAssetID: 123123123,
-        image: ""
+        description: "", id: 0, image: "", is_table: "", name: "", ref: "",assets:[]
 
     })
     const onBtCreate = () => {

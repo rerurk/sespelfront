@@ -2,7 +2,7 @@ import axios from "axios";
 import {Asset} from "../structs/Asset";
 import {Requests} from "../requests/Requests";
 import {NewAsset} from "../structs/transportSructs";
-import {CatalogNode} from "../structs/catalog";
+
 
 
 
@@ -22,11 +22,11 @@ export class Fetches {
 
     }
 
-    public static async GetCatalogNode(nodeName:string):Promise<any|Error>{
+    public static async GetMainAsset():Promise<any|Error>{
 
         try {
 
-            const res = await axios.post<string>(Requests.GET_CATALOG_NODE, nodeName)
+            const res = await axios.get<string>(Requests.GET_MAIN_ASSET)
             return res.data
 
 
@@ -36,18 +36,5 @@ export class Fetches {
         }
     }
 
-    public static async SaveNewCatalogNode(node:CatalogNode):Promise<any|Error>{
-        console.log(node)
-        try {
-
-            const res = await axios.post<CatalogNode>(Requests.SAVE_NEW_CATALOG_NODE, node)
-            return res.data
-
-
-        } catch (e) {
-            return Error("ошибка")
-
-        }
-    }
 
 }

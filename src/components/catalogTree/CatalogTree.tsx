@@ -1,20 +1,31 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 // @ts-ignore
 import cl from "./CatalogTree.module.css"
-import {CatalogNode} from "../../structs/catalog";
-import CatalogNodeView from "../catalogNodeView/CatalogNodeView";
 
-interface CatalogTreeProps {
-    catalogNode: CatalogNode
-}
+import AssetView from "../assetView/AssetView";
+import {Asset} from "../../structs/Asset";
+import {Fetches} from "../../fetches/Fetches";
 
 
 
-const CatalogTree: FC<CatalogTreeProps> = ({catalogNode}) => {
+const CatalogTree: FC = () => {
+    const [mainAsset,setMainAsset]=useState<Asset|null>(null)
+    console.log(mainAsset)
+    useEffect(()=>{
+        Fetches.GetMainAsset().then(r=>
+            setMainAsset(r)
+        )
 
-console.log("CatalogTree:",catalogNode)
+    },[])
+
+
     return (
-        <CatalogNodeView node={catalogNode} keyVal={1}/>
+        <div>{
+        mainAsset
+        ?<AssetView asset={mainAsset} keyVal={1}/>
+        :false
+        }
+        </div>
     );
 };
 
