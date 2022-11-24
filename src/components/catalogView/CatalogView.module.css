@@ -1,32 +1,34 @@
-.wrapper {
-    font-size: 2rem;
-    margin: 3px;
-    padding-left: 4rem;
-    width: 40rem;
-
-
-
-}
 
 .wrapper__name_table {
-    background: grey;
+    padding: 0 1rem 0 2rem;
+}
+.wrapper___catalog_name{
+    font-size: 2rem;
+    background: teal;
+    padding-left: 1rem;
     cursor: pointer;
-    width: 100%;
+    width: 20rem;
+    border: solid 1px black;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .wrapper__name_end_point {
-    background: wheat;
+    margin-left: 2rem;
+    font-size: 2rem;
+    background: #fff;
     cursor: pointer;
     width: 100%;
-}
-.wrapper__nodes {
-
-    background: grey;
+    border: solid 1px black;
 }
 
-.wrapper__nodes_hidden {
+
+.wrapper__catalog_hidden {
     display: none;
+
 }
+
 
 .wrapper__nodes_show {
     resize: none;
@@ -37,4 +39,14 @@
     width: 40rem;
     height: 3rem;
 
+}
+.wrapper_showCatalog{
+    width: 3rem;
+    height: 3rem;
+    background: grey;
+    border: solid 1px black;
+    cursor: pointer;
+}
+.wrapper_showCatalog:hover{
+    background: lightgrey;
 }

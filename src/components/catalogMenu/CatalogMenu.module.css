@@ -1,0 +1,13 @@
+.wrapper{
+    right: 0;
+    width: 3rem;
+    height: 3rem;
+    margin-right: 3rem;
+    background: grey;
+    border: solid 1px black;
+    font-size: 3rem;
+}
+.wrapper:hover{
+    background: lightgrey;
+    cursor: pointer;
+}

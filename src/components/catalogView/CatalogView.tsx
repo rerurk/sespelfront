@@ -4,6 +4,8 @@ import cl from "./CatalogView.module.css"
 
 
 import {CatalogItem} from "../../structs/catalog";
+import CatalogMenu from "../catalogMenu/CatalogMenu";
+import {Fetches} from "../../fetches/Fetches";
 
 
 interface CatalogViewProps {
@@ -12,28 +14,70 @@ interface CatalogViewProps {
 }
 
 const CatalogView: FC<CatalogViewProps> = ({item, keyVal}) => {
-    console.log("CatalogView:", item)
+
     const [hisItem, setHisItem] = useState<CatalogItem>(item)
+    const [showText, setShowText] = useState<string>("+")
+    const [showClass, setShowClass] = useState<string>(cl.wrapper__catalog_hidden)
+    const [isItemsHidden,setIsItemsHidden]=useState<boolean>(true)
 
-
-    const onNameClick = (item: CatalogItem) => {
-        console.log(item)
+    const onMenuClick = () => {
+        console.log("MENU:", hisItem)
     }
-    const [nodesClName, setNodesClName] = useState<string>(cl.wrapper__nodes_hidden)
-    console.log(hisItem)
+    const onShowClick = () => {
+        if (isItemsHidden){
+            setShowClass(cl.wrapper__catalog_show)
+            setShowText("-")
+
+        }else {
+            setShowClass(cl.wrapper__catalog_hidden)
+            setShowText("+")
+        }
+        setIsItemsHidden(()=>!isItemsHidden)
+        if (hisItem.items) {
+
+        } else {
+            Fetches.GetCatalogItems(hisItem).then(items => {
+                 console.log(items)
+                if (items instanceof Error) {
+                    alert("Что то пошло не так.... :(")
+                } else {
+                    if(items) {
+                        hisItem.items = items
+                        setHisItem({...hisItem})
+                    }else {
+                        setShowText("+")
+                        alert(` Каталог ${hisItem.name} пустой`)
+                    }
+                }
+
+            })
+        }
+
+
+    }
+
     return (
         <div className={cl.wrapper} onClick={event => event.stopPropagation()}>
             {hisItem.is_table
-                ? <div className={cl.wrapper__name_table} onClick={() => onNameClick(hisItem)}>
-                    {hisItem.name}
+                ? <div className={cl.wrapper__name_table}>
+                    <div className={cl.wrapper___catalog_name}>
+                        <CatalogMenu onMenuClick={() => onMenuClick()}/>
+                        {hisItem.name}
+                        <div className={cl.wrapper_showCatalog} onClick={onShowClick}>{showText}</div>
+
+                    </div>
+                    <div className={showClass}>
                     {
                         hisItem.items
-                            ? hisItem.items.map((item: CatalogItem) => <CatalogView item={item} keyVal={keyVal + 1}/>)
-                            :false
+                            ? hisItem.items.map((item: CatalogItem, ind: number) => <CatalogView
+                                item={item} keyVal={keyVal + 1}
+                                key={"cv_" + keyVal + ind}/>)
+                            : false
                     }
+                    </div>
 
                 </div>
-                : <span className={cl.wrapper__name_end_point}>{hisItem.name}</span>
+                : <div className={cl.wrapper__name_end_point}>{hisItem.name}</div>
 
             }
         </div>
