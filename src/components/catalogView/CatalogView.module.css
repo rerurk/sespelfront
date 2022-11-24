@@ -1,21 +1,23 @@
 .wrapper {
     font-size: 2rem;
     margin: 3px;
-    margin-top: 5rem;
     padding-left: 4rem;
     width: 40rem;
-    background: lightgreen;
+
+
 
 }
 
 .wrapper__name_table {
-    background: #aaa;
+    background: grey;
     cursor: pointer;
+    width: 100%;
 }
 
 .wrapper__name_end_point {
-    background: white;
+    background: wheat;
     cursor: pointer;
+    width: 100%;
 }
 .wrapper__nodes {
 

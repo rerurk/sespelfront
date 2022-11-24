@@ -33,7 +33,7 @@ const MakeAsset: FC = () => {
             trNewAsset.Image=img.fileBytes
         }
 
-        Fetches.SaveNewAsset(trNewAsset).then(r => {})
+
     }
 
     const onChangeName = (e: ChangeEvent<HTMLTextAreaElement>) => {

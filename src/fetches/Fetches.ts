@@ -1,32 +1,16 @@
 import axios from "axios";
-import {Asset} from "../structs/Asset";
+
 import {Requests} from "../requests/Requests";
-import {NewAsset} from "../structs/transportSructs";
-
-
-
 
 export class Fetches {
 
-    public static async SaveNewAsset(newAsset:NewAsset): Promise<any | Error> {
-        try {
-
-            const res = await axios.post<Asset>(Requests.SAVE_NEW_ASSET, newAsset)
-            return res.data
 
 
-        } catch (e) {
-            return Error("ошибка")
-
-        }
-
-    }
-
-    public static async GetMainAsset():Promise<any|Error>{
+    public static async GetMainCatalogItem():Promise<any|Error>{
 
         try {
 
-            const res = await axios.get<string>(Requests.GET_MAIN_ASSET)
+            const res = await axios.get<string>(Requests.GET_MAIN_CATALOG_ITEM)
             return res.data
 
 
