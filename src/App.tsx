@@ -9,7 +9,6 @@ function App() {
     return (
         <div className="App">
             <h1>Сеспель</h1>
-
             <BrowserRouter>
                 <Route/>
                 <AppRouter/>

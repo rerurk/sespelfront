@@ -21,10 +21,10 @@ const Route: FC = () => {
     return (
         <div className={cl.wrapper}>
             {
-                routes.map((node: RouteNode, ind: number) => <h1
+                routes.map((node: RouteNode, ind: number) => <span
                     className={cl.defItem}
                     onClick={(e: React.MouseEvent<HTMLHeadElement>) => onItemClick(e, node)}
-                    key={"r" + ind}>{node.name}</h1>)
+                    key={"r" + ind}>{node.name}</span>)
             }
         </div>
     );

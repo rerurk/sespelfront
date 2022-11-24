@@ -22,6 +22,19 @@ const CatalogView: FC<CatalogViewProps> = ({item, keyVal}) => {
 
     const onMenuClick = () => {
         console.log("MENU:", hisItem)
+        let res=window.prompt("Чаво")
+        if (res){
+            console.log(res)
+            let newItem:CatalogItem={
+                description: "",
+                id: 0,
+                image: "",
+                is_table: false,
+                items: null,
+                name: res,
+                ref: ""
+            }
+        }
     }
     const onShowClick = () => {
         if (isItemsHidden){
@@ -62,7 +75,7 @@ const CatalogView: FC<CatalogViewProps> = ({item, keyVal}) => {
                 ? <div className={cl.wrapper__name_table}>
                     <div className={cl.wrapper___catalog_name}>
                         <CatalogMenu onMenuClick={() => onMenuClick()}/>
-                        {hisItem.name}
+                        <span>{hisItem.name}</span>
                         <div className={cl.wrapper_showCatalog} onClick={onShowClick}>{showText}</div>
 
                     </div>

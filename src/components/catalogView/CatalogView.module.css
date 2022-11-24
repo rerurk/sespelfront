@@ -1,22 +1,27 @@
 
 .wrapper__name_table {
-    padding: 0 1rem 0 2rem;
+padding-left: 1rem;
 }
 .wrapper___catalog_name{
-    font-size: 2rem;
+    font-size: 1rem;
+    padding: 0;
     background: teal;
-    padding-left: 1rem;
+    color: wheat;
     cursor: pointer;
-    width: 20rem;
+    width: 10rem;
     border: solid 1px black;
     display:flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: center;
+}
+.wrapper___catalog_name>span{
+   color: white;
 }
 
 .wrapper__name_end_point {
-    margin-left: 2rem;
-    font-size: 2rem;
+    margin-left: 1rem;
+    font-size: 1rem;
     background: #fff;
     cursor: pointer;
     width: 100%;
@@ -30,19 +35,9 @@
 }
 
 
-.wrapper__nodes_show {
-    resize: none;
-    display: block;
-    font-size: 2rem;
-    margin: 3px;
-    padding-left: 4rem;
-    width: 40rem;
-    height: 3rem;
-
-}
 .wrapper_showCatalog{
-    width: 3rem;
-    height: 3rem;
+    width: 1rem;
+    height: 1rem;
     background: grey;
     border: solid 1px black;
     cursor: pointer;

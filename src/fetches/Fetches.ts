@@ -35,5 +35,18 @@ export class Fetches {
         }
     }
 
+    public static async SaveNewCatalogItem(item:CatalogItem):Promise<CatalogItem[]|Error>{
+
+        try {
+
+            const res = await axios.post<CatalogItem[]>(Requests.SAVE_NEW_CATALOG_ITEM,item)
+            return res.data
+
+
+        } catch (e) {
+            return Error("ошибка")
+
+        }
+    }
 
 }
