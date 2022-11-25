@@ -12,7 +12,6 @@ const CatalogTree: FC = () => {
     console.log(mainAsset)
     useEffect(()=>{
         Fetches.GetMainCatalogItem().then(r=> {
-
                 setMainAsset(r)
             }
         )
@@ -23,7 +22,7 @@ const CatalogTree: FC = () => {
     return (
         <div className={cl.wrapper}>{
         mainAsset
-        ?<CatalogView item={mainAsset} keyVal={1} key={1}/>
+        ?<CatalogView item={mainAsset} keyVal={1} key={1} parentItem={null}/>
         :false
         }
         </div>

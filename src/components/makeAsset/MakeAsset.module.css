@@ -1,6 +1,6 @@
 .wrapper{
     flex: none;
-    margin-top: 4rem;
+
     width: 100%;
     height: 100%;
     background: teal;
@@ -10,9 +10,9 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    font-size: 2rem;
+    font-size: 1rem;
     color: black;
-    outline: solid 1px white;
+    outline: solid 1px black;
 }
 
 .fieldWrapper > span {
@@ -24,8 +24,9 @@
 .fieldWrapper > textarea {
     resize: none;
     width: 70%;
-    height: 4rem;
+    height: 2rem;
     margin-left: 1rem;
+
 }
 
 

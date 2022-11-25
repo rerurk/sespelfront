@@ -4,11 +4,11 @@ padding-left: 1rem;
 }
 .wrapper___catalog_name{
     font-size: 1rem;
-    padding: 0;
+    padding: 4px 0 4px 0;
     background: teal;
     color: wheat;
     cursor: pointer;
-    width: 10rem;
+    width: 11rem;
     border: solid 1px black;
     display:flex;
     flex-direction: row;
@@ -20,11 +20,12 @@ padding-left: 1rem;
 }
 
 .wrapper__name_end_point {
-    margin-left: 1rem;
+    text-align: left;
+    padding-left: 1rem;
     font-size: 1rem;
     background: #fff;
     cursor: pointer;
-    width: 100%;
+    width: 10rem;
     border: solid 1px black;
 }
 
