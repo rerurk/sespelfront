@@ -1,3 +1,5 @@
+import {AddToItem} from "../structs/catalog";
+
 export enum RouterTexts {
     MAIN="Главная",
     CREATE_ASSET="СОЗДАТЬ",
@@ -15,3 +17,4 @@ export enum MakeAssetFields {
     NAME="Наименование",
     DESCRIPTION="ОПИСАНИЕ"
 }
+

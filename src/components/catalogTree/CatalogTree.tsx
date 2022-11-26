@@ -8,22 +8,22 @@ import {CatalogItem} from "../../structs/catalog";
 
 
 const CatalogTree: FC = () => {
-    const [mainAsset,setMainAsset]=useState<CatalogItem|null>(null)
-    console.log(mainAsset)
-    useEffect(()=>{
-        Fetches.GetMainCatalogItem().then(r=> {
+    const [mainAsset, setMainAsset] = useState<CatalogItem | null>(null)
+
+    useEffect(() => {
+        Fetches.GetMainCatalogItem().then(r => {
                 setMainAsset(r)
             }
         )
 
-    },[])
+    }, [])
 
 
     return (
         <div className={cl.wrapper}>{
-        mainAsset
-        ?<CatalogView item={mainAsset} keyVal={1} key={1} parentItem={null}/>
-        :false
+            mainAsset
+                ? <CatalogView item={mainAsset} keyVal={1} key={1} parentItem={null}/>
+                : false
         }
         </div>
     );

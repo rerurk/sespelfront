@@ -1,4 +1,4 @@
-.wrapper{
+.wrapper {
     right: 0;
     width: 1rem;
     height: 1rem;
@@ -7,7 +7,31 @@
     border: solid 1px black;
     font-size: 1rem;
 }
-.wrapper:hover{
+
+.wrapper:hover {
     background: lightgrey;
     cursor: pointer;
+}
+
+.items_show {
+    position: absolute;
+    margin-left: 5px;
+    width: 10rem;
+    display: flex;
+    flex-direction: column;
+    background: lightgrey;
+    border: solid 1px #222;
+}
+.items_show>span{
+    padding: 2px 0 2px 5px;
+    width: 99%;
+    text-align: left;
+    color: black;
+    font-size: 0.7rem;
+}
+.items_show>span:hover{
+    background: grey;
+}
+.items_hide{
+    display: none;
 }

@@ -4,16 +4,21 @@ padding-left: 1rem;
 }
 .wrapper___catalog_name{
     font-size: 1rem;
-    padding: 4px 0 4px 0;
+    margin-top: 1px;
+    padding: 4px 1px 4px 0;
     background: teal;
     color: wheat;
     cursor: pointer;
     width: 11rem;
     border: solid 1px black;
+
     display:flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+.wrapper___catalog_name_onDragEnter{
+    background: lightseagreen;
 }
 .wrapper___catalog_name>span{
    color: white;
@@ -21,11 +26,12 @@ padding-left: 1rem;
 
 .wrapper__name_end_point {
     text-align: left;
-    padding-left: 1rem;
-    font-size: 1rem;
+    padding: 1px 1rem 1px 1rem;
+    font-size: 0.8rem;
+    font-style: italic;
     background: #fff;
     cursor: pointer;
-    width: 10rem;
+    width: auto;
     border: solid 1px black;
 }
 

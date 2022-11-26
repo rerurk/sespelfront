@@ -3,7 +3,7 @@ import React, {FC, useState} from 'react';
 import cl from "./CatalogView.module.css"
 
 
-import {CatalogItem} from "../../structs/catalog";
+import {CatalogItem, CatalogNode} from "../../structs/catalog";
 import CatalogMenu from "../catalogMenu/CatalogMenu";
 import {Fetches} from "../../fetches/Fetches";
 import {onItemDrag, OnItemDragEnter} from "../../gragAndDrops/catalog/catalog";
@@ -22,11 +22,7 @@ const CatalogView: FC<CatalogViewProps> = ({parentItem, item, keyVal}) => {
     const [showClass, setShowClass] = useState<string>(cl.wrapper__catalog_hidden)
     const [isItemsHidden, setIsItemsHidden] = useState<boolean>(true)
 
-    const onMenuClick = () => {
-        console.log("MENU:", hisItem)
 
-
-    }
     const onShowClick = () => {
         if (isItemsHidden) {
             setShowClass(cl.wrapper__catalog_show)
@@ -60,16 +56,31 @@ const CatalogView: FC<CatalogViewProps> = ({parentItem, item, keyVal}) => {
 
     }
 
+    const onDragEnterToItem = (e: React.MouseEvent<HTMLDivElement>) => {
+
+        e.currentTarget.classList.add(cl.wrapper___catalog_name_onDragEnter)
+        OnItemDragEnter(hisItem)
+    }
+    const onDragLeaveFromItem = (e: React.MouseEvent<HTMLDivElement>) => {
+
+        e.currentTarget.classList.remove(cl.wrapper___catalog_name_onDragEnter)
+        OnItemDragEnter(hisItem)
+    }
+
+
     return (
         <div className={cl.wrapper} onClick={event => event.stopPropagation()} draggable={false}>
             {hisItem.is_table
                 ? <div className={cl.wrapper__name_table}>
-                    <div className={cl.wrapper___catalog_name}>
-                        <CatalogMenu onMenuClick={() => onMenuClick()}/>
+                    <div className={cl.wrapper___catalog_name}
+                         draggable={true}
+                         onDrag={() => onItemDrag(hisItem, parentItem)}
+                         onDragEnter={(e) => onDragEnterToItem(e)}
+                         onDragLeave={e => onDragLeaveFromItem(e)}
+                    >
+                        <CatalogMenu catalogNode={{parent:parentItem,self:hisItem}}/>
                         <span
-                            draggable={true}
-                            onDrag={() => onItemDrag(hisItem,parentItem)}
-                            onDragEnter={() => OnItemDragEnter(hisItem)}>
+                        >
                             {hisItem.name}
                         </span>
                         <div
@@ -94,7 +105,7 @@ const CatalogView: FC<CatalogViewProps> = ({parentItem, item, keyVal}) => {
                 : <div
                     className={cl.wrapper__name_end_point}
                     draggable={true}
-                    onDrag={() => onItemDrag(hisItem,parentItem)}
+                    onDrag={() => onItemDrag(hisItem, parentItem)}
                     onDragEnter={() => OnItemDragEnter(hisItem)}
                 >
                     {hisItem.name}

@@ -1,4 +1,4 @@
-import {AddToItem, CatalogItem, ReplaceCatalogItem} from "../../structs/catalog";
+import {CatalogItem, CatalogNode, ReplacesCatalogItem} from "../../structs/catalog";
 
 let dragItem: CatalogItem | null=null
 let dragItemEnter: CatalogItem | null=null
@@ -16,14 +16,15 @@ export function onItemDrag(item: CatalogItem,parenItem:CatalogItem|null) {
 
 export function OnItemDragEnter(item: CatalogItem) {
     if (!item.is_table) return
+    if(dragItemEnter===item)return;
     dragItemEnter = item
     console.log("dragItemEnter:", dragItemEnter)
 }
 
-export function GetItems(): ReplaceCatalogItem | null {
+export function GetItems(): ReplacesCatalogItem | null {
 
     if (dragItem && dragItemEnter) {
-        let replaceItem: ReplaceCatalogItem = {
+        let replaceItem: ReplacesCatalogItem = {
             replace_from: JSON.parse(JSON.stringify(parentCatalogItem)),
             replace_to: JSON.parse(JSON.stringify(dragItemEnter)),
             item:JSON.parse(JSON.stringify(dragItem))
