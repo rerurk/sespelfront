@@ -7,6 +7,7 @@ export enum Requests {
     GET_CATALOG_ITEMS = "http://192.168.1.95:3005/get_catalog_items",
     SAVE_NEW_CATALOG_ITEM = "http://192.168.1.95:3005/save_new_catalog_item",
     MAKE_CATALOG_ITEM = "http://192.168.1.95:3005/make_catalog_item",
-    REPLACE_CATALOG_ITEM = "http://192.168.1.95:3005/replace_catalog_item"
+    REPLACE_CATALOG_ITEM = "http://192.168.1.95:3005/replace_catalog_item",
+    RENAME_CATALOG_ITEM = "http://192.168.1.95:3005/rename_catalog_item"
 
 }

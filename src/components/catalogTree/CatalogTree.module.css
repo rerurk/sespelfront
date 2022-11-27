@@ -1,4 +1,7 @@
 .wrapper {
     display: flex;
     justify-content: left;
+    width: 20rem;
+    height: 100%;
+    overflow: scroll;
 }

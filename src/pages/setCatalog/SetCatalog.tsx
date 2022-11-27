@@ -1,28 +1,20 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import CatalogTree from "../../components/catalogTree/CatalogTree";
-import {GetItems} from "../../gragAndDrops/catalog/catalog";
-import {AddToItem, ReplacesCatalogItem} from "../../structs/catalog";
+
+import {ReplacesCatalogItem} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
+import ShowCatalogNode from "../../components/showCatalogNode/ShowCatalogNode";
+// @ts-ignore
+import  cl from"./SetCatalog.module.css"
 
 
 const SetCatalog = () => {
-    const onBtPress = () => {
-        let replaceCatalogItem: ReplacesCatalogItem | null = GetItems()
-        if (replaceCatalogItem) {
-            Fetches.ReplaceCatalogItem(replaceCatalogItem)
-                .then(r => {
 
-                    console.log(r.status)
-                })
-        } else {
-            console.log("НичО нЭт")
-        }
-
-    }
     return (
-        <div>
+        <div className={cl.wrapper}>
             <CatalogTree/>
-            <button onMouseUp={onBtPress}>Сохранить</button>
+            <ShowCatalogNode/>
+
         </div>
     );
 };

@@ -1,23 +1,23 @@
 .wrapper{
     width: 100%;
     height: 2rem;
-    background: lightgreen;
+    background: teal;
     display: flex;
     flex-direction: row;
 }
 .wrapper>span{
-    margin: 0;
-    padding-left: 1rem;
+
+    padding: 0.2rem 1rem 0.2rem 1rem;
     cursor: pointer;
 
 
 }
 .defItem{
-    color: red;
+    color: #999;
 }
 .wrapper>span:hover{
-    color: darkblue;
+    color:white;
 }
 .selectedItem{
-    color: blue;
+    color: white;
 }

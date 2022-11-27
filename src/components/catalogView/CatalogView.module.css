@@ -4,12 +4,11 @@ padding-left: 1rem;
 }
 .wrapper___catalog_name{
     font-size: 1rem;
-    margin-top: 1px;
     padding: 4px 1px 4px 0;
     background: teal;
     color: wheat;
     cursor: pointer;
-    width: 11rem;
+    width: 20rem;
     border: solid 1px black;
 
     display:flex;
@@ -21,6 +20,8 @@ padding-left: 1rem;
     background: lightseagreen;
 }
 .wrapper___catalog_name>span{
+    width: 15rem;
+    text-align: left;
    color: white;
 }
 

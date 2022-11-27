@@ -1,4 +1,5 @@
 import {CatalogItem, CatalogNode, ReplacesCatalogItem} from "../../structs/catalog";
+import {Fetches} from "../../fetches/Fetches";
 
 let dragItem: CatalogItem | null=null
 let dragItemEnter: CatalogItem | null=null
@@ -21,7 +22,22 @@ export function OnItemDragEnter(item: CatalogItem) {
     console.log("dragItemEnter:", dragItemEnter)
 }
 
-export function GetItems(): ReplacesCatalogItem | null {
+export const ConfirmReplace = () => {
+    let replaceCatalogItem: ReplacesCatalogItem | null = GetItems()
+    let isIt=window.confirm(`Перенести каталог ${replaceCatalogItem?.item.name.toUpperCase()} в ${replaceCatalogItem?.replace_to.name.toLocaleUpperCase()} ?`)
+
+    if (isIt && replaceCatalogItem && replaceCatalogItem.item && replaceCatalogItem.replace_from && replaceCatalogItem.replace_to) {
+        Fetches.ReplaceCatalogItem(replaceCatalogItem)
+            .then(r => {
+                window.location.reload()
+            })
+    } else {
+        console.log("НичО нЭт")
+    }
+
+}
+
+ function GetItems(): ReplacesCatalogItem | null {
 
     if (dragItem && dragItemEnter) {
         let replaceItem: ReplacesCatalogItem = {
