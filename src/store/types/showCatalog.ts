@@ -1,7 +1,7 @@
 import {CatalogNode} from "../../structs/catalog";
 
 export interface ShowCatalogState {
-    catalogNode:CatalogNode|null
+    catalogNode:CatalogNode
 }
 export enum ShowCatalogActionTypes {
    SET_STATE="SET_STATE"

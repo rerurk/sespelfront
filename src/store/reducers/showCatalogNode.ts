@@ -1,16 +1,18 @@
 import {ShowCatalogAction, ShowCatalogActionTypes, ShowCatalogState} from "../types/showCatalog";
 import {CatalogNode} from "../../structs/catalog";
-import {Fetches} from "../../fetches/Fetches";
 
+let forInitial: CatalogNode = {
+    parent: null,
+    self: {id: -1, name: "None", is_table: false, ref: "", items: null}
+}
 
 const initialState: ShowCatalogState = {
-    catalogNode: null
+    catalogNode: forInitial
 }
 
 
-
-function  setStateCatalogNode(catalogNode: CatalogNode): ShowCatalogState {
-   initialState.catalogNode=catalogNode
+function setStateCatalogNode(catalogNode: CatalogNode): ShowCatalogState {
+    initialState.catalogNode = catalogNode
     return initialState
 }
 

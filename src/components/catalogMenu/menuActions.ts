@@ -3,8 +3,8 @@ import {Fetches} from "../../fetches/Fetches";
 
 
 export enum Menu {
-    MAKE_CATALOG = "Создать дир",
-    MAKE_CATALOG_ITEM = "СОЗДАТЬ наимен",
+    MAKE_CATALOG = "Создать КАТАЛОГ",
+    MAKE_CATALOG_ITEM = "Создать Наименование",
     RENAME_CATALOG = "Переименовать",
     REMOVE = "УДАЛИТЬ",
 

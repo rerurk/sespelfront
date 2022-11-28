@@ -1,54 +1,59 @@
-import {CatalogItem, CatalogNode, ReplacesCatalogItem} from "../../structs/catalog";
+import {CatalogItem, TransferCatalogItem} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
+import {tab} from "@testing-library/user-event/dist/tab";
 
-let dragItem: CatalogItem | null=null
-let dragItemEnter: CatalogItem | null=null
-let parentCatalogItem:CatalogItem|null=null
+let dragItem: CatalogItem | null = null
+let dragItemEnter: CatalogItem | null = null
+let parentCatalogItem: CatalogItem | null = null
 
-export function onItemDrag(item: CatalogItem,parenItem:CatalogItem|null) {
+export function onItemDrag(item: CatalogItem, parenItem: CatalogItem | null) {
     if (item != dragItem) {
         dragItem = item
-        parentCatalogItem=parenItem
+        parentCatalogItem = parenItem
         console.log("dragItem:", item)
-        console.log("parentItem:",parentCatalogItem)
+        console.log("parentItem:", parentCatalogItem)
     }
 
 }
 
 export function OnItemDragEnter(item: CatalogItem) {
     if (!item.is_table) return
-    if(dragItemEnter===item)return;
+    if (dragItemEnter === item) return;
     dragItemEnter = item
     console.log("dragItemEnter:", dragItemEnter)
 }
 
 export const ConfirmReplace = () => {
-    let replaceCatalogItem: ReplacesCatalogItem | null = GetItems()
-    let isIt=window.confirm(`Перенести каталог ${replaceCatalogItem?.item.name.toUpperCase()} в ${replaceCatalogItem?.replace_to.name.toLocaleUpperCase()} ?`)
+    let transferCatalogItem: TransferCatalogItem | null = GetItems()
+    console.log(transferCatalogItem)
+    if (transferCatalogItem && transferCatalogItem.from.ref !=transferCatalogItem.to.ref && transferCatalogItem.to.ref!=transferCatalogItem.item.ref) {
 
-    if (isIt && replaceCatalogItem && replaceCatalogItem.item && replaceCatalogItem.replace_from && replaceCatalogItem.replace_to) {
-        Fetches.ReplaceCatalogItem(replaceCatalogItem)
-            .then(r => {
-                window.location.reload()
-            })
-    } else {
-        console.log("НичО нЭт")
+
+        let isIt = window.confirm(`Перенести каталог ${transferCatalogItem?.item.name.toUpperCase()} в ${transferCatalogItem?.to.name.toLocaleUpperCase()} ?`)
+
+        if (isIt && transferCatalogItem && transferCatalogItem.item && transferCatalogItem.from && transferCatalogItem.to) {
+            Fetches.TransferCatalogItem(transferCatalogItem)
+                .then(r => {
+                    window.location.reload()
+                })
+        } else {
+            console.log("НичО нЭт")
+        }
     }
-
 }
 
- function GetItems(): ReplacesCatalogItem | null {
+function GetItems(): TransferCatalogItem | null {
 
     if (dragItem && dragItemEnter) {
-        let replaceItem: ReplacesCatalogItem = {
-            replace_from: JSON.parse(JSON.stringify(parentCatalogItem)),
-            replace_to: JSON.parse(JSON.stringify(dragItemEnter)),
-            item:JSON.parse(JSON.stringify(dragItem))
+        let transferItem: TransferCatalogItem = {
+            from: JSON.parse(JSON.stringify(parentCatalogItem)),
+            to: JSON.parse(JSON.stringify(dragItemEnter)),
+            item: JSON.parse(JSON.stringify(dragItem))
         }
         dragItem = null
         dragItemEnter = null
-        parentCatalogItem=null
-        return replaceItem
+        parentCatalogItem = null
+        return transferItem
     }
     return null
 }

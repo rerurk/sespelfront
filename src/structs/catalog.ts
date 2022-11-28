@@ -20,9 +20,9 @@ export type AddToItem = {
     to_add_item: CatalogItem
 }
 
-export type  ReplacesCatalogItem = {
-    replace_from: CatalogItem
-    replace_to: CatalogItem
+export type  TransferCatalogItem = {
+    from: CatalogItem
+    to: CatalogItem
     item: CatalogItem
 }
 export type RemoveItem ={

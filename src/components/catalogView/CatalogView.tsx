@@ -106,7 +106,7 @@ const CatalogView: FC<CatalogViewProps> = ({parentItem, item, keyVal}) => {
                         >
                             {hisItem.name}
                         </span>
-                        <CatalogMenu catalogNode={{parent: parentItem, self: hisItem}}/>
+
 
                     </div>
                     <div className={showClass}>
