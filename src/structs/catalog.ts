@@ -2,7 +2,7 @@ export type CatalogItem = {
 
     id: number
     name: string
-    is_table: boolean
+    mask:number
     ref: string
     items: CatalogItem[] | null
 }

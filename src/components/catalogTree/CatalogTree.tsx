@@ -15,7 +15,9 @@ const CatalogTree: FC = () => {
     useEffect(() => {
         Fetches.GetMainCatalogItem().then(item => {
                if (!(item instanceof Error)){
+
                    setMainAsset(item)
+
                    Fetches.GetCatalogItems(item).then(items=>{
                        if (!(items instanceof Error)) {
                            item.items=items

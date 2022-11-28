@@ -1,5 +1,6 @@
 import {AddToItem, CatalogItem, CatalogNode} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
+import {Masks} from "../../masks/Masks";
 
 
 export enum Menu {
@@ -38,13 +39,13 @@ export function selectAction(menuAction: MenuAction) {
         case Menu.MAKE_CATALOG_ITEM:
             console.log("Need append new name in item:", menuAction.payload)
             if (menuAction.payload) {
-                makeItem(menuAction.payload)
+                makeCatalogItem(menuAction.payload)
             }
             break
         case Menu.MAKE_CATALOG:
             console.log("Need append new Catalog in item:", menuAction.payload)
             if (menuAction.payload) {
-                makeCatalogItem(menuAction.payload)
+                makeCatalog(menuAction.payload)
             }
             break
         case Menu.REMOVE:
@@ -64,24 +65,24 @@ export function selectAction(menuAction: MenuAction) {
 
 
 function renameCatalog(catalogNode: CatalogNode): void {
-     let res=window.prompt(`Введите новое намиенование для ${catalogNode.self.name}`,catalogNode.self.name)
-    if (res){
-        if(catalogNode.parent&&catalogNode.parent.items){
-            catalogNode.parent.items=null
+    let res = window.prompt(`Введите новое намиенование для ${catalogNode.self.name}`, catalogNode.self.name)
+    if (res) {
+        if (catalogNode.parent && catalogNode.parent.items) {
+            catalogNode.parent.items = null
         }
-        catalogNode.self.name=res
-        catalogNode.self.items=null
-        Fetches.RenameCatalogItem(catalogNode).then(r=>console.log(r))
+        catalogNode.self.name = res
+        catalogNode.self.items = null
+        Fetches.RenameCatalogItem(catalogNode).then(r => console.log(r))
     }
 }
 
-function makeItem(catalogNode: CatalogNode): void {
-    let res = window.prompt("Введите новое имя для "+catalogNode.self.name)
+function makeCatalog(catalogNode: CatalogNode): void {
+    let res = window.prompt("Введите новое имя для " + catalogNode.self.name)
     if (res) {
 
         let newItem: CatalogItem = {
             id: -1,
-            is_table: false,
+            mask: Masks.CATALOG_MASK,
             items: [],
             name: res,
             ref: ""
@@ -101,7 +102,7 @@ function makeCatalogItem(catalogNode: CatalogNode): void {
 
         let newItem: CatalogItem = {
             id: -1,
-            is_table: true,
+            mask: Masks.CATALOG_ITEM_MASK,
             items: [],
             name: res,
             ref: ""

@@ -4,11 +4,11 @@ import cl from "./CatalogView.module.css"
 
 
 import {CatalogItem, CatalogNode} from "../../structs/catalog";
-import CatalogMenu from "../catalogMenu/CatalogMenu";
 import {Fetches} from "../../fetches/Fetches";
 import {ConfirmReplace, onItemDrag, OnItemDragEnter} from "../../gragAndDrops/catalog/catalog";
 import {useDispatch} from "react-redux";
 import {SetShowCatalogState} from "../../store/action_creator/showCatalogNode";
+import {Masks} from "../../masks/Masks";
 
 
 interface CatalogViewProps {
@@ -83,7 +83,7 @@ const CatalogView: FC<CatalogViewProps> = ({parentItem, item, keyVal}) => {
 
     return (
         <div className={cl.wrapper} onClick={event => event.stopPropagation()} draggable={false}>
-            {hisItem.is_table
+            {((hisItem.mask & Masks.CATALOG_MASK)==Masks.CATALOG_MASK)
                 ? <div className={cl.wrapper__name_table}>
                     <div className={cl.wrapper___catalog_name}
                          draggable={true}

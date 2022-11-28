@@ -1,6 +1,6 @@
 import {CatalogItem, TransferCatalogItem} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
-import {tab} from "@testing-library/user-event/dist/tab";
+import {Masks} from "../../masks/Masks";
 
 let dragItem: CatalogItem | null = null
 let dragItemEnter: CatalogItem | null = null
@@ -17,7 +17,7 @@ export function onItemDrag(item: CatalogItem, parenItem: CatalogItem | null) {
 }
 
 export function OnItemDragEnter(item: CatalogItem) {
-    if (!item.is_table) return
+    if ((item.mask&Masks.CATALOG_MASK)!=Masks.CATALOG_MASK) return
     if (dragItemEnter === item) return;
     dragItemEnter = item
     console.log("dragItemEnter:", dragItemEnter)

@@ -4,6 +4,7 @@ import {CatalogItem, CatalogNode} from "../../structs/catalog";
 import cl from "./ShowCatalogNode.module.css"
 import {useDispatch} from "react-redux";
 import {SetShowCatalogState} from "../../store/action_creator/showCatalogNode";
+import {Masks} from "../../masks/Masks";
 
 interface ShowCatalogItemProps {
     item: CatalogItem
@@ -23,7 +24,7 @@ const ShowCatalogItem: FC<ShowCatalogItemProps> = ({item,parentItem}) => {
         dispatch(SetShowCatalogState(catalogNode))
     }
 
-    if (item.is_table) {
+    if ((item.mask&Masks.CATALOG_MASK)==Masks.CATALOG_MASK) {
         return (
             <span className={cl.wrapper__catalog} onClick={onCatalogClick}>{item.name}</span>
 
