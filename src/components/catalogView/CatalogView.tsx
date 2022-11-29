@@ -14,21 +14,23 @@ import {Masks} from "../../masks/Masks";
 interface CatalogViewProps {
     parentItem: CatalogItem | null
     item: CatalogItem
-    keyVal: number
+
 }
 
 const showS="v"
 const hiddenS=">"
 
-const CatalogView: FC<CatalogViewProps> = ({parentItem, item, keyVal}) => {
+const CatalogView: FC<CatalogViewProps> = ({parentItem, item}) => {
 
     const [hisItem, setHisItem] = useState<CatalogItem>(item)
     const [showText, setShowText] = useState<string>(hiddenS)
     const [showClass, setShowClass] = useState<string>(cl.wrapper__catalog_hidden)
     const [isItemsHidden, setIsItemsHidden] = useState<boolean>(true)
 
+
     const dispatch=useDispatch()
     const onCatalogNameClick=()=>{
+
         let catalogNode:CatalogNode={
             parent:parentItem,
             self:item
@@ -49,11 +51,13 @@ const CatalogView: FC<CatalogViewProps> = ({parentItem, item, keyVal}) => {
                     alert("Что то пошло не так.... :(")
                 } else {
                     if (items) {
-                        hisItem.items = items
-                        setHisItem({...hisItem})
+                        console.log(items)
+                        hisItem.items = null
+
+                        setHisItem(()=>({...hisItem,items:items}))
                     } else {
                         setShowText(hiddenS)
-                        alert(` Каталог ${hisItem.name} пустой`)
+
                     }
                 }
 
@@ -114,22 +118,15 @@ const CatalogView: FC<CatalogViewProps> = ({parentItem, item, keyVal}) => {
                             hisItem.items
                                 ? hisItem.items.map((item: CatalogItem, ind: number) => <CatalogView
                                     parentItem={hisItem}
-                                    item={item} keyVal={keyVal + 1}
-                                    key={"cv_" + keyVal + ind}/>)
+                                    item={item}
+                                    key={item.ref}/>)
                                 : false
                         }
                     </div>
 
                 </div>
                 : false
-             /*   <div
-                    className={cl.wrapper__name_end_point}
-                    draggable={true}
-                    onDrag={() => onItemDrag(hisItem, parentItem)}
-                    onDragEnter={() => OnItemDragEnter(hisItem)}
-                >
-                    {hisItem.name}
-                </div>*/
+
 
             }
         </div>

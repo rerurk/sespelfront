@@ -1,7 +1,7 @@
 .wrapper {
     display: flex;
     justify-content: left;
-    width: 20rem;
+    width: 30rem;
     height: 100%;
     padding-bottom: 2rem;
     overflow: scroll;

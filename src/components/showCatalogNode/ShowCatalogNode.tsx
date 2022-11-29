@@ -6,7 +6,7 @@ import {Fetches} from "../../fetches/Fetches";
 import {useDispatch} from "react-redux";
 import {SetShowCatalogState} from "../../store/action_creator/showCatalogNode";
 import {CatalogItem} from "../../structs/catalog";
-import ShowCatalogItem from "./ShowCatalogItem";
+import ShowCatalogNodeItem from "./ShowCatalogNodeItem";
 import CatalogMenu from "../catalogMenu/CatalogMenu";
 
 interface ShowCatalogNodeProps {
@@ -16,14 +16,19 @@ interface ShowCatalogNodeProps {
 const ShowCatalogNode: FC<ShowCatalogNodeProps> = () => {
 
     const {catalogNode} = useTypeSelector(state => state.showCatalogNode)
-
+    console.log(catalogNode)
     const dispatch = useDispatch()
-    if (catalogNode && !catalogNode.self.items ) {
+    if (catalogNode) {
+        //полчаем внутренние элементы каталога
         Fetches.GetCatalogItems(catalogNode.self).then(items => {
+            // если нет ошибки и есть внутренние элементы то изменяем стейт
             if (!(items instanceof Error) && items != null && items.length > 0) {
-                catalogNode.self.items = items
-                // @ts-ignore
-                dispatch(SetShowCatalogState(catalogNode))
+                if(catalogNode.self.items?.length!=items.length) {
+                    catalogNode.self.items = items
+                    // @ts-ignore
+                    dispatch(SetShowCatalogState(catalogNode))
+                }
+
             }
         })
     }
@@ -36,7 +41,7 @@ const ShowCatalogNode: FC<ShowCatalogNodeProps> = () => {
                     <strong>{catalogNode?.self.name}</strong>
                 </div>
                 {catalogNode.self.items
-                    ?catalogNode.self.items.map((it:CatalogItem)=><ShowCatalogItem parentItem={catalogNode.self} item={it} key={it.ref}/>)
+                    ?catalogNode.self.items.map((it:CatalogItem)=><ShowCatalogNodeItem parentItem={catalogNode.self} item={it} key={it.ref}/>)
                     :<span>ПУСТОЙ КАТАЛОГ</span>
                 }
             </div>

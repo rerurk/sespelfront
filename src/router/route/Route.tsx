@@ -22,7 +22,7 @@ const Route: FC = () => {
         <div className={cl.wrapper}>
             {
                 routes.map((node: RouteNode, ind: number) => <span
-                    className={cl.defItem}
+                    className={node.isHide?cl.hidden_item:cl.defItem}
                     onClick={(e: React.MouseEvent<HTMLHeadElement>) => onItemClick(e, node)}
                     key={"r" + ind}>{node.name}</span>)
             }

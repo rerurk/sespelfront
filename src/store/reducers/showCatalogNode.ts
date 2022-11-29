@@ -1,5 +1,5 @@
 import {ShowCatalogAction, ShowCatalogActionTypes, ShowCatalogState} from "../types/showCatalog";
-import {CatalogNode} from "../../structs/catalog";
+import {CatalogItem, CatalogNode} from "../../structs/catalog";
 import {Masks} from "../../masks/Masks";
 
 let forInitial: CatalogNode = {
@@ -13,7 +13,8 @@ let forInitial: CatalogNode = {
 }
 
 const initialState: ShowCatalogState = {
-    catalogNode: forInitial
+    catalogNode: forInitial,
+    catalogRoot:null
 }
 
 
@@ -22,12 +23,18 @@ function setStateCatalogNode(catalogNode: CatalogNode): ShowCatalogState {
     return initialState
 }
 
+function setCatalogRoot(root: CatalogItem):ShowCatalogState {
+    initialState.catalogRoot=root
+return initialState
+}
 
 export const showCatalogNodeReducer = (state = initialState, action: ShowCatalogAction): ShowCatalogState => {
 
     switch (action.type) {
         case ShowCatalogActionTypes.SET_STATE:
             return {...setStateCatalogNode(action.payload)}
+        case ShowCatalogActionTypes.SET_CATALOG_ROOT:
+            return {...setCatalogRoot(action.payload)}
         default:
             return state
     }

@@ -13,7 +13,7 @@ padding-left: 1rem;
 
     display:flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: left;
     align-items: center;
 }
 .wrapper___catalog_name_onDragEnter{
@@ -21,8 +21,9 @@ padding-left: 1rem;
 }
 .wrapper___catalog_name>span{
     width: 15rem;
+    padding-left: 1rem;
     text-align: left;
-   color: white;
+    color: white;
 }
 
 .wrapper__name_end_point {

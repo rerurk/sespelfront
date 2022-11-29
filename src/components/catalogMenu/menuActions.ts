@@ -33,19 +33,19 @@ interface RemoveCatalogItemAction {
 
 export type MenuAction = MakeCatalogAction | MakeCatalogItemAction | RemoveCatalogItemAction | RenameCatalogItemAction
 
-export function selectAction(menuAction: MenuAction) {
+export async function selectAction(menuAction: MenuAction):Promise<any|Error> {
 
     switch (menuAction.type) {
         case Menu.MAKE_CATALOG_ITEM:
             console.log("Need append new name in item:", menuAction.payload)
             if (menuAction.payload) {
-                makeCatalogItem(menuAction.payload)
+                return makeCatalogItem(menuAction.payload)
             }
             break
         case Menu.MAKE_CATALOG:
             console.log("Need append new Catalog in item:", menuAction.payload)
             if (menuAction.payload) {
-                makeCatalog(menuAction.payload)
+                return makeCatalog(menuAction.payload)
             }
             break
         case Menu.REMOVE:
@@ -76,7 +76,7 @@ function renameCatalog(catalogNode: CatalogNode): void {
     }
 }
 
-function makeCatalog(catalogNode: CatalogNode): void {
+async function makeCatalog(catalogNode: CatalogNode): Promise<any|Error> {
     let res = window.prompt("Введите новое имя для " + catalogNode.self.name)
     if (res) {
 
@@ -92,13 +92,25 @@ function makeCatalog(catalogNode: CatalogNode): void {
             to_add_item: catalogNode.self
 
         }
-        Fetches.MakeCatalogItem(adding).then(r => console.log(r))
+        return Fetches.MakeCatalogItem(adding)
+    }else {
+        return new Promise<Error>((res, rej) => {
+            return rej
+        })
     }
 }
 
-function makeCatalogItem(catalogNode: CatalogNode): void {
+async function makeCatalogItem(catalogNode: CatalogNode): Promise<any|Error> {
+
     let res = prompt("Введите имя")
-    if (res) {
+
+    if (res && res.length>199){
+
+        alert(` Слишком длинное имя ${res.length}`)
+        return
+    }
+
+    if (res && res.length<200) {
 
         let newItem: CatalogItem = {
             id: -1,
@@ -112,9 +124,8 @@ function makeCatalogItem(catalogNode: CatalogNode): void {
             to_add_item: catalogNode.self
 
         }
-        Fetches.MakeCatalogItem(adding).then(r => {
-
-            console.log(r)
-        })
+        return Fetches.MakeCatalogItem(adding)
     }
 }
+
+

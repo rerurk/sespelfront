@@ -15,6 +15,9 @@
 .defItem{
     color: #999;
 }
+.hidden_item{
+    display: none;
+}
 .wrapper>span:hover{
     color:white;
 }

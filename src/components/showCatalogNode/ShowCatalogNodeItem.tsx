@@ -5,6 +5,9 @@ import cl from "./ShowCatalogNode.module.css"
 import {useDispatch} from "react-redux";
 import {SetShowCatalogState} from "../../store/action_creator/showCatalogNode";
 import {Masks} from "../../masks/Masks";
+import {useNavigate} from "react-router-dom";
+
+import {RouterPath} from "../../router";
 
 interface ShowCatalogItemProps {
     item: CatalogItem
@@ -12,8 +15,9 @@ interface ShowCatalogItemProps {
 
 }
 
-const ShowCatalogItem: FC<ShowCatalogItemProps> = ({item,parentItem}) => {
+const ShowCatalogNodeItem: FC<ShowCatalogItemProps> = ({item,parentItem}) => {
     const dispatch = useDispatch()
+    const navigate = useNavigate();
     const onCatalogClick = () => {
 
         let catalogNode: CatalogNode = {
@@ -31,8 +35,8 @@ const ShowCatalogItem: FC<ShowCatalogItemProps> = ({item,parentItem}) => {
         );
     }
     return (
-        <span className={cl.wrapper__catalog__item}>{item.name}</span>
+        <span className={cl.wrapper__catalog__item} onClick={()=>navigate(RouterPath.SHOW_CATALOG_ITEM)}>{item.name}</span>
     )
 };
 
-export default ShowCatalogItem;
+export default ShowCatalogNodeItem;
