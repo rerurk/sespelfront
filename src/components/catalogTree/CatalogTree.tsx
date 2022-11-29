@@ -3,49 +3,46 @@ import React, {FC, useEffect} from 'react';
 import cl from "./CatalogTree.module.css"
 import CatalogView from "../catalogView/CatalogView";
 import {Fetches} from "../../fetches/Fetches";
-import {CatalogItem, CatalogNode} from "../../structs/catalog";
-import {useDispatch} from "react-redux";
-import {SetCatalogRootState, SetShowCatalogState} from "../../store/action_creator/showCatalogNode";
+
+import {SetCatalogRootState, SetCurrentCatalogState} from "../../store/action_creator/showCatalogNode";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
+import {useDispatch} from "react-redux";
 
 
 
 const CatalogTree: FC = () => {
     const {catalogRoot} = useTypeSelector(state => state.showCatalogNode)
+    const dispatch=useDispatch()
     useEffect(()=>{
         if (!catalogRoot){
-            Fetches.GetMainCatalogItem().then(item => {
-                    if (!(item instanceof Error)) {
+            Fetches.GetMainCatalogItem().then(root => {
+                    if (!(root instanceof Error)) {
+                           console.log(root)
+                        // @ts-ignore
+                        dispatch(SetCurrentCatalogState(root))
+                        // @ts-ignore
+                        dispatch(SetCatalogRootState(root))
 
-                        Fetches.GetCatalogItems(item).then(items => {
+                       /* Fetches.GetCatalogItems(root).then(items => {
                             if (!(items instanceof Error)) {
-                                item.items = items
-                                let catalogNode: CatalogNode = {
-                                    parent: null,
-                                    self: item
-                                }
-
-
+                                root.items = items
                                 // @ts-ignore
-                                dispatch(SetShowCatalogState(catalogNode))
-                                // @ts-ignore
-                                dispatch(SetCatalogRootState(catalogNode.self))
+                                dispatch(SetCurrentCatalogState(root))
 
                             }
-                        })
+                        })*/
                     }
                 }
             )
 
         }
     },[])
-    const dispatch=useDispatch()
 
 
     return (
         <div className={cl.wrapper}>{
             catalogRoot
-                ? <CatalogView item={catalogRoot} key={catalogRoot.ref} parentItem={null}/>
+                ? <CatalogView item={catalogRoot} key={"CatalogView"+catalogRoot.ref} />
                 : false
         }
         </div>

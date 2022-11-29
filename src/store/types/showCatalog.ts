@@ -1,22 +1,22 @@
-import {CatalogItem, CatalogNode} from "../../structs/catalog";
+import {CatalogItem} from "../../structs/catalog";
 
 export interface ShowCatalogState {
-    catalogNode:CatalogNode
+    currentItem:CatalogItem
     catalogRoot:CatalogItem|null
 }
 export enum ShowCatalogActionTypes {
-   SET_STATE="SET_STATE",
+    SET_STATE="SET_STATE",
     SET_CATALOG_ROOT='SET_CATALOG_ROOT'
 }
 
-interface  ShowCatalogNodeAction {
+interface  SetCurrentItemAction {
     type:ShowCatalogActionTypes.SET_STATE
-    payload:CatalogNode
+    payload:CatalogItem
 }
 
 interface  SetCatalogRootAction {
     type:ShowCatalogActionTypes.SET_CATALOG_ROOT
     payload:CatalogItem
 }
-export type ShowCatalogAction=ShowCatalogNodeAction
+export type ShowCatalogAction=SetCurrentItemAction
 |SetCatalogRootAction

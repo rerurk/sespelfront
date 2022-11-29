@@ -1,4 +1,4 @@
-import {AddToItem, CatalogItem, CatalogNode} from "../../structs/catalog";
+import {AddToItem, CatalogItem} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
 import {Masks} from "../../masks/Masks";
 
@@ -13,22 +13,22 @@ export enum Menu {
 
 interface MakeCatalogAction {
     type: Menu.MAKE_CATALOG
-    payload: CatalogNode | null
+    payload: CatalogItem | null
 }
 
 interface MakeCatalogItemAction {
     type: Menu.MAKE_CATALOG_ITEM
-    payload: CatalogNode | null
+    payload: CatalogItem | null
 }
 
 interface RenameCatalogItemAction {
     type: Menu.RENAME_CATALOG
-    payload: CatalogNode | null
+    payload:CatalogItem | null
 }
 
 interface RemoveCatalogItemAction {
     type: Menu.REMOVE
-    payload: CatalogNode | null
+    payload: CatalogItem| null
 }
 
 export type MenuAction = MakeCatalogAction | MakeCatalogItemAction | RemoveCatalogItemAction | RenameCatalogItemAction
@@ -64,20 +64,20 @@ export async function selectAction(menuAction: MenuAction):Promise<any|Error> {
 }
 
 
-function renameCatalog(catalogNode: CatalogNode): void {
-    let res = window.prompt(`Введите новое намиенование для ${catalogNode.self.name}`, catalogNode.self.name)
+function renameCatalog(catalogItem: CatalogItem): void {
+    let res = window.prompt(`Введите новое намиенование для ${catalogItem.parent?.name}`, catalogItem.name)
     if (res) {
-        if (catalogNode.parent && catalogNode.parent.items) {
-            catalogNode.parent.items = null
+        if (catalogItem.parent && catalogItem.parent.items) {
+            catalogItem.parent=null
         }
-        catalogNode.self.name = res
-        catalogNode.self.items = null
-        Fetches.RenameCatalogItem(catalogNode).then(r => console.log(r))
+        catalogItem.name = res
+        catalogItem.items = null
+        Fetches.RenameCatalogItem(catalogItem).then(r => console.log(r))
     }
 }
 
-async function makeCatalog(catalogNode: CatalogNode): Promise<any|Error> {
-    let res = window.prompt("Введите новое имя для " + catalogNode.self.name)
+async function makeCatalog(toCatalogItem: CatalogItem): Promise<any|Error> {
+    let res = window.prompt("Введите новое имя для " + toCatalogItem.name)
     if (res) {
 
         let newItem: CatalogItem = {
@@ -85,11 +85,13 @@ async function makeCatalog(catalogNode: CatalogNode): Promise<any|Error> {
             mask: Masks.CATALOG_MASK,
             items: [],
             name: res,
-            ref: ""
+            ref: "",
+            parent:toCatalogItem
+
         }
         let adding: AddToItem = {
             adding_item: newItem,
-            to_add_item: catalogNode.self
+            to_add_item: toCatalogItem
 
         }
         return Fetches.MakeCatalogItem(adding)
@@ -100,7 +102,7 @@ async function makeCatalog(catalogNode: CatalogNode): Promise<any|Error> {
     }
 }
 
-async function makeCatalogItem(catalogNode: CatalogNode): Promise<any|Error> {
+async function makeCatalogItem(toCatalogItem: CatalogItem): Promise<any|Error> {
 
     let res = prompt("Введите имя")
 
@@ -117,11 +119,12 @@ async function makeCatalogItem(catalogNode: CatalogNode): Promise<any|Error> {
             mask: Masks.CATALOG_ITEM_MASK,
             items: [],
             name: res,
-            ref: ""
+            ref: "",
+            parent:null
         }
         let adding: AddToItem = {
             adding_item: newItem,
-            to_add_item: catalogNode.self
+            to_add_item: toCatalogItem
 
         }
         return Fetches.MakeCatalogItem(adding)

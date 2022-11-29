@@ -4,10 +4,11 @@ import cl from "./ShowCatalogNode.module.css"
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 import {Fetches} from "../../fetches/Fetches";
 import {useDispatch} from "react-redux";
-import {SetShowCatalogState} from "../../store/action_creator/showCatalogNode";
+
 import {CatalogItem} from "../../structs/catalog";
 import ShowCatalogNodeItem from "./ShowCatalogNodeItem";
 import CatalogMenu from "../catalogMenu/CatalogMenu";
+import {SetCurrentCatalogState} from "../../store/action_creator/showCatalogNode";
 
 interface ShowCatalogNodeProps {
 
@@ -15,37 +16,38 @@ interface ShowCatalogNodeProps {
 
 const ShowCatalogNode: FC<ShowCatalogNodeProps> = () => {
 
-    const {catalogNode} = useTypeSelector(state => state.showCatalogNode)
-    console.log(catalogNode)
-    const dispatch = useDispatch()
-    if (catalogNode) {
-        //полчаем внутренние элементы каталога
-        Fetches.GetCatalogItems(catalogNode.self).then(items => {
-            // если нет ошибки и есть внутренние элементы то изменяем стейт
-            if (!(items instanceof Error) && items != null && items.length > 0) {
-                if(catalogNode.self.items?.length!=items.length) {
-                    catalogNode.self.items = items
-                    // @ts-ignore
-                    dispatch(SetShowCatalogState(catalogNode))
-                }
+    const {currentItem} = useTypeSelector(state => state.showCatalogNode)
 
-            }
-        })
+    const dispatch = useDispatch()
+
+    if (currentItem && currentItem.items) {
+        Fetches.GetCatalogItems(currentItem).then(r=>)
+
     }
 
-        return (
-            <div className={cl.wrapper}>
-                {/*Наименование каталога*/}
-                <div className={cl.wrapper__self_name} >
-                    <CatalogMenu catalogNode={catalogNode}/>
-                    <strong>{catalogNode?.self.name}</strong>
-                </div>
-                {catalogNode.self.items
-                    ?catalogNode.self.items.map((it:CatalogItem)=><ShowCatalogNodeItem parentItem={catalogNode.self} item={it} key={it.ref}/>)
-                    :<span>ПУСТОЙ КАТАЛОГ</span>
-                }
+    const onBackClick = () => {
+        console.log(currentItem)
+        if (currentItem.parent) {
+            // @ts-ignore
+            dispatch(SetCurrentCatalogState(currentItem.parent))
+        }
+    }
+
+    return (
+        <div className={cl.wrapper}>
+            {/*Наименование каталога*/}
+            <div className={cl.wrapper__self_name}>
+                <button onClick={onBackClick}>назад</button>
+                <CatalogMenu catalogItem={currentItem}/>
+                <strong>{currentItem.name}</strong>
             </div>
-        );
+            {currentItem.items
+                ? currentItem.items.map((it: CatalogItem) => <ShowCatalogNodeItem item={it}
+                                                                                  key={"SHOWC" + it.ref}/>)
+                : <span>ПУСТОЙ КАТАЛОГ</span>
+            }
+        </div>
+    );
 
 
 };

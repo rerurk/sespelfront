@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import {Requests} from "./Requests";
-import {AddToItem, CatalogItem, CatalogNode, TransferCatalogItem} from "../structs/catalog";
+import {AddToItem, CatalogItem,TransferCatalogItem} from "../structs/catalog";
 
 export class Fetches {
 
@@ -82,10 +82,10 @@ export class Fetches {
         }
     }
 
-    public static async RenameCatalogItem(catalogNode: CatalogNode): Promise<any | Error> {
+    public static async RenameCatalogItem(catalogItem: CatalogItem): Promise<any | Error> {
 
         try {
-            const res = await axios.post<CatalogNode>(Requests.RENAME_CATALOG_ITEM, catalogNode)
+            const res = await axios.post<CatalogItem>(Requests.RENAME_CATALOG_ITEM, catalogItem)
             return res.data
 
         }catch (e) {

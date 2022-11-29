@@ -1,9 +1,9 @@
 export type CatalogItem = {
-
     id: number
     name: string
     mask:number
     ref: string
+    parent:CatalogItem|null
     items: CatalogItem[] | null
 }
 
@@ -29,8 +29,14 @@ export type RemoveItem ={
     remove_from_item:CatalogItem,
     removed_item:CatalogItem
 }
+/*export type CatalogNode={
+    parent:CatalogNode|null
+    self:CatalogItem
+}*/
 
+/*
 export type CatalogNode={
     parent:CatalogItem|null
     self:CatalogItem
 }
+*/

@@ -3,16 +3,20 @@ import React, {FC, useState} from 'react';
 import cl from "./CatalogView.module.css"
 
 
-import {CatalogItem, CatalogNode} from "../../structs/catalog";
+import {CatalogItem} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
+
+
+import {Masks} from "../../masks/Masks";
 import {ConfirmReplace, onItemDrag, OnItemDragEnter} from "../../gragAndDrops/catalog/catalog";
 import {useDispatch} from "react-redux";
-import {SetShowCatalogState} from "../../store/action_creator/showCatalogNode";
-import {Masks} from "../../masks/Masks";
+import {ShowCatalogState} from "../../store/types/showCatalog";
+import {SetCurrentCatalogState} from "../../store/action_creator/showCatalogNode";
+
 
 
 interface CatalogViewProps {
-    parentItem: CatalogItem | null
+
     item: CatalogItem
 
 }
@@ -20,24 +24,17 @@ interface CatalogViewProps {
 const showS="v"
 const hiddenS=">"
 
-const CatalogView: FC<CatalogViewProps> = ({parentItem, item}) => {
+const CatalogView: FC<CatalogViewProps> = ({ item}) => {
 
     const [hisItem, setHisItem] = useState<CatalogItem>(item)
     const [showText, setShowText] = useState<string>(hiddenS)
     const [showClass, setShowClass] = useState<string>(cl.wrapper__catalog_hidden)
     const [isItemsHidden, setIsItemsHidden] = useState<boolean>(true)
-
-
     const dispatch=useDispatch()
+
     const onCatalogNameClick=()=>{
-
-        let catalogNode:CatalogNode={
-            parent:parentItem,
-            self:item
-        }
-
-        // @ts-ignore
-        dispatch(SetShowCatalogState(catalogNode))
+         // @ts-ignore
+        dispatch(SetCurrentCatalogState(hisItem))
 
     }
 
@@ -45,20 +42,13 @@ const CatalogView: FC<CatalogViewProps> = ({parentItem, item}) => {
         if (isItemsHidden) {
             setShowClass(cl.wrapper__catalog_show)
             setShowText(showS)
+            console.log(hisItem)
             Fetches.GetCatalogItems(hisItem).then(items => {
+                console.log(items)
+                if (!(items instanceof Error) && items.length>0){
 
-                if (items instanceof Error) {
-                    alert("Что то пошло не так.... :(")
-                } else {
-                    if (items) {
-                        console.log(items)
-                        hisItem.items = null
-
-                        setHisItem(()=>({...hisItem,items:items}))
-                    } else {
-                        setShowText(hiddenS)
-
-                    }
+                    items.map((it:CatalogItem)=>{it.parent=item})
+                    setHisItem(()=>({...hisItem,items:items}))
                 }
 
             })
@@ -91,7 +81,7 @@ const CatalogView: FC<CatalogViewProps> = ({parentItem, item}) => {
                 ? <div className={cl.wrapper__name_table}>
                     <div className={cl.wrapper___catalog_name}
                          draggable={true}
-                         onDrag={() => onItemDrag(hisItem, parentItem)}
+                         onDrag={() => onItemDrag(hisItem)}
                          onDragEnter={(e) => onDragEnterToItem(e)}
                          onDragLeave={e => onDragLeaveFromItem(e)}
                          onDragEnd={ConfirmReplace}
@@ -116,10 +106,9 @@ const CatalogView: FC<CatalogViewProps> = ({parentItem, item}) => {
                     <div className={showClass}>
                         {
                             hisItem.items
-                                ? hisItem.items.map((item: CatalogItem, ind: number) => <CatalogView
-                                    parentItem={hisItem}
+                                ? hisItem.items.map((item: CatalogItem) => <CatalogView
                                     item={item}
-                                    key={item.ref}/>)
+                                    key={"CatalogView"+item.ref}/>)
                                 : false
                         }
                     </div>

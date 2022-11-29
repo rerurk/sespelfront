@@ -1,8 +1,8 @@
-import {CatalogItem, CatalogNode} from "../../structs/catalog";
+import {CatalogItem} from "../../structs/catalog";
 import {Dispatch} from "redux";
-import {ShowCatalogAction, ShowCatalogActionTypes} from "../types/showCatalog";
+import {ShowCatalogAction, ShowCatalogActionTypes, ShowCatalogState} from "../types/showCatalog";
 
-export const SetShowCatalogState = (state: CatalogNode) => {
+export const SetCurrentCatalogState = (state: CatalogItem) => {
     return (dispatch: Dispatch<ShowCatalogAction>) => {
         dispatch({type: ShowCatalogActionTypes.SET_STATE, payload: state})
     }

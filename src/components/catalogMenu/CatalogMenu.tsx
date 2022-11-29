@@ -6,25 +6,27 @@ import cl from "./CatalogMenu.module.css"
 
 import MenuItems from "./MenuItems";
 import {Menu, MenuAction, selectAction} from "./menuActions";
-import {CatalogNode} from "../../structs/catalog";
 import {useDispatch} from "react-redux";
-import {SetShowCatalogState} from "../../store/action_creator/showCatalogNode";
+
+import {CatalogItem} from "../../structs/catalog";
+import {SetCurrentCatalogState} from "../../store/action_creator/showCatalogNode";
 
 interface CatalogMenuProps {
-    catalogNode: CatalogNode
+    catalogItem:CatalogItem
 }
 
-const CatalogMenu: FC<CatalogMenuProps> = ({catalogNode}) => {
+const CatalogMenu: FC<CatalogMenuProps> = ({catalogItem}) => {
     const dispatch = useDispatch()
     const [itemsClass, setItemsClass] = useState<string>(cl.items_hide)
     const onItemClick = (menuAction: MenuAction) => {
-        menuAction.payload = catalogNode
+        menuAction.payload = catalogItem
         // @ts-ignore
         selectAction(menuAction)
             .then(r => {
                     if (!(r instanceof Error)) {
+
                         // @ts-ignore
-                        dispatch(SetShowCatalogState(catalogNode))
+                        dispatch(SetCurrentCatalogState(catalogItem))
                     }
                 }
             )

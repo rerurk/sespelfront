@@ -1,10 +1,9 @@
 import React from 'react';
 import CatalogTree from "../../components/catalogTree/CatalogTree";
 
-
-import ShowCatalogNode from "../../components/showCatalogNode/ShowCatalogNode";
 // @ts-ignore
 import  cl from"./SetCatalog.module.css"
+import ShowCatalogNode from "../../components/showCatalogNode/ShowCatalogNode";
 
 
 const SetCatalog = () => {

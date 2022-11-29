@@ -6,10 +6,10 @@ let dragItem: CatalogItem | null = null
 let dragItemEnter: CatalogItem | null = null
 let parentCatalogItem: CatalogItem | null = null
 
-export function onItemDrag(item: CatalogItem, parenItem: CatalogItem | null) {
+export function onItemDrag(item: CatalogItem) {
     if (item != dragItem) {
         dragItem = item
-        parentCatalogItem = parenItem
+        parentCatalogItem = item.parent
         console.log("dragItem:", item)
         console.log("parentItem:", parentCatalogItem)
     }
