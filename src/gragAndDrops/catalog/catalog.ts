@@ -24,7 +24,7 @@ export function OnItemDragEnter(item: CatalogItem) {
     console.log("dragItemEnter:", dragItemEnter)
 }
 
-export const ConfirmReplace = () => {
+export async function ConfirmReplace ():Promise<any|Error> {
     let transferCatalogItem: TransferCatalogItem | null = GetItems()
     console.log(transferCatalogItem)
     if (transferCatalogItem && transferCatalogItem.from.ref !=transferCatalogItem.to.ref && transferCatalogItem.to.ref!=transferCatalogItem.item.ref) {
@@ -33,12 +33,10 @@ export const ConfirmReplace = () => {
         let isIt = window.confirm(`Перенести каталог ${transferCatalogItem?.item.name.toUpperCase()} в ${transferCatalogItem?.to.name.toLocaleUpperCase()} ?`)
 
         if (isIt && transferCatalogItem && transferCatalogItem.item && transferCatalogItem.from && transferCatalogItem.to) {
-            Fetches.TransferCatalogItem(transferCatalogItem)
-                .then(r => {
-                    window.location.reload()
-                })
+            return Fetches.TransferCatalogItem(transferCatalogItem)
+
         } else {
-            console.log("НичО нЭт")
+            return Error("упс.. не перенслос....")
         }
     }
 }
@@ -49,11 +47,11 @@ function GetItems(): TransferCatalogItem | null {
 
         let transferItem: TransferCatalogItem = {
            // from: JSON.parse(JSON.stringify(parentCatalogItem)),
-            from:Tools.getCatalogItem(parentCatalogItem),
+            from:Tools.unRefCatalogItem(parentCatalogItem),
             //to: JSON.parse(JSON.stringify(dragItemEnter)),
-            to:Tools.getCatalogItem(dragItemEnter),
+            to:Tools.unRefCatalogItem(dragItemEnter),
             //item: JSON.parse(JSON.stringify(dragItem))
-            item:Tools.getCatalogItem(dragItem)
+            item:Tools.unRefCatalogItem(dragItem)
         }
         console.log(transferItem)
         dragItem = null

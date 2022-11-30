@@ -3,6 +3,8 @@ import {CatalogItem} from "../../structs/catalog";
 export interface ShowCatalogState {
     currentItem:CatalogItem
     catalogRoot:CatalogItem|null
+    items:CatalogItem[]|null
+
 }
 
 export type CatalogAndItems={

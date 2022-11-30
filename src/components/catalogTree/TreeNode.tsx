@@ -34,7 +34,7 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
 
     const onCatalogNameClick=()=>{
        let ci:CatalogAndItems={
-           items:hisItems,
+           items:null,
            item:item
        }
 
@@ -47,12 +47,12 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
     const onShowClick = () => {
 
         if (isItemsHidden) {
-            console.log("const onShowClick")
+
             setShowClass(cl.wrapper__catalog_show)
             setShowText(showS)
 
             Fetches.GetCatalogItems(item).then(items => {
-               console.log(" const onShowClick items",items)
+
                 if (!(items instanceof Error) && items &&items.length>0){
 
                     items.map((it:CatalogItem)=>{it.parent=item})

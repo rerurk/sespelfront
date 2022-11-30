@@ -1,6 +1,7 @@
 import {AddToItem, CatalogItem} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
 import {Masks} from "../../masks/Masks";
+import {Tools} from "../../tools/Tools";
 
 
 export enum Menu {
@@ -50,6 +51,9 @@ export async function selectAction(menuAction: MenuAction):Promise<any|Error> {
             break
         case Menu.REMOVE:
             console.log("Need remove Catalog from item:", menuAction.payload)
+            if(menuAction.payload){
+                return removeCatalog(menuAction.payload)
+            }
             break
         case Menu.RENAME_CATALOG:
             if (menuAction.payload) {
@@ -63,16 +67,29 @@ export async function selectAction(menuAction: MenuAction):Promise<any|Error> {
 
 }
 
+async function removeCatalog(catalogItem: CatalogItem): Promise<any|Error> {
+    if ((catalogItem.mask & Masks.CATALOG_MASK)==Masks.CATALOG_MASK){
+            let isIt:boolean=window.confirm(` Удалить каталог ${catalogItem.name.toUpperCase()} `)
+    }
+    if ((catalogItem.mask & Masks.CATALOG_ITEM_MASK)==Masks.CATALOG_ITEM_MASK){
+        let isIt:boolean=window.confirm(` Удалить наименование: ${catalogItem.name.toUpperCase()} `)
+    }
 
-function renameCatalog(catalogItem: CatalogItem): void {
-    let res = window.prompt(`Введите новое намиенование для ${catalogItem.parent?.name}`, catalogItem.name)
-    if (res) {
-        if (catalogItem.parent && catalogItem.parent.items) {
-            catalogItem.parent=null
+    return Error(" yt ltkfyy")
+
+
+}
+
+async function renameCatalog(catalogItem: CatalogItem): Promise<any|Error> {
+    if (catalogItem.parent &&catalogItem.parent.ref) {
+        let res = window.prompt(`Введите новое намиенование для ${catalogItem.parent?.name}`, catalogItem.name)
+        if (res) {
+             catalogItem.name=res
+            Fetches.RenameCatalogItem({
+                item: catalogItem,
+                tableName: catalogItem.parent.ref
+            }).then(r => console.log(r))
         }
-        catalogItem.name = res
-        catalogItem.items = null
-        Fetches.RenameCatalogItem(catalogItem).then(r => console.log(r))
     }
 }
 
@@ -83,15 +100,15 @@ async function makeCatalog(toCatalogItem: CatalogItem): Promise<any|Error> {
         let newItem: CatalogItem = {
             id: -1,
             mask: Masks.CATALOG_MASK,
-            items: [],
+            items: null,
             name: res,
             ref: "",
-            parent:toCatalogItem
+            parent:null
 
         }
         let adding: AddToItem = {
             adding_item: newItem,
-            to_add_item: toCatalogItem
+            to_add_item:Tools.unRefCatalogItem(toCatalogItem)
 
         }
         return Fetches.MakeCatalogItem(adding)
@@ -117,16 +134,17 @@ async function makeCatalogItem(toCatalogItem: CatalogItem): Promise<any|Error> {
         let newItem: CatalogItem = {
             id: -1,
             mask: Masks.CATALOG_ITEM_MASK,
-            items: [],
+            items: null,
             name: res,
             ref: "",
             parent:null
         }
         let adding: AddToItem = {
             adding_item: newItem,
-            to_add_item: toCatalogItem
+            to_add_item: Tools.unRefCatalogItem(toCatalogItem)
 
         }
+
         return Fetches.MakeCatalogItem(adding)
     }
 }

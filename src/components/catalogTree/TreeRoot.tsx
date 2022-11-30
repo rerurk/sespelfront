@@ -13,23 +13,29 @@ import {CatalogItem} from "../../structs/catalog";
 
 const TreeRoot: FC = () => {
     const [treeRoot,setTreeRoot]=useState<CatalogItem|null>(null)
+    const {catalogRoot} = useTypeSelector(state => state.showCatalogNode)
     const dispatch=useDispatch()
     useEffect(()=>{
         Fetches.GetMainCatalogItem()
             .then(r=>{
                 if(!(r instanceof Error)){
-                    // @ts-ignore
-                    dispatch(SetCurrentCatalogState({item:r,items:null}))
+                    if(!catalogRoot) {
+                        // @ts-ignore
+                        dispatch(SetCatalogRootState(r))
+                        // @ts-ignore
+                        dispatch(SetCurrentCatalogState({item:r,items:null}))
+
+                    }
                     setTreeRoot(r)
 
                 }
             })
-    },[])
+    },[catalogRoot])
 
     return (
         <div className={cl.wrapper}>{
-            (treeRoot )
-                ? <TreeNode item={treeRoot} key={"TreeNode"+treeRoot.ref} />
+            (catalogRoot)
+                ? <TreeNode item={catalogRoot} key={"TreeNode"+catalogRoot.ref} />
                 : false
         }
         </div>

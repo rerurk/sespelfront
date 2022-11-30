@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import {Requests} from "./Requests";
-import {AddToItem, CatalogItem, TransferCatalogItem} from "../structs/catalog";
+import {AddToItem, CatalogItem, RenameCatalogItem, TransferCatalogItem} from "../structs/catalog";
 import {Tools} from "../tools/Tools";
 
 export class Fetches {
@@ -28,7 +28,7 @@ export class Fetches {
 
         try {
 
-            const res = await axios.post<CatalogItem[]>(Requests.GET_CATALOG_ITEMS, Tools.getCatalogItem(item))
+            const res = await axios.post<CatalogItem[]>(Requests.GET_CATALOG_ITEMS, Tools.unRefCatalogItem(item))
             return res.data
             /*    const response =  await fetch(Requests.GET_CATALOG_ITEMS, {
                     method: 'POST',
@@ -89,10 +89,21 @@ export class Fetches {
         }
     }
 
-    public static async RenameCatalogItem(catalogItem: CatalogItem): Promise<any | Error> {
+    public static async RenameCatalogItem(renameCatalogItem: RenameCatalogItem): Promise<any | Error> {
+                renameCatalogItem.item=Tools.unRefCatalogItem(renameCatalogItem.item)
+        try {
+            const res = await axios.post<CatalogItem>(Requests.RENAME_CATALOG_ITEM, renameCatalogItem)
+            return res.data
+
+        } catch (e) {
+            return Error("Ошибка")
+        }
+    }
+
+    public static async RemoveCatalogItem(catalogItem: CatalogItem): Promise<any | Error> {
 
         try {
-            const res = await axios.post<CatalogItem>(Requests.RENAME_CATALOG_ITEM, catalogItem)
+            const res = await axios.post<CatalogItem>(Requests.REMOVE_CATALOG_ITEM, Tools.unRefCatalogItem(catalogItem))
             return res.data
 
         } catch (e) {

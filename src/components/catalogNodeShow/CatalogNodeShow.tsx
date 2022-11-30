@@ -10,6 +10,7 @@ import CatalogNodeShowItem from "./CatalogNodeShowItem";
 import CatalogMenu from "../catalogMenu/CatalogMenu";
 import {SetCurrentCatalogState} from "../../store/action_creator/showCatalogNode";
 import {json} from "stream/consumers";
+import {Masks} from "../../masks/Masks";
 
 interface ShowCatalogNodeProps {
 
@@ -17,17 +18,17 @@ interface ShowCatalogNodeProps {
 
 const CatalogNodeShow: FC<ShowCatalogNodeProps> = () => {
 
-    const {currentItem} = useTypeSelector(state => state.showCatalogNode)
+    const {currentItem,items} = useTypeSelector(state => state.showCatalogNode)
     const dispatch = useDispatch()
 
     useEffect(()=>{
-        console.log("currentItem.items==null:",currentItem.items===null)
-        if (currentItem.id>0 &&currentItem.items===null){
-            console.log("const CatalogNodeShow:",currentItem.name,currentItem.items)
-            Fetches.GetCatalogItems(currentItem).then(res=>{
-                console.log("RES:",res)
-              if (res&&!(res instanceof Error)){
 
+        if (currentItem.id>0 &&currentItem.items===null){
+
+            Fetches.GetCatalogItems(currentItem).then(res=>{
+
+              if (res&&!(res instanceof Error)){
+                    console.log(res)
                   res.map((it:CatalogItem)=>it.parent=currentItem)
 
                   // @ts-ignore
@@ -36,7 +37,7 @@ const CatalogNodeShow: FC<ShowCatalogNodeProps> = () => {
             })
         }
 
-    },[currentItem])
+    },[currentItem,items])
 
     const onBackClick = () => {
         if (currentItem.parent) {
@@ -50,7 +51,7 @@ const CatalogNodeShow: FC<ShowCatalogNodeProps> = () => {
             {/*Наименование каталога*/}
             <div className={cl.wrapper__self_name}>
                 <button onClick={onBackClick}>назад</button>
-                <CatalogMenu catalogItem={currentItem}/>
+                <CatalogMenu catalogItem={currentItem} isVisible={(currentItem.mask&Masks.NON_REMOVABLE)!==Masks.NON_REMOVABLE}/>
                 <strong>{currentItem.name}</strong>
             </div>
             {currentItem.items

@@ -13,9 +13,10 @@ import {SetCurrentCatalogState} from "../../store/action_creator/showCatalogNode
 
 interface CatalogMenuProps {
     catalogItem:CatalogItem
+    isVisible:boolean
 }
 
-const CatalogMenu: FC<CatalogMenuProps> = ({catalogItem}) => {
+const CatalogMenu: FC<CatalogMenuProps> = ({catalogItem,isVisible}) => {
     const dispatch = useDispatch()
     const [itemsClass, setItemsClass] = useState<string>(cl.items_hide)
     const onItemClick = (menuAction: MenuAction) => {
@@ -26,7 +27,7 @@ const CatalogMenu: FC<CatalogMenuProps> = ({catalogItem}) => {
                     if (!(r instanceof Error)) {
 
                         // @ts-ignore
-                        dispatch(SetCurrentCatalogState(catalogItem))
+                        dispatch(SetCurrentCatalogState({item:catalogItem,items:null}))
                     }
                 }
             )
@@ -39,6 +40,7 @@ const CatalogMenu: FC<CatalogMenuProps> = ({catalogItem}) => {
     const hideItems = () => {
         setItemsClass(cl.items_hide)
     }
+    if(isVisible){
     return (
         <div onClick={event => event.stopPropagation()} onMouseLeave={hideItems}>
             <div className={cl.wrapper} onClick={onMainClick}>&#8801;</div>
@@ -49,7 +51,8 @@ const CatalogMenu: FC<CatalogMenuProps> = ({catalogItem}) => {
 
             }
         </div>
-    );
+    );}
+    return <div/>
 };
 
 export default CatalogMenu;

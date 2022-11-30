@@ -14,7 +14,8 @@ let forInitial: CatalogItem = {
 
 const initialState: ShowCatalogState = {
     catalogRoot: null,
-    currentItem: forInitial
+    currentItem: forInitial,
+    items:[]
 
 
 }
@@ -22,11 +23,12 @@ const initialState: ShowCatalogState = {
 
 function setCurrentItem(catalogAndItems:CatalogAndItems): ShowCatalogState {
     console.log(catalogAndItems)
-    if(catalogAndItems.items) {
-       // catalogAndItems.items.map((it:CatalogItem)=>it.parent=catalogAndItems.item)
-        catalogAndItems.item.items = catalogAndItems.items
-    }
 
+    if(catalogAndItems.items) {
+        catalogAndItems.item.items = catalogAndItems.items
+
+    }
+ initialState.items=catalogAndItems.items
    initialState.currentItem=catalogAndItems.item
     return initialState
 }
