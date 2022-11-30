@@ -33,6 +33,7 @@ const CatalogView: FC<CatalogViewProps> = ({ item}) => {
     const dispatch=useDispatch()
 
     const onCatalogNameClick=()=>{
+
          // @ts-ignore
         dispatch(SetCurrentCatalogState(hisItem))
 

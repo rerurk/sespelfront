@@ -8,7 +8,7 @@ import {useDispatch} from "react-redux";
 import {CatalogItem} from "../../structs/catalog";
 import ShowCatalogNodeItem from "./ShowCatalogNodeItem";
 import CatalogMenu from "../catalogMenu/CatalogMenu";
-import {SetCurrentCatalogState} from "../../store/action_creator/showCatalogNode";
+import {SetCurrentCatalogItems, SetCurrentCatalogState} from "../../store/action_creator/showCatalogNode";
 
 interface ShowCatalogNodeProps {
 
@@ -21,7 +21,7 @@ const ShowCatalogNode: FC<ShowCatalogNodeProps> = () => {
     const dispatch = useDispatch()
 
     if (currentItem && currentItem.items) {
-        Fetches.GetCatalogItems(currentItem).then(r=>)
+
 
     }
 
