@@ -1,17 +1,17 @@
 import React from 'react';
-import CatalogTree from "../../components/catalogTree/CatalogTree";
+import TreeRoot from "../../components/catalogTree/TreeRoot";
 
 // @ts-ignore
 import  cl from"./SetCatalog.module.css"
-import ShowCatalogNode from "../../components/showCatalogNode/ShowCatalogNode";
+import CatalogNodeShow from "../../components/catalogNodeShow/CatalogNodeShow";
 
 
 const SetCatalog = () => {
 
     return (
         <div className={cl.wrapper}>
-            <CatalogTree/>
-            <ShowCatalogNode/>
+            <TreeRoot/>
+            <CatalogNodeShow/>
 
         </div>
     );

@@ -1,6 +1,6 @@
 import React, {FC, useState} from 'react';
 // @ts-ignore
-import cl from "./CatalogView.module.css"
+import cl from "./TreeNode.module.css"
 
 
 import {CatalogItem} from "../../structs/catalog";
@@ -10,7 +10,7 @@ import {Fetches} from "../../fetches/Fetches";
 import {Masks} from "../../masks/Masks";
 import {ConfirmReplace, onItemDrag, OnItemDragEnter} from "../../gragAndDrops/catalog/catalog";
 import {useDispatch} from "react-redux";
-import {ShowCatalogState} from "../../store/types/showCatalog";
+import {CatalogAndItems, ShowCatalogState} from "../../store/types/showCatalog";
 import {SetCurrentCatalogState} from "../../store/action_creator/showCatalogNode";
 
 
@@ -24,32 +24,46 @@ interface CatalogViewProps {
 const showS="v"
 const hiddenS=">"
 
-const CatalogView: FC<CatalogViewProps> = ({ item}) => {
+const TreeNode: FC<CatalogViewProps> = ({ item}) => {
 
-    const [hisItem, setHisItem] = useState<CatalogItem>(item)
+    const [hisItems, setHisItems] = useState<CatalogItem[]|null>(null)
     const [showText, setShowText] = useState<string>(hiddenS)
     const [showClass, setShowClass] = useState<string>(cl.wrapper__catalog_hidden)
     const [isItemsHidden, setIsItemsHidden] = useState<boolean>(true)
     const dispatch=useDispatch()
 
     const onCatalogNameClick=()=>{
+<<<<<<< HEAD:src/components/catalogView/CatalogView.tsx
 
          // @ts-ignore
         dispatch(SetCurrentCatalogState(hisItem))
+=======
+       let ci:CatalogAndItems={
+           items:hisItems,
+           item:item
+       }
+
+
+        // @ts-ignore
+        dispatch(SetCurrentCatalogState(ci))
+>>>>>>> bd3c30d07e288e8e65f1ea9dbf04a06d26762aa9:src/components/catalogTree/TreeNode.tsx
 
     }
 
     const onShowClick = () => {
+
         if (isItemsHidden) {
+            console.log("const onShowClick")
             setShowClass(cl.wrapper__catalog_show)
             setShowText(showS)
-            console.log(hisItem)
-            Fetches.GetCatalogItems(hisItem).then(items => {
-                console.log(items)
-                if (!(items instanceof Error) && items.length>0){
+
+            Fetches.GetCatalogItems(item).then(items => {
+               console.log(" const onShowClick items",items)
+                if (!(items instanceof Error) && items &&items.length>0){
 
                     items.map((it:CatalogItem)=>{it.parent=item})
-                    setHisItem(()=>({...hisItem,items:items}))
+
+                    setHisItems(()=>(items))
                 }
 
             })
@@ -66,23 +80,23 @@ const CatalogView: FC<CatalogViewProps> = ({ item}) => {
     const onDragEnterToItem = (e: React.MouseEvent<HTMLDivElement>) => {
 
         e.currentTarget.classList.add(cl.wrapper___catalog_name_onDragEnter)
-        OnItemDragEnter(hisItem)
+        OnItemDragEnter(item)
     }
 
     const onDragLeaveFromItem = (e: React.MouseEvent<HTMLDivElement>) => {
 
         e.currentTarget.classList.remove(cl.wrapper___catalog_name_onDragEnter)
-        OnItemDragEnter(hisItem)
+        OnItemDragEnter(item)
     }
 
 
     return (
         <div className={cl.wrapper} onClick={event => event.stopPropagation()} draggable={false}>
-            {((hisItem.mask & Masks.CATALOG_MASK)==Masks.CATALOG_MASK)
+            {((item.mask & Masks.CATALOG_MASK)==Masks.CATALOG_MASK)
                 ? <div className={cl.wrapper__name_table}>
                     <div className={cl.wrapper___catalog_name}
                          draggable={true}
-                         onDrag={() => onItemDrag(hisItem)}
+                         onDrag={() => onItemDrag(item)}
                          onDragEnter={(e) => onDragEnterToItem(e)}
                          onDragLeave={e => onDragLeaveFromItem(e)}
                          onDragEnd={ConfirmReplace}
@@ -99,17 +113,17 @@ const CatalogView: FC<CatalogViewProps> = ({ item}) => {
 
                         <span onClick={onCatalogNameClick}
                         >
-                            {hisItem.name}
+                            {item.name}
                         </span>
 
 
                     </div>
                     <div className={showClass}>
                         {
-                            hisItem.items
-                                ? hisItem.items.map((item: CatalogItem) => <CatalogView
+                            hisItems
+                                ? hisItems.map((item: CatalogItem) => <TreeNode
                                     item={item}
-                                    key={"CatalogView"+item.ref}/>)
+                                    key={"TreeNode"+item.ref}/>)
                                 : false
                         }
                     </div>
@@ -123,4 +137,4 @@ const CatalogView: FC<CatalogViewProps> = ({ item}) => {
     );
 };
 
-export default CatalogView;
+export default TreeNode;

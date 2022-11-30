@@ -5,6 +5,12 @@ export interface ShowCatalogState {
     catalogRoot:CatalogItem|null
     catalogItems:CatalogItem[]|null
 }
+
+export type CatalogAndItems={
+    item:CatalogItem
+    items:CatalogItem[]|null
+}
+
 export enum ShowCatalogActionTypes {
     SET_STATE="SET_STATE",
     SET_CATALOG_ROOT='SET_CATALOG_ROOT',
@@ -13,7 +19,7 @@ export enum ShowCatalogActionTypes {
 
 interface  SetCurrentItemAction {
     type:ShowCatalogActionTypes.SET_STATE
-    payload:CatalogItem
+    payload:CatalogAndItems
 }
 
 interface  SetCurrentItemItemsAction {
