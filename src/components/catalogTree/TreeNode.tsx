@@ -33,11 +33,6 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
     const dispatch=useDispatch()
 
     const onCatalogNameClick=()=>{
-<<<<<<< HEAD:src/components/catalogView/CatalogView.tsx
-
-         // @ts-ignore
-        dispatch(SetCurrentCatalogState(hisItem))
-=======
        let ci:CatalogAndItems={
            items:hisItems,
            item:item
@@ -46,7 +41,6 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
 
         // @ts-ignore
         dispatch(SetCurrentCatalogState(ci))
->>>>>>> bd3c30d07e288e8e65f1ea9dbf04a06d26762aa9:src/components/catalogTree/TreeNode.tsx
 
     }
 

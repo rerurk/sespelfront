@@ -14,16 +14,11 @@ let forInitial: CatalogItem = {
 
 const initialState: ShowCatalogState = {
     catalogRoot: null,
-    currentItem: forInitial,
-    catalogItems:null
+    currentItem: forInitial
 
 
 }
 
-function setCatalogItems(items:CatalogItem[]):ShowCatalogState {
-    initialState.catalogItems=items
-return initialState
-}
 
 function setCurrentItem(catalogAndItems:CatalogAndItems): ShowCatalogState {
     console.log(catalogAndItems)
@@ -48,8 +43,6 @@ export const showCatalogNodeReducer = (state = initialState, action: ShowCatalog
             return {...setCurrentItem(action.payload)}
         case ShowCatalogActionTypes.SET_CATALOG_ROOT:
             return {...setCatalogRoot(action.payload)}
-        case ShowCatalogActionTypes.SET_CATALOG_ITEMS:
-            return {...setCatalogItems(action.payload)}
         default:
             return state
     }

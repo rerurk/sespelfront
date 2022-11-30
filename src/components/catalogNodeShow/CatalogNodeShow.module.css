@@ -1,0 +1,50 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    width: 130rem;
+    min-height: 10rem;
+    padding-bottom: 2rem;
+    overflow-y: hidden;
+    border: solid 1px black;
+
+}
+.wrapper__self_name{
+    display: flex;
+    flex-direction: row;
+    background: teal;
+    width: 90%;
+    color: white;
+    font-size: 1.2rem;
+    font-style: inherit;
+    text-align: left;
+    padding: 0 1rem 0 5rem;
+}
+
+.wrapper__self_name_bt{
+    margin-right: 1rem;
+    font-size: 1.5rem;
+}
+.wrapper__items{
+    display: flex;
+    flex-direction: column;
+
+}
+.wrapper__catalog{
+    width: 100%;
+    padding: 2px 0 2px 1rem;
+    border-bottom: solid 1px grey;
+    text-align: left;
+    color: white;
+    background: lightseagreen;
+    cursor: pointer;
+}
+.wrapper__catalog__item{
+    width: 100%;
+    padding: 2px 0 2px 1rem;
+    border-bottom: solid 1px grey;
+    text-align: left;
+    background: wheat;
+    cursor: pointer;
+}
+

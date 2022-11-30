@@ -3,7 +3,6 @@ import {CatalogItem} from "../../structs/catalog";
 export interface ShowCatalogState {
     currentItem:CatalogItem
     catalogRoot:CatalogItem|null
-    catalogItems:CatalogItem[]|null
 }
 
 export type CatalogAndItems={
@@ -13,18 +12,12 @@ export type CatalogAndItems={
 
 export enum ShowCatalogActionTypes {
     SET_STATE="SET_STATE",
-    SET_CATALOG_ROOT='SET_CATALOG_ROOT',
-    SET_CATALOG_ITEMS="SET_CATALOG_ITEMS"
+    SET_CATALOG_ROOT='SET_CATALOG_ROOT'
 }
 
 interface  SetCurrentItemAction {
     type:ShowCatalogActionTypes.SET_STATE
     payload:CatalogAndItems
-}
-
-interface  SetCurrentItemItemsAction {
-    type:ShowCatalogActionTypes.SET_CATALOG_ITEMS
-    payload:CatalogItem[]
 }
 
 interface  SetCatalogRootAction {
@@ -33,4 +26,3 @@ interface  SetCatalogRootAction {
 }
 export type ShowCatalogAction=SetCurrentItemAction
 |SetCatalogRootAction
-|SetCurrentItemItemsAction
