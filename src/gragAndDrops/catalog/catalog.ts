@@ -1,6 +1,7 @@
 import {CatalogItem, TransferCatalogItem} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
 import {Masks} from "../../masks/Masks";
+import {Tools} from "../../tools/Tools";
 
 let dragItem: CatalogItem | null = null
 let dragItemEnter: CatalogItem | null = null
@@ -44,12 +45,17 @@ export const ConfirmReplace = () => {
 
 function GetItems(): TransferCatalogItem | null {
 
-    if (dragItem && dragItemEnter) {
+    if (dragItem && dragItemEnter &&parentCatalogItem) {
+
         let transferItem: TransferCatalogItem = {
-            from: JSON.parse(JSON.stringify(parentCatalogItem)),
-            to: JSON.parse(JSON.stringify(dragItemEnter)),
-            item: JSON.parse(JSON.stringify(dragItem))
+           // from: JSON.parse(JSON.stringify(parentCatalogItem)),
+            from:Tools.getCatalogItem(parentCatalogItem),
+            //to: JSON.parse(JSON.stringify(dragItemEnter)),
+            to:Tools.getCatalogItem(dragItemEnter),
+            //item: JSON.parse(JSON.stringify(dragItem))
+            item:Tools.getCatalogItem(dragItem)
         }
+        console.log(transferItem)
         dragItem = null
         dragItemEnter = null
         parentCatalogItem = null

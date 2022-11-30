@@ -1,7 +1,8 @@
 import axios from "axios";
 
 import {Requests} from "./Requests";
-import {AddToItem, CatalogItem,TransferCatalogItem} from "../structs/catalog";
+import {AddToItem, CatalogItem, TransferCatalogItem} from "../structs/catalog";
+import {Tools} from "../tools/Tools";
 
 export class Fetches {
 
@@ -21,28 +22,32 @@ export class Fetches {
     }
 
     public static async GetCatalogItems(item: CatalogItem): Promise<CatalogItem[] | Error> {
-
-            try {
-
-                const res = await axios.post<CatalogItem[]>(Requests.GET_CATALOG_ITEMS, item)
-                return res.data
-                /*    const response =  await fetch(Requests.GET_CATALOG_ITEMS, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json;charset=utf-8',
-                        },
-                        mode: 'no-cors', // no-cors, *cors, same-origin
-                        body: JSON.stringify(item),
-
-                    })
-
-                    return await response.json();*/
+         if(item.id<1){return Error("ошибка") }
+             // @ts-ignore
 
 
-            } catch (e) {
-                return Error("ошибка")
+        try {
 
-            }
+            const res = await axios.post<CatalogItem[]>(Requests.GET_CATALOG_ITEMS, Tools.getCatalogItem(item))
+            return res.data
+            /*    const response =  await fetch(Requests.GET_CATALOG_ITEMS, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8',
+                    },
+                    mode: 'no-cors', // no-cors, *cors, same-origin
+                    body: JSON.stringify(item),
+
+                })
+
+                return await response.json();*/
+
+
+        } catch (e) {
+            console.log(e)
+            return Error("ошибка")
+
+        }
 
     }
 
@@ -74,6 +79,8 @@ export class Fetches {
 
     public static async TransferCatalogItem(transferCatalogItem: TransferCatalogItem): Promise<any | Error> {
 
+
+
         try {
             const res = await axios.post<TransferCatalogItem>(Requests.TRANSFER_CATALOG_ITEM, transferCatalogItem)
             return res.data
@@ -88,7 +95,7 @@ export class Fetches {
             const res = await axios.post<CatalogItem>(Requests.RENAME_CATALOG_ITEM, catalogItem)
             return res.data
 
-        }catch (e) {
+        } catch (e) {
             return Error("Ошибка")
         }
     }

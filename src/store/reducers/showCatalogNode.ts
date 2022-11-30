@@ -1,4 +1,4 @@
-import {ShowCatalogAction, ShowCatalogActionTypes, ShowCatalogState} from "../types/showCatalog";
+import {CatalogAndItems, ShowCatalogAction, ShowCatalogActionTypes, ShowCatalogState} from "../types/showCatalog";
 import {CatalogItem} from "../../structs/catalog";
 import {Masks} from "../../masks/Masks";
 
@@ -20,9 +20,14 @@ const initialState: ShowCatalogState = {
 }
 
 
-function setCurrentItem(item:CatalogItem): ShowCatalogState {
-    console.log("setCurrentItem:",item)
-   initialState.currentItem=item
+function setCurrentItem(catalogAndItems:CatalogAndItems): ShowCatalogState {
+    console.log(catalogAndItems)
+    if(catalogAndItems.items) {
+       // catalogAndItems.items.map((it:CatalogItem)=>it.parent=catalogAndItems.item)
+        catalogAndItems.item.items = catalogAndItems.items
+    }
+
+   initialState.currentItem=catalogAndItems.item
     return initialState
 }
 
