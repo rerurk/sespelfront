@@ -27,6 +27,8 @@ export function OnItemDragEnter(item: CatalogItem) {
 export async function ConfirmReplace ():Promise<any|Error> {
     let transferCatalogItem: TransferCatalogItem | null = GetItems()
     console.log(transferCatalogItem)
+
+
     if (transferCatalogItem && transferCatalogItem.from.ref !=transferCatalogItem.to.ref && transferCatalogItem.to.ref!=transferCatalogItem.item.ref) {
 
 

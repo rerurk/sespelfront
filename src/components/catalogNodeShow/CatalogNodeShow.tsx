@@ -23,12 +23,12 @@ const CatalogNodeShow: FC<ShowCatalogNodeProps> = () => {
 
     useEffect(()=>{
 
-        if (currentItem.id>0 &&currentItem.items===null){
+        if (currentItem.id>0 && items===null){
 
             Fetches.GetCatalogItems(currentItem).then(res=>{
 
               if (res&&!(res instanceof Error)){
-                    console.log(res)
+                    console.log("const CatalogNodeShow: Fetch items:",res)
                   res.map((it:CatalogItem)=>it.parent=currentItem)
 
                   // @ts-ignore
@@ -37,7 +37,7 @@ const CatalogNodeShow: FC<ShowCatalogNodeProps> = () => {
             })
         }
 
-    },[currentItem,items])
+    },[currentItem])
 
     const onBackClick = () => {
         if (currentItem.parent) {
@@ -45,7 +45,7 @@ const CatalogNodeShow: FC<ShowCatalogNodeProps> = () => {
             dispatch(SetCurrentCatalogState({item:currentItem.parent,items:null}))
         }
     }
-
+    console.log("CatalogNodeShow: render, item:",currentItem)
     return (
         <div className={cl.wrapper}>
             {/*Наименование каталога*/}

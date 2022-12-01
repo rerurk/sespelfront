@@ -15,21 +15,21 @@ let forInitial: CatalogItem = {
 const initialState: ShowCatalogState = {
     catalogRoot: null,
     currentItem: forInitial,
-    items:[]
+    items: []
 
 
 }
 
 
-function setCurrentItem(catalogAndItems:CatalogAndItems): ShowCatalogState {
+function setCurrentItem(catalogAndItems: CatalogAndItems): ShowCatalogState {
     console.log(catalogAndItems)
 
-    if(catalogAndItems.items) {
+    if (catalogAndItems.items) {
         catalogAndItems.item.items = catalogAndItems.items
 
     }
- initialState.items=catalogAndItems.items
-   initialState.currentItem=catalogAndItems.item
+    initialState.items = catalogAndItems.items
+    initialState.currentItem = catalogAndItems.item
     return initialState
 }
 

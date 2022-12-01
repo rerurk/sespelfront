@@ -39,6 +39,12 @@
     background: lightseagreen;
     cursor: pointer;
 }
+.wrapper__catalog_drag_enter{
+
+    color: white;
+    background: teal;
+    cursor: pointer;
+}
 .wrapper__catalog__item{
     width: 100%;
     padding: 2px 0 2px 1rem;

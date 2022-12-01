@@ -10,7 +10,7 @@ import {useNavigate} from "react-router-dom";
 import {RouterPath} from "../../router";
 import {useDispatch} from "react-redux";
 import {SetCurrentCatalogState} from "../../store/action_creator/showCatalogNode";
-import {ConfirmReplace, onItemDrag} from "../../gragAndDrops/catalog/catalog";
+import {ConfirmReplace, onItemDrag, OnItemDragEnter} from "../../gragAndDrops/catalog/catalog";
 
 
 interface ShowCatalogItemProps {
@@ -29,19 +29,30 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
         dispatch(SetCurrentCatalogState({item: item, items: null}))
     }
     const onProductNameClick = () => {
-        console.log(item.parent)
-        console.log(item)
+
 
         navigate(RouterPath.SHOW_CATALOG_ITEM)
 
     }
+    const onDragEnterToItem = (e: React.MouseEvent<HTMLSpanElement>) => {
 
-   function onProductNameDragEnd(){
+        e.currentTarget.classList.add(cl.wrapper__catalog_drag_enter)
+        OnItemDragEnter(item)
+    }
 
-        ConfirmReplace().then(r=>{
-            if (!(r instanceof Error)){
-               // @ts-ignore
-                dispatch(SetCurrentCatalogState({item:item.parent,items:null}))
+    const onDragLeaveFromItem = (e: React.MouseEvent<HTMLSpanElement>) => {
+
+        e.currentTarget.classList.remove(cl.wrapper__catalog_drag_enter)
+        OnItemDragEnter(item)
+    }
+
+    function onProductNameDragEnd() {
+
+        ConfirmReplace().then(r => {
+            if (!(r instanceof Error)) {
+                console.log(r)
+                // @ts-ignore
+                dispatch(SetCurrentCatalogState({item: item.parent, items: null}))
             }
         })
     }
@@ -49,8 +60,16 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
 
     if ((item.mask & Masks.CATALOG_MASK) == Masks.CATALOG_MASK) {
         return (
-            <span key={"CatalogNode" + item.ref} className={cl.wrapper__catalog}
-                  onClick={onCatalogClick}>{item.name}</span>
+            <span
+                key={"CatalogNode" + item.ref}
+                className={cl.wrapper__catalog}
+                onClick={onCatalogClick}
+                draggable={true}
+                onDrag={() => onItemDrag(item)}
+                onDragEnter={(e) => onDragEnterToItem(e)}
+                onDragLeave={e => onDragLeaveFromItem(e)}
+                onDragEnd={ConfirmReplace}
+            >{item.name}</span>
 
         );
     }

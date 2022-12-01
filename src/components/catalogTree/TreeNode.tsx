@@ -30,6 +30,7 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
     const [showText, setShowText] = useState<string>(hiddenS)
     const [showClass, setShowClass] = useState<string>(cl.wrapper__catalog_hidden)
     const [isItemsHidden, setIsItemsHidden] = useState<boolean>(true)
+
     const dispatch=useDispatch()
 
     const onCatalogNameClick=()=>{
@@ -50,17 +51,17 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
 
             setShowClass(cl.wrapper__catalog_show)
             setShowText(showS)
-
-            Fetches.GetCatalogItems(item).then(items => {
+             getItems()
+         /*   Fetches.GetCatalogItems(item).then(items => {
 
                 if (!(items instanceof Error) && items &&items.length>0){
 
-                    items.map((it:CatalogItem)=>{it.parent=item})
+
 
                     setHisItems(()=>(items))
                 }
 
-            })
+            })*/
 
         } else {
             setShowClass(cl.wrapper__catalog_hidden)
@@ -69,6 +70,18 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
         setIsItemsHidden(() => !isItemsHidden)
 
 
+    }
+
+    const getItems =()=>{
+        console.log("TreeNode:getItems")
+        Fetches.GetCatalogItems(item).then(items=>{
+            if (!(items instanceof Error) && items &&items.length>0){
+                if (hisItems===null ||items.length!==hisItems.length){
+                    items.map((it:CatalogItem)=>{it.parent=item})
+                    setHisItems(items)
+                }
+            }
+        })
     }
 
     const onDragEnterToItem = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -83,6 +96,13 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
         OnItemDragEnter(item)
     }
 
+    function onItemDragEnd() {
+        ConfirmReplace().then(r=>{
+            if(!(r instanceof Error)){
+            }
+        })
+    }
+
 
     return (
         <div className={cl.wrapper} onClick={event => event.stopPropagation()} draggable={false}>
@@ -93,7 +113,7 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
                          onDrag={() => onItemDrag(item)}
                          onDragEnter={(e) => onDragEnterToItem(e)}
                          onDragLeave={e => onDragLeaveFromItem(e)}
-                         onDragEnd={ConfirmReplace}
+                         onDragEnd={onItemDragEnd}
                     >
 
                         <div
