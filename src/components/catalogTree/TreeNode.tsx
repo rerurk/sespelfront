@@ -41,8 +41,7 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
 
     const showAllCatalog=()=>{
 
-            // @ts-ignore
-        dispatch(SetCurrentCatalogState({item:item,items:null}))
+        onShowClick()
 
 
     }
@@ -72,6 +71,12 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
             items.forEach((it:CatalogItem)=>it.parent=item)
             item.items=items
             setHisItems(items)
+            // @ts-ignore
+            dispatch(SetCurrentCatalogState({item:item,items:null}))
+        }else {
+            console.log("else")
+            // @ts-ignore
+            dispatch(SetCurrentCatalogState({item:item,items:null}))
         }
     }
 

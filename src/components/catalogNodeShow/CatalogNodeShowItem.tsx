@@ -25,8 +25,8 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
     const dispatch = useDispatch()
 
     const onCatalogClick = () => {
-        if(item.show){
-            item.show()
+        if(item.reBoot){
+            item.reBoot()
         }
 
     }
