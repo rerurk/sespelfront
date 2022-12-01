@@ -1,10 +1,11 @@
-export type CatalogItem = {
+export interface CatalogItem {
     id: number
     name: string
     mask:number
     ref: string
     parent:CatalogItem|null
     items: CatalogItem[] | null
+    reBoot?:()=>void
 }
 
 

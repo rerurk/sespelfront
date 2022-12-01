@@ -3,7 +3,7 @@ import React, {FC, useState} from 'react';
 import cl from "./TreeNode.module.css"
 
 
-import {CatalogItem} from "../../structs/catalog";
+import {CatalogItem, TransferCatalogItem} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
 
 
@@ -16,8 +16,8 @@ import {SetCurrentCatalogState} from "../../store/action_creator/showCatalogNode
 
 
 interface CatalogViewProps {
-
     item: CatalogItem
+
 
 }
 
@@ -30,7 +30,7 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
     const [showText, setShowText] = useState<string>(hiddenS)
     const [showClass, setShowClass] = useState<string>(cl.wrapper__catalog_hidden)
     const [isItemsHidden, setIsItemsHidden] = useState<boolean>(true)
-
+    item.reBoot=()=>getItems()
     const dispatch=useDispatch()
 
     const onCatalogNameClick=()=>{
@@ -73,7 +73,7 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
     }
 
     const getItems =()=>{
-        console.log("TreeNode:getItems")
+        console.log("TreeNode:getItems",item.name)
         Fetches.GetCatalogItems(item).then(items=>{
             if (!(items instanceof Error) && items &&items.length>0){
                 if (hisItems===null ||items.length!==hisItems.length){
@@ -99,10 +99,20 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
     function onItemDragEnd() {
         ConfirmReplace().then(r=>{
             if(!(r instanceof Error)){
+               let tr:TransferCatalogItem
+                tr=r
+                console.log(tr)
+                if(tr.from.reBoot && tr.to.reBoot) {
+                    tr.from.reBoot()
+                    tr.to.reBoot()
+                }
             }
         })
     }
 
+    const itemReboot =()=>{
+         getItems()
+    }
 
     return (
         <div className={cl.wrapper} onClick={event => event.stopPropagation()} draggable={false}>
@@ -114,6 +124,7 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
                          onDragEnter={(e) => onDragEnterToItem(e)}
                          onDragLeave={e => onDragLeaveFromItem(e)}
                          onDragEnd={onItemDragEnd}
+
                     >
 
                         <div
@@ -137,7 +148,10 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
                             hisItems
                                 ? hisItems.map((item: CatalogItem) => <TreeNode
                                     item={item}
-                                    key={"TreeNode"+item.ref}/>)
+                                    key={"TreeNode"+item.ref}
+
+                                />)
+
                                 : false
                         }
                     </div>

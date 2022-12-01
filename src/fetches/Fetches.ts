@@ -22,8 +22,10 @@ export class Fetches {
     }
 
     public static async GetCatalogItems(item: CatalogItem): Promise<CatalogItem[] | Error> {
-         if(item.id<1){return Error("ошибка") }
-             // @ts-ignore
+        if (item.id < 1) {
+            return Error("ошибка")
+        }
+        // @ts-ignore
 
 
         try {
@@ -79,10 +81,14 @@ export class Fetches {
 
     public static async TransferCatalogItem(transferCatalogItem: TransferCatalogItem): Promise<any | Error> {
 
-
+        let sTransferCatalogItem = {
+            from: Tools.unRefCatalogItem(transferCatalogItem.from),
+            to: Tools.unRefCatalogItem(transferCatalogItem.to),
+            item: Tools.unRefCatalogItem(transferCatalogItem.item)
+        }
 
         try {
-            const res = await axios.post<TransferCatalogItem>(Requests.TRANSFER_CATALOG_ITEM, transferCatalogItem)
+            const res = await axios.post<TransferCatalogItem>(Requests.TRANSFER_CATALOG_ITEM, sTransferCatalogItem)
             return res.data
         } catch (e) {
             return Error("Ошибка")
@@ -90,7 +96,7 @@ export class Fetches {
     }
 
     public static async RenameCatalogItem(renameCatalogItem: RenameCatalogItem): Promise<any | Error> {
-                renameCatalogItem.item=Tools.unRefCatalogItem(renameCatalogItem.item)
+        renameCatalogItem.item = Tools.unRefCatalogItem(renameCatalogItem.item)
         try {
             const res = await axios.post<CatalogItem>(Requests.RENAME_CATALOG_ITEM, renameCatalogItem)
             return res.data
