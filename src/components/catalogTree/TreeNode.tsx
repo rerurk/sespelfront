@@ -15,7 +15,6 @@ import {SetCurrentCatalogState} from "../../store/action_creator/showCatalogNode
 import {GetCurrentState} from "../../store/reducers/showCatalogNode";
 
 
-
 interface CatalogViewProps {
     item: CatalogItem
 
@@ -27,22 +26,24 @@ const hiddenS=">"
 
 const TreeNode: FC<CatalogViewProps> = ({ item}) => {
 
-    const [hisItems, setHisItems] = useState<CatalogItem[]|null>([])
+    const [hisItems, setHisItems] = useState<CatalogItem[]>([])
     const [showText, setShowText] = useState<string>(hiddenS)
     const [showClass, setShowClass] = useState<string>(cl.wrapper__catalog_hidden)
     const [isItemsHidden, setIsItemsHidden] = useState<boolean>(true)
-    item.reBoot=()=>getItems()
+    item.reBoot=()=>itemReboot()
+    item.show=()=>onCatalogNameClick()
+
     const dispatch=useDispatch()
 
     const onCatalogNameClick=()=>{
-       let ci:CatalogAndItems={
-           items:null,
-           item:item
-       }
+             showAllCatalog()
+    }
 
+    const showAllCatalog=()=>{
 
-        // @ts-ignore
-        dispatch(SetCurrentCatalogState(ci))
+            // @ts-ignore
+        dispatch(SetCurrentCatalogState({item:item,items:null}))
+
 
     }
 
@@ -52,7 +53,7 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
 
             setShowClass(cl.wrapper__catalog_show)
             setShowText(showS)
-             getItems()
+             getItems().then(r=>tryToSetItems(r))
 
         } else {
             setShowClass(cl.wrapper__catalog_hidden)
@@ -63,25 +64,20 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
 
     }
 
-    const getItems =()=>{
+    const tryToSetItems=(items:CatalogItem[]|Error)=>{
 
-        Fetches.GetCatalogItems(item).then(items=>{
-               console.log("item:",item.name,"items:",items)
-            if (items===null){items=[]}
-            if (!(items instanceof Error) && items ){
-                if (hisItems && items.length!==hisItems.length){
-                    items.map((it:CatalogItem)=>{it.parent=item})
-                    setHisItems(items)
-                    if(GetCurrentState().currentItem===item){
-                        // изменяем вид отобраджения каталога
-                        console.log("изменяем вид отобраджения каталога",item.name)
 
-                        // @ts-ignore
-                        dispatch(SetCurrentCatalogState({item:item,items:items}))
-                    }
-                }
-            }
-        })
+        if (items && !(items instanceof Error) && items.length!=hisItems.length)
+        {
+            items.forEach((it:CatalogItem)=>it.parent=item)
+            item.items=items
+            setHisItems(items)
+        }
+    }
+
+    async function getItems ():Promise<CatalogItem[]|Error>{
+
+       return  Fetches.GetCatalogItems(item)
     }
 
     const onDragEnterToItem = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -105,7 +101,7 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
     }
 
     const itemReboot =()=>{
-         getItems()
+           getItems().then(r=>tryToSetItems(r))
     }
 
     return (

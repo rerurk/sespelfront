@@ -1,16 +1,17 @@
-const domen = "http://192.168.1.103:3005"
+const domen = "http://192.168.1.95:3005"
 
 type RequestT = {
-    SAVE_NEW_ASSET:string,
-    GET_MAIN_CATALOG_ITEM:string,
-    SAVE_NEW_CATALOG_NODE:string,
-    GET_CATALOG_ITEMS :string,
-    SAVE_NEW_CATALOG_ITEM :string,
-    MAKE_CATALOG_ITEM :string,
-    TRANSFER_CATALOG_ITEM :string,
-    RENAME_CATALOG_ITEM :string,
-    REMOVE_CATALOG_ITEM:string,
+    SAVE_NEW_ASSET: string,
+    GET_MAIN_CATALOG_ITEM: string,
+    SAVE_NEW_CATALOG_NODE: string,
+    GET_CATALOG_ITEMS: string,
+    SAVE_NEW_CATALOG_ITEM: string,
+    MAKE_CATALOG_ITEM: string,
+    TRANSFER_CATALOG_ITEM: string,
+    RENAME_CATALOG_ITEM: string,
+    REMOVE_CATALOG_ITEM: string,
 }
+
 enum req {
 
     SAVE_NEW_ASSET = "/save_new_asset",
@@ -24,16 +25,17 @@ enum req {
     REMOVE_CATALOG_ITEM = "/remove_catalog_item"
 
 }
+
 export const Requests: RequestT = {
-    GET_CATALOG_ITEMS: domen +req.GET_CATALOG_ITEMS,
-    GET_MAIN_CATALOG_ITEM: domen +req.GET_MAIN_CATALOG_ITEM,
-    MAKE_CATALOG_ITEM: domen +req.MAKE_CATALOG_ITEM,
-    REMOVE_CATALOG_ITEM: domen +req.REMOVE_CATALOG_ITEM,
-    RENAME_CATALOG_ITEM: domen +req.RENAME_CATALOG_ITEM,
-    SAVE_NEW_CATALOG_ITEM: domen +req.SAVE_NEW_CATALOG_ITEM,
-    SAVE_NEW_CATALOG_NODE: domen +req.SAVE_NEW_CATALOG_NODE,
-    TRANSFER_CATALOG_ITEM: domen +req.TRANSFER_CATALOG_ITEM,
-    SAVE_NEW_ASSET :domen +req.SAVE_NEW_ASSET
+    GET_CATALOG_ITEMS: domen + req.GET_CATALOG_ITEMS,
+    GET_MAIN_CATALOG_ITEM: domen + req.GET_MAIN_CATALOG_ITEM,
+    MAKE_CATALOG_ITEM: domen + req.MAKE_CATALOG_ITEM,
+    REMOVE_CATALOG_ITEM: domen + req.REMOVE_CATALOG_ITEM,
+    RENAME_CATALOG_ITEM: domen + req.RENAME_CATALOG_ITEM,
+    SAVE_NEW_CATALOG_ITEM: domen + req.SAVE_NEW_CATALOG_ITEM,
+    SAVE_NEW_CATALOG_NODE: domen + req.SAVE_NEW_CATALOG_NODE,
+    TRANSFER_CATALOG_ITEM: domen + req.TRANSFER_CATALOG_ITEM,
+    SAVE_NEW_ASSET: domen + req.SAVE_NEW_ASSET
 }
 
 

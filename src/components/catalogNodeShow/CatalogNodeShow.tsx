@@ -22,23 +22,6 @@ const CatalogNodeShow: FC<ShowCatalogNodeProps> = () => {
 
     const dispatch = useDispatch()
 
-    useEffect(()=>{
-
-        if (currentItem.id>0 && items===null){
-
-            Fetches.GetCatalogItems(currentItem).then(res=>{
-
-              if (res&&!(res instanceof Error)){
-
-                  res.map((it:CatalogItem)=>it.parent=currentItem)
-
-                  // @ts-ignore
-                  dispatch(SetCurrentCatalogState({item:currentItem,items:res}))
-              }
-            })
-        }
-
-    },[currentItem])
 
     const onBackClick = () => {
         if (currentItem.parent) {

@@ -25,8 +25,10 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
     const dispatch = useDispatch()
 
     const onCatalogClick = () => {
-        // @ts-ignore
-        dispatch(SetCurrentCatalogState({item: item, items: null}))
+        if(item.show){
+            item.show()
+        }
+
     }
     const onProductNameClick = () => {
 

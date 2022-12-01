@@ -27,10 +27,10 @@ return initialState
 function setCurrentItem(catalogAndItems: CatalogAndItems): ShowCatalogState {
     console.log(catalogAndItems)
 
-    if (catalogAndItems.items) {
+  /*  if (catalogAndItems.items) {
         catalogAndItems.item.items = catalogAndItems.items
 
-    }
+    }*/
     initialState.items = catalogAndItems.items
     initialState.currentItem = catalogAndItems.item
     return initialState

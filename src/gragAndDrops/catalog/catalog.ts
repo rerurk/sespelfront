@@ -52,11 +52,12 @@ export async function ConfirmReplace(): Promise<any | Error | TransferCatalogIte
 
 function rebootItems(transferCatalogItem: TransferCatalogItem) {
     if (transferCatalogItem) {
-        if (transferCatalogItem.to.reBoot) {
-            transferCatalogItem.to.reBoot();
-        }
+
         if (transferCatalogItem.from.reBoot) {
             transferCatalogItem.from.reBoot();
+        }
+        if (transferCatalogItem.to.reBoot) {
+            transferCatalogItem.to.reBoot();
         }
     }
 }

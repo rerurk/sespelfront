@@ -5,7 +5,8 @@ export interface CatalogItem {
     ref: string
     parent:CatalogItem|null
     items: CatalogItem[] | null
-    reBoot?:()=>void
+    reBoot?:Function
+    show?:Function
 }
 
 
