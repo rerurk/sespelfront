@@ -50,9 +50,7 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
 
         ConfirmReplace().then(r => {
             if (!(r instanceof Error)) {
-                console.log(r)
-                // @ts-ignore
-                dispatch(SetCurrentCatalogState({item: item.parent, items: null}))
+
             }
         })
     }

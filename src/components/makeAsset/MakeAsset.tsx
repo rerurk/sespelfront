@@ -8,7 +8,7 @@ import {MakeAssetFields} from "../../texts/Texts";
 import {NewAsset} from "../../structs/transportSructs";
 
 const MakeAsset: FC = () => {
-    let fieldDisabled: boolean = false
+    let fieldDisabled: boolean = true
 
 
     const [newAsset,setNewAsset]=useState<Asset>({

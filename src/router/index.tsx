@@ -40,7 +40,7 @@ export const publicRoutes:RouteNode[] = [
         element:<CreateAsset/>
     },
     {
-        isHide:true,
+        isHide:false,
         exact:false,
         path: RouterPath.SHOW_CATALOG_ITEM,
         name:RouterTexts.MOVE_ASSET,

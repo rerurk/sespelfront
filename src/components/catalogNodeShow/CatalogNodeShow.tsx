@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 // @ts-ignore
 import cl from "./CatalogNodeShow.module.css"
 import {useTypeSelector} from "../../hooks/useTypeSelector";
@@ -19,6 +19,7 @@ interface ShowCatalogNodeProps {
 const CatalogNodeShow: FC<ShowCatalogNodeProps> = () => {
 
     const {currentItem,items} = useTypeSelector(state => state.showCatalogNode)
+
     const dispatch = useDispatch()
 
     useEffect(()=>{
@@ -28,7 +29,7 @@ const CatalogNodeShow: FC<ShowCatalogNodeProps> = () => {
             Fetches.GetCatalogItems(currentItem).then(res=>{
 
               if (res&&!(res instanceof Error)){
-                    console.log("const CatalogNodeShow: Fetch items:",res)
+
                   res.map((it:CatalogItem)=>it.parent=currentItem)
 
                   // @ts-ignore
@@ -45,13 +46,13 @@ const CatalogNodeShow: FC<ShowCatalogNodeProps> = () => {
             dispatch(SetCurrentCatalogState({item:currentItem.parent,items:null}))
         }
     }
-    console.log("CatalogNodeShow: render, item:",currentItem)
+
     return (
         <div className={cl.wrapper}>
             {/*Наименование каталога*/}
             <div className={cl.wrapper__self_name}>
                 <button onClick={onBackClick}>назад</button>
-                <CatalogMenu catalogItem={currentItem} isVisible={(currentItem.mask&Masks.NON_REMOVABLE)!==Masks.NON_REMOVABLE}/>
+                <CatalogMenu catalogItem={currentItem} isVisible={true}/>
                 <strong>{currentItem.name}</strong>
             </div>
             {currentItem.items

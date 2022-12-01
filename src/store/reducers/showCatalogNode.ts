@@ -20,6 +20,9 @@ const initialState: ShowCatalogState = {
 
 }
 
+export function GetCurrentState():ShowCatalogState {
+return initialState
+}
 
 function setCurrentItem(catalogAndItems: CatalogAndItems): ShowCatalogState {
     console.log(catalogAndItems)

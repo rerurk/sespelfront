@@ -12,6 +12,7 @@ import {ConfirmReplace, onItemDrag, OnItemDragEnter} from "../../gragAndDrops/ca
 import {useDispatch} from "react-redux";
 import {CatalogAndItems, ShowCatalogState} from "../../store/types/showCatalog";
 import {SetCurrentCatalogState} from "../../store/action_creator/showCatalogNode";
+import {GetCurrentState} from "../../store/reducers/showCatalogNode";
 
 
 
@@ -26,7 +27,7 @@ const hiddenS=">"
 
 const TreeNode: FC<CatalogViewProps> = ({ item}) => {
 
-    const [hisItems, setHisItems] = useState<CatalogItem[]|null>(null)
+    const [hisItems, setHisItems] = useState<CatalogItem[]|null>([])
     const [showText, setShowText] = useState<string>(hiddenS)
     const [showClass, setShowClass] = useState<string>(cl.wrapper__catalog_hidden)
     const [isItemsHidden, setIsItemsHidden] = useState<boolean>(true)
@@ -52,16 +53,6 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
             setShowClass(cl.wrapper__catalog_show)
             setShowText(showS)
              getItems()
-         /*   Fetches.GetCatalogItems(item).then(items => {
-
-                if (!(items instanceof Error) && items &&items.length>0){
-
-
-
-                    setHisItems(()=>(items))
-                }
-
-            })*/
 
         } else {
             setShowClass(cl.wrapper__catalog_hidden)
@@ -73,12 +64,21 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
     }
 
     const getItems =()=>{
-        console.log("TreeNode:getItems",item.name)
+
         Fetches.GetCatalogItems(item).then(items=>{
-            if (!(items instanceof Error) && items &&items.length>0){
-                if (hisItems===null ||items.length!==hisItems.length){
+               console.log("item:",item.name,"items:",items)
+            if (items===null){items=[]}
+            if (!(items instanceof Error) && items ){
+                if (hisItems && items.length!==hisItems.length){
                     items.map((it:CatalogItem)=>{it.parent=item})
                     setHisItems(items)
+                    if(GetCurrentState().currentItem===item){
+                        // изменяем вид отобраджения каталога
+                        console.log("изменяем вид отобраджения каталога",item.name)
+
+                        // @ts-ignore
+                        dispatch(SetCurrentCatalogState({item:item,items:items}))
+                    }
                 }
             }
         })
@@ -99,13 +99,7 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
     function onItemDragEnd() {
         ConfirmReplace().then(r=>{
             if(!(r instanceof Error)){
-               let tr:TransferCatalogItem
-                tr=r
-                console.log(tr)
-                if(tr.from.reBoot && tr.to.reBoot) {
-                    tr.from.reBoot()
-                    tr.to.reBoot()
-                }
+
             }
         })
     }
