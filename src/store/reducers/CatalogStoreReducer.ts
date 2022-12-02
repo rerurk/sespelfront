@@ -1,6 +1,6 @@
-import {ShowCatalogAction, ShowCatalogActionTypes, ShowCatalogState} from "../types/CatalogStoreTypes";
 import {CatalogItem} from "../../structs/catalog";
 import {Masks} from "../../masks/Masks";
+import {CatalogActions, CatalogActionTypes, CatalogState} from "../types/CatalogStoreTypes";
 
 let forInitial: CatalogItem = {
 
@@ -12,37 +12,48 @@ let forInitial: CatalogItem = {
     parent: null
 }
 
-const initialState: ShowCatalogState = {
+const initialState: CatalogState = {
     catalogRoot: null,
-    currentShowCatalog: forInitial,
+    currentCatalog: forInitial,
+    currCatalogItem:null
 
 
 
 }
 
-export function GetCurrentState():ShowCatalogState {
+export function GetCurrentState():CatalogState {
 return initialState
 }
 
-function setCurrentItem(catalogItem:CatalogItem): ShowCatalogState {
+function setCurrentCatalogItem(catalogItem:CatalogItem): CatalogState {
     console.log("Store State catalogItem:",catalogItem)
 
-    initialState.currentShowCatalog = catalogItem
+    initialState.currCatalogItem = catalogItem
     return initialState
 }
 
-function setCatalogRoot(root: CatalogItem): ShowCatalogState {
+function setCurrentCatalog(catalogItem:CatalogItem): CatalogState {
+    console.log("Store State catalogItem:",catalogItem)
+
+    initialState.currentCatalog = catalogItem
+    return initialState
+}
+
+function setCatalogRoot(root: CatalogItem): CatalogState {
     initialState.catalogRoot = root
     return initialState
 }
 
-export const showCatalogNodeReducer = (state = initialState, action: ShowCatalogAction): ShowCatalogState => {
+export const showCatalogNodeReducer = (state = initialState, action: CatalogActions): CatalogState => {
 
     switch (action.type) {
-        case ShowCatalogActionTypes.SET_STATE:
-            return {...setCurrentItem(action.payload)}
-        case ShowCatalogActionTypes.SET_CATALOG_ROOT:
+        case CatalogActionTypes.SET_CURRENT_CATALOG:
+            return {...setCurrentCatalog(action.payload)}
+        case CatalogActionTypes.SET_CATALOG_ROOT:
             return {...setCatalogRoot(action.payload)}
+        case CatalogActionTypes.SET_CURRENT_CATALOG_ITEM:
+            return {...setCurrentCatalogItem(action.payload)}
+
         default:
             return state
     }

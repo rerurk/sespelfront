@@ -1,4 +1,4 @@
-const domen = "http://192.168.1.103:3005"
+const domen = "http://192.168.1.95:3005"
 
 type RequestT = {
     SAVE_NEW_ASSET: string,

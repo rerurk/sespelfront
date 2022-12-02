@@ -1,30 +1,36 @@
 import {CatalogItem} from "../../structs/catalog";
 
-export interface ShowCatalogState {
-    currentShowCatalog:CatalogItem
-    catalogRoot:CatalogItem|null
+export interface CatalogState {
+    currentCatalog: CatalogItem
+    catalogRoot: CatalogItem | null
+    currCatalogItem: CatalogItem | null
 
 
 }
 
-export type CatalogAndItems={
-    item:CatalogItem
+
+export enum CatalogActionTypes {
+    SET_CURRENT_CATALOG = "SET_CURRENT_CATALOG",
+    SET_CATALOG_ROOT = 'SET_CATALOG_ROOT',
+    SET_CURRENT_CATALOG_ITEM = " SET_CURRENT_CATALOG_ITEM",
 
 }
 
-export enum ShowCatalogActionTypes {
-    SET_STATE="SET_STATE",
-    SET_CATALOG_ROOT='SET_CATALOG_ROOT'
+interface SetCurrentCatalogItemAction {
+    type: CatalogActionTypes.SET_CURRENT_CATALOG_ITEM
+    payload: CatalogItem
 }
 
-interface  SetCurrentItemAction {
-    type:ShowCatalogActionTypes.SET_STATE
-    payload:CatalogItem
+interface SetCurrentCatalogAction {
+    type: CatalogActionTypes.SET_CURRENT_CATALOG
+    payload: CatalogItem
 }
 
-interface  SetCatalogRootAction {
-    type:ShowCatalogActionTypes.SET_CATALOG_ROOT
-    payload:CatalogItem
+interface SetCatalogRootAction {
+    type: CatalogActionTypes.SET_CATALOG_ROOT
+    payload: CatalogItem
 }
-export type ShowCatalogAction=SetCurrentItemAction
-|SetCatalogRootAction
+
+export type CatalogActions = SetCurrentCatalogAction
+    | SetCatalogRootAction
+    | SetCurrentCatalogItemAction

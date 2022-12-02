@@ -1,16 +1,16 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC,useState} from 'react';
 // @ts-ignore
 import cl from "./TreeNode.module.css"
 
 
-import {CatalogItem, TransferCatalogItem} from "../../structs/catalog";
+import {CatalogItem} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
 
 
 import {Masks} from "../../masks/Masks";
 import {ConfirmReplace, onItemDrag, OnItemDragEnter} from "../../gragAndDrops/catalog/catalog";
 import {useDispatch} from "react-redux";
-import {CatalogAndItems, ShowCatalogState} from "../../store/types/CatalogStoreTypes";
+
 import {SetCurrentCatalogState} from "../../store/action_creator/CatalogStoreActions";
 import {GetCurrentState} from "../../store/reducers/CatalogStoreReducer";
 
@@ -26,7 +26,7 @@ const hiddenS = ">"
 
 const TreeNode: FC<CatalogViewProps> = ({item}) => {
 
-    const [hisItems, setHisItems] = useState<CatalogItem[]>([])
+    const [reb, setReb] = useState<boolean>(true)
     const [showText, setShowText] = useState<string>(hiddenS)
     const [showClass, setShowClass] = useState<string>(cl.wrapper__catalog_hidden)
     const [isItemsHidden, setIsItemsHidden] = useState<boolean>(true)
@@ -41,8 +41,7 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
     const dispatch = useDispatch()
 
     const showCatalog=()=>{
-        console.log("Call showCatalog:",item.name)
-        console.log("HIS ITEMS",hisItems)
+
         // @ts-ignore
         dispatch(SetCurrentCatalogState(item))
     }
@@ -85,11 +84,11 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
     const tryToSetItems = (items: CatalogItem[] | Error) => {
 
 
-        if (items && !(items instanceof Error)  && items !== hisItems) {
+        if (items && !(items instanceof Error)  && items && item.items!==items) {
 
             items.forEach((it: CatalogItem) => it.parent = item)
             item.items = items
-            setHisItems(()=> items)
+            setReb(()=> !reb)
 
         }
     }
@@ -121,7 +120,7 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
 
     const itemReboot = () => {
 
-        if (GetCurrentState().currentShowCatalog.name==item.name){
+        if (GetCurrentState().currentCatalog.name==item.name){
             setItems(showCatalog)
         }else {
             setItems()
@@ -160,10 +159,10 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
                     </div>
                     <div className={showClass}>
                         {
-                            (hisItems.length>0)
-                                ? hisItems.map((item: CatalogItem) => <TreeNode
-                                    item={item}
-                                    key={"TreeNode" + item.ref}
+                            (item.items && item.items.length>0)
+                                ? item.items.map((it: CatalogItem) => <TreeNode
+                                    item={it}
+                                    key={"TreeNode" + it.ref}
 
                                 />)
 

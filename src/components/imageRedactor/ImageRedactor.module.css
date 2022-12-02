@@ -1,8 +1,7 @@
 .wrapper{
-    position: absolute;
-    width: 20rem;
-    height: 20rem;
-    border: solid 1px red;
+    width: 10rem;
+    height: 10rem;
+    border: solid 4px red;
 
 }
 .wrapper>input{
@@ -14,9 +13,7 @@
 
 .wrapper>img{
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
+    width: 10rem;
+    height: 10rem;
     cursor: pointer;
 }

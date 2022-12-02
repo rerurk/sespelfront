@@ -70,7 +70,7 @@ const ImageRedactor: FC = () => {
     }
 
     function onImageInput(e: React.ChangeEvent<HTMLInputElement>) {
-        console.log("onImageInput")
+
         if (e.target.files) {
 
             if (e.target.files.length > 0) {

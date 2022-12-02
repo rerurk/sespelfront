@@ -13,7 +13,7 @@ export enum DefSrc{
     ADD_IMAGE="/images/add_image.png"
 }
 
-export enum MakeAssetFields {
+export enum ItemFields {
     NAME="Наименование",
     DESCRIPTION="ОПИСАНИЕ"
 }

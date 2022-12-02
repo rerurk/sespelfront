@@ -15,12 +15,12 @@ interface ShowCatalogNodeProps {
 
 const CatalogNodeShow: FC<ShowCatalogNodeProps> =() => {
 
-    const {currentShowCatalog} = useTypeSelector(state => state.showCatalogNode)
+    const {currentCatalog} = useTypeSelector(state => state.showCatalogNode)
 
     const onBackClick = () => {
 
-        if (currentShowCatalog.parent && currentShowCatalog.parent.callShow) {
-            currentShowCatalog.parent.callShow()
+        if (currentCatalog.parent && currentCatalog.parent.callShow) {
+            currentCatalog.parent.callShow()
         }
     }
 
@@ -31,11 +31,11 @@ const CatalogNodeShow: FC<ShowCatalogNodeProps> =() => {
             {/*Наименование каталога*/}
             <div className={cl.wrapper__self_name} >
                 <button onClick={onBackClick}>назад</button>
-                <CatalogMenu catalogItem={currentShowCatalog} isVisible={true}/>
-                <strong>{currentShowCatalog.name}</strong>
+                <CatalogMenu catalogItem={currentCatalog} isVisible={true}/>
+                <strong>{currentCatalog.name}</strong>
             </div>
-            {currentShowCatalog.items
-                ? currentShowCatalog.items.map((it: CatalogItem) => <CatalogNodeShowItem item={it}
+            {currentCatalog.items
+                ? currentCatalog.items.map((it: CatalogItem) => <CatalogNodeShowItem item={it}
                                                                                   key={"SHOWC" + it.ref}/>)
                 : false
             }

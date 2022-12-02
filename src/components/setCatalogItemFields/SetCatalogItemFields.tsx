@@ -1,22 +1,23 @@
 import React, {ChangeEvent, FC, useState} from 'react';
 // @ts-ignore
-import classes from "./MakeAsset.module.css"
+import classes from "./SetCatalogItemFields.module.css"
 import ImageRedactor, {GetImage, NewImageFile} from "../imageRedactor/ImageRedactor";
 import {Asset} from "../../structs/Asset";
-import {Fetches} from "../../fetches/Fetches";
-import {MakeAssetFields} from "../../texts/Texts";
+
 import {NewAsset} from "../../structs/transportSructs";
+import {ItemFields} from "../../texts/Texts";
+import {useTypeSelector} from "../../hooks/useTypeSelector";
 
-const MakeAsset: FC = () => {
+const SetCatalogItemFields: FC = () => {
     let fieldDisabled: boolean = true
-
-
+    const {currCatalogItem} = useTypeSelector(state => state.showCatalogNode)
+    console.log(currCatalogItem?.name)
     const [newAsset,setNewAsset]=useState<Asset>({
         description: "", id: 0, image: "", is_table: "", name: "", ref: "",assets:[]
 
     })
     const onBtCreate = () => {
-        console.log("onBtCreate")
+
         let img: NewImageFile | undefined = GetImage()
 
 
@@ -55,22 +56,22 @@ const MakeAsset: FC = () => {
             <ImageRedactor/>
             <div>
                 <div className={classes.fieldWrapper}>
-                    <span>{MakeAssetFields.NAME}:</span>
-                    <textarea disabled={fieldDisabled} value={newAsset.name}
-                              onChange={(e: ChangeEvent<HTMLTextAreaElement>) => onChangeName(e)}/>
+                    <span>{ItemFields.NAME}:</span>
+                    <textarea disabled={fieldDisabled} value={currCatalogItem?.name}
+                              onChange={(e: ChangeEvent<HTMLTextAreaElement>) => onChangeName(e)}></textarea>
 
                 </div>
                 <div className={classes.fieldWrapper}>
-                    <span>{MakeAssetFields.DESCRIPTION}:</span>
+                    <span>{ItemFields.DESCRIPTION}:</span>
                     <textarea disabled={fieldDisabled} value={newAsset.description}
                               onChange={(e: ChangeEvent<HTMLTextAreaElement>) => onChangeDescription(e)}/>
 
                 </div>
             </div>
-            <button onClick={onBtCreate}>Сохранить</button>
+
 
         </div>
     );
 };
 
-export default MakeAsset;
+export default SetCatalogItemFields;

@@ -2,12 +2,12 @@ import React, {FC} from 'react';
 import Asset from "../../components/asset/Asset";
 // @ts-ignore
 import cl from './CreateAsset.module.css'
-import MakeAsset from "../../components/makeAsset/MakeAsset";
+import SetCatalogItemFields from "../../components/setCatalogItemFields/SetCatalogItemFields";
 
 const CreateAsset: FC = () => {
     return (
         <div className={cl.wrapper}>
-          <MakeAsset/>
+          <SetCatalogItemFields/>
         </div>
     );
 };

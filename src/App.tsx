@@ -8,7 +8,7 @@ import Route from "./router/route/Route";
 function App() {
     return (
         <div className="App">
-            <h1>Сеспель</h1>
+            <span>Сеспель</span>
             <BrowserRouter>
                 <Route/>
                 <AppRouter/>

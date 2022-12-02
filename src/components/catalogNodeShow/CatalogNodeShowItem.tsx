@@ -10,6 +10,8 @@ import {useNavigate} from "react-router-dom";
 import {RouterPath} from "../../router";
 
 import {ConfirmReplace, onItemDrag, OnItemDragEnter} from "../../gragAndDrops/catalog/catalog";
+import {useDispatch} from "react-redux";
+import {SetCurrentCatalogItemState} from "../../store/action_creator/CatalogStoreActions";
 
 
 interface ShowCatalogItemProps {
@@ -21,7 +23,7 @@ interface ShowCatalogItemProps {
 const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
 
     const navigate = useNavigate();
-
+    const dispatch=useDispatch()
 
     const onCatalogClick = () => {
         if(item.callShow){
@@ -32,8 +34,8 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
 
     }
     const onProductNameClick = () => {
-
-
+        // @ts-ignore
+        dispatch(SetCurrentCatalogItemState(item))
         navigate(RouterPath.SHOW_CATALOG_ITEM)
 
     }

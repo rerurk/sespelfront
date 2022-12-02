@@ -73,6 +73,7 @@ function GetItems(): TransferCatalogItem | null {
         dragItem = null
         dragItemEnter = null
         parentCatalogItem = null
+        console.log(dragItem,transferItem.item)
         return transferItem
     }
     return null
@@ -88,7 +89,7 @@ function testToContains():boolean {
         let count:number=0
         test=true
         while (parent!=null&&count<50){
-            console.log("testToContains():",parent)
+
             count++
             if(dragItem.name==parent?.name){
                 test=false
