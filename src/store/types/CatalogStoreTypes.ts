@@ -1,15 +1,15 @@
 import {CatalogItem} from "../../structs/catalog";
 
 export interface ShowCatalogState {
-    currentItem:CatalogItem
+    currentShowCatalog:CatalogItem
     catalogRoot:CatalogItem|null
-    items:CatalogItem[]|null
+
 
 }
 
 export type CatalogAndItems={
     item:CatalogItem
-    items:CatalogItem[]|null
+
 }
 
 export enum ShowCatalogActionTypes {
@@ -19,7 +19,7 @@ export enum ShowCatalogActionTypes {
 
 interface  SetCurrentItemAction {
     type:ShowCatalogActionTypes.SET_STATE
-    payload:CatalogAndItems
+    payload:CatalogItem
 }
 
 interface  SetCatalogRootAction {

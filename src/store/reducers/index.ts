@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
-import {showCatalogNodeReducer} from "./showCatalogNode";
+import {showCatalogNodeReducer} from "./CatalogStoreReducer";
 
 
 export const rootReducer =combineReducers({

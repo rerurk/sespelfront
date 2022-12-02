@@ -9,7 +9,7 @@ import {Menu, MenuAction, selectAction} from "./menuActions";
 import {useDispatch} from "react-redux";
 
 import {CatalogItem} from "../../structs/catalog";
-import {SetCurrentCatalogState} from "../../store/action_creator/showCatalogNode";
+import {SetCurrentCatalogState} from "../../store/action_creator/CatalogStoreActions";
 
 interface CatalogMenuProps {
     catalogItem:CatalogItem
@@ -17,7 +17,7 @@ interface CatalogMenuProps {
 }
 
 const CatalogMenu: FC<CatalogMenuProps> = ({catalogItem,isVisible}) => {
-    const dispatch = useDispatch()
+
     const [itemsClass, setItemsClass] = useState<string>(cl.items_hide)
     const onItemClick = (menuAction: MenuAction) => {
         menuAction.payload = catalogItem
@@ -25,9 +25,10 @@ const CatalogMenu: FC<CatalogMenuProps> = ({catalogItem,isVisible}) => {
         selectAction(menuAction)
             .then(r => {
                     if (!(r instanceof Error)) {
+                       if(catalogItem.callReBoot){
+                           catalogItem.callReBoot()
+                       }
 
-                        // @ts-ignore
-                        dispatch(SetCurrentCatalogState({item:catalogItem,items:null}))
                     }
                 }
             )

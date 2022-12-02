@@ -1,4 +1,4 @@
-import {CatalogAndItems, ShowCatalogAction, ShowCatalogActionTypes, ShowCatalogState} from "../types/showCatalog";
+import {ShowCatalogAction, ShowCatalogActionTypes, ShowCatalogState} from "../types/CatalogStoreTypes";
 import {CatalogItem} from "../../structs/catalog";
 import {Masks} from "../../masks/Masks";
 
@@ -14,8 +14,8 @@ let forInitial: CatalogItem = {
 
 const initialState: ShowCatalogState = {
     catalogRoot: null,
-    currentItem: forInitial,
-    items: []
+    currentShowCatalog: forInitial,
+
 
 
 }
@@ -24,15 +24,10 @@ export function GetCurrentState():ShowCatalogState {
 return initialState
 }
 
-function setCurrentItem(catalogAndItems: CatalogAndItems): ShowCatalogState {
-    console.log(catalogAndItems)
+function setCurrentItem(catalogItem:CatalogItem): ShowCatalogState {
+    console.log("Store State catalogItem:",catalogItem)
 
-  /*  if (catalogAndItems.items) {
-        catalogAndItems.item.items = catalogAndItems.items
-
-    }*/
-    initialState.items = catalogAndItems.items
-    initialState.currentItem = catalogAndItems.item
+    initialState.currentShowCatalog = catalogItem
     return initialState
 }
 

@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 // @ts-ignore
 import cl from "./TreeNode.module.css"
 
@@ -10,9 +10,9 @@ import {Fetches} from "../../fetches/Fetches";
 import {Masks} from "../../masks/Masks";
 import {ConfirmReplace, onItemDrag, OnItemDragEnter} from "../../gragAndDrops/catalog/catalog";
 import {useDispatch} from "react-redux";
-import {CatalogAndItems, ShowCatalogState} from "../../store/types/showCatalog";
-import {SetCurrentCatalogState} from "../../store/action_creator/showCatalogNode";
-import {GetCurrentState} from "../../store/reducers/showCatalogNode";
+import {CatalogAndItems, ShowCatalogState} from "../../store/types/CatalogStoreTypes";
+import {SetCurrentCatalogState} from "../../store/action_creator/CatalogStoreActions";
+import {GetCurrentState} from "../../store/reducers/CatalogStoreReducer";
 
 
 interface CatalogViewProps {
@@ -21,38 +21,57 @@ interface CatalogViewProps {
 
 }
 
-const showS="v"
-const hiddenS=">"
+const showS = "v"
+const hiddenS = ">"
 
-const TreeNode: FC<CatalogViewProps> = ({ item}) => {
+const TreeNode: FC<CatalogViewProps> = ({item}) => {
 
     const [hisItems, setHisItems] = useState<CatalogItem[]>([])
     const [showText, setShowText] = useState<string>(hiddenS)
     const [showClass, setShowClass] = useState<string>(cl.wrapper__catalog_hidden)
     const [isItemsHidden, setIsItemsHidden] = useState<boolean>(true)
-    item.reBoot=()=>itemReboot()
-    item.show=()=>onCatalogNameClick()
 
-    const dispatch=useDispatch()
 
-    const onCatalogNameClick=()=>{
-             showAllCatalog()
+
+    item.callReBoot = () => itemReboot()
+    item.callShow = () => onCatalogNameClick()
+
+
+
+    const dispatch = useDispatch()
+
+    const showCatalog=()=>{
+        console.log("Call showCatalog:",item.name)
+        console.log("HIS ITEMS",hisItems)
+        // @ts-ignore
+        dispatch(SetCurrentCatalogState(item))
     }
 
-    const showAllCatalog=()=>{
+    const onCatalogNameClick = () => {
 
-        onShowClick()
+        let f:Function=showCatalog
+        setItems(f)
 
 
     }
+
+    const setItems = (f?:Function) => {
+        getItems().then(items => {
+                tryToSetItems(items)
+            if(f){f()}
+
+        }
+
+        )
+    }
+
 
     const onShowClick = () => {
 
         if (isItemsHidden) {
-
+            setItems()
             setShowClass(cl.wrapper__catalog_show)
             setShowText(showS)
-             getItems().then(r=>tryToSetItems(r))
 
         } else {
             setShowClass(cl.wrapper__catalog_hidden)
@@ -63,26 +82,21 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
 
     }
 
-    const tryToSetItems=(items:CatalogItem[]|Error)=>{
+    const tryToSetItems = (items: CatalogItem[] | Error) => {
 
 
-        if (items && !(items instanceof Error) && items.length!=hisItems.length)
-        {
-            items.forEach((it:CatalogItem)=>it.parent=item)
-            item.items=items
-            setHisItems(items)
-            // @ts-ignore
-            dispatch(SetCurrentCatalogState({item:item,items:null}))
-        }else {
-            console.log("else")
-            // @ts-ignore
-            dispatch(SetCurrentCatalogState({item:item,items:null}))
+        if (items && !(items instanceof Error)  && items !== hisItems) {
+
+            items.forEach((it: CatalogItem) => it.parent = item)
+            item.items = items
+            setHisItems(()=> items)
+
         }
     }
 
-    async function getItems ():Promise<CatalogItem[]|Error>{
+    async function getItems(): Promise<CatalogItem[] | Error> {
 
-       return  Fetches.GetCatalogItems(item)
+        return Fetches.GetCatalogItems(item)
     }
 
     const onDragEnterToItem = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -98,20 +112,25 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
     }
 
     function onItemDragEnd() {
-        ConfirmReplace().then(r=>{
-            if(!(r instanceof Error)){
+        ConfirmReplace().then(r => {
+            if (!(r instanceof Error)) {
 
             }
         })
     }
 
-    const itemReboot =()=>{
-           getItems().then(r=>tryToSetItems(r))
+    const itemReboot = () => {
+
+        if (GetCurrentState().currentShowCatalog.name==item.name){
+            setItems(showCatalog)
+        }else {
+            setItems()
+        }
     }
 
     return (
         <div className={cl.wrapper} onClick={event => event.stopPropagation()} draggable={false}>
-            {((item.mask & Masks.CATALOG_MASK)==Masks.CATALOG_MASK)
+            {((item.mask & Masks.CATALOG_MASK) == Masks.CATALOG_MASK)
                 ? <div className={cl.wrapper__name_table}>
                     <div className={cl.wrapper___catalog_name}
                          draggable={true}
@@ -119,19 +138,20 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
                          onDragEnter={(e) => onDragEnterToItem(e)}
                          onDragLeave={e => onDragLeaveFromItem(e)}
                          onDragEnd={onItemDragEnd}
-
+                         onClick={onCatalogNameClick}
                     >
 
-                        <div
+                        <div onClick={e => e.stopPropagation()}
                             /*
                              кнопка открывания дирректории
                         */
-                            className={cl.wrapper_showCatalog}
-                            onClick={onShowClick}>
-                            {showText}
+
+                        >
+                            <div className={cl.wrapper_showCatalog} onClick={() => onShowClick()}>{showText}</div>
+
                         </div>
 
-                        <span onClick={onCatalogNameClick}
+                        <span
                         >
                             {item.name}
                         </span>
@@ -140,10 +160,10 @@ const TreeNode: FC<CatalogViewProps> = ({ item}) => {
                     </div>
                     <div className={showClass}>
                         {
-                            hisItems
+                            (hisItems.length>0)
                                 ? hisItems.map((item: CatalogItem) => <TreeNode
                                     item={item}
-                                    key={"TreeNode"+item.ref}
+                                    key={"TreeNode" + item.ref}
 
                                 />)
 

@@ -57,7 +57,7 @@ export async function selectAction(menuAction: MenuAction):Promise<any|Error> {
             break
         case Menu.RENAME_CATALOG:
             if (menuAction.payload) {
-                renameCatalog(menuAction.payload)
+               return  renameCatalog(menuAction.payload)
             }
             break
         default:

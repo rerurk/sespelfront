@@ -26,8 +26,6 @@ export function OnItemDragEnter(item: CatalogItem) {
 export async function ConfirmReplace(): Promise<any | Error | TransferCatalogItem> {
     let transferCatalogItem: TransferCatalogItem | null = GetItems()
 
-
-
     if (transferCatalogItem && transferCatalogItem.from.ref != transferCatalogItem.to.ref && transferCatalogItem.to.ref != transferCatalogItem.item.ref) {
 
 
@@ -53,31 +51,56 @@ export async function ConfirmReplace(): Promise<any | Error | TransferCatalogIte
 function rebootItems(transferCatalogItem: TransferCatalogItem) {
     if (transferCatalogItem) {
 
-        if (transferCatalogItem.from.reBoot) {
-            transferCatalogItem.from.reBoot();
+        if (transferCatalogItem.from.callReBoot) {
+            transferCatalogItem.from.callReBoot();
         }
-        if (transferCatalogItem.to.reBoot) {
-            transferCatalogItem.to.reBoot();
+        if (transferCatalogItem.to.callReBoot) {
+            transferCatalogItem.to.callReBoot();
         }
     }
 }
 
-    function GetItems(): TransferCatalogItem | null {
+function GetItems(): TransferCatalogItem | null {
+    if (dragItem && dragItemEnter && parentCatalogItem && testToContains()) {
 
-        if (dragItem && dragItemEnter && parentCatalogItem) {
+        let transferItem: TransferCatalogItem = {
+            from: parentCatalogItem,
+            to: dragItemEnter,
+            item: dragItem
 
-            let transferItem: TransferCatalogItem = {
-                from: parentCatalogItem,
-                to: dragItemEnter,
-                item: dragItem
-
-            }
-
-            dragItem = null
-            dragItemEnter = null
-            parentCatalogItem = null
-            return transferItem
         }
-        return null
+
+        dragItem = null
+        dragItemEnter = null
+        parentCatalogItem = null
+        return transferItem
     }
+    return null
+}
+
+function testToContains():boolean {
+    /*TODO тоже свмое сделть на в беке*/
+    let test:boolean;
+    if (dragItemEnter&&dragItem){
+        let parent:CatalogItem|null=dragItemEnter.parent
+
+        // для гарантии выхода из цикла
+        let count:number=0
+        test=true
+        while (parent!=null&&count<50){
+            console.log("testToContains():",parent)
+            count++
+            if(dragItem.name==parent?.name){
+                test=false
+                alert(`Каталог ${dragItem.name} содержить в себе ${dragItemEnter.name}`)
+            }
+            parent=parent.parent
+
+        }
+    }else {
+        test=false
+    }
+
+   return test
+}
 

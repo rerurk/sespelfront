@@ -1,18 +1,19 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, memo, useEffect, useState} from 'react';
 // @ts-ignore
 import cl from "./TreeRoot.module.css"
 import TreeNode from "./TreeNode";
 import {Fetches} from "../../fetches/Fetches";
 
-import {SetCatalogRootState, SetCurrentCatalogState} from "../../store/action_creator/showCatalogNode";
+import {SetCatalogRootState, SetCurrentCatalogState} from "../../store/action_creator/CatalogStoreActions";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 import {useDispatch} from "react-redux";
 import {CatalogItem} from "../../structs/catalog";
 
 
 
-const TreeRoot: FC = () => {
-    const [treeRoot,setTreeRoot]=useState<CatalogItem|null>(null)
+const TreeRoot: FC = memo(() => {
+
+
     const {catalogRoot} = useTypeSelector(state => state.showCatalogNode)
     const dispatch=useDispatch()
     useEffect(()=>{
@@ -23,10 +24,10 @@ const TreeRoot: FC = () => {
                         // @ts-ignore
                         dispatch(SetCatalogRootState(r))
                         // @ts-ignore
-                        dispatch(SetCurrentCatalogState({item:r,items:null}))
+                        dispatch(SetCurrentCatalogState(r))
 
                     }
-                    setTreeRoot(r)
+
 
                 }
             })
@@ -40,6 +41,6 @@ const TreeRoot: FC = () => {
         }
         </div>
     );
-};
+});
 
 export default TreeRoot;

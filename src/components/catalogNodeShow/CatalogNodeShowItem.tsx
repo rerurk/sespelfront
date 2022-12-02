@@ -8,8 +8,7 @@ import {Masks} from "../../masks/Masks";
 import {useNavigate} from "react-router-dom";
 
 import {RouterPath} from "../../router";
-import {useDispatch} from "react-redux";
-import {SetCurrentCatalogState} from "../../store/action_creator/showCatalogNode";
+
 import {ConfirmReplace, onItemDrag, OnItemDragEnter} from "../../gragAndDrops/catalog/catalog";
 
 
@@ -22,11 +21,13 @@ interface ShowCatalogItemProps {
 const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
 
     const navigate = useNavigate();
-    const dispatch = useDispatch()
+
 
     const onCatalogClick = () => {
-        if(item.reBoot){
-            item.reBoot()
+        if(item.callShow){
+
+            item.callShow()
+
         }
 
     }
