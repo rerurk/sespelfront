@@ -9,7 +9,7 @@ let forInitial: CatalogItem = {
     mask: Masks.CATALOG_MASK,
     ref: "",
     items: null,
-    parent: null
+    owner: null
 }
 
 const initialState: CatalogState = {
@@ -26,7 +26,6 @@ return initialState
 }
 
 function setCurrentCatalogItem(catalogItem:CatalogItem): CatalogState {
-    console.log("Store State catalogItem:",catalogItem)
 
     initialState.currCatalogItem = catalogItem
     return initialState

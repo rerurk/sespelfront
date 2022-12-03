@@ -19,8 +19,8 @@ const CatalogNodeShow: FC<ShowCatalogNodeProps> =() => {
 
     const onBackClick = () => {
 
-        if (currentCatalog.parent && currentCatalog.parent.callShow) {
-            currentCatalog.parent.callShow()
+        if (currentCatalog.owner && currentCatalog.owner.callShow) {
+            currentCatalog.owner.callShow()
         }
     }
 

@@ -3,7 +3,7 @@ export interface CatalogItem {
     name: string
     mask:number
     ref: string
-    parent:CatalogItem|null
+    owner:CatalogItem|null
     items: CatalogItem[] | null
     callReBoot?:Function
     callShow?:Function

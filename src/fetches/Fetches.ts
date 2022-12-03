@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import {Requests} from "./Requests";
-import {AddToItem, CatalogItem, RenameCatalogItem, TransferCatalogItem} from "../structs/catalog";
+import {AddToItem, CatalogItem, RemoveItem, RenameCatalogItem, TransferCatalogItem} from "../structs/catalog";
 import {Tools} from "../tools/Tools";
 
 export class Fetches {
@@ -107,13 +107,20 @@ export class Fetches {
     }
 
     public static async RemoveCatalogItem(catalogItem: CatalogItem): Promise<any | Error> {
+        if(catalogItem.owner) {
+            let removeItem: RemoveItem = {
+                remove_from_item: Tools.unRefCatalogItem(catalogItem.owner),
+                removed_item: Tools.unRefCatalogItem(catalogItem)
 
+
+        }
         try {
-            const res = await axios.post<CatalogItem>(Requests.REMOVE_CATALOG_ITEM, Tools.unRefCatalogItem(catalogItem))
+            const res = await axios.post<RemoveItem>(Requests.REMOVE_CATALOG_ITEM, removeItem)
             return res.data
 
         } catch (e) {
             return Error("Ошибка")
+        }
         }
     }
 

@@ -1,4 +1,4 @@
-import React, {FC,useState} from 'react';
+import React, {FC, useState} from 'react';
 // @ts-ignore
 import cl from "./TreeNode.module.css"
 
@@ -6,13 +6,12 @@ import cl from "./TreeNode.module.css"
 import {CatalogItem} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
 
-
-import {Masks} from "../../masks/Masks";
 import {ConfirmReplace, onItemDrag, OnItemDragEnter} from "../../gragAndDrops/catalog/catalog";
 import {useDispatch} from "react-redux";
 
 import {SetCurrentCatalogState} from "../../store/action_creator/CatalogStoreActions";
 import {GetCurrentState} from "../../store/reducers/CatalogStoreReducer";
+import FilterNode from "./FilterNode";
 
 
 interface CatalogViewProps {
@@ -32,35 +31,32 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
     const [isItemsHidden, setIsItemsHidden] = useState<boolean>(true)
 
 
-
     item.callReBoot = () => itemReboot()
     item.callShow = () => onCatalogNameClick()
 
 
-
     const dispatch = useDispatch()
 
-    const showCatalog=()=>{
+    const showCatalog = () => {
 
         // @ts-ignore
         dispatch(SetCurrentCatalogState(item))
     }
 
     const onCatalogNameClick = () => {
-
-        let f:Function=showCatalog
+        let f: Function = showCatalog
         setItems(f)
-
 
     }
 
-    const setItems = (f?:Function) => {
+    const setItems = (f?: Function) => {
         getItems().then(items => {
                 tryToSetItems(items)
-            if(f){f()}
+                if (f) {
+                    f()
+                }
 
-        }
-
+            }
         )
     }
 
@@ -82,13 +78,16 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
     }
 
     const tryToSetItems = (items: CatalogItem[] | Error) => {
+        if(items && !(items instanceof Error) && item.items && items.length===item.items.length){
+            return
+        }
 
+        if (items && !(items instanceof Error) && items && item.items != items) {
 
-        if (items && !(items instanceof Error)  && items && item.items!==items) {
-
-            items.forEach((it: CatalogItem) => it.parent = item)
+            items.forEach((it: CatalogItem) => it.owner = item)
             item.items = items
-            setReb(()=> !reb)
+            setReb(() => !reb)
+            console.log("SetNewItems")
 
         }
     }
@@ -120,17 +119,17 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
 
     const itemReboot = () => {
 
-        if (GetCurrentState().currentCatalog.name==item.name){
+        if (GetCurrentState().currentCatalog.name == item.name) {
             setItems(showCatalog)
-        }else {
+        } else {
             setItems()
         }
     }
 
     return (
         <div className={cl.wrapper} onClick={event => event.stopPropagation()} draggable={false}>
-            {((item.mask & Masks.CATALOG_MASK) == Masks.CATALOG_MASK)
-                ? <div className={cl.wrapper__name_table}>
+
+                 <div className={cl.wrapper__name_table}>
                     <div className={cl.wrapper___catalog_name}
                          draggable={true}
                          onDrag={() => onItemDrag(item)}
@@ -138,6 +137,7 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
                          onDragLeave={e => onDragLeaveFromItem(e)}
                          onDragEnd={onItemDragEnd}
                          onClick={onCatalogNameClick}
+
                     >
 
                         <div onClick={e => e.stopPropagation()}
@@ -150,31 +150,21 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
 
                         </div>
 
-                        <span
-                        >
-                            {item.name}
-                        </span>
+                        <span>{item.name}</span>
 
 
                     </div>
                     <div className={showClass}>
                         {
-                            (item.items && item.items.length>0)
-                                ? item.items.map((it: CatalogItem) => <TreeNode
-                                    item={it}
-                                    key={"TreeNode" + it.ref}
 
-                                />)
-
+                            (item.items && item.items.length > 0)
+                                ? item.items.map((it: CatalogItem) =><FilterNode item={it} key={"fn"+it.ref}/>)
                                 : false
                         }
                     </div>
 
                 </div>
-                : false
 
-
-            }
         </div>
     );
 };

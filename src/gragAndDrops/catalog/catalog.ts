@@ -5,12 +5,12 @@ import {Tools} from "../../tools/Tools";
 
 let dragItem: CatalogItem | null = null
 let dragItemEnter: CatalogItem | null = null
-let parentCatalogItem: CatalogItem | null = null
+let ownerCatalogItem: CatalogItem | null = null
 
 export function onItemDrag(item: CatalogItem) {
     if (item != dragItem) {
         dragItem = item
-        parentCatalogItem = item.parent
+        ownerCatalogItem = item.owner
 
     }
 
@@ -61,10 +61,10 @@ function rebootItems(transferCatalogItem: TransferCatalogItem) {
 }
 
 function GetItems(): TransferCatalogItem | null {
-    if (dragItem && dragItemEnter && parentCatalogItem && testToContains()) {
+    if (dragItem && dragItemEnter && ownerCatalogItem && testToContains()) {
 
         let transferItem: TransferCatalogItem = {
-            from: parentCatalogItem,
+            from: ownerCatalogItem,
             to: dragItemEnter,
             item: dragItem
 
@@ -72,7 +72,7 @@ function GetItems(): TransferCatalogItem | null {
 
         dragItem = null
         dragItemEnter = null
-        parentCatalogItem = null
+        ownerCatalogItem = null
         console.log(dragItem,transferItem.item)
         return transferItem
     }
@@ -83,19 +83,19 @@ function testToContains():boolean {
     /*TODO тоже свмое сделть на в беке*/
     let test:boolean;
     if (dragItemEnter&&dragItem){
-        let parent:CatalogItem|null=dragItemEnter.parent
+        let owner:CatalogItem|null=dragItemEnter.owner
 
         // для гарантии выхода из цикла
         let count:number=0
         test=true
-        while (parent!=null&&count<50){
+        while (owner!=null&&count<50){
 
             count++
-            if(dragItem.name==parent?.name){
+            if(dragItem.name==owner?.name){
                 test=false
                 alert(`Каталог ${dragItem.name} содержить в себе ${dragItemEnter.name}`)
             }
-            parent=parent.parent
+            owner=owner.owner
 
         }
     }else {

@@ -68,29 +68,33 @@ export async function selectAction(menuAction: MenuAction):Promise<any|Error> {
 }
 
 async function removeCatalog(catalogItem: CatalogItem): Promise<any|Error> {
-    if ((catalogItem.mask & Masks.CATALOG_MASK)==Masks.CATALOG_MASK){
+    if ((catalogItem.mask & Masks.CATALOG_MASK)==Masks.CATALOG_MASK && catalogItem.owner){
             let isIt:boolean=window.confirm(` Удалить каталог ${catalogItem.name.toUpperCase()} `)
+            if (isIt){
+                return Fetches.RemoveCatalogItem(catalogItem)
+            }
     }
     if ((catalogItem.mask & Masks.CATALOG_ITEM_MASK)==Masks.CATALOG_ITEM_MASK){
         let isIt:boolean=window.confirm(` Удалить наименование: ${catalogItem.name.toUpperCase()} `)
     }
 
-    return Error(" yt ltkfyy")
+
 
 
 }
 
 async function renameCatalog(catalogItem: CatalogItem): Promise<any|Error> {
-    if (catalogItem.parent &&catalogItem.parent.ref) {
-        let res = window.prompt(`Введите новое намиенование для ${catalogItem.parent?.name}`, catalogItem.name)
+    if (catalogItem.owner &&catalogItem.owner.ref) {
+        let res = window.prompt(`Введите новое намиенование для ${catalogItem.owner?.name}`, catalogItem.name)
         if (res) {
              catalogItem.name=res
             Fetches.RenameCatalogItem({
                 item: catalogItem,
-                tableName: catalogItem.parent.ref
+                tableName: catalogItem.owner.ref
             }).then(r => console.log(r))
         }
     }
+
 }
 
 async function makeCatalog(toCatalogItem: CatalogItem): Promise<any|Error> {
@@ -103,7 +107,7 @@ async function makeCatalog(toCatalogItem: CatalogItem): Promise<any|Error> {
             items: null,
             name: res,
             ref: "",
-            parent:null
+            owner:null
 
         }
         let adding: AddToItem = {
@@ -137,7 +141,7 @@ async function makeCatalogItem(toCatalogItem: CatalogItem): Promise<any|Error> {
             items: null,
             name: res,
             ref: "",
-            parent:null
+            owner:null
         }
         let adding: AddToItem = {
             adding_item: newItem,

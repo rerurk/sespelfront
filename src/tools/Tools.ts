@@ -7,7 +7,7 @@ export class Tools {
             items: null,
             mask: it.mask,
             name: it.name,
-            parent: null,
+            owner: null,
             ref: it.ref
 
         }
