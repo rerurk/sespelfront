@@ -3,15 +3,13 @@ import {CatalogItem} from "../../structs/catalog";
 // @ts-ignore
 import cl from "./CatalogNodeShow.module.css"
 
-
 import {Masks} from "../../masks/Masks";
 import {useNavigate} from "react-router-dom";
-
 import {RouterPath} from "../../router";
-
 import {ConfirmReplace, onItemDrag, OnItemDragEnter} from "../../gragAndDrops/catalog/catalog";
 import {useDispatch} from "react-redux";
 import {SetCurrentCatalogItemState} from "../../store/action_creator/CatalogStoreActions";
+import {Menu, MenuAction, selectAction} from "../catalogMenu/menuActions";
 
 
 interface ShowCatalogItemProps {
@@ -23,16 +21,17 @@ interface ShowCatalogItemProps {
 const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
 
     const navigate = useNavigate();
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
 
     const onCatalogClick = () => {
-        if(item.callShow){
+        if (item.callShow) {
 
             item.callShow()
 
         }
 
     }
+
     const onProductNameClick = () => {
         // @ts-ignore
         dispatch(SetCurrentCatalogItemState(item))
@@ -50,6 +49,21 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
         e.currentTarget.classList.remove(cl.wrapper__catalog_drag_enter)
         OnItemDragEnter(item)
     }
+
+    const onBtRemoveClick=()=>{
+         let menuAction:MenuAction=
+             {
+                 type:Menu.REMOVE,
+                 payload:item
+             }
+             selectAction(menuAction).then(r=>{
+                 if (!(r instanceof Error)){
+                     if(item.owner && item.owner.callShow){
+                         item.owner.callShow()
+                     }
+                 }
+             })
+        }
 
     function onProductNameDragEnd() {
 
@@ -77,15 +91,20 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
         );
     }
     if ((item.mask & Masks.CATALOG_ITEM_MASK) == Masks.CATALOG_ITEM_MASK) return (
+        <div onClick={e=>{e.stopPropagation();onProductNameClick()}}  className={cl.wrapper__catalog__item}>
+            <button onClick={e=>{e.stopPropagation();onBtRemoveClick()}}>x</button>
         <span
+
             draggable={true}
             onDrag={() => onItemDrag(item)}
             onDragEnd={onProductNameDragEnd}
             key={"CatalogNode" + item.ref}
-            className={cl.wrapper__catalog__item}
-            onClick={() => onProductNameClick()}
+
+
 
         >{item.name}</span>
+
+        </div>
     )
     return (<div/>)
 

@@ -7,6 +7,8 @@ export interface CatalogItem {
     items: CatalogItem[] | null
     callReBoot?:Function
     callShow?:Function
+    isOpen?:boolean
+
 }
 
 

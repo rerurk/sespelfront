@@ -2,9 +2,9 @@ import {AddToItem} from "../structs/catalog";
 
 export enum RouterTexts {
     MAIN="Главная",
-    CREATE_ASSET="СОЗДАТЬ",
-    MOVE_ASSET="ПЕРМЕЩЕНИЕ",
-    SET_CATALOG="Настройка каталога"
+    CREATE_ASSET="Создать",
+    MOVE_ASSET="Перемещение",
+    SET_CATALOG="Каталог"
 
 
 }
@@ -16,6 +16,10 @@ export enum DefSrc{
 export enum ItemFields {
     NAME="Наименование",
     DESCRIPTION="ОПИСАНИЕ"
+}
+
+export enum ErrorsText {
+    ERROR_GET_DATA="Ошибка получения данных"
 }
 
 

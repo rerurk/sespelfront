@@ -1,26 +1,36 @@
 .wrapper{
-    width: 100%;
+    width: 70%;
     height: 2rem;
-    background: teal;
+    background: #aaa;
+    color: #222;
     display: flex;
     flex-direction: row;
+    justify-content: left;
+    align-items: center;
 }
 .wrapper>span{
-
+    margin: 0.5rem;
     padding: 0.2rem 1rem 0.2rem 1rem;
     cursor: pointer;
+    border-radius: 0.3rem;
+
+
 
 
 }
 .defItem{
-    color: #999;
+    color: black;
+    background: lightgrey;
 }
 .hidden_item{
     display: none;
 }
 .wrapper>span:hover{
-    color:white;
+    color:sandybrown;
+
 }
 .selectedItem{
-    color: white;
+    color: #20b2aa;
+    background-color: white;
+
 }

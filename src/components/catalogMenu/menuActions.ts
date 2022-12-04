@@ -12,6 +12,7 @@ export enum Menu {
 
 }
 
+
 interface MakeCatalogAction {
     type: Menu.MAKE_CATALOG
     payload: CatalogItem | null
@@ -76,6 +77,9 @@ async function removeCatalog(catalogItem: CatalogItem): Promise<any|Error> {
     }
     if ((catalogItem.mask & Masks.CATALOG_ITEM_MASK)==Masks.CATALOG_ITEM_MASK){
         let isIt:boolean=window.confirm(` Удалить наименование: ${catalogItem.name.toUpperCase()} `)
+        if (isIt){
+            return Fetches.RemoveCatalogItem(catalogItem)
+        }
     }
 
 

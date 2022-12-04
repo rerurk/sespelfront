@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 // @ts-ignore
 import cl from "./TreeNode.module.css"
 
@@ -12,6 +12,8 @@ import {useDispatch} from "react-redux";
 import {SetCurrentCatalogState} from "../../store/action_creator/CatalogStoreActions";
 import {GetCurrentState} from "../../store/reducers/CatalogStoreReducer";
 import FilterNode from "./FilterNode";
+import {ErrorsText} from "../../texts/Texts";
+import {Tools} from "../../tools/Tools";
 
 
 interface CatalogViewProps {
@@ -24,16 +26,27 @@ const showS = "v"
 const hiddenS = ">"
 
 const TreeNode: FC<CatalogViewProps> = ({item}) => {
+      Tools.LoadCatalogItemFields(item)
 
-    const [reb, setReb] = useState<boolean>(true)
-    const [showText, setShowText] = useState<string>(hiddenS)
-    const [showClass, setShowClass] = useState<string>(cl.wrapper__catalog_hidden)
-    const [isItemsHidden, setIsItemsHidden] = useState<boolean>(true)
+    let showText: string
+    let showClass: string
 
+    const [reLoad, setReaLoad] = useState<boolean>(false)
+
+    if (item.isOpen ) {
+        showClass = ""
+        showText =showS
+        if(!item.items) {
+            setItems()
+        }
+
+    } else {
+        showClass = cl.wrapper__catalog_hidden
+        showText = hiddenS
+    }
 
     item.callReBoot = () => itemReboot()
     item.callShow = () => onCatalogNameClick()
-
 
     const dispatch = useDispatch()
 
@@ -49,9 +62,11 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
 
     }
 
-    const setItems = (f?: Function) => {
+   function setItems  (f?: Function)  {
+
         getItems().then(items => {
-                tryToSetItems(items)
+
+            tryToSetItems(items)
                 if (f) {
                     f()
                 }
@@ -60,35 +75,36 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
         )
     }
 
+    const showItemCatalogs = () => {
+        if(item.isOpen){
 
-    const onShowClick = () => {
+        }else {
 
-        if (isItemsHidden) {
-            setItems()
-            setShowClass(cl.wrapper__catalog_show)
-            setShowText(showS)
-
-        } else {
-            setShowClass(cl.wrapper__catalog_hidden)
-            setShowText(hiddenS)
         }
-        setIsItemsHidden(() => !isItemsHidden)
+        item.isOpen=!item.isOpen
+        setReaLoad(()=>!reLoad)
+        Tools.SaveCatalogItemFields(item)
+
 
 
     }
 
     const tryToSetItems = (items: CatalogItem[] | Error) => {
-        if(items && !(items instanceof Error) && item.items && items.length===item.items.length){
-            return
+
+        if (items instanceof Error) {
+            alert(ErrorsText.ERROR_GET_DATA)
+        }
+        if (!(items instanceof Error) && items === null) {
+            items = []
         }
 
         if (items && !(items instanceof Error) && items && item.items != items) {
 
-            items.forEach((it: CatalogItem) => it.owner = item)
+            items.forEach((it: CatalogItem) => {
+                it.owner = item
+            })
             item.items = items
-            setReb(() => !reb)
-            console.log("SetNewItems")
-
+            setReaLoad(r=>!r)
         }
     }
 
@@ -97,6 +113,8 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
         return Fetches.GetCatalogItems(item)
     }
 
+
+    //drags
     const onDragEnterToItem = (e: React.MouseEvent<HTMLDivElement>) => {
 
         e.currentTarget.classList.add(cl.wrapper___catalog_name_onDragEnter)
@@ -109,7 +127,7 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
         OnItemDragEnter(item)
     }
 
-    function onItemDragEnd() {
+   const onItemDragEnd=()=>{
         ConfirmReplace().then(r => {
             if (!(r instanceof Error)) {
 
@@ -129,41 +147,40 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
     return (
         <div className={cl.wrapper} onClick={event => event.stopPropagation()} draggable={false}>
 
-                 <div className={cl.wrapper__name_table}>
-                    <div className={cl.wrapper___catalog_name}
-                         draggable={true}
-                         onDrag={() => onItemDrag(item)}
-                         onDragEnter={(e) => onDragEnterToItem(e)}
-                         onDragLeave={e => onDragLeaveFromItem(e)}
-                         onDragEnd={onItemDragEnd}
-                         onClick={onCatalogNameClick}
+            <div>
+                <div className={cl.wrapper___catalog_name}
+                     draggable={true}
+                     onDrag={() => onItemDrag(item)}
+                     onDragEnter={(e) => onDragEnterToItem(e)}
+                     onDragLeave={e => onDragLeaveFromItem(e)}
+                     onDragEnd={onItemDragEnd}
+                     onClick={onCatalogNameClick}
+
+                >
+
+                    <div  onClick={e => e.stopPropagation() }
+                        /*
+                         кнопка открывания дирректории
+                    */
 
                     >
-
-                        <div onClick={e => e.stopPropagation()}
-                            /*
-                             кнопка открывания дирректории
-                        */
-
-                        >
-                            <div className={cl.wrapper_showCatalog} onClick={() => onShowClick()}>{showText}</div>
-
-                        </div>
-
-                        <span>{item.name}</span>
-
+                        <div className={cl.wrapper__open_catalog_bt} onClick={showItemCatalogs}>{showText}</div>
 
                     </div>
-                    <div className={showClass}>
-                        {
 
-                            (item.items && item.items.length > 0)
-                                ? item.items.map((it: CatalogItem) =><FilterNode item={it} key={"fn"+it.ref}/>)
-                                : false
-                        }
-                    </div>
+                    <span>{item.name}</span>
+
 
                 </div>
+                <div className={showClass}>
+                    {
+                        (item.items)
+                            ? item.items.map((it: CatalogItem) => <FilterNode item={it} key={"fn" + it.ref}/>)
+                            : false
+                    }
+                </div>
+
+            </div>
 
         </div>
     );

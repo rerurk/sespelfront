@@ -2,11 +2,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    right: 0;
     width: 1rem;
     height: 1rem;
-    margin-right: 1rem;
-    background: grey;
+    background: lightgrey;
     border: solid 1px black;
     font-size: 1rem;
 

@@ -4,7 +4,6 @@
     background: white;
     width: 70%;
     min-height: 10rem;
-    padding-bottom: 2rem;
     overflow:scroll;
 
     border: solid 1px black;
@@ -13,17 +12,20 @@
 .wrapper__self_name{
     display: flex;
     flex-direction: row;
-    background: teal;
-    width: 90%;
-    color: white;
+    background: #eee;
+    width: 80%;
+    color: black;
     font-size: 1.2rem;
     font-style: inherit;
     text-align: left;
-    padding: 0 1rem 0 5rem;
+    align-items: center;
+    justify-content: flex-start;
+
 }
 
 .wrapper__self_name_bt{
-    margin-right: 1rem;
+    padding-right: 1rem;
+
     font-size: 1.5rem;
 }
 .wrapper__items{
@@ -36,8 +38,8 @@
     padding: 2px 0 2px 1rem;
     border-bottom: solid 1px grey;
     text-align: left;
-    color: white;
-    background: lightseagreen;
+    color: black;
+    background: white;
     cursor: pointer;
 }
 .wrapper__catalog_drag_enter{
@@ -48,10 +50,14 @@
 }
 .wrapper__catalog__item{
     width: 95%;
-    padding: 2px 0 2px 1rem;
+    height: auto;
+    padding: 2px 0 2px 2px;
     border-bottom: solid 1px grey;
     text-align: left;
     background: wheat;
     cursor: pointer;
 }
-
+.wrapper__catalog__item>button{
+    position: absolute;
+    right: 1rem;
+}

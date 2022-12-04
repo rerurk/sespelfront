@@ -11,8 +11,7 @@ import {store} from "./store";
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
-let h = document.getElementsByTagName('html')[0]
-h.style.fontSize = Math.floor(window.innerHeight / 50) + 'px'
+
 
 
 

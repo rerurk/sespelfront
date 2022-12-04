@@ -14,6 +14,7 @@ import {SetCurrentCatalogState} from "../../store/action_creator/CatalogStoreAct
 interface CatalogMenuProps {
     catalogItem:CatalogItem
     isVisible:boolean
+
 }
 
 const CatalogMenu: FC<CatalogMenuProps> = ({catalogItem,isVisible}) => {

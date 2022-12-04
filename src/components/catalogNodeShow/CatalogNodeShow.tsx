@@ -31,8 +31,8 @@ const CatalogNodeShow: FC<ShowCatalogNodeProps> =() => {
             {/*Наименование каталога*/}
             <div className={cl.wrapper__self_name} >
                 <button onClick={onBackClick}>назад</button>
-                <CatalogMenu catalogItem={currentCatalog} isVisible={true}/>
                 <strong>{currentCatalog.name}</strong>
+                <CatalogMenu catalogItem={currentCatalog} isVisible={true}/>
             </div>
             {currentCatalog.items
                 ? currentCatalog.items.map((it: CatalogItem) => <CatalogNodeShowItem item={it}
