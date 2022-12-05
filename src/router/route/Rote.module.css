@@ -9,13 +9,12 @@
     align-items: center;
 }
 .wrapper>span{
+    font-size: 0.8rem;
     margin: 0.5rem;
     padding: 0.2rem 1rem 0.2rem 1rem;
     cursor: pointer;
     border-radius: 0.3rem;
-
-
-
+    box-shadow: 3px 3px 3px teal;
 
 }
 .defItem{
@@ -32,5 +31,6 @@
 .selectedItem{
     color: #20b2aa;
     background-color: white;
+
 
 }
