@@ -25,20 +25,21 @@ export class Fetches {
         if (item.id < 1) {
             return Error("ошибка")
         }
-        // @ts-ignore
+
 
 
         try {
 
             const res = await axios.post<CatalogItem[]>(Requests.GET_CATALOG_ITEMS, Tools.unRefCatalogItem(item))
             return res.data
-            /*    const response =  await fetch(Requests.GET_CATALOG_ITEMS, {
+
+              /*  const response =  await fetch(Requests.GET_CATALOG_ITEMS, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json;charset=utf-8',
                     },
                     mode: 'no-cors', // no-cors, *cors, same-origin
-                    body: JSON.stringify(item),
+                    body: JSON.stringify(Tools.unRefCatalogItem(item)),
 
                 })
 
@@ -106,7 +107,7 @@ export class Fetches {
         }
     }
 
-    public static async RemoveCatalogItem(catalogItem: CatalogItem): Promise<any | Error> {
+    public static async RemoveCatalogItem(catalogItem: CatalogItem): Promise<any| Error> {
         if(catalogItem.owner) {
             let removeItem: RemoveItem = {
                 remove_from_item: Tools.unRefCatalogItem(catalogItem.owner),
@@ -116,7 +117,7 @@ export class Fetches {
         }
         try {
             const res = await axios.post<RemoveItem>(Requests.REMOVE_CATALOG_ITEM, removeItem)
-            return res.data
+            return  res
 
         } catch (e) {
             return Error("Ошибка")

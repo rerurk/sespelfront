@@ -57,9 +57,11 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
                  payload:item
              }
              selectAction(menuAction).then(r=>{
+
                  if (!(r instanceof Error)){
-                     if(item.owner && item.owner.callShow){
-                         item.owner.callShow()
+                     if(item.owner && item.owner.callReBoot){
+                         item.owner.callReBoot()
+
                      }
                  }
              })

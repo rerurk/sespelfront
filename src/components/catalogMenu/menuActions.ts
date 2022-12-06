@@ -73,6 +73,7 @@ async function removeCatalog(catalogItem: CatalogItem): Promise<any|Error> {
             let isIt:boolean=window.confirm(` Удалить каталог ${catalogItem.name.toUpperCase()} `)
             if (isIt){
                 return Fetches.RemoveCatalogItem(catalogItem)
+
             }
     }
     if ((catalogItem.mask & Masks.CATALOG_ITEM_MASK)==Masks.CATALOG_ITEM_MASK){

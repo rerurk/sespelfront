@@ -6,10 +6,10 @@ import cl from "./CatalogMenu.module.css"
 
 import MenuItems from "./MenuItems";
 import {Menu, MenuAction, selectAction} from "./menuActions";
-import {useDispatch} from "react-redux";
+
 
 import {CatalogItem} from "../../structs/catalog";
-import {SetCurrentCatalogState} from "../../store/action_creator/CatalogStoreActions";
+
 
 interface CatalogMenuProps {
     catalogItem:CatalogItem
@@ -25,6 +25,7 @@ const CatalogMenu: FC<CatalogMenuProps> = ({catalogItem,isVisible}) => {
         // @ts-ignore
         selectAction(menuAction)
             .then(r => {
+                console.log("RESPONSE",r)
                     if (!(r instanceof Error)) {
                        if(catalogItem.callReBoot){
                            catalogItem.callReBoot()
