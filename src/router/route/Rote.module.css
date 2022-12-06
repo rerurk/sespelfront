@@ -14,12 +14,13 @@
     padding: 0.2rem 1rem 0.2rem 1rem;
     cursor: pointer;
     border-radius: 0.3rem;
-    box-shadow: 3px 3px 3px teal;
+
 
 }
 .defItem{
     color: black;
     background: lightgrey;
+    box-shadow: 0px 0px 0px 1px teal;
 }
 .hidden_item{
     display: none;
@@ -31,6 +32,7 @@
 .selectedItem{
     color: #20b2aa;
     background-color: white;
+    box-shadow: 0px 0px 0px 3px teal;
 
 
 }

@@ -69,11 +69,11 @@ export class Fetches {
     }
 
     public static async MakeCatalogItem(addToItem: AddToItem): Promise<any | Error> {
-        console.log("public static async MakeCatalogItem:", addToItem)
+
 
         try {
             const res = await axios.post<AddToItem>(Requests.MAKE_CATALOG_ITEM, addToItem)
-            return res.data
+            return res
         } catch (e) {
             return Error("ошибка")
         }

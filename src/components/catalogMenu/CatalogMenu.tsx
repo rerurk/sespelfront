@@ -25,12 +25,18 @@ const CatalogMenu: FC<CatalogMenuProps> = ({catalogItem,isVisible}) => {
         // @ts-ignore
         selectAction(menuAction)
             .then(r => {
-                console.log("RESPONSE",r)
-                    if (!(r instanceof Error)) {
-                       if(catalogItem.callReBoot){
+
+                    if (!(r instanceof Error)&&r.status==200) {
+                       if(catalogItem.callReBoot&& catalogItem.owner?.callReBoot){
+                           catalogItem.owner.callReBoot()
                            catalogItem.callReBoot()
+
                        }
 
+
+                    }
+                    if (!(r instanceof Error)&&r.status==203){
+                        alert(r.data)
                     }
                 }
             )
