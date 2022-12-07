@@ -2,7 +2,7 @@ import {AddToItem, CatalogItem, RenameCatalogItem} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
 import {Masks} from "../../masks/Masks";
 import {Tools} from "../../tools/Tools";
-import {SetConfirmText, ShowAppConfirm} from "../appConfirm/AppConfirm";
+
 
 
 export enum Menu {

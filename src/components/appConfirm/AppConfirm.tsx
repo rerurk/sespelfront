@@ -2,63 +2,56 @@ import React, {FC, useState} from 'react';
 // @ts-ignore
 import cl from "./AppConfirm.module.css"
 
-let accF: Function | null
-let canF: Function | null
+
 let confirmText:string
 
-export function SetConfirmText(t:string) {
-confirmText=t
-    ShowAppConfirm()
-}
-export function SetAccept(f: Function) {
-    accF = f
-}
-
-export function SetCancelFunc(f: Function) {
-    canF = f
-}
 
 
 
-let showF:(s:boolean)=>void|null
+let showF:(s:boolean)=>void
 let v:boolean
 
-export function ShowAppConfirm(){
 
+console.log("TEST")
+export function ShowAppConfirm(t:string,acceptF:Function,cancelF:Function){
+    confirmText=t
     if (showF){
-        console.log("ShowAppConfirm")
         showF(true)
     }
+
+}
+
+function onAcceptClick():boolean {
+    console.log("onAcceptClick")
+    showF( false)
+    return true
+}
+
+function onCancelClick():boolean {
+    showF(false)
+   return false
 }
 
 
 const AppConfirm: FC = () => {
     let showClass: string
-    const [visible, setVisible] = useState<boolean>(true)
-    showF=setVisible
+    const [visible, setVisible] = useState<boolean>(false)
+    showF=show
     v=visible
-    if (visible) {
-        if (accF) {
-            accF()
 
-        }
+    if (visible) {
+
         showClass = cl.wrapper
     } else {
-        if (canF) {
-            canF()
-        }
+
         showClass = cl.wrapper_hidden
     }
 
-    function onAcceptClick() {
-
-        setVisible(() => !visible)
+    function show(v:boolean) {
+     setVisible(v)
     }
 
-    function onCancelClick() {
-        setVisible(() => !visible)
 
-    }
 
     return (
         <div className={showClass} onClick={e => e.stopPropagation()}>

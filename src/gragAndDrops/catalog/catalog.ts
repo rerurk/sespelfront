@@ -1,8 +1,8 @@
 import {CatalogItem, TransferCatalogItem} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
 import {Masks} from "../../masks/Masks";
-import {Tools} from "../../tools/Tools";
-import {SetConfirmText, ShowAppConfirm} from "../../components/appConfirm/AppConfirm";
+
+import {ShowAppConfirm} from "../../components/appConfirm/AppConfirm";
 
 let dragItem: CatalogItem | null = null
 let dragItemEnter: CatalogItem | null = null
@@ -28,15 +28,18 @@ export async function ConfirmReplace(): Promise<any | Error | TransferCatalogIte
     let transferCatalogItem: TransferCatalogItem | null = GetItems()
 
 
-    SetConfirmText(`Перенести  ${transferCatalogItem?.item.name.toUpperCase()} в каталог ${transferCatalogItem?.to.name.toLocaleUpperCase()} ?`)
 
 
-    if (transferCatalogItem && transferCatalogItem.from.sys_id != transferCatalogItem.to.sys_id && transferCatalogItem.to.sys_id != transferCatalogItem.item.sys_id) {
-
-
+    if (transferCatalogItem
+        && transferCatalogItem.from.sys_id != transferCatalogItem.to.sys_id
+        && transferCatalogItem.to.sys_id != transferCatalogItem.item.sys_id
+        && transferCatalogItem.item
+        && transferCatalogItem.from
+        && transferCatalogItem.to
+    ) {
         let isIt = window.confirm(`Перенести  ${transferCatalogItem?.item.name.toUpperCase()} в каталог ${transferCatalogItem?.to.name.toLocaleUpperCase()} ?`)
 
-        if (isIt && transferCatalogItem && transferCatalogItem.item && transferCatalogItem.from && transferCatalogItem.to) {
+        if (isIt ) {
             return Fetches.TransferCatalogItem(transferCatalogItem).then(r => {
                     if (!(r instanceof Error)) {
                         if (transferCatalogItem) {
