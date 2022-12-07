@@ -2,6 +2,7 @@ import {CatalogItem, TransferCatalogItem} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
 import {Masks} from "../../masks/Masks";
 import {Tools} from "../../tools/Tools";
+import {SetConfirmText, ShowAppConfirm} from "../../components/appConfirm/AppConfirm";
 
 let dragItem: CatalogItem | null = null
 let dragItemEnter: CatalogItem | null = null
@@ -26,10 +27,14 @@ export function OnItemDragEnter(item: CatalogItem) {
 export async function ConfirmReplace(): Promise<any | Error | TransferCatalogItem> {
     let transferCatalogItem: TransferCatalogItem | null = GetItems()
 
-    if (transferCatalogItem && transferCatalogItem.from.ref != transferCatalogItem.to.ref && transferCatalogItem.to.ref != transferCatalogItem.item.ref) {
+
+    SetConfirmText(`Перенести  ${transferCatalogItem?.item.name.toUpperCase()} в каталог ${transferCatalogItem?.to.name.toLocaleUpperCase()} ?`)
 
 
-        let isIt = window.confirm(`Перенести каталог ${transferCatalogItem?.item.name.toUpperCase()} в ${transferCatalogItem?.to.name.toLocaleUpperCase()} ?`)
+    if (transferCatalogItem && transferCatalogItem.from.sys_id != transferCatalogItem.to.sys_id && transferCatalogItem.to.sys_id != transferCatalogItem.item.sys_id) {
+
+
+        let isIt = window.confirm(`Перенести  ${transferCatalogItem?.item.name.toUpperCase()} в каталог ${transferCatalogItem?.to.name.toLocaleUpperCase()} ?`)
 
         if (isIt && transferCatalogItem && transferCatalogItem.item && transferCatalogItem.from && transferCatalogItem.to) {
             return Fetches.TransferCatalogItem(transferCatalogItem).then(r => {
@@ -73,35 +78,35 @@ function GetItems(): TransferCatalogItem | null {
         dragItem = null
         dragItemEnter = null
         ownerCatalogItem = null
-        console.log(dragItem,transferItem.item)
+        console.log(dragItem, transferItem.item)
         return transferItem
     }
     return null
 }
 
-function testToContains():boolean {
+function testToContains(): boolean {
     /*TODO тоже свмое сделть на в беке*/
-    let test:boolean;
-    if (dragItemEnter&&dragItem){
-        let owner:CatalogItem|null=dragItemEnter.owner
+    let test: boolean;
+    if (dragItemEnter && dragItem) {
+        let owner: CatalogItem | null = dragItemEnter.owner
 
         // для гарантии выхода из цикла
-        let count:number=0
-        test=true
-        while (owner!=null&&count<50){
+        let count: number = 0
+        test = true
+        while (owner != null && count < 50) {
 
             count++
-            if(dragItem.name==owner?.name){
-                test=false
+            if (dragItem.name == owner?.name) {
+                test = false
                 alert(`Каталог ${dragItem.name} содержить в себе ${dragItemEnter.name}`)
             }
-            owner=owner.owner
+            owner = owner.owner
 
         }
-    }else {
-        test=false
+    } else {
+        test = false
     }
 
-   return test
+    return test
 }
 

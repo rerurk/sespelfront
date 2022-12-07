@@ -40,7 +40,7 @@ const TreeRoot: FC = memo(() => {
     return (
         <div className={cl.wrapper}>{
             (catalogRoot)
-                ? <TreeNode item={catalogRoot} key={"TreeNode"+catalogRoot.ref} />
+                ? <TreeNode item={catalogRoot} key={"TreeNode"+catalogRoot.sys_id} />
                 : false
         }
         </div>

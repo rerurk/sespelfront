@@ -1,7 +1,8 @@
-import {AddToItem, CatalogItem} from "../../structs/catalog";
+import {AddToItem, CatalogItem, RenameCatalogItem} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
 import {Masks} from "../../masks/Masks";
 import {Tools} from "../../tools/Tools";
+import {SetConfirmText, ShowAppConfirm} from "../appConfirm/AppConfirm";
 
 
 export enum Menu {
@@ -89,14 +90,18 @@ async function removeCatalog(catalogItem: CatalogItem): Promise<any|Error> {
 }
 
 async function renameCatalog(catalogItem: CatalogItem): Promise<any|Error> {
-    if (catalogItem.owner &&catalogItem.owner.ref) {
+
+
+    if (catalogItem.owner &&catalogItem.owner.sys_id) {
         let res = window.prompt(`Введите новое намиенование для ${catalogItem.owner?.name}`, catalogItem.name)
         if (res) {
-             catalogItem.name=res
-            Fetches.RenameCatalogItem({
-                item: catalogItem,
-                tableName: catalogItem.owner.ref
-            }).then(r => console.log(r))
+            let renameItem:CatalogItem=Tools.unRefCatalogItem(catalogItem)
+            renameItem.name=res
+             let rename:RenameCatalogItem= {
+                 item:Tools.unRefCatalogItem(catalogItem),
+                 renamed_item:renameItem
+             }
+             return Fetches.RenameCatalogItem(rename)
         }
     }
 
@@ -111,7 +116,7 @@ async function makeCatalog(toCatalogItem: CatalogItem): Promise<any|Error> {
             mask: Masks.CATALOG_MASK,
             items: null,
             name: res,
-            ref: "",
+            sys_id: "",
             owner:null
 
         }
@@ -145,7 +150,7 @@ async function makeCatalogItem(toCatalogItem: CatalogItem): Promise<any|Error> {
             mask: Masks.CATALOG_ITEM_MASK,
             items: null,
             name: res,
-            ref: "",
+            sys_id: "",
             owner:null
         }
         let adding: AddToItem = {

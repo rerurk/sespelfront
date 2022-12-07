@@ -36,7 +36,7 @@ const CatalogNodeShow: FC<ShowCatalogNodeProps> =() => {
             </div>
             {currentCatalog.items
                 ? currentCatalog.items.map((it: CatalogItem) => <CatalogNodeShowItem item={it}
-                                                                                  key={"SHOWC" + it.ref}/>)
+                                                                                  key={"SHOWC" + it.sys_id}/>)
                 : false
             }
         </div>

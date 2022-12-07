@@ -12,9 +12,9 @@
 .wrapper__self_name{
     display: flex;
     flex-direction: row;
-    background: #eee;
+    background: teal;
     width: 80%;
-    color: black;
+    color: #fff;
     font-size: 1.2rem;
     font-style: inherit;
     text-align: left;
@@ -39,22 +39,22 @@
     border-bottom: solid 1px grey;
     text-align: left;
     color: black;
-    background: white;
+    background: #ccc;
     cursor: pointer;
 }
 .wrapper__catalog_drag_enter{
 
-    color: white;
-    background: teal;
+    color: #ccc;
+    background: #aaa;
     cursor: pointer;
 }
 .wrapper__catalog__item{
     width: 95%;
     height: auto;
-    padding: 2px 0 2px 2px;
+    padding: 2px 0 2px 2rem;
     border-bottom: solid 1px grey;
     text-align: left;
-    background: wheat;
+    background: #eee;
     cursor: pointer;
 }
 .wrapper__catalog__item>button{

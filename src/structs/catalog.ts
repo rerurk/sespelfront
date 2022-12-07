@@ -2,7 +2,7 @@ export interface CatalogItem {
     id: number
     name: string
     mask:number
-    ref: string
+    sys_id: string
     owner:CatalogItem|null
     items: CatalogItem[] | null
     callReBoot?:Function
@@ -30,5 +30,5 @@ export type RemoveItem ={
 
 export type RenameCatalogItem={
     item:CatalogItem,
-    tableName:string,
+    renamed_item:CatalogItem,
 }

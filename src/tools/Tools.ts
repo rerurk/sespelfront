@@ -14,7 +14,7 @@ export class Tools {
             mask: it.mask,
             name: it.name,
             owner: null,
-            ref: it.ref
+            sys_id:it.sys_id
 
 
         }
@@ -26,7 +26,7 @@ export class Tools {
             isOpen: catalogItem.isOpen,
             date: Date.now().toString()
         }
-        localStorage.setItem(catalogItem.ref, JSON.stringify(catItLS))
+        localStorage.setItem(catalogItem.sys_id, JSON.stringify(catItLS))
 
 
     }
@@ -34,7 +34,7 @@ export class Tools {
     public static LoadCatalogItemFields(catalogItem: CatalogItem) {
         let str: string | null
 
-        str = localStorage.getItem(catalogItem.ref)
+        str = localStorage.getItem(catalogItem.sys_id)
 
         let catItLS: CatalogItemLS
         if (str) {

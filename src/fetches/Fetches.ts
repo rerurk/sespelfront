@@ -100,7 +100,7 @@ export class Fetches {
         renameCatalogItem.item = Tools.unRefCatalogItem(renameCatalogItem.item)
         try {
             const res = await axios.post<CatalogItem>(Requests.RENAME_CATALOG_ITEM, renameCatalogItem)
-            return res.data
+            return res
 
         } catch (e) {
             return Error("Ошибка")

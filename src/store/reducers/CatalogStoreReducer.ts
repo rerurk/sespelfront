@@ -7,7 +7,7 @@ let forInitial: CatalogItem = {
     id: -1,
     name: "None",
     mask: Masks.CATALOG_MASK,
-    ref: "",
+    sys_id: "",
     items: null,
     owner: null
 }

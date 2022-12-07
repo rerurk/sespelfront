@@ -80,7 +80,7 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
     if ((item.mask & Masks.CATALOG_MASK) == Masks.CATALOG_MASK) {
         return (
             <span
-                key={"CatalogNode" + item.ref}
+                key={"CatalogNode" + item.sys_id}
                 className={cl.wrapper__catalog}
                 onClick={onCatalogClick}
                 draggable={true}
@@ -93,16 +93,14 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
         );
     }
     if ((item.mask & Masks.CATALOG_ITEM_MASK) == Masks.CATALOG_ITEM_MASK) return (
-        <div onClick={e=>{e.stopPropagation();onProductNameClick()}}  className={cl.wrapper__catalog__item}>
+        <div onClick={e=>e.stopPropagation()}  className={cl.wrapper__catalog__item}>
             <button onClick={e=>{e.stopPropagation();onBtRemoveClick()}}>x</button>
         <span
 
             draggable={true}
             onDrag={() => onItemDrag(item)}
             onDragEnd={onProductNameDragEnd}
-            key={"CatalogNode" + item.ref}
-
-
+            key={"CatalogNode" + item.sys_id}
 
         >{item.name}</span>
 
