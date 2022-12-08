@@ -57,6 +57,10 @@
     background: #eee;
     cursor: pointer;
 }
+.wrapper__catalog__item>span{
+    width: 95%;
+    cursor: pointer;
+}
 .wrapper__catalog__item>button{
     position: absolute;
     right: 1rem;

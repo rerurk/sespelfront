@@ -32,10 +32,10 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
 
     }
 
-    const onProductNameClick = () => {
+    const onCatalogItemClick = () => {
         // @ts-ignore
         dispatch(SetCurrentCatalogItemState(item))
-        navigate(RouterPath.SHOW_CATALOG_ITEM)
+        navigate(RouterPath.CREATE_ASSET)
 
     }
     const onDragEnterToItem = (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -50,22 +50,22 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
         OnItemDragEnter(item)
     }
 
-    const onBtRemoveClick=()=>{
-         let menuAction:MenuAction=
-             {
-                 type:Menu.REMOVE,
-                 payload:item
-             }
-             selectAction(menuAction).then(r=>{
+    const onBtRemoveClick = () => {
+        let menuAction: MenuAction =
+            {
+                type: Menu.REMOVE,
+                payload: item
+            }
+        selectAction(menuAction).then(r => {
 
-                 if (!(r instanceof Error)){
-                     if(item.owner && item.owner.callReBoot){
-                         item.owner.callReBoot()
+            if (!(r instanceof Error)) {
+                if (item.owner && item.owner.callReBoot) {
+                    item.owner.callReBoot()
 
-                     }
-                 }
-             })
-        }
+                }
+            }
+        })
+    }
 
     function onProductNameDragEnd() {
 
@@ -92,20 +92,25 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
 
         );
     }
-    if ((item.mask & Masks.CATALOG_ITEM_MASK) == Masks.CATALOG_ITEM_MASK) return (
-        <div onClick={e=>e.stopPropagation()}  className={cl.wrapper__catalog__item}>
-            <button onClick={e=>{e.stopPropagation();onBtRemoveClick()}}>x</button>
-        <span
+    if ((item.mask & Masks.CATALOG_ITEM_MASK) == Masks.CATALOG_ITEM_MASK)
+        return (
+            <div onClick={e => e.stopPropagation()} className={cl.wrapper__catalog__item}>
+                <button onClick={e => {
+                    e.stopPropagation();
+                    onBtRemoveClick()
+                }}>x
+                </button>
+                <span
+                    onClick={()=>onCatalogItemClick()}
+                    draggable={true}
+                    onDrag={() => onItemDrag(item)}
+                    onDragEnd={onProductNameDragEnd}
+                    key={"CatalogNode" + item.sys_id}
 
-            draggable={true}
-            onDrag={() => onItemDrag(item)}
-            onDragEnd={onProductNameDragEnd}
-            key={"CatalogNode" + item.sys_id}
+                >{item.name}</span>
 
-        >{item.name}</span>
-
-        </div>
-    )
+            </div>
+        )
     return (<div/>)
 
 };

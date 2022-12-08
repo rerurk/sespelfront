@@ -1,13 +1,17 @@
 import React, {FC} from 'react';
-import Asset from "../../components/asset/Asset";
+
 // @ts-ignore
 import cl from './CreateAsset.module.css'
-import SetCatalogItemFields from "../../components/setCatalogItemFields/SetCatalogItemFields";
+import {RouterPath} from "../../router";
+import {useNavigate} from "react-router-dom";
+
 
 const CreateAsset: FC = () => {
+    const navigate = useNavigate();
     return (
         <div className={cl.wrapper}>
-          <SetCatalogItemFields/>
+            <h1>Тут создаем ТМЦ</h1>
+            <button onClick={ ()=>  navigate(RouterPath.CATALOG_SETUP)}>назад</button>
         </div>
     );
 };
