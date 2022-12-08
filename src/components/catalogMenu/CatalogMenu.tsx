@@ -27,10 +27,11 @@ const CatalogMenu: FC<CatalogMenuProps> = ({catalogItem,isVisible}) => {
             .then(r => {
                     console.log(r)
                     if (!(r instanceof Error)&&r.status==200) {
-                       if(catalogItem.callReBoot&& catalogItem.owner?.callReBoot){
-                           catalogItem.owner.callReBoot()
+                       if(catalogItem.callReBoot){
                            catalogItem.callReBoot()
-
+                       }
+                       if(catalogItem.owner?.callReBoot){
+                           catalogItem.owner.callReBoot()
                        }
 
 
