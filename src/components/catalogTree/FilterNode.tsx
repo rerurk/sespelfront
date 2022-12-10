@@ -1,16 +1,18 @@
 
 /* Фильтр для отсечения не каталогов*/
 import React, {FC} from 'react';
-import {CatalogItem} from "../../structs/catalog";
-import {Masks} from "../../masks/Masks";
+import {Item} from "../../structs/catalog";
+
 import TreeNode from "./TreeNode";
+import {AppItemMasks} from "../../App";
+
 
 interface FilterNodeProps  {
-    item:CatalogItem
+    item:Item
 }
 
 const FilterNode:FC<FilterNodeProps> = ({item}) => {
-    if((item.mask & Masks.CATALOG_MASK) == Masks.CATALOG_MASK){
+    if((item.mask & AppItemMasks.CATALOG_MASK) == AppItemMasks.CATALOG_MASK){
         return (
             <TreeNode item={item}/>
         );

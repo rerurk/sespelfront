@@ -1,12 +1,11 @@
-import {CatalogItem} from "../../structs/catalog";
-import {Masks} from "../../masks/Masks";
+import {Item} from "../../structs/catalog";
 import {CatalogActions, CatalogActionTypes, CatalogState} from "../types/CatalogStoreTypes";
 
-let forInitial: CatalogItem = {
+let forInitial: Item = {
 
     id: -1,
     name: "None",
-    mask: Masks.CATALOG_MASK,
+    mask: -1,
     sys_id: "",
     items: null,
     owner: null
@@ -25,20 +24,21 @@ export function GetCurrentState():CatalogState {
 return initialState
 }
 
-function setCurrentCatalogItem(catalogItem:CatalogItem): CatalogState {
+function setCurrentCatalogItem(catalogItem:Item): CatalogState {
 
     initialState.currCatalogItem = catalogItem
     return initialState
 }
 
-function setCurrentCatalog(catalogItem:CatalogItem): CatalogState {
+function setCurrentCatalog(catalogItem:Item): CatalogState {
     console.log("Store State catalogItem:",catalogItem)
 
     initialState.currentCatalog = catalogItem
     return initialState
 }
 
-function setCatalogRoot(root: CatalogItem): CatalogState {
+function setCatalogRoot(root: Item): CatalogState {
+    console.log("function setCatalogRoot:",root)
     initialState.catalogRoot = root
     return initialState
 }

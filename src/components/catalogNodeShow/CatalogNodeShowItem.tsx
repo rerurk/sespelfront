@@ -1,19 +1,20 @@
 import React, {FC} from 'react';
-import {CatalogItem} from "../../structs/catalog";
+import {Item} from "../../structs/catalog";
 // @ts-ignore
 import cl from "./CatalogNodeShow.module.css"
 
-import {Masks} from "../../masks/Masks";
 import {useNavigate} from "react-router-dom";
 import {RouterPath} from "../../router";
 import {ConfirmReplace, onItemDrag, OnItemDragEnter} from "../../gragAndDrops/catalog/catalog";
 import {useDispatch} from "react-redux";
 import {SetCurrentCatalogItemState} from "../../store/action_creator/CatalogStoreActions";
 import {Menu, MenuAction, selectAction} from "../catalogMenu/menuActions";
+import {AppItemMasks} from "../../App";
+
 
 
 interface ShowCatalogItemProps {
-    item: CatalogItem
+    item: Item
 
 
 }
@@ -77,7 +78,7 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
     }
 
 
-    if ((item.mask & Masks.CATALOG_MASK) == Masks.CATALOG_MASK) {
+    if ((item.mask & AppItemMasks.CATALOG_MASK) == AppItemMasks.CATALOG_MASK) {
         return (
             <span
                 key={"CatalogNode" + item.sys_id}
@@ -92,7 +93,7 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
 
         );
     }
-    if ((item.mask & Masks.CATALOG_ITEM_MASK) == Masks.CATALOG_ITEM_MASK)
+    if ((item.mask & AppItemMasks.CATALOG_ITEM_MASK) == AppItemMasks.CATALOG_ITEM_MASK)
         return (
             <div onClick={e => e.stopPropagation()} className={cl.wrapper__catalog__item}>
                 <button onClick={e => {

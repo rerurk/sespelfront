@@ -1,14 +1,14 @@
-import {CatalogItem, TransferCatalogItem} from "../../structs/catalog";
+import {Item, TransferCatalogItem} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
-import {Masks} from "../../masks/Masks";
+import {AppItemMasks} from "../../App";
 
-import {ShowAppConfirm} from "../../components/appConfirm/AppConfirm";
 
-let dragItem: CatalogItem | null = null
-let dragItemEnter: CatalogItem | null = null
-let ownerCatalogItem: CatalogItem | null = null
 
-export function onItemDrag(item: CatalogItem) {
+let dragItem: Item | null = null
+let dragItemEnter: Item | null = null
+let ownerCatalogItem: Item | null = null
+
+export function onItemDrag(item: Item) {
     if (item != dragItem) {
         dragItem = item
         ownerCatalogItem = item.owner
@@ -17,8 +17,8 @@ export function onItemDrag(item: CatalogItem) {
 
 }
 
-export function OnItemDragEnter(item: CatalogItem) {
-    if ((item.mask & Masks.CATALOG_MASK) != Masks.CATALOG_MASK) return
+export function OnItemDragEnter(item: Item) {
+    if ((item.mask & AppItemMasks.CATALOG_MASK) != AppItemMasks.CATALOG_MASK) return
     if (dragItemEnter === item) return;
     dragItemEnter = item
 
@@ -91,7 +91,7 @@ function testToContains(): boolean {
     /*TODO тоже свмое сделть на в беке*/
     let test: boolean;
     if (dragItemEnter && dragItem) {
-        let owner: CatalogItem | null = dragItemEnter.owner
+        let owner: Item | null = dragItemEnter.owner
 
         // для гарантии выхода из цикла
         let count: number = 0

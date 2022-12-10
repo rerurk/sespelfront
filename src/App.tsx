@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import './App.css';
 import {BrowserRouter} from "react-router-dom";
@@ -6,23 +6,54 @@ import AppRouter from "./components/UI/AppRouter";
 import Route from "./router/route/Route";
 import ChangeFontSize from "./components/UI/cahngeFontSize/ChangeFontSize";
 import AppConfirm from "./components/appConfirm/AppConfirm";
+import {Fetches} from "./fetches/Fetches";
+import {ItemMasks} from "./structs/Masks";
+import {SetCatalogRootState, SetCurrentCatalogState} from "./store/action_creator/CatalogStoreActions";
+import {useDispatch} from "react-redux";
+
+export let AppItemMasks: ItemMasks
+
 
 function App() {
-    return (
-        <div className="App">
+    const dispatch=useDispatch()
+    useEffect(() => {
+        // получим все нужные данные с сервера
+        Fetches.FetchAllData().then(r => {
 
-            <BrowserRouter>
-                <div id="header">
-                    Сеспель
-                    <Route/>
-                    <ChangeFontSize/>
-                </div>
+            let [appM, catalogRoot] = r
+            if (!((appM instanceof Error)||(catalogRoot instanceof Error))){
+                AppItemMasks=appM
 
-                <AppRouter/>
-            </BrowserRouter>
-            <AppConfirm/>
-        </div>
-    );
+                // @ts-ignore
+                dispatch(SetCatalogRootState(catalogRoot))
+
+                // @ts-ignore
+                dispatch(SetCurrentCatalogState(catalogRoot))
+
+                setIsAllConsist(()=>true)
+            }
+
+        })
+
+    }, [])
+    const [isAllConsist, setIsAllConsist] = useState<boolean>(false)
+    if (isAllConsist) {
+        return (
+            <div className="App">
+
+                <BrowserRouter>
+                    <div id="header">
+                        Сеспель
+                        <Route/>
+                        <ChangeFontSize/>
+                    </div>
+
+                    <AppRouter/>
+                </BrowserRouter>
+            </div>
+        );
+    }
+    return (<div></div>)
 }
 
 export default App;

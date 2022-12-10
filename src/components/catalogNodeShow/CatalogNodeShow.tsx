@@ -4,7 +4,7 @@ import cl from "./CatalogNodeShow.module.css"
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 
 
-import {CatalogItem} from "../../structs/catalog";
+import {Item} from "../../structs/catalog";
 import CatalogNodeShowItem from "./CatalogNodeShowItem";
 import CatalogMenu from "../catalogMenu/CatalogMenu";
 
@@ -35,8 +35,8 @@ const CatalogNodeShow: FC<ShowCatalogNodeProps> =() => {
                 <CatalogMenu catalogItem={currentCatalog} isVisible={true}/>
             </div>
             {currentCatalog.items
-                ? currentCatalog.items.map((it: CatalogItem) => <CatalogNodeShowItem item={it}
-                                                                                  key={"SHOWC" + it.sys_id}/>)
+                ? currentCatalog.items.map((it: Item) => <CatalogNodeShowItem item={it}
+                                                                              key={"SHOWC" + it.sys_id}/>)
                 : false
             }
         </div>

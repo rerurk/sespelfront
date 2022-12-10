@@ -1,9 +1,9 @@
-import {CatalogItem} from "../../structs/catalog";
+import {Item} from "../../structs/catalog";
 
 export interface CatalogState {
-    currentCatalog: CatalogItem
-    catalogRoot: CatalogItem | null
-    currCatalogItem: CatalogItem | null
+    currentCatalog: Item
+    catalogRoot: Item | null
+    currCatalogItem: Item | null
 
 
 }
@@ -18,17 +18,17 @@ export enum CatalogActionTypes {
 
 interface SetCurrentCatalogItemAction {
     type: CatalogActionTypes.SET_CURRENT_CATALOG_ITEM
-    payload: CatalogItem
+    payload: Item
 }
 
 interface SetCurrentCatalogAction {
     type: CatalogActionTypes.SET_CURRENT_CATALOG
-    payload: CatalogItem
+    payload: Item
 }
 
 interface SetCatalogRootAction {
     type: CatalogActionTypes.SET_CATALOG_ROOT
-    payload: CatalogItem
+    payload: Item
 }
 
 export type CatalogActions = SetCurrentCatalogAction

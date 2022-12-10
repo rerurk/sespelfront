@@ -3,7 +3,7 @@ import Main from "../pages/main/Main";
 import CreateAsset from "../pages/createasset/CreateAsset";
 import ShowCatalogItem from "../pages/showCatalogItem/ShowCatalogItem";
 import SetCatalog from "../pages/setCatalog/SetCatalog";
-import AssertsStorage from "../pages/assertsStorage/AssertsStorage";
+import AssetsStoragePage from "../pages/assetsStoragePage/AssetsStoragePage";
 
 
 export type RouteNode = {
@@ -71,7 +71,7 @@ export const publicRoutes: RouteNode[] = [
         exact: false,
         path: RouterPath.ASSERTS_STORAGE,
         name: RouterTexts.ASSERTS_STORAGE,
-        element: <AssertsStorage/>
+        element: <AssetsStoragePage/>
     }
 
 

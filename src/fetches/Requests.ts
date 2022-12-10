@@ -1,4 +1,4 @@
-const domen = "http://192.168.1.103:3005"
+const domen = "http://192.168.1.95:3005"
 
 type RequestT = {
     SAVE_NEW_ASSET: string,
@@ -10,6 +10,7 @@ type RequestT = {
     TRANSFER_CATALOG_ITEM: string,
     RENAME_CATALOG_ITEM: string,
     REMOVE_CATALOG_ITEM: string,
+    GET_ITEM_MASKS:string
 }
 
 enum req {
@@ -22,7 +23,8 @@ enum req {
     MAKE_CATALOG_ITEM = "/make_catalog_item",
     TRANSFER_CATALOG_ITEM = "/transfer_catalog_item",
     RENAME_CATALOG_ITEM = "/rename_catalog_item",
-    REMOVE_CATALOG_ITEM = "/remove_catalog_item"
+    REMOVE_CATALOG_ITEM = "/remove_catalog_item",
+    GET_ITEM_MASKS = "/get_item_masks"
 
 }
 
@@ -35,7 +37,8 @@ export const Requests: RequestT = {
     SAVE_NEW_CATALOG_ITEM: domen + req.SAVE_NEW_CATALOG_ITEM,
     SAVE_NEW_CATALOG_NODE: domen + req.SAVE_NEW_CATALOG_NODE,
     TRANSFER_CATALOG_ITEM: domen + req.TRANSFER_CATALOG_ITEM,
-    SAVE_NEW_ASSET: domen + req.SAVE_NEW_ASSET
+    SAVE_NEW_ASSET: domen + req.SAVE_NEW_ASSET,
+    GET_ITEM_MASKS:domen+req.GET_ITEM_MASKS
 }
 
 

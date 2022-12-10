@@ -3,7 +3,7 @@ import React, {FC, useEffect, useState} from 'react';
 import cl from "./TreeNode.module.css"
 
 
-import {CatalogItem} from "../../structs/catalog";
+import {Item} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
 
 import {ConfirmReplace, onItemDrag, OnItemDragEnter} from "../../gragAndDrops/catalog/catalog";
@@ -17,7 +17,7 @@ import {Tools} from "../../tools/Tools";
 
 
 interface CatalogViewProps {
-    item: CatalogItem
+    item: Item
 
 
 }
@@ -89,7 +89,7 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
 
     }
 
-    const tryToSetItems = (items: CatalogItem[] | Error) => {
+    const tryToSetItems = (items: Item[] | Error) => {
 
         if (items instanceof Error) {
             alert(ErrorsText.ERROR_GET_DATA)
@@ -100,7 +100,7 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
 
         if (items && !(items instanceof Error) && items && item.items != items) {
 
-            items.forEach((it: CatalogItem) => {
+            items.forEach((it: Item) => {
                 it.owner = item
             })
             item.items = items
@@ -108,7 +108,7 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
         }
     }
 
-    async function getItems(): Promise<CatalogItem[] | Error> {
+    async function getItems(): Promise<Item[] | Error> {
 
         return Fetches.GetCatalogItems(item)
     }
@@ -175,7 +175,7 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
                 <div className={showClass}>
                     {
                         (item.items)
-                            ? item.items.map((it: CatalogItem) => <FilterNode item={it} key={"fn" + it.sys_id}/>)
+                            ? item.items.map((it: Item) => <FilterNode item={it} key={"fn" + it.sys_id}/>)
                             : false
                     }
                 </div>

@@ -1,4 +1,4 @@
-import {CatalogItem} from "../structs/catalog";
+import {Item} from "../structs/catalog";
 
 
 type CatalogItemLS = {
@@ -7,7 +7,7 @@ type CatalogItemLS = {
 }
 
 export class Tools {
-    public static unRefCatalogItem(it: CatalogItem): CatalogItem {
+    public static unRefCatalogItem(it: Item): Item {
         return {
             id: it.id,
             items: null,
@@ -20,7 +20,7 @@ export class Tools {
         }
     }
 
-    public static SaveCatalogItemFields(catalogItem: CatalogItem) {
+    public static SaveCatalogItemFields(catalogItem: Item) {
 
         let catItLS: CatalogItemLS = {
             isOpen: catalogItem.isOpen,
@@ -31,7 +31,7 @@ export class Tools {
 
     }
 
-    public static LoadCatalogItemFields(catalogItem: CatalogItem) {
+    public static LoadCatalogItemFields(catalogItem: Item) {
         let str: string | null
 
         str = localStorage.getItem(catalogItem.sys_id)

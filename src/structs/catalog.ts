@@ -1,10 +1,10 @@
-export interface CatalogItem {
+export interface Item {
     id: number
     name: string
     mask:number
     sys_id: string
-    owner:CatalogItem|null
-    items: CatalogItem[] | null
+    owner:Item|null
+    items: Item[] | null
     callReBoot?:Function
     callShow?:Function
     isOpen?:boolean
@@ -14,21 +14,22 @@ export interface CatalogItem {
 
 
 export type AddToItem = {
-    adding_item: CatalogItem,
-    to_add_item: CatalogItem
+    adding_item: Item,
+    to_add_item: Item
 }
 
 export type  TransferCatalogItem = {
-    from: CatalogItem
-    to: CatalogItem
-    item: CatalogItem
+    from: Item
+    to: Item
+    item: Item
 }
+
 export type RemoveItem ={
-    remove_from_item:CatalogItem,
-    removed_item:CatalogItem
+    remove_from_item:Item,
+    removed_item:Item
 }
 
 export type RenameCatalogItem={
-    item:CatalogItem,
-    renamed_item:CatalogItem,
+    item:Item,
+    renamed_item:Item,
 }
