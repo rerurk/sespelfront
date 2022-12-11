@@ -5,10 +5,14 @@ import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./components/UI/AppRouter";
 import Route from "./router/route/Route";
 import ChangeFontSize from "./components/UI/cahngeFontSize/ChangeFontSize";
-import AppConfirm from "./components/appConfirm/AppConfirm";
+
 import {Fetches} from "./fetches/Fetches";
 import {ItemMasks} from "./structs/Masks";
-import {SetCatalogRootState, SetCurrentCatalogState} from "./store/action_creator/CatalogStoreActions";
+import {
+    SetCatalogRootState,
+    SetCurrentCatalogState,
+    SetMainAssetsStore
+} from "./store/action_creator/CatalogStoreActions";
 import {useDispatch} from "react-redux";
 
 export let AppItemMasks: ItemMasks
@@ -20,15 +24,16 @@ function App() {
         // получим все нужные данные с сервера
         Fetches.FetchAllData().then(r => {
 
-            let [appM, catalogRoot] = r
-            if (!((appM instanceof Error)||(catalogRoot instanceof Error))){
+            let [appM, catalogRoot,mainAssetsStorage] = r
+            // проверим являетсья ли что то ошибкой
+            if (!((appM instanceof Error)||(catalogRoot instanceof Error)||(mainAssetsStorage instanceof Error))){
                 AppItemMasks=appM
-
                 // @ts-ignore
                 dispatch(SetCatalogRootState(catalogRoot))
-
                 // @ts-ignore
                 dispatch(SetCurrentCatalogState(catalogRoot))
+                // @ts-ignore
+                dispatch(SetMainAssetsStore(mainAssetsStorage))
 
                 setIsAllConsist(()=>true)
             }
@@ -53,7 +58,10 @@ function App() {
             </div>
         );
     }
-    return (<div></div>)
+    return (<div>
+
+        <h1>Загрузка....</h1>
+    </div>)
 }
 
 export default App;

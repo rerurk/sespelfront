@@ -1,5 +1,5 @@
 import {Item} from "../../structs/catalog";
-import {CatalogActions, CatalogActionTypes, CatalogState} from "../types/CatalogStoreTypes";
+import {CatalogActions, AppActionTypes, AppState} from "../types/CatalogStoreTypes";
 
 let forInitial: Item = {
 
@@ -11,47 +11,56 @@ let forInitial: Item = {
     owner: null
 }
 
-const initialState: CatalogState = {
+const initialState: AppState = {
     catalogRoot: null,
     currentCatalog: forInitial,
-    currCatalogItem:null
+    currCatalogItem:null,
+    mainAssetStore:null
 
 
 
 }
 
-export function GetCurrentState():CatalogState {
+export function GetCurrentState():AppState {
 return initialState
 }
 
-function setCurrentCatalogItem(catalogItem:Item): CatalogState {
+function setCurrentCatalogItem(catalogItem:Item): AppState {
 
     initialState.currCatalogItem = catalogItem
     return initialState
 }
 
-function setCurrentCatalog(catalogItem:Item): CatalogState {
+function setCurrentCatalog(catalogItem:Item): AppState {
     console.log("Store State catalogItem:",catalogItem)
 
     initialState.currentCatalog = catalogItem
     return initialState
 }
 
-function setCatalogRoot(root: Item): CatalogState {
-    console.log("function setCatalogRoot:",root)
+function setCatalogRoot(root: Item): AppState {
+
     initialState.catalogRoot = root
     return initialState
 }
 
-export const showCatalogNodeReducer = (state = initialState, action: CatalogActions): CatalogState => {
+    function setMainAssetStore(mainStore:Item) {
+
+     initialState.mainAssetStore=mainStore
+    return initialState
+}
+
+export const showCatalogNodeReducer = (state = initialState, action: CatalogActions): AppState => {
 
     switch (action.type) {
-        case CatalogActionTypes.SET_CURRENT_CATALOG:
+        case AppActionTypes.SET_CURRENT_CATALOG:
             return {...setCurrentCatalog(action.payload)}
-        case CatalogActionTypes.SET_CATALOG_ROOT:
+        case AppActionTypes.SET_CATALOG_ROOT:
             return {...setCatalogRoot(action.payload)}
-        case CatalogActionTypes.SET_CURRENT_CATALOG_ITEM:
+        case AppActionTypes.SET_CURRENT_CATALOG_ITEM:
             return {...setCurrentCatalogItem(action.payload)}
+        case AppActionTypes.SET_MAIN_ASSET_STORE:
+            return {...setMainAssetStore(action.payload)}
 
         default:
             return state

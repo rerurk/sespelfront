@@ -1,16 +1,21 @@
 import React, {FC} from 'react';
 // @ts-ignore
 import cl from "./AssetsStorages.module.css"
-const CreateNewStorage:FC = () => {
-    const onBtCreateNewClick=()=>{
-        let res:string|null=window.prompt("Введите наименование склада")
-        if (res){
+import Address from "../UI/address/Address";
 
-        }
-    }
+interface CreateNewStorageProps {
+    classN:string
+}
+
+const CreateNewStorage:FC<CreateNewStorageProps> = ({classN}) => {
+
     return (
-        <div className={cl.wrapper_CreateNewStorage}>
-            <button onClick={()=>onBtCreateNewClick()}>Создать склад</button>
+        <div className={classN}>
+            <div className={cl.wrapper_CreateNewStorage_name}>
+                <span>Название новго склада</span>
+                <input/>
+            </div>
+            <Address/>
         </div>
     );
 };

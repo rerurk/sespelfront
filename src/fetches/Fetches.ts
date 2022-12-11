@@ -1,33 +1,47 @@
 import axios from "axios";
 
-import {Requests} from "./Requests";
+import {ReqErrors, Requests} from "./Requests";
 import {AddToItem, Item, RemoveItem, RenameCatalogItem, TransferCatalogItem} from "../structs/catalog";
 import {Tools} from "../tools/Tools";
 import {ItemMasks} from "../structs/Masks";
 
 
 export type FetchesResult = [
-    ItemMasks|Error,
-    Item | Error
+    ItemMasks | Error,
+    Item | Error,//catalogRoot
+    Item | Error//MainAssetsStorage
 
 ]
 
 export class Fetches {
 
-    public static async FetchAllData():Promise<FetchesResult>{
-        return  Promise.all([this.GetItemMasks(),this.GetMainCatalogItem()])
+    public static async FetchAllData(): Promise<FetchesResult> {
+        return Promise.all([this.GetItemMasks(), this.GetMainCatalogItem(),this.GetMainAssetsStorage()])
     }
 
-    public static async GetItemMasks():Promise<ItemMasks|Error>{
+    public static async GetMainAssetsStorage(): Promise<Item | Error> {
         try {
-            const res=await axios.get<ItemMasks>(Requests.GET_ITEM_MASKS)
-            if (res.status!=200){
+            const res = await axios.get<Item>(Requests.GET_MAIN_ASSETS_STORE)
+
+            if (res.status != 200) {
+
+                return Error()
+            }
+            return res.data
+        } catch (e) {
+            return Error()
+        }
+    }
+
+    public static async GetItemMasks(): Promise<ItemMasks | Error> {
+        try {
+            const res = await axios.get<ItemMasks>(Requests.GET_ITEM_MASKS)
+            if (res.status != 200) {
                 return Error("ошибка")
             }
             return res.data
-        }
-        catch (e) {
-            return Error("ошибка")
+        } catch (e) {
+            return Error(ReqErrors.GetData)
         }
     }
 
@@ -51,23 +65,22 @@ export class Fetches {
         }
 
 
-
         try {
 
             const res = await axios.post<Item[]>(Requests.GET_CATALOG_ITEMS, Tools.unRefCatalogItem(item))
             return res.data
 
-              /*  const response =  await fetch(Requests.GET_CATALOG_ITEMS, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json;charset=utf-8',
-                    },
-                    mode: 'no-cors', // no-cors, *cors, same-origin
-                    body: JSON.stringify(Tools.unRefCatalogItem(item)),
+            /*  const response =  await fetch(Requests.GET_CATALOG_ITEMS, {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json;charset=utf-8',
+                  },
+                  mode: 'no-cors', // no-cors, *cors, same-origin
+                  body: JSON.stringify(Tools.unRefCatalogItem(item)),
 
-                })
+              })
 
-                return await response.json();*/
+              return await response.json();*/
 
 
         } catch (e) {
@@ -103,7 +116,15 @@ export class Fetches {
         }
 
     }
+    public static async MakeNewStore(newStore:Item):Promise<any|Error> {
+        try {
 
+            const res = axios.post(Requests.MAKE_NEW_STORE, newStore)
+            return res
+        } catch (e) {
+            return Error(ReqErrors.MakeStore)
+        }
+    }
     public static async TransferCatalogItem(transferCatalogItem: TransferCatalogItem): Promise<any | Error> {
 
         let sTransferCatalogItem = {
@@ -131,22 +152,24 @@ export class Fetches {
         }
     }
 
-    public static async RemoveCatalogItem(catalogItem: Item): Promise<any| Error> {
-        if(catalogItem.owner) {
+    public static async RemoveCatalogItem(catalogItem: Item): Promise<any | Error> {
+        if (catalogItem.owner) {
             let removeItem: RemoveItem = {
                 remove_from_item: Tools.unRefCatalogItem(catalogItem.owner),
                 removed_item: Tools.unRefCatalogItem(catalogItem)
 
 
-        }
-        try {
-            const res = await axios.post<RemoveItem>(Requests.REMOVE_CATALOG_ITEM, removeItem)
-            return  res
+            }
+            try {
+                const res = await axios.post<RemoveItem>(Requests.REMOVE_CATALOG_ITEM, removeItem)
+                return res
 
-        } catch (e) {
-            return Error("Ошибка")
-        }
+            } catch (e) {
+                return Error("Ошибка")
+            }
         }
     }
+
+
 
 }
