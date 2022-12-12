@@ -1,4 +1,4 @@
-const domen = "http://192.168.1.103:3005"
+const domen = "http://192.168.1.95:3005"
 
 type RequestT = {
     SAVE_NEW_ASSET: string,
@@ -14,6 +14,7 @@ type RequestT = {
     GET_MAIN_ASSETS_STORE: string
     GET_ALL_ASSETS_STORES: string
     MAKE_NEW_STORE: string
+    UPD_STORE:string
 }
 
 enum req {
@@ -30,7 +31,8 @@ enum req {
     GET_ITEM_MASKS = "/get_item_masks",
     GET_MAIN_ASSETS_STORE = '/get_main_assets_store',
     GET_ALL_ASSETS_STORES = "/get_all_assets_stores",
-    MAKE_NEW_STORE = "/make_new_store"
+    MAKE_NEW_STORE = "/make_new_store",
+UPD_STORE="/upd_store"
 
 
 }
@@ -48,7 +50,8 @@ export const Requests: RequestT = {
     GET_ITEM_MASKS: domen + req.GET_ITEM_MASKS,
     GET_MAIN_ASSETS_STORE: domen + req.GET_MAIN_ASSETS_STORE,
     GET_ALL_ASSETS_STORES: domen + req.GET_ALL_ASSETS_STORES,
-    MAKE_NEW_STORE: domen + req.MAKE_NEW_STORE
+    MAKE_NEW_STORE: domen + req.MAKE_NEW_STORE,
+    UPD_STORE:domen+req.UPD_STORE
 
 }
 

@@ -1,31 +1,50 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 // @ts-ignore
 import cl from "./AssetsStores.module.css";
-import Address, {TAddress} from "../UI/address/Address";
+import Address, {GetAddress, TAddress} from "../UI/address/Address";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
-import {StoreAssets} from "../../structs/StoreAssets";
+import {StoreAssets, UpdatingStore} from "../../structs/StoreAssets";
+import {json} from "stream/consumers";
+import {Fetches} from "../../fetches/Fetches";
+
+let updAssetStore:StoreAssets
 
 const StoreView: FC = () => {
     const {currentStore} = useTypeSelector(state => state.showCatalogNode)
-
-    const getAddress = (address: TAddress) => {
-        let changeSt:StoreAssets=JSON.parse(JSON.stringify(currentStore))
-        changeSt.address=address
-        if(currentStore && JSON.stringify(currentStore)!=JSON.stringify(changeSt)){
-             console.log("есть изменения надо сохранить")
-        }
-
+    const [isDisable,setIsDisable]=useState<boolean>(true)
+    updAssetStore=JSON.parse(JSON.stringify(currentStore))
+    const onChangeName=(e:React.ChangeEvent<HTMLInputElement>)=>{
+        updAssetStore.item.name=e.target.value
     }
-    if(currentStore!=null) {
+
+    const saveChanges = () => {
+
+        updAssetStore.address=GetAddress()
+
+        if (currentStore && JSON.stringify(currentStore) != JSON.stringify(updAssetStore)) {
+             let upd:UpdatingStore={
+                 store_before:JSON.parse(JSON.stringify(currentStore)),
+                 store_upd:updAssetStore
+             }
+             Fetches.UpdStore(upd).then(r=>console.log(r))
+        }
+        setIsDisable(!isDisable)
+    }
+    const onBtChaneClick = () => {
+        setIsDisable(!isDisable)
+    }
+    if (currentStore != null) {
         return (
             <div className={cl.wrapper_store_fields}>
                 <div className={cl.wrapper_wrapper_store_name}>
                     <span>Наименование:</span>
-                    <textarea defaultValue={currentStore.item.name}></textarea>
+                    <input defaultValue={currentStore.item.name} disabled={isDisable} onChange={event => onChangeName(event)}/>
                 </div>
-                {currentStore
-                    ? <Address address={currentStore.address} getAddress={getAddress}/>
-                    : false
+                <Address address={currentStore.address}  isDisable={isDisable}/>
+                {
+                    !isDisable
+                        ? <button onClick={()=>saveChanges()}>Сохранить</button>
+                        : <button onClick={onBtChaneClick}>Изменить</button>
                 }
             </div>
         );

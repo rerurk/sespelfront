@@ -4,7 +4,7 @@ import {ReqErrors, Requests} from "./Requests";
 import {AddToItem, Item, RemoveItem, RenameCatalogItem, TransferCatalogItem} from "../structs/catalog";
 import {Tools} from "../tools/Tools";
 import {ItemMasks} from "../structs/Masks";
-import {StoreAssets} from "../structs/StoreAssets";
+import {StoreAssets, UpdatingStore} from "../structs/StoreAssets";
 import {ErrorsText} from "../texts/Texts";
 
 
@@ -19,7 +19,7 @@ export class Fetches {
 
 
     public static async FetchAllData(): Promise<FetchesResult> {
-        return Promise.all([this.GetItemMasks(), this.GetMainCatalogItem(),this.GetMainAssetsStorage()])
+        return Promise.all([this.GetItemMasks(), this.GetMainCatalogItem(), this.GetMainAssetsStorage()])
     }
 
     public static async GetMainAssetsStorage(): Promise<Item | Error> {
@@ -94,17 +94,16 @@ export class Fetches {
 
     }
 
-    public static async GetAllAssetsStores():Promise<StoreAssets[]|Error>{
-         try {
-             const res=await axios.get<StoreAssets[]>(Requests.GET_ALL_ASSETS_STORES)
-             if (res.status!=200){
-                 return Error(ErrorsText.ERROR_GET_DATA)
-             }
-             return res.data
-         }
-         catch (e) {
-             return Error(ErrorsText.ERROR_GET_DATA)
-         }
+    public static async GetAllAssetsStores(): Promise<StoreAssets[] | Error> {
+        try {
+            const res = await axios.get<StoreAssets[]>(Requests.GET_ALL_ASSETS_STORES)
+            if (res.status != 200) {
+                return Error(ErrorsText.ERROR_GET_DATA)
+            }
+            return res.data
+        } catch (e) {
+            return Error(ErrorsText.ERROR_GET_DATA)
+        }
     }
 
     public static async SaveNewCatalogItem(item: Item): Promise<Item[] | Error> {
@@ -133,7 +132,7 @@ export class Fetches {
 
     }
 
-    public static async MakeNewStore(newStore:Item):Promise<any|Error> {
+    public static async MakeNewStore(newStore: Item): Promise<any | Error> {
         try {
 
             const res = axios.post(Requests.MAKE_NEW_STORE, newStore)
@@ -188,6 +187,18 @@ export class Fetches {
         }
     }
 
+    public static async UpdStore(upd: UpdatingStore): Promise<any | Error> {
+        try {
+            const res = await axios.post<UpdatingStore>(Requests.UPD_STORE, upd)
+            if (res.status != 200) {
+
+                return Error(ErrorsText.ERROR_SEND_DATA)
+            }
+            return res
+        } catch (e) {
+            return Error(ErrorsText.ERROR_SEND_DATA)
+        }
+    }
 
 
 }

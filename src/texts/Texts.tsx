@@ -9,7 +9,8 @@ export enum ItemFields {
 }
 
 export enum ErrorsText {
-    ERROR_GET_DATA="Ошибка получения данных"
+    ERROR_GET_DATA="Ошибка получения данных",
+ERROR_SEND_DATA="Ошибка отправки данных"
 }
 
 export enum StoresText {
