@@ -1,10 +1,11 @@
 import {Item} from "../../structs/catalog";
+import {StoreAssets} from "../../structs/StoreAssets";
 
 export interface AppState {
     currentCatalog: Item// текущий выбранный каталог для отобрадения
     catalogRoot: Item | null//корень каталога, его получаемс сервера
     currCatalogItem: Item | null//
-    mainAssetStore: Item | null// осовной склад
+    currentStore: StoreAssets | null// текущий отоброаемый склад
 }
 
 
@@ -12,7 +13,7 @@ export enum AppActionTypes {
     SET_CURRENT_CATALOG = "SET_CURRENT_CATALOG",
     SET_CATALOG_ROOT = 'SET_CATALOG_ROOT',
     SET_CURRENT_CATALOG_ITEM = "SET_CURRENT_CATALOG_ITEM",
-    SET_MAIN_ASSET_STORE = "SET_MAIN_ASSET_STORE"
+    SET_CURRENT_ASSET_STORE = "SET_CURRENT_ASSET_STORE"
 
 }
 
@@ -31,12 +32,12 @@ interface SetCatalogRootAction {
     payload: Item
 }
 
-interface SetMainAssetStorage {
-    type: AppActionTypes.SET_MAIN_ASSET_STORE
-    payload: Item
+interface SetAssetsStorage {
+    type: AppActionTypes.SET_CURRENT_ASSET_STORE
+    payload: StoreAssets
 }
 
 export type CatalogActions = SetCurrentCatalogAction
     | SetCatalogRootAction
     | SetCurrentCatalogItemAction
-    | SetMainAssetStorage
+    | SetAssetsStorage

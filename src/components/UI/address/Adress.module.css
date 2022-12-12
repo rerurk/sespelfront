@@ -1,6 +1,20 @@
 .wrapper{
 
     height: 50%;
-    width: 20rem;
-    background: lightseagreen;
+    width: 100%;
+
+}
+.wrapper_field{
+   width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.wrapper_field>label{
+    width: 30%;
+    text-align: right;
+    padding-right: 1rem ;
+}
+.wrapper_field>input{
+    width: 70%;
 }

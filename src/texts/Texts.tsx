@@ -1,5 +1,3 @@
-import {AddToItem} from "../structs/catalog";
-
 
 export enum DefSrc{
     ADD_IMAGE="/images/add_image.png"
@@ -12,6 +10,10 @@ export enum ItemFields {
 
 export enum ErrorsText {
     ERROR_GET_DATA="Ошибка получения данных"
+}
+
+export enum StoresText {
+    AllStoresLabel="Все места хранения"
 }
 
 

@@ -1,15 +1,15 @@
 import React, {FC} from 'react';
-import AssetsStorages from "../../components/assetsStorages/AssetsStorages";
+import AssetsStores from "../../components/assetsStores/AssetsStores";
 // @ts-ignore
-import cl from "./AssetsStoragePage.module.css"
+import cl from "./AssetsStoresPage.module.css"
 // склад в основной таблице ничем не отличаеться кроме маски
-const AssetsStoragePage: FC = () => {
+const AssetsStoresPage: FC = () => {
 
     return (
         <div className={cl.wrapper}>
-            <AssetsStorages/>
+            <AssetsStores/>
         </div>
     );
 };
 
-export default AssetsStoragePage;
+export default AssetsStoresPage;

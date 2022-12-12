@@ -11,7 +11,7 @@ import {ItemMasks} from "./structs/Masks";
 import {
     SetCatalogRootState,
     SetCurrentCatalogState,
-    SetMainAssetsStore
+    SetAssetsStore
 } from "./store/action_creator/CatalogStoreActions";
 import {useDispatch} from "react-redux";
 
@@ -32,8 +32,7 @@ function App() {
                 dispatch(SetCatalogRootState(catalogRoot))
                 // @ts-ignore
                 dispatch(SetCurrentCatalogState(catalogRoot))
-                // @ts-ignore
-                dispatch(SetMainAssetsStore(mainAssetsStorage))
+
 
                 setIsAllConsist(()=>true)
             }

@@ -1,0 +1,49 @@
+.wrapper {
+    width: 100%;
+    height: 100%;
+    background: lightgrey;
+    display: flex;
+    flex-direction: row;
+}
+.wrapper_allStores{
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 20rem;
+    background: white;
+    height: 90%;
+}
+
+.wrapper_allStores>span{
+    text-align: left;
+    padding-left: 1rem;
+    border: solid 1px grey;
+}
+.wrapper_store_fields {
+    display: flex;
+    flex-direction: column;
+    width: 20rem;
+    height: auto;
+
+}
+.wrapper_wrapper_store_name{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.wrapper_wrapper_store_name>label{
+    width: 30%;
+    text-align: right;
+
+}
+.wrapper_wrapper_store_name>textarea{
+    resize: none;
+    height: 1rem;
+    width: 70%;
+}
+
+
+.hidden {
+    display: none;
+}
