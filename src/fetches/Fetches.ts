@@ -4,7 +4,7 @@ import {ReqErrors, Requests} from "./Requests";
 import {AddToItem, Item, RemoveItem, RenameCatalogItem, TransferCatalogItem} from "../structs/catalog";
 import {Tools} from "../tools/Tools";
 import {ItemMasks} from "../structs/Masks";
-import {StoreAssets, UpdatingStore} from "../structs/StoreAssets";
+import {StoreAssets, UpdStore} from "../structs/StoreAssets";
 import {ErrorsText} from "../texts/Texts";
 
 
@@ -132,7 +132,7 @@ export class Fetches {
 
     }
 
-    public static async MakeNewStore(newStore: Item): Promise<any | Error> {
+    public static async MakeNewStore(newStore: StoreAssets): Promise<any | Error> {
         try {
 
             const res = axios.post(Requests.MAKE_NEW_STORE, newStore)
@@ -187,9 +187,10 @@ export class Fetches {
         }
     }
 
-    public static async UpdStore(upd: UpdatingStore): Promise<any | Error> {
+    public static async UpdStore(upd: UpdStore): Promise<any | Error> {
+        console.log(upd)
         try {
-            const res = await axios.post<UpdatingStore>(Requests.UPD_STORE, upd)
+            const res = await axios.post<UpdStore>(Requests.UPD_STORE, upd)
             if (res.status != 200) {
 
                 return Error(ErrorsText.ERROR_SEND_DATA)

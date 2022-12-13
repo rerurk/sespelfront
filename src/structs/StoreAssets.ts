@@ -6,7 +6,7 @@ export type StoreAssets={
     address:TAddress
 }
 
-export type UpdatingStore ={
+export type UpdStore ={
     store_before:StoreAssets
     store_upd:StoreAssets
 }

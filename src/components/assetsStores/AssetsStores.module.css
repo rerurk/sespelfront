@@ -5,6 +5,9 @@
     display: flex;
     flex-direction: row;
 }
+.wrapper>button{
+
+}
 .wrapper_allStores{
     margin-left: 1rem;
     display: flex;
@@ -18,7 +21,13 @@
     text-align: left;
     padding-left: 1rem;
     border: solid 1px grey;
+    cursor: pointer;
 }
+.wrapper_allStores>span:hover{
+    background: lightgrey;
+
+}
+
 .wrapper_store_fields {
     display: flex;
     flex-direction: column;
@@ -43,7 +52,18 @@
     width: 70%;
 }
 
-
+.wrapper_create_new_assetStore_bt{
+    background: blue;
+    color: white;
+    width: 8rem;
+    cursor: pointer;
+}
+.wrapper_make_new_assetStore_bt{
+    background: #55ff55;
+    color: teal;
+    width: 8rem;
+    cursor: pointer;
+}
 .hidden {
     display: none;
 }
