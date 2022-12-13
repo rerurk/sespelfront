@@ -28,6 +28,7 @@ function App() {
             // проверим являетсья ли что то ошибкой
             if (!((appM instanceof Error)||(catalogRoot instanceof Error)||(mainAssetsStorage instanceof Error))){
                 AppItemMasks=appM
+
                 // @ts-ignore
                 dispatch(SetCatalogRootState(catalogRoot))
                 // @ts-ignore

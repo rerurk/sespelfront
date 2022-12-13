@@ -1,10 +1,6 @@
-export type Asset = {
+import {Item} from "./catalog";
 
-    id: number
-    name: string
-    is_table: string
-    ref: string
-    image:string
-    description:string
-    assets :Asset[]|null
+export type NewAsset = {
+    asset_catalog_item: Item
+    asset:Item
 }

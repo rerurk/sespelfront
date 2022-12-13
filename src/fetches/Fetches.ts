@@ -6,6 +6,7 @@ import {Tools} from "../tools/Tools";
 import {ItemMasks} from "../structs/Masks";
 import {StoreAssets, UpdStore} from "../structs/StoreAssets";
 import {ErrorsText} from "../texts/Texts";
+import { NewAsset} from "../structs/Asset";
 
 
 export type FetchesResult = [
@@ -142,6 +143,20 @@ export class Fetches {
         }
     }
 
+    public static async MakeNewAsset(newAsset:NewAsset):Promise<any|Error>{
+        console.log(newAsset)
+        try {
+            const res= await axios.post<NewAsset>(Requests.MAKE_NEW_ASSET,newAsset)
+            if (res.status != 200) {
+                return Error(ErrorsText.ERROR_SEND_DATA)
+            }
+            return res
+
+        }catch (e) {
+            return Error(ErrorsText.ERROR_SEND_DATA)
+        }
+    }
+
     public static async TransferCatalogItem(transferCatalogItem: TransferCatalogItem): Promise<any | Error> {
 
         let sTransferCatalogItem = {
@@ -192,7 +207,6 @@ export class Fetches {
         try {
             const res = await axios.post<UpdStore>(Requests.UPD_STORE, upd)
             if (res.status != 200) {
-
                 return Error(ErrorsText.ERROR_SEND_DATA)
             }
             return res

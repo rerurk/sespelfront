@@ -1,7 +1,6 @@
 import React from "react";
 import Main from "../pages/main/Main";
 import CreateAsset from "../pages/createasset/CreateAsset";
-import ShowCatalogItem from "../pages/showCatalogItem/ShowCatalogItem";
 import SetCatalog from "../pages/setCatalog/SetCatalog";
 import AssetsStoresPage from "../pages/assetsStoragePage/AssetsStoresPage";
 
@@ -46,19 +45,13 @@ export const publicRoutes: RouteNode[] = [
         element: <Main/>
     },
     {
-        isHide: true,
+        isHide: false,
         exact: false,
         path: '/CREATE_ASSET',
         name: RouterTexts.CREATE_ASSET,
         element: <CreateAsset/>
     },
-    {
-        isHide: false,
-        exact: false,
-        path: RouterPath.SHOW_CATALOG_ITEM,
-        name: RouterTexts.MOVE_ASSET,
-        element: <ShowCatalogItem/>
-    },
+
     {
         isHide: false,
         exact: false,

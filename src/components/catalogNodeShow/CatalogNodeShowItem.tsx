@@ -34,11 +34,13 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
     }
 
     const onCatalogItemClick = () => {
+        console.log(item)
         // @ts-ignore
         dispatch(SetCurrentCatalogItemState(item))
         navigate(RouterPath.CREATE_ASSET)
 
     }
+
     const onDragEnterToItem = (e: React.MouseEvent<HTMLSpanElement>) => {
 
         e.currentTarget.classList.add(cl.wrapper__catalog_drag_enter)
@@ -101,8 +103,9 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
                     onBtRemoveClick()
                 }}>x
                 </button>
+
                 <span
-                    onClick={()=>onCatalogItemClick()}
+                    onClick={onCatalogItemClick}
                     draggable={true}
                     onDrag={() => onItemDrag(item)}
                     onDragEnd={onProductNameDragEnd}
