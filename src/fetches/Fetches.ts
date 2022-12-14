@@ -6,7 +6,7 @@ import {Tools} from "../tools/Tools";
 import {ItemMasks} from "../structs/Masks";
 import {StoreAssets, UpdStore} from "../structs/StoreAssets";
 import {ErrorsText} from "../texts/Texts";
-import { NewAsset} from "../structs/Asset";
+import {AssetsInStore, NewAsset} from "../structs/Asset";
 
 
 export type FetchesResult = [
@@ -21,6 +21,20 @@ export class Fetches {
 
     public static async FetchAllData(): Promise<FetchesResult> {
         return Promise.all([this.GetItemMasks(), this.GetMainCatalogItem(), this.GetMainAssetsStorage()])
+    }
+
+    // запрос должен вернуть Массив ТМЦ и Склад AssetsInStore
+    public static async GetAssetsQuantity(catalogItem:Item):Promise<AssetsInStore[]|Error>{
+        console.log("GetAssetsQuantity:",Tools.unRefCatalogItem(catalogItem))
+        try {
+            const res=await axios.post<AssetsInStore[]>(Requests.GET_ASSETS_QUANTITY,Tools.unRefCatalogItem(catalogItem))
+            if (res.status != 200) {
+                return Error(ErrorsText.ERROR_GET_DATA)
+            }
+            return res.data
+        }catch (e) {
+            return Error(ErrorsText.ERROR_GET_DATA)
+        }
     }
 
     public static async GetMainAssetsStorage(): Promise<Item | Error> {
