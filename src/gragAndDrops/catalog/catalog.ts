@@ -31,8 +31,8 @@ export async function ConfirmReplace(): Promise<any | Error | TransferCatalogIte
 
 
     if (transferCatalogItem
-        && transferCatalogItem.from.sys_id != transferCatalogItem.to.sys_id
-        && transferCatalogItem.to.sys_id != transferCatalogItem.item.sys_id
+        && transferCatalogItem.from.uuid != transferCatalogItem.to.uuid
+        && transferCatalogItem.to.uuid != transferCatalogItem.item.uuid
         && transferCatalogItem.item
         && transferCatalogItem.from
         && transferCatalogItem.to

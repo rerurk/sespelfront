@@ -93,7 +93,7 @@ async function removeCatalog(catalogItem: Item): Promise<any|Error> {
 async function renameCatalog(catalogItem: Item): Promise<any|Error> {
 
 
-    if (catalogItem.owner &&catalogItem.owner.sys_id) {
+    if (catalogItem.owner &&catalogItem.owner.uuid) {
         let res = window.prompt(`Введите новое намиенование для ${catalogItem.owner?.name}`, catalogItem.name)
         if (res) {
             let renameItem:Item=Tools.unRefCatalogItem(catalogItem)
@@ -117,7 +117,7 @@ async function makeCatalog(toCatalogItem: Item): Promise<any|Error> {
             mask: AppItemMasks.CATALOG_MASK,
             items: null,
             name: res,
-            sys_id: "",
+            uuid: "",
             owner:null
 
         }
@@ -151,7 +151,7 @@ async function makeCatalogItem(toCatalogItem: Item): Promise<any|Error> {
             mask:AppItemMasks.CATALOG_ITEM_MASK,
             items: null,
             name: res,
-            sys_id: "",
+            uuid: "",
             owner:null
         }
         let adding: AddToItem = {

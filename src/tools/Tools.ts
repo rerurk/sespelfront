@@ -14,7 +14,7 @@ export class Tools {
             mask: it.mask,
             name: it.name,
             owner: null,
-            sys_id:it.sys_id
+            uuid:it.uuid
 
 
         }
@@ -26,7 +26,7 @@ export class Tools {
             isOpen: catalogItem.isOpen,
             date: Date.now().toString()
         }
-        localStorage.setItem(catalogItem.sys_id, JSON.stringify(catItLS))
+        localStorage.setItem(catalogItem.uuid, JSON.stringify(catItLS))
 
 
     }
@@ -34,7 +34,7 @@ export class Tools {
     public static LoadCatalogItemFields(catalogItem: Item) {
         let str: string | null
 
-        str = localStorage.getItem(catalogItem.sys_id)
+        str = localStorage.getItem(catalogItem.uuid)
 
         let catItLS: CatalogItemLS
         if (str) {

@@ -83,7 +83,7 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
     if ((item.mask & AppItemMasks.CATALOG_MASK) == AppItemMasks.CATALOG_MASK) {
         return (
             <span
-                key={"CatalogNode" + item.sys_id}
+                key={"CatalogNode" + item.uuid}
                 className={cl.wrapper__catalog}
                 onClick={onCatalogClick}
                 draggable={true}
@@ -109,7 +109,7 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
                     draggable={true}
                     onDrag={() => onItemDrag(item)}
                     onDragEnd={onProductNameDragEnd}
-                    key={"CatalogNode" + item.sys_id}
+                    key={"CatalogNode" + item.uuid}
 
                 >{item.name}</span>
 

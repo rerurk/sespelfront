@@ -13,7 +13,6 @@ const AssetsStores: FC = () => {
 
     return (
         <div className={cl.wrapper}>
-
            <StoreView/>
            <AllStores/>
 

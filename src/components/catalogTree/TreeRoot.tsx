@@ -12,7 +12,7 @@ const TreeRoot: FC = () => {
     return (
         <div className={cl.wrapper}>{
             (catalogRoot)
-                ? <TreeNode item={catalogRoot} key={"TreeNode"+catalogRoot.sys_id} />
+                ? <TreeNode item={catalogRoot} key={"TreeNode"+catalogRoot.uuid} />
                 : false
         }
         </div>

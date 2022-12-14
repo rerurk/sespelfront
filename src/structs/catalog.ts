@@ -2,7 +2,7 @@ export interface Item {
     id: number
     name: string
     mask:number
-    sys_id: string
+    uuid: string
     owner:Item|null
     items: Item[] | null
     callReBoot?:Function

@@ -85,9 +85,9 @@ const StoreView: FC = () => {
                 }
                 <div className={cl.wrapper_wrapper_store_name}>
                     <span>Наименование:</span>
-                    <input key={"name_"+currentStore.item.sys_id} defaultValue={currentStore.item.name}  disabled={isDisable} onChange={event => onChangeName(event)}/>
+                    <input key={"name_"+currentStore.item.uuid} defaultValue={currentStore.item.name} disabled={isDisable} onChange={event => onChangeName(event)}/>
                 </div>
-                <Address key={"address_"+currentStore.item.sys_id} address={currentStore.address}  isDisable={isDisable} keyPref={currentStore.item.sys_id}/>
+                <Address key={"address_"+currentStore.item.uuid} address={currentStore.address} isDisable={isDisable} keyPref={currentStore.item.uuid}/>
                 {
                     !isDisable
                         ? currentStore.item.id>0?<button onClick={()=>saveChanges()}>Сохранить изменения</button>:false

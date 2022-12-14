@@ -20,7 +20,7 @@ const CreateNewStore:FC = () => {
             mask: AppItemMasks.STORE_MASK,
             name: EmptyField,
             owner: null,
-            sys_id: ""}
+            uuid: ""}
         let storeAddress:TAddress={
             building: "",
             city: "",

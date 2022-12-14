@@ -4,8 +4,9 @@ import cl from './CreateAsset.module.css'
 import {RouterPath} from "../../router";
 import {useNavigate} from "react-router-dom";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
-import MakeAsset from "../../components/makeAsset/MakeAsset";
+import MakeAsset from "../../components/asset/makeAsset/MakeAsset";
 import AllAssetsByCatalogItem from "../../components/asset/allAssetsByCatalogItem/AllAssetsByCatalogItem";
+import AllStores from "../../components/assetsStores/AllStores";
 
 
 const CreateAsset: FC = () => {
@@ -16,10 +17,12 @@ const CreateAsset: FC = () => {
             <div className={cl.wrapper}>
                 <div className={cl.wrapper_head}>
                     <button onClick={() => navigate(RouterPath.CATALOG_SETUP)}>назад</button>
-                    <label key={"createAsset_" + currCatalogItem.sys_id}>Наименование ТМЦ: {currCatalogItem.name}</label>
+                    <label key={"createAsset_" + currCatalogItem.uuid}>Наименование ТМЦ: {currCatalogItem.name}</label>
                 </div>
                 <MakeAsset key={"MakeAsset"}/>
-                 <AllAssetsByCatalogItem catalogItem={currCatalogItem} key={"AllAssetsByCatalogItem_"+currCatalogItem.sys_id}/>
+                <AllAssetsByCatalogItem catalogItem={currCatalogItem}
+                                        key={"AllAssetsByCatalogItem_" + currCatalogItem.uuid}/>
+                                        <AllStores/>
             </div>
         );
     }

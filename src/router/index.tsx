@@ -2,7 +2,7 @@ import React from "react";
 import Main from "../pages/main/Main";
 import CreateAsset from "../pages/createasset/CreateAsset";
 import SetCatalog from "../pages/setCatalog/SetCatalog";
-import AssetsStoresPage from "../pages/assetsStoragePage/AssetsStoresPage";
+import AssetsStoresPage from "../pages/assetsStorePage/AssetsStoresPage";
 
 
 export type RouteNode = {

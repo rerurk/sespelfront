@@ -175,7 +175,7 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
                 <div className={showClass}>
                     {
                         (item.items)
-                            ? item.items.map((it: Item) => <FilterNode item={it} key={"fn" + it.sys_id}/>)
+                            ? item.items.map((it: Item) => <FilterNode item={it} key={"fn" + it.uuid}/>)
                             : false
                     }
                 </div>

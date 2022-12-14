@@ -32,7 +32,7 @@ const AllStores = () => {
         <div className={cl.wrapper_allStores}>
             <label>{StoresText.AllStoresLabel}</label>
             {assetStores
-                ?assetStores.map((st:StoreAssets)=><span onClick={()=>onClickStoreName(st)} key={"asst_"+st.item.sys_id}>{st.item.name}</span>)
+                ?assetStores.map((st:StoreAssets)=><span onClick={()=>onClickStoreName(st)} key={"asst_"+st.item.uuid}>{st.item.name}</span>)
                 :false
 
             }

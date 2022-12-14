@@ -7,7 +7,7 @@ let forInitial: Item = {
     id: -1,
     name: "None",
     mask: -1,
-    sys_id: "",
+    uuid: "",
     items: null,
     owner: null
 }
