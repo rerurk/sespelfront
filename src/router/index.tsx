@@ -1,8 +1,10 @@
 import React from "react";
 import Main from "../pages/main/Main";
-import CreateAsset from "../pages/createasset/CreateAsset";
+import AssetsView from "../pages/assetsView/AssetsView";
 import SetCatalog from "../pages/setCatalog/SetCatalog";
 import AssetsStoresPage from "../pages/assetsStorePage/AssetsStoresPage";
+import Qrscan from "../pages/qrscan/Qrscan";
+
 
 
 export type RouteNode = {
@@ -19,7 +21,8 @@ export enum RouterTexts {
     CREATE_ASSET = "Создать ТМЦ",
     MOVE_ASSET = "Перемещение",
     SET_CATALOG = "Каталог",
-    ASSERTS_STORAGE = "Склады"
+    ASSERTS_STORAGE = "Склады",
+    QR_CODE_SCANNER = "QR_SCANNER"
 
 
 }
@@ -29,8 +32,8 @@ export enum RouterPath {
     SHOW_CATALOG_ITEM = "/SHOW_CATALOG_ITEM",
     CATALOG_SETUP = "/CATALOG_SETUP",
     CREATE_ASSET = "/CREATE_ASSET",
-    ASSERTS_STORAGE = "/ASSERTS_STORAGE"
-
+    ASSERTS_STORAGE = "/ASSERTS_STORAGE",
+    QR_CODE_SCANNER = "/ QR_CODE_SCANNER"
 }
 
 export const privateRoutes = []
@@ -49,7 +52,7 @@ export const publicRoutes: RouteNode[] = [
         exact: false,
         path: '/CREATE_ASSET',
         name: RouterTexts.CREATE_ASSET,
-        element: <CreateAsset/>
+        element: <AssetsView/>
     },
 
     {
@@ -65,6 +68,13 @@ export const publicRoutes: RouteNode[] = [
         path: RouterPath.ASSERTS_STORAGE,
         name: RouterTexts.ASSERTS_STORAGE,
         element: <AssetsStoresPage/>
+    },
+    {
+        isHide: false,
+        exact: false,
+        path: RouterPath.QR_CODE_SCANNER,
+        name: RouterTexts.QR_CODE_SCANNER,
+        element: <Qrscan/>
     }
 
 

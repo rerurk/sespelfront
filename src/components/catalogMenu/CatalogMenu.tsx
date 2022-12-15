@@ -8,11 +8,11 @@ import MenuItems from "./MenuItems";
 import {Menu, MenuAction, selectAction} from "./menuActions";
 
 
-import {Item} from "../../structs/catalog";
+import {CatalogItem, Item} from "../../structs/catalog";
 
 
 interface CatalogMenuProps {
-    catalogItem:Item
+    catalogItem:CatalogItem
     isVisible:boolean
 
 }
@@ -30,8 +30,8 @@ const CatalogMenu: FC<CatalogMenuProps> = ({catalogItem,isVisible}) => {
                        if(catalogItem.callReBoot){
                            catalogItem.callReBoot()
                        }
-                       if(catalogItem.owner?.callReBoot){
-                           catalogItem.owner.callReBoot()
+                       if(catalogItem.ownerItem?.callReBoot){
+                           catalogItem.ownerItem.callReBoot()
                        }
 
 

@@ -1,3 +1,4 @@
+/*
 export interface Item {
     id: number
     name: string
@@ -10,8 +11,29 @@ export interface Item {
     isOpen?:boolean
 
 }
+*/
 
+export type Item={
+    id: number
+    name: string
+    mask:number
+    uuid: string
+    owner_uuid:string|null
+}
 
+export interface CatalogItem extends Item{
+    id: number
+    name: string
+    mask:number
+    uuid: string
+    owner_uuid:string|null
+
+    ownerItem:CatalogItem|null
+    items: CatalogItem[]|null
+    callReBoot?:Function
+    callShow?:Function
+    isOpen?:boolean
+}
 
 export type AddToItem = {
     adding_item: Item,
@@ -19,9 +41,9 @@ export type AddToItem = {
 }
 
 export type  TransferCatalogItem = {
-    from: Item
-    to: Item
-    item: Item
+    from: CatalogItem
+    to: CatalogItem
+    item: CatalogItem
 }
 
 export type RemoveItem ={
@@ -30,6 +52,6 @@ export type RemoveItem ={
 }
 
 export type RenameCatalogItem={
-    item:Item,
+    item:Item
     renamed_item:Item,
 }

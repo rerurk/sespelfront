@@ -73,7 +73,7 @@ const StoreView: FC = () => {
         setIsDisable(!isDisable)
     }
 
-    if (currentStore != null) {
+    if (currentStore) {
 
         return (
 

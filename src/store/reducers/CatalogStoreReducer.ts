@@ -1,20 +1,11 @@
-import {Item} from "../../structs/catalog";
+import {CatalogItem, Item} from "../../structs/catalog";
 import {CatalogActions, AppActionTypes, AppState} from "../types/CatalogStoreTypes";
 import {StoreAssets} from "../../structs/StoreAssets";
 
-let forInitial: Item = {
-
-    id: -1,
-    name: "None",
-    mask: -1,
-    uuid: "",
-    items: null,
-    owner: null
-}
 
 const initialState: AppState = {
     catalogRoot: null,
-    currentCatalog: forInitial,
+    currentCatalog: null,
     currCatalogItem: null,
     currentStore: null
 
@@ -25,20 +16,20 @@ export function GetCurrentState(): AppState {
     return initialState
 }
 
-function setCurrentCatalogItem(catalogItem: Item): AppState {
+function setCurrentCatalogItem(catalogItem: CatalogItem): AppState {
 
     initialState.currCatalogItem = catalogItem
     return initialState
 }
 
-function setCurrentCatalog(catalogItem: Item): AppState {
+function setCurrentCatalog(catalogItem: CatalogItem): AppState {
     console.log("Store State catalogItem:", catalogItem)
 
     initialState.currentCatalog = catalogItem
     return initialState
 }
 
-function setCatalogRoot(root: Item): AppState {
+function setCatalogRoot(root: CatalogItem): AppState {
 
     initialState.catalogRoot = root
     return initialState

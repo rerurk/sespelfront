@@ -1,21 +1,21 @@
-import {Item} from "../../structs/catalog";
+import {CatalogItem, Item} from "../../structs/catalog";
 import {Dispatch} from "redux";
 import {CatalogActions, AppActionTypes} from "../types/CatalogStoreTypes";
 import {StoreAssets} from "../../structs/StoreAssets";
 
-export const SetCurrentCatalogItemState = (catalogItem: Item) => {
+export const SetCurrentCatalogItemState = (catalogItem: CatalogItem) => {
     return (dispatch: Dispatch<CatalogActions>) => {
         dispatch({type: AppActionTypes.SET_CURRENT_CATALOG_ITEM, payload: catalogItem})
     }
 }
 
-export const SetCurrentCatalogState = (catalogItem: Item) => {
+export const SetCurrentCatalogState = (catalogItem: CatalogItem) => {
     return (dispatch: Dispatch<CatalogActions>) => {
         dispatch({type: AppActionTypes.SET_CURRENT_CATALOG, payload: catalogItem})
     }
 }
 
-export const SetCatalogRootState = (root: Item) => {
+export const SetCatalogRootState = (root: CatalogItem) => {
     return (dispatch: Dispatch<CatalogActions>) => {
         dispatch({type: AppActionTypes.SET_CATALOG_ROOT, payload: root})
     }

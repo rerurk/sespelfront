@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 // @ts-ignore
-import cl from './CreateAsset.module.css'
+import cl from './AssetsViewmodule.css'
 import {RouterPath} from "../../router";
 import {useNavigate} from "react-router-dom";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
@@ -9,7 +9,7 @@ import AllAssetsByCatalogItem from "../../components/asset/allAssetsByCatalogIte
 import AllStores from "../../components/assetsStores/AllStores";
 
 
-const CreateAsset: FC = () => {
+const AssetsView: FC = () => {
     const navigate = useNavigate();
     const {currCatalogItem} = useTypeSelector(state => state.showCatalogNode)
     if (currCatalogItem) {
@@ -22,11 +22,11 @@ const CreateAsset: FC = () => {
                 <MakeAsset key={"MakeAsset"}/>
                 <AllAssetsByCatalogItem catalogItem={currCatalogItem}
                                         key={"AllAssetsByCatalogItem_" + currCatalogItem.uuid}/>
-                                        <AllStores/>
+
             </div>
         );
     }
     return (<div></div>)
 };
 
-export default CreateAsset;
+export default AssetsView;

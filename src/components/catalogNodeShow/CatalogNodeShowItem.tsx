@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Item} from "../../structs/catalog";
+import {CatalogItem} from "../../structs/catalog";
 // @ts-ignore
 import cl from "./CatalogNodeShow.module.css"
 
@@ -14,7 +14,7 @@ import {AppItemMasks} from "../../App";
 
 
 interface ShowCatalogItemProps {
-    item: Item
+    item: CatalogItem
 
 
 }
@@ -62,8 +62,8 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
         selectAction(menuAction).then(r => {
 
             if (!(r instanceof Error)) {
-                if (item.owner && item.owner.callReBoot) {
-                    item.owner.callReBoot()
+                if (item.ownerItem && item.ownerItem.callReBoot) {
+                    item.ownerItem.callReBoot()
 
                 }
             }

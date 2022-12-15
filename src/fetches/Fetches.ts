@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import {ReqErrors, Requests} from "./Requests";
-import {AddToItem, Item, RemoveItem, RenameCatalogItem, TransferCatalogItem} from "../structs/catalog";
+import {AddToItem, CatalogItem, Item, RemoveItem, RenameCatalogItem, TransferCatalogItem} from "../structs/catalog";
 import {Tools} from "../tools/Tools";
 import {ItemMasks} from "../structs/Masks";
 import {StoreAssets, UpdStore} from "../structs/StoreAssets";
@@ -24,8 +24,8 @@ export class Fetches {
     }
 
     // запрос должен вернуть Массив ТМЦ и Склад AssetsInStore
-    public static async GetAssetsQuantity(catalogItem:Item):Promise<AssetsInStore[]|Error>{
-        console.log("GetAssetsQuantity:",Tools.unRefCatalogItem(catalogItem))
+    public static async GetAssetsQuantity(catalogItem:CatalogItem):Promise<AssetsInStore[]|Error>{
+
         try {
             const res=await axios.post<AssetsInStore[]>(Requests.GET_ASSETS_QUANTITY,Tools.unRefCatalogItem(catalogItem))
             if (res.status != 200) {
@@ -63,11 +63,11 @@ export class Fetches {
         }
     }
 
-    public static async GetMainCatalogItem(): Promise<Item | Error> {
+    public static async GetMainCatalogItem(): Promise<CatalogItem | Error> {
 
         try {
 
-            const res = await axios.get<Item>(Requests.GET_MAIN_CATALOG_ITEM)
+            const res = await axios.get<CatalogItem >(Requests.GET_MAIN_CATALOG_ITEM)
             return res.data
 
 
@@ -77,7 +77,7 @@ export class Fetches {
         }
     }
 
-    public static async GetCatalogItems(item: Item): Promise<Item[] | Error> {
+    public static async GetCatalogItems(item: CatalogItem): Promise<CatalogItem[] | Error> {
         if (item.id < 1) {
             return Error("ошибка")
         }
@@ -85,7 +85,7 @@ export class Fetches {
 
         try {
 
-            const res = await axios.post<Item[]>(Requests.GET_CATALOG_ITEMS, Tools.unRefCatalogItem(item))
+            const res = await axios.post<CatalogItem[]>(Requests.GET_CATALOG_ITEMS, Tools.unRefCatalogItem(item))
             return res.data
 
             /*  const response =  await fetch(Requests.GET_CATALOG_ITEMS, {
@@ -188,9 +188,9 @@ export class Fetches {
     }
 
     public static async RenameCatalogItem(renameCatalogItem: RenameCatalogItem): Promise<any | Error> {
-        renameCatalogItem.item = Tools.unRefCatalogItem(renameCatalogItem.item)
+
         try {
-            const res = await axios.post<Item>(Requests.RENAME_CATALOG_ITEM, renameCatalogItem)
+            const res = await axios.post<RenameCatalogItem>(Requests.RENAME_CATALOG_ITEM, renameCatalogItem)
             return res
 
         } catch (e) {
@@ -198,10 +198,10 @@ export class Fetches {
         }
     }
 
-    public static async RemoveCatalogItem(catalogItem: Item): Promise<any | Error> {
-        if (catalogItem.owner) {
+    public static async RemoveCatalogItem(catalogItem: CatalogItem): Promise<any | Error> {
+        if (catalogItem.ownerItem) {
             let removeItem: RemoveItem = {
-                remove_from_item: Tools.unRefCatalogItem(catalogItem.owner),
+                remove_from_item: Tools.unRefCatalogItem(catalogItem.ownerItem),
                 removed_item: Tools.unRefCatalogItem(catalogItem)
 
 

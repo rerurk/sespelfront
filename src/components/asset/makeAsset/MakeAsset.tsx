@@ -8,6 +8,7 @@ import {Tools} from "../../../tools/Tools";
 
 import {Fetches} from "../../../fetches/Fetches";
 import {NewAsset} from "../../../structs/Asset";
+import AllStores from "../../assetsStores/AllStores";
 const MakeAsset:FC = () => {
     const {currCatalogItem,currentStore} = useTypeSelector(state => state.showCatalogNode)
 
@@ -16,11 +17,10 @@ const MakeAsset:FC = () => {
             // вместо имени присвоим sysid наименования owner будет место хранения по умолчнию задаться основной склад
             let newAsset: Item = {
                 id: -1,
-                items: null,
                 mask: AppItemMasks.ASSET_MASK,
                 name: "",
-                owner: null,
-                uuid: ""
+                owner_uuid: null,
+                uuid:""
             }
             let   assetCatalogItem:Item=Tools.unRefCatalogItem(currCatalogItem)
             if(currentStore) {
@@ -35,7 +35,9 @@ const MakeAsset:FC = () => {
         }
     return (
         <div onClick={e=>e.stopPropagation()} className={cl.wrapper}>
+            <h3>тут содаем конкретный этот продукт выбирая склад</h3>
            <button onClick={onBtCreate}>Создать</button>
+            <AllStores/>
         </div>
     );
 };

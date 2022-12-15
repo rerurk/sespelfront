@@ -1,4 +1,4 @@
-import {AddToItem, Item, RenameCatalogItem} from "../../structs/catalog";
+import {AddToItem, CatalogItem, Item, RenameCatalogItem} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
 import {Tools} from "../../tools/Tools";
 import {AppItemMasks} from "../../App";
@@ -17,22 +17,22 @@ export enum Menu {
 
 interface MakeCatalogAction {
     type: Menu.MAKE_CATALOG
-    payload: Item | null
+    payload: CatalogItem | null
 }
 
 interface MakeCatalogItemAction {
     type: Menu.MAKE_CATALOG_ITEM
-    payload: Item | null
+    payload: CatalogItem | null
 }
 
 interface RenameCatalogItemAction {
     type: Menu.RENAME_CATALOG
-    payload:Item | null
+    payload:CatalogItem | null
 }
 
 interface RemoveCatalogItemAction {
     type: Menu.REMOVE
-    payload: Item| null
+    payload: CatalogItem| null
 }
 
 export type MenuAction = MakeCatalogAction | MakeCatalogItemAction | RemoveCatalogItemAction | RenameCatalogItemAction
@@ -70,8 +70,8 @@ export async function selectAction(menuAction: MenuAction):Promise<any|Error> {
 
 }
 
-async function removeCatalog(catalogItem: Item): Promise<any|Error> {
-    if ((catalogItem.mask & AppItemMasks.CATALOG_MASK)==AppItemMasks.CATALOG_MASK && catalogItem.owner){
+async function removeCatalog(catalogItem: CatalogItem): Promise<any|Error> {
+    if ((catalogItem.mask & AppItemMasks.CATALOG_MASK)==AppItemMasks.CATALOG_MASK && catalogItem.ownerItem){
             let isIt:boolean=window.confirm(` Удалить каталог ${catalogItem.name.toUpperCase()} `)
             if (isIt){
                 return Fetches.RemoveCatalogItem(catalogItem)
@@ -90,11 +90,11 @@ async function removeCatalog(catalogItem: Item): Promise<any|Error> {
 
 }
 
-async function renameCatalog(catalogItem: Item): Promise<any|Error> {
+async function renameCatalog(catalogItem: CatalogItem): Promise<any|Error> {
 
 
-    if (catalogItem.owner &&catalogItem.owner.uuid) {
-        let res = window.prompt(`Введите новое намиенование для ${catalogItem.owner?.name}`, catalogItem.name)
+    if (catalogItem.ownerItem &&catalogItem.ownerItem.uuid) {
+        let res = window.prompt(`Введите новое намиенование для ${catalogItem.ownerItem?.name}`, catalogItem.name)
         if (res) {
             let renameItem:Item=Tools.unRefCatalogItem(catalogItem)
             renameItem.name=res
@@ -108,17 +108,16 @@ async function renameCatalog(catalogItem: Item): Promise<any|Error> {
 
 }
 
-async function makeCatalog(toCatalogItem: Item): Promise<any|Error> {
+async function makeCatalog(toCatalogItem: CatalogItem): Promise<any|Error> {
     let res = window.prompt("Введите новое имя для " + toCatalogItem.name)
     if (res) {
 
         let newItem: Item = {
             id: -1,
             mask: AppItemMasks.CATALOG_MASK,
-            items: null,
             name: res,
             uuid: "",
-            owner:null
+            owner_uuid:""
 
         }
         let adding: AddToItem = {
@@ -134,7 +133,7 @@ async function makeCatalog(toCatalogItem: Item): Promise<any|Error> {
     }
 }
 
-async function makeCatalogItem(toCatalogItem: Item): Promise<any|Error> {
+async function makeCatalogItem(toCatalogItem: CatalogItem): Promise<any|Error> {
 
     let res = prompt("Введите имя")
 
@@ -149,10 +148,10 @@ async function makeCatalogItem(toCatalogItem: Item): Promise<any|Error> {
         let newItem: Item = {
             id: -1,
             mask:AppItemMasks.CATALOG_ITEM_MASK,
-            items: null,
+
             name: res,
             uuid: "",
-            owner:null
+            owner_uuid:null
         }
         let adding: AddToItem = {
             adding_item: newItem,

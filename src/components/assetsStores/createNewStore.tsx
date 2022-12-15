@@ -16,10 +16,9 @@ const CreateNewStore:FC = () => {
     const  onCreateNewStore=()=>{
         let storeItem:Item={
             id: -1,
-            items: null,
             mask: AppItemMasks.STORE_MASK,
             name: EmptyField,
-            owner: null,
+            owner_uuid: null,
             uuid: ""}
         let storeAddress:TAddress={
             building: "",

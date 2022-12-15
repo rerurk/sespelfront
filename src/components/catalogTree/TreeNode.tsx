@@ -3,7 +3,7 @@ import React, {FC, useEffect, useState} from 'react';
 import cl from "./TreeNode.module.css"
 
 
-import {Item} from "../../structs/catalog";
+import {CatalogItem, Item} from "../../structs/catalog";
 import {Fetches} from "../../fetches/Fetches";
 
 import {ConfirmReplace, onItemDrag, OnItemDragEnter} from "../../gragAndDrops/catalog/catalog";
@@ -17,7 +17,7 @@ import {Tools} from "../../tools/Tools";
 
 
 interface CatalogViewProps {
-    item: Item
+    item: CatalogItem
 
 
 }
@@ -89,7 +89,7 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
 
     }
 
-    const tryToSetItems = (items: Item[] | Error) => {
+    const tryToSetItems = (items: CatalogItem[] | Error) => {
 
         if (items instanceof Error) {
             alert(ErrorsText.ERROR_GET_DATA)
@@ -100,15 +100,15 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
 
         if (items && !(items instanceof Error) && items && item.items != items) {
 
-            items.forEach((it: Item) => {
-                it.owner = item
+            items.forEach((it: CatalogItem) => {
+                it.ownerItem = item
             })
             item.items = items
             setReaLoad(r=>!r)
         }
     }
 
-    async function getItems(): Promise<Item[] | Error> {
+    async function getItems(): Promise<CatalogItem[] | Error> {
 
         return Fetches.GetCatalogItems(item)
     }
@@ -137,7 +137,7 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
 
     const itemReboot = () => {
 
-        if (GetCurrentState().currentCatalog.name == item.name) {
+        if (GetCurrentState().currentCatalog?.name == item.name) {
             setItems(showCatalog)
         } else {
             setItems()
@@ -175,7 +175,7 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
                 <div className={showClass}>
                     {
                         (item.items)
-                            ? item.items.map((it: Item) => <FilterNode item={it} key={"fn" + it.uuid}/>)
+                            ? item.items.map((it: CatalogItem) => <FilterNode item={it} key={"fn" + it.uuid}/>)
                             : false
                     }
                 </div>
