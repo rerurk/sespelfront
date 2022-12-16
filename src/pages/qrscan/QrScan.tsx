@@ -9,7 +9,8 @@ import {useDispatch} from "react-redux";
 import {Fetches} from "../../fetches/Fetches";
 import {SetCurrentAsset} from "../../store/action_creator/CatalogStoreActions";
 
-let camW: number = 200
+
+
 let wmin: number = 200
 
 const QrScan: FC = () => {
@@ -19,6 +20,7 @@ const QrScan: FC = () => {
     useEffect(() => {
         wmin = Math.min(window.innerHeight, window.innerWidth)
         setCamSize(wmin * 0.9)
+
         // @ts-ignore
         dispatch(SetCurrentAsset(null))
 
@@ -35,14 +37,9 @@ const QrScan: FC = () => {
             setQrRes(data.text)
 
 
-            console.log("currentAssetAndStore")
-            console.log(data)
-
             Fetches.GetAssetAndStoreByUUID(data.text).then(r => {
 
                 if (!(r instanceof Error)) {
-
-                    console.log("r", r)
                     // @ts-ignore
                     dispatch(SetCurrentAsset(r))
                 }
@@ -64,7 +61,7 @@ const QrScan: FC = () => {
                 <div style={{
                     width: `${wmin}px`,
                     height: `${wmin}px`,
-                    background: "blue"
+
                 }}>
                     <QrReader
                         delay={1000}

@@ -98,11 +98,6 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
     if ((item.mask & AppItemMasks.CATALOG_ITEM_MASK) == AppItemMasks.CATALOG_ITEM_MASK)
         return (
             <div onClick={e => e.stopPropagation()} className={cl.wrapper__catalog__item}>
-                <button onClick={e => {
-                    e.stopPropagation();
-                    onBtRemoveClick()
-                }}>x
-                </button>
 
                 <span
                     onClick={onCatalogItemClick}

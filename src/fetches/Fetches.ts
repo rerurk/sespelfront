@@ -137,7 +137,6 @@ export class Fetches {
         }
     }
 
-
     public static async SaveNewCatalogItem(item: Item): Promise<Item[] | Error> {
 
         try {

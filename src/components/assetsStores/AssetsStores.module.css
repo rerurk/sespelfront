@@ -3,7 +3,7 @@
     height: 100%;
     background: lightgrey;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 .wrapper>button{
 
@@ -12,9 +12,9 @@
     margin-left: 1rem;
     display: flex;
     flex-direction: column;
-    width: 20rem;
+    width: 100%;
     background: white;
-    height: 90%;
+
 }
 
 .wrapper_allStores>span{
@@ -31,7 +31,7 @@
 .wrapper_store_fields {
     display: flex;
     flex-direction: column;
-    width: 20rem;
+    width: 100%;
     height: auto;
 
 }

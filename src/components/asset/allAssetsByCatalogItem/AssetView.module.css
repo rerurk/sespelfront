@@ -1,5 +1,5 @@
 .wrapper{
-    width: 100%;
+    width: 95%;
     display: flex;
     flex-direction: row;
     background: white;
@@ -15,7 +15,6 @@
     width: 16rem;
 }
 .wrapper_qr{
-
     width: 3rem;
     height: 3rem;
 }

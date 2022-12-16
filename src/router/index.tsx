@@ -47,7 +47,20 @@ export const publicRoutes: RouteNode[] = [
         name: RouterTexts.QR_CODE_SCANNER,
         element: <QrScan/>
     },
-
+    {
+        isHide: false,
+        exact: false,
+        path: RouterPath.ASSERTS_STORAGE,
+        name: RouterTexts.ASSERTS_STORAGE,
+        element: <AssetsStoresPage/>
+    },
+    {
+        isHide: false,
+        exact: false,
+        path: RouterPath.CATALOG_SETUP,
+        name: RouterTexts.SET_CATALOG,
+        element: <SetCatalog/>
+    },
     {
         isHide: false,
         exact: false,
@@ -63,20 +76,8 @@ export const publicRoutes: RouteNode[] = [
         element: <AssetsView/>
     },
 
-    {
-        isHide: false,
-        exact: false,
-        path: RouterPath.CATALOG_SETUP,
-        name: RouterTexts.SET_CATALOG,
-        element: <SetCatalog/>
-    },
-    {
-        isHide: false,
-        exact: false,
-        path: RouterPath.ASSERTS_STORAGE,
-        name: RouterTexts.ASSERTS_STORAGE,
-        element: <AssetsStoresPage/>
-    },
+
+
 
 
 

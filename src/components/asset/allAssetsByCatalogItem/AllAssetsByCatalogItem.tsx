@@ -28,7 +28,7 @@ const AllAssetsByCatalogItem: FC<AllAssetsByCatalogItemProps> = ({catalogItem}) 
                 {
                     allCatalogItemAssets.map((ais: AssetsInStore) =>
                         <div className={cl.wrapper_assInStore} key={"Store_name_"+ais.store.uuid}>
-                            <div className={cl.wrapper_assInStore_storeName}>{ais.store.name}</div>
+                            <div className={cl.wrapper_assInStore_storeName}>{ais.store.name}: {ais.assets.length} шт.</div>
                             {
                                 ais.assets.map((as: Item,ind:number) =>
                                     <AssetView name={catalogItem.name} asset={as}  indexN={ind+1} key={"asset_view_" + as.uuid}/>)

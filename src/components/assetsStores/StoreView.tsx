@@ -39,7 +39,7 @@ const StoreView: FC = () => {
     }
     const onMakeNewStore=()=>{
         hisAssetStore.address=GetAddress()
-        console.log(hisAssetStore)
+
         if(CheckStoreFields(hisAssetStore)){
             Fetches.MakeNewStore(hisAssetStore).then(r=>console.log(r))
         }else {
@@ -78,7 +78,7 @@ const StoreView: FC = () => {
         return (
 
             <div className={cl.wrapper_store_fields}>
-                <CreateNewStore/>
+
                 {currentStore.item.id<1
                     ?<button className={cl.wrapper_make_new_assetStore_bt} onClick={onMakeNewStore}>Сохранить новое</button>
                     :false
@@ -94,7 +94,7 @@ const StoreView: FC = () => {
                         : currentStore.item.id>0?<button onClick={onBtChaneClick}>Изменить</button>:false
                 }
 
-
+                <CreateNewStore/>
 
             </div>
         );
