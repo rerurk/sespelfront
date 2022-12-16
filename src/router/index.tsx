@@ -3,7 +3,8 @@ import Main from "../pages/main/Main";
 import AssetsView from "../pages/assetsView/AssetsView";
 import SetCatalog from "../pages/setCatalog/SetCatalog";
 import AssetsStoresPage from "../pages/assetsStorePage/AssetsStoresPage";
-import Qrscan from "../pages/qrscan/Qrscan";
+import QrScan from "../pages/qrscan/QrScan";
+
 
 
 
@@ -22,7 +23,7 @@ export enum RouterTexts {
     MOVE_ASSET = "Перемещение",
     SET_CATALOG = "Каталог",
     ASSERTS_STORAGE = "Склады",
-    QR_CODE_SCANNER = "QR_SCANNER"
+    QR_CODE_SCANNER = "Сканер"
 
 
 }
@@ -39,6 +40,13 @@ export enum RouterPath {
 export const privateRoutes = []
 
 export const publicRoutes: RouteNode[] = [
+    {
+        isHide: false,
+        exact: false,
+        path: RouterPath.QR_CODE_SCANNER,
+        name: RouterTexts.QR_CODE_SCANNER,
+        element: <QrScan/>
+    },
 
     {
         isHide: false,
@@ -69,13 +77,7 @@ export const publicRoutes: RouteNode[] = [
         name: RouterTexts.ASSERTS_STORAGE,
         element: <AssetsStoresPage/>
     },
-    {
-        isHide: false,
-        exact: false,
-        path: RouterPath.QR_CODE_SCANNER,
-        name: RouterTexts.QR_CODE_SCANNER,
-        element: <Qrscan/>
-    }
+
 
 
 ]

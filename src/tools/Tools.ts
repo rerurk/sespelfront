@@ -1,4 +1,5 @@
 import {CatalogItem, Item} from "../structs/catalog";
+import {TAddress} from "../components/UI/address/Address";
 
 
 type CatalogItemLS = {
@@ -60,6 +61,10 @@ export class Tools {
         }
         return null
 
+    }
+
+    public static GetStringAddress(address:TAddress):string{
+        return address.region + ", " + address.city + ", " + address.street + ", " + address.building + ", " + address.phone
     }
 
 }

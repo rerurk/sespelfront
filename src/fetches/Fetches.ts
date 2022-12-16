@@ -6,7 +6,7 @@ import {Tools} from "../tools/Tools";
 import {ItemMasks} from "../structs/Masks";
 import {StoreAssets, UpdStore} from "../structs/StoreAssets";
 import {ErrorsText} from "../texts/Texts";
-import {AssetsInStore, NewAsset} from "../structs/Asset";
+import {AssetAndStore, AssetsInStore, AssetUUID, NewAsset} from "../structs/Asset";
 
 
 export type FetchesResult = [
@@ -30,6 +30,22 @@ export class Fetches {
             const res=await axios.post<AssetsInStore[]>(Requests.GET_ASSETS_QUANTITY,Tools.unRefCatalogItem(catalogItem))
             if (res.status != 200) {
                 return Error(ErrorsText.ERROR_GET_DATA)
+            }
+            return res.data
+        }catch (e) {
+            return Error(ErrorsText.ERROR_GET_DATA)
+        }
+    }
+
+    public static async GetAssetAndStoreByUUID(uuid:string):Promise<AssetAndStore|Error>{
+        let assetUUID:AssetUUID={
+            uuid:uuid
+        }
+        try {
+            const res= await axios.post<AssetAndStore>(Requests.GET_ASSET_AND_STORE_BY_UUID,assetUUID)
+            if (res.status != 200) {
+
+                return Error()
             }
             return res.data
         }catch (e) {
@@ -120,6 +136,7 @@ export class Fetches {
             return Error(ErrorsText.ERROR_GET_DATA)
         }
     }
+
 
     public static async SaveNewCatalogItem(item: Item): Promise<Item[] | Error> {
 

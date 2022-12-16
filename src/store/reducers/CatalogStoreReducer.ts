@@ -1,13 +1,15 @@
 import {CatalogItem, Item} from "../../structs/catalog";
 import {CatalogActions, AppActionTypes, AppState} from "../types/CatalogStoreTypes";
 import {StoreAssets} from "../../structs/StoreAssets";
+import {AssetAndStore} from "../../structs/Asset";
 
 
 const initialState: AppState = {
     catalogRoot: null,
     currentCatalog: null,
     currCatalogItem: null,
-    currentStore: null
+    currentStore: null,
+    currentAssetAndStore:null
 
 
 }
@@ -35,9 +37,14 @@ function setCatalogRoot(root: CatalogItem): AppState {
     return initialState
 }
 
-function setCurrentAssetStore(currStore: StoreAssets) {
+function setCurrentAssetStore(currStore: StoreAssets): AppState {
     console.log(currStore)
     initialState.currentStore = currStore
+    return initialState
+}
+
+function setCurrentAssetAndStore(assetAndStore:AssetAndStore): AppState{
+    initialState.currentAssetAndStore=assetAndStore
     return initialState
 }
 
@@ -52,6 +59,8 @@ export const showCatalogNodeReducer = (state = initialState, action: CatalogActi
             return {...setCurrentCatalogItem(action.payload)}
         case AppActionTypes.SET_CURRENT_ASSET_STORE:
             return {...setCurrentAssetStore(action.payload)}
+        case AppActionTypes.SET_CURRENT_ASSET:
+            return {...setCurrentAssetAndStore(action.payload)}
 
         default:
             return state

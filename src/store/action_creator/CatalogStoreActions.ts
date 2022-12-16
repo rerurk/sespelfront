@@ -1,7 +1,8 @@
-import {CatalogItem, Item} from "../../structs/catalog";
+import {CatalogItem} from "../../structs/catalog";
 import {Dispatch} from "redux";
-import {CatalogActions, AppActionTypes} from "../types/CatalogStoreTypes";
+import {AppActionTypes, CatalogActions} from "../types/CatalogStoreTypes";
 import {StoreAssets} from "../../structs/StoreAssets";
+import {AssetAndStore} from "../../structs/Asset";
 
 export const SetCurrentCatalogItemState = (catalogItem: CatalogItem) => {
     return (dispatch: Dispatch<CatalogActions>) => {
@@ -24,5 +25,11 @@ export const SetCatalogRootState = (root: CatalogItem) => {
 export const SetAssetsStore = (store: StoreAssets) => {
     return (dispatch: Dispatch<CatalogActions>) => {
         dispatch({type: AppActionTypes.SET_CURRENT_ASSET_STORE, payload: store})
+    }
+}
+
+export const SetCurrentAsset=(assetAndStore:AssetAndStore)=>{
+    return(dispatch:Dispatch<CatalogActions>)=>{
+        dispatch({type:AppActionTypes.SET_CURRENT_ASSET,payload:assetAndStore})
     }
 }
