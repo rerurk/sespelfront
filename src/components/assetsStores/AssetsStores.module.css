@@ -17,16 +17,16 @@
 
 }
 
-.wrapper_allStores>span{
+.wrapper_allStores>select{
     text-align: left;
+    width: 80%;
     padding-left: 1rem;
     border: solid 1px grey;
     cursor: pointer;
+    font-size: 1rem;
+    background: white;
 }
-.wrapper_allStores>span:hover{
-    background: lightgrey;
 
-}
 
 .wrapper_store_fields {
     display: flex;

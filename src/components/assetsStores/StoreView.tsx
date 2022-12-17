@@ -83,10 +83,7 @@ const StoreView: FC = () => {
                     ?<button className={cl.wrapper_make_new_assetStore_bt} onClick={onMakeNewStore}>Сохранить новое</button>
                     :false
                 }
-                <div className={cl.wrapper_wrapper_store_name}>
-                    <span>Наименование:</span>
-                    <input key={"name_"+currentStore.item.uuid} defaultValue={currentStore.item.name} disabled={isDisable} onChange={event => onChangeName(event)}/>
-                </div>
+
                 <Address key={"address_"+currentStore.item.uuid} address={currentStore.address} isDisable={isDisable} keyPref={currentStore.item.uuid}/>
                 {
                     !isDisable

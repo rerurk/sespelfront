@@ -1,12 +1,12 @@
 import React, {FC} from 'react';
 // @ts-ignore
-import cl from './AssetsViewmodule.css'
+import cl from './AssetsView.module.css'
 import {RouterPath} from "../../router";
 import {useNavigate} from "react-router-dom";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
-import MakeAsset from "../../components/asset/makeAsset/MakeAsset";
+
 import AllAssetsByCatalogItem from "../../components/asset/allAssetsByCatalogItem/AllAssetsByCatalogItem";
-import AllStores from "../../components/assetsStores/AllStores";
+
 
 
 const AssetsView: FC = () => {
@@ -19,9 +19,8 @@ const AssetsView: FC = () => {
                     <button onClick={() => navigate(RouterPath.CATALOG_SETUP)}>назад</button>
                     <label key={"createAsset_" + currCatalogItem.uuid}>Наименование ТМЦ: {currCatalogItem.name}</label>
                 </div>
-                <MakeAsset key={"MakeAsset"}/>
-                <AllAssetsByCatalogItem catalogItem={currCatalogItem}
-                                        key={"AllAssetsByCatalogItem_" + currCatalogItem.uuid}/>
+              {/*  <MakeAsset key={"MakeAsset"}/>*/}
+                <AllAssetsByCatalogItem catalogItem={currCatalogItem}    key={"AllAssetsByCatalogItem_" + currCatalogItem.uuid}/>
 
             </div>
         );

@@ -9,6 +9,7 @@ interface AssetViewProps {
     name:string;
 }
 const AssetView:FC<AssetViewProps> = ({asset,indexN,name}) => {
+    console.log(name)
     return (
         <div className={cl.wrapper}>
            <div>

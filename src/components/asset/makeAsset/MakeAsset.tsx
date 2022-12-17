@@ -8,7 +8,7 @@ import {Tools} from "../../../tools/Tools";
 
 import {Fetches} from "../../../fetches/Fetches";
 import {NewAsset} from "../../../structs/Asset";
-import AllStores from "../../assetsStores/AllStores";
+import StoreSelect from "../../assetsStores/StoreSelect";
 const MakeAsset:FC = () => {
     const {currCatalogItem,currentStore} = useTypeSelector(state => state.showCatalogNode)
 
@@ -37,7 +37,7 @@ const MakeAsset:FC = () => {
         <div onClick={e=>e.stopPropagation()} className={cl.wrapper}>
             <h3>тут содаем конкретный этот продукт выбирая склад</h3>
            <button onClick={onBtCreate}>Создать</button>
-            <AllStores/>
+            <StoreSelect/>
         </div>
     );
 };

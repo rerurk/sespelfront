@@ -1,24 +1,37 @@
+
+
 .wrapper {
     background: lightgrey;
+    height: 95%;
     overflow: scroll;
-    height: 50%;
 }
 
-.wrapper_assInStore {
+.wrapper_storeAndAssets {
     display: flex;
     align-items: center;
     justify-content:center;
     flex-direction: column;
     text-align: left;
-    border:solid 2px grey;
-}
-.wrapper_assInStore{
-    padding-left: 1rem;
-}
-.wrapper_assInStore_storeName{
 
+}
+
+.wrapper_storeAndAssets_storeName{
     display: flex;
+    height: 2rem;
     justify-content: left;
-    padding-left: 1rem;
     text-align: left;
+    width: 100%;
+    border-bottom: solid 1px black;
+}
+.wrapper_storeAndAssets_assets{
+    display: flex;
+    flex-direction: column;
+     width: 100%;
+}
+.wrapper_storeAndAssets_assets_show{
+    display: flex;
+
+}
+.wrapper_storeAndAssets_assets_hide{
+    display: none;
 }

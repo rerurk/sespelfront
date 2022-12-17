@@ -3,7 +3,7 @@ import React, {FC} from 'react';
 import cl from "./AssetsStores.module.css"
 
 import StoreView from "./StoreView";
-import AllStores from "./AllStores";
+import StoreSelect from "./StoreSelect";
 
 const AssetsStores: FC = () => {
     const onBtCreateNewClick = () => {
@@ -13,7 +13,7 @@ const AssetsStores: FC = () => {
 
     return (
         <div className={cl.wrapper}>
-            <AllStores/>
+            <StoreSelect/>
             <StoreView/>
 
 
