@@ -25,7 +25,7 @@ interface CatalogViewProps {
 const showS = "v"
 const hiddenS = ">"
 
-const TreeNode: FC<CatalogViewProps> = ({item}) => {
+const CatalogTree: FC<CatalogViewProps> = ({item}) => {
       Tools.LoadCatalogItemFields(item)
 
     let showText: string
@@ -186,4 +186,4 @@ const TreeNode: FC<CatalogViewProps> = ({item}) => {
     );
 };
 
-export default TreeNode;
+export default CatalogTree;

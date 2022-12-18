@@ -1,7 +1,7 @@
 import {CatalogItem, Item} from "../../structs/catalog";
 import {CatalogActions, AppActionTypes, AppState} from "../types/CatalogStoreTypes";
 import {StoreAssets} from "../../structs/StoreAssets";
-import {AssetAndStore} from "../../structs/Asset";
+import {AssetAndStore, AssetQrCode} from "../../structs/Asset";
 
 
 const initialState: AppState = {
@@ -9,13 +9,19 @@ const initialState: AppState = {
     currentCatalog: null,
     currCatalogItem: null,
     currentStore: null,
-    currentAssetAndStore:null
+    currentAssetAndStore:null,
+    assetQrCode:null
 
 
 }
 
 export function GetCurrentState(): AppState {
     return initialState
+}
+
+function setAssetQrCode(assetQrCode:AssetQrCode):AppState {
+    initialState.assetQrCode=assetQrCode
+return initialState
 }
 
 function setCurrentCatalogItem(catalogItem: CatalogItem): AppState {
@@ -61,6 +67,8 @@ export const showCatalogNodeReducer = (state = initialState, action: CatalogActi
             return {...setCurrentAssetStore(action.payload)}
         case AppActionTypes.SET_CURRENT_ASSET:
             return {...setCurrentAssetAndStore(action.payload)}
+        case AppActionTypes.SET_ASSET_QRCODE:
+            return {...setAssetQrCode(action.payload)}
 
         default:
             return state

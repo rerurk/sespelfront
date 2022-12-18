@@ -13,7 +13,7 @@ export enum ErrorsText {
 }
 
 export enum StoresText {
-    AllStoresLabel = "Все места хранения",
+    SelectStoreLabel = "",
     CurrentStore="Склад",
     CurrentCatalogName="Наименование"
 }

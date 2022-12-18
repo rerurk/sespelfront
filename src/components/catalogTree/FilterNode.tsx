@@ -3,7 +3,7 @@
 import React, {FC} from 'react';
 import {CatalogItem, Item} from "../../structs/catalog";
 
-import TreeNode from "./TreeNode";
+import CatalogTree from "./CatalogTree";
 import {AppItemMasks} from "../../App";
 
 
@@ -14,7 +14,7 @@ interface FilterNodeProps  {
 const FilterNode:FC<FilterNodeProps> = ({item}) => {
     if((item.mask & AppItemMasks.CATALOG_MASK) == AppItemMasks.CATALOG_MASK){
         return (
-            <TreeNode item={item}/>
+            <CatalogTree item={item}/>
         );
     }
     return (

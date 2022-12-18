@@ -8,10 +8,12 @@ import {Tools} from "../../../tools/Tools";
 
 import {Fetches} from "../../../fetches/Fetches";
 import {NewAsset} from "../../../structs/Asset";
-import StoreSelect from "../../assetsStores/StoreSelect";
+import StoresSelect from "../../assetsStores/StoresSelect";
+import {useNavigate} from "react-router-dom";
+import {RouterPath} from "../../../router";
 const MakeAsset:FC = () => {
     const {currCatalogItem,currentStore} = useTypeSelector(state => state.showCatalogNode)
-
+    const navigate = useNavigate();
     const onBtCreate=()=>{
         if(currCatalogItem) {
             // вместо имени присвоим sysid наименования owner будет место хранения по умолчнию задаться основной склад
@@ -35,9 +37,11 @@ const MakeAsset:FC = () => {
         }
     return (
         <div onClick={e=>e.stopPropagation()} className={cl.wrapper}>
-            <h3>тут содаем конкретный этот продукт выбирая склад</h3>
-           <button onClick={onBtCreate}>Создать</button>
-            <StoreSelect/>
+            <button onClick={()=>navigate(RouterPath.SHOW_CATALOG)}>вернуться</button>
+            <h3>создать ТМЦ {currCatalogItem?.name}</h3>
+            <h3>на складе</h3>
+            <StoresSelect/>
+            <button onClick={onBtCreate}>Создать</button>
         </div>
     );
 };

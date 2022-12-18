@@ -1,10 +1,10 @@
 import React, {FC, useEffect, useState} from 'react';
 // @ts-ignore
-import QrReader from 'react-qr-scanner'
+import QrReader from 'modern-react-qr-reader'
 
 // @ts-ignore
 import cl from './QrScan.module.css'
-import ShowAsset from "../../components/asset/showAsset/ShowAsset";
+import ShowAssetState from "../../components/asset/showAssetState/ShowAssetState";
 import {useDispatch} from "react-redux";
 import {Fetches} from "../../fetches/Fetches";
 import {SetCurrentAsset} from "../../store/action_creator/CatalogStoreActions";
@@ -26,18 +26,13 @@ const QrScan: FC = () => {
 
 
     }, [])
-    const previewStyle = {
-        height: camSize,
-        width: camSize,
-    }
+
 
     const handleScan = (data: any) => {
 
         if (data) {
-            setQrRes(data.text)
-
-
-            Fetches.GetAssetAndStoreByUUID(data.text).then(r => {
+            setQrRes(data)
+            Fetches.GetAssetAndStoreByUUID(data).then(r => {
 
                 if (!(r instanceof Error)) {
                     // @ts-ignore
@@ -50,7 +45,7 @@ const QrScan: FC = () => {
         }
     }
     const handleError = (err: Error) => {
-        console.error(err)
+        alert(err)
     }
     const onRepeatBtClick = () => {
         setQrRes(() => null)
@@ -64,10 +59,12 @@ const QrScan: FC = () => {
 
                 }}>
                     <QrReader
-                        delay={1000}
-                        style={previewStyle}
+                        delay={500}
+                        facingMode={"environment"}
+
                         onError={handleError}
                         onScan={handleScan}
+                        style={{ width: '100%' }}
                     />
 
                 </div>
@@ -77,8 +74,8 @@ const QrScan: FC = () => {
     }
     return (
         <div>
-
-            <ShowAsset assetUUID={qrRes}/>
+             <label>{qrRes}</label>
+            <ShowAssetState assetUUID={qrRes}/>
             <button onClick={onRepeatBtClick}>повторить</button>
         </div>
     )

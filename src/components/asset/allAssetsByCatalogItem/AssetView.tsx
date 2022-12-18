@@ -3,15 +3,35 @@ import {Item} from "../../../structs/catalog";
 import QRCode from "react-qr-code";
 // @ts-ignore
 import cl from"./AssetView.module.css"
+import {AssetDrag, OnAssetDragEnd} from "../../../gragAndDrops/assets/assetsDrag";
+import {useDispatch} from "react-redux";
+import {CatalogActions} from "../../../store/types/CatalogStoreTypes";
+import {Dispatch} from "redux";
+import {AssetQrCode} from "../../../structs/Asset";
+import {SetAssetQRCode} from "../../../store/action_creator/CatalogStoreActions";
 interface AssetViewProps {
     asset:Item;
     indexN:number;
     name:string;
 }
 const AssetView:FC<AssetViewProps> = ({asset,indexN,name}) => {
-    console.log(name)
+    const dispatch=useDispatch()
+    const onViewClick=()=>{
+        let assetQrCode:AssetQrCode={
+           code: asset.uuid,
+            assetCatalogName:name
+        }
+        // @ts-ignore
+        dispatch(SetAssetQRCode(assetQrCode))
+    }
     return (
-        <div className={cl.wrapper}>
+        <div
+            className={cl.wrapper}
+            draggable={true}
+            onDragStart={()=>AssetDrag(asset)}
+            onDragEnd={()=>OnAssetDragEnd()}
+            onClick={onViewClick}
+        >
            <div>
                {indexN}
            </div>

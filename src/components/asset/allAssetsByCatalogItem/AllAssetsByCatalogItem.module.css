@@ -14,6 +14,10 @@
     text-align: left;
 
 }
+.wrapper_storeAndAssets_on_drag_enter {
+  background: green;
+
+}
 
 .wrapper_storeAndAssets_storeName{
     display: flex;

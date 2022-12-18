@@ -1,8 +1,8 @@
-import {CatalogItem} from "../../structs/catalog";
+import {CatalogItem, Item} from "../../structs/catalog";
 import {Dispatch} from "redux";
 import {AppActionTypes, CatalogActions} from "../types/CatalogStoreTypes";
 import {StoreAssets} from "../../structs/StoreAssets";
-import {AssetAndStore} from "../../structs/Asset";
+import {AssetAndStore, AssetQrCode} from "../../structs/Asset";
 
 export const SetCurrentCatalogItemState = (catalogItem: CatalogItem) => {
     return (dispatch: Dispatch<CatalogActions>) => {
@@ -31,5 +31,11 @@ export const SetAssetsStore = (store: StoreAssets) => {
 export const SetCurrentAsset=(assetAndStore:AssetAndStore)=>{
     return(dispatch:Dispatch<CatalogActions>)=>{
         dispatch({type:AppActionTypes.SET_CURRENT_ASSET,payload:assetAndStore})
+    }
+}
+
+export const SetAssetQRCode=(assetQrCode:AssetQrCode)=>{
+    return(dispatch:Dispatch<CatalogActions>)=>{
+        dispatch({type:AppActionTypes.SET_ASSET_QRCODE,payload:assetQrCode})
     }
 }

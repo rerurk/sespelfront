@@ -1,7 +1,7 @@
 import React, {FC} from 'react';
 import {CatalogItem} from "../../structs/catalog";
 // @ts-ignore
-import cl from "./CatalogNodeShow.module.css"
+import cl from "./CatalogShow.module.css"
 
 import {useNavigate} from "react-router-dom";
 import {RouterPath} from "../../router";
@@ -19,14 +19,13 @@ interface ShowCatalogItemProps {
 
 }
 
-const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
+const CatalogItemView: FC<ShowCatalogItemProps> = ({item}) => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch()
 
     const onCatalogClick = () => {
         if (item.callShow) {
-
             item.callShow()
 
         }
@@ -34,11 +33,21 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
     }
 
     const onCatalogItemClick = () => {
+         //showAllCatalogItemAssets()
+        showAllCatalogItemAssets()
+    }
+
+    const showAllCatalogItemAssets =()=>{
         console.log(item)
         // @ts-ignore
         dispatch(SetCurrentCatalogItemState(item))
-        navigate(RouterPath.CREATE_ASSET)
+        navigate(RouterPath.ALL_ASSETS_BY_CATALOG_NAME)
+    }
 
+    const makeCatalogItemAsset=()=>{
+        // @ts-ignore
+        dispatch(SetCurrentCatalogItemState(item))
+        navigate(RouterPath.CREATE_ASSET)
     }
 
     const onDragEnterToItem = (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -79,6 +88,8 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
         })
     }
 
+    //funcForSelActons
+
 
     if ((item.mask & AppItemMasks.CATALOG_MASK) == AppItemMasks.CATALOG_MASK) {
         return (
@@ -98,15 +109,16 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
     if ((item.mask & AppItemMasks.CATALOG_ITEM_MASK) == AppItemMasks.CATALOG_ITEM_MASK)
         return (
             <div onClick={e => e.stopPropagation()} className={cl.wrapper__catalog__item}>
+                <button onClick={makeCatalogItemAsset}>+</button>
 
-                <span
+                <div
                     onClick={onCatalogItemClick}
                     draggable={true}
                     onDrag={() => onItemDrag(item)}
                     onDragEnd={onProductNameDragEnd}
                     key={"CatalogNode" + item.uuid}
 
-                >{item.name}</span>
+                >{item.name}</div>
 
             </div>
         )
@@ -114,4 +126,4 @@ const CatalogNodeShowItem: FC<ShowCatalogItemProps> = ({item}) => {
 
 };
 
-export default CatalogNodeShowItem;
+export default CatalogItemView;

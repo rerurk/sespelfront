@@ -1,10 +1,11 @@
 import React, {FC} from 'react';
 // @ts-ignore
 import cl from "./TreeRoot.module.css"
-import TreeNode from "./TreeNode";
+import CatalogTree from "./CatalogTree";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
+import AtalogItemsShow from "../catalogItemsShow/СatalogItemsShow";
 
-const TreeRoot: FC = () => {
+const CatalogTreeRoot: FC = () => {
 
 
     const {catalogRoot} = useTypeSelector(state => state.showCatalogNode)
@@ -12,11 +13,12 @@ const TreeRoot: FC = () => {
     return (
         <div className={cl.wrapper}>{
             (catalogRoot)
-                ? <TreeNode item={catalogRoot} key={"TreeNode"+catalogRoot.uuid} />
+                ? <CatalogTree item={catalogRoot} key={"CatalogTree"+catalogRoot.uuid} />
                 : false
         }
+
         </div>
     );
 };
 
-export default TreeRoot;
+export default CatalogTreeRoot;

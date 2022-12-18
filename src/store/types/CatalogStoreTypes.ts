@@ -1,6 +1,6 @@
 import {CatalogItem, Item} from "../../structs/catalog";
 import {StoreAssets} from "../../structs/StoreAssets";
-import {AssetAndStore} from "../../structs/Asset";
+import {AssetAndStore, AssetQrCode} from "../../structs/Asset";
 
 export interface AppState {
     currentCatalog: CatalogItem | null// текущий выбранный каталог для отобрадения
@@ -8,6 +8,7 @@ export interface AppState {
     currCatalogItem: CatalogItem | null//
     currentStore: StoreAssets | null// текущий отоброаемый склад
     currentAssetAndStore:AssetAndStore|null// текущий ТМЦ и его хранилище
+    assetQrCode:AssetQrCode|null
 }
 
 export enum AppActionTypes {
@@ -15,8 +16,14 @@ export enum AppActionTypes {
     SET_CATALOG_ROOT = 'SET_CATALOG_ROOT',
     SET_CURRENT_CATALOG_ITEM = "SET_CURRENT_CATALOG_ITEM",
     SET_CURRENT_ASSET_STORE = "SET_CURRENT_ASSET_STORE",
-    SET_CURRENT_ASSET = "SET_CURRENT_ASSET"
+    SET_CURRENT_ASSET = "SET_CURRENT_ASSET",
+    SET_ASSET_QRCODE="SET_ASSET_QRCODE"
 
+}
+
+interface SetAssetQRCodeAction{
+    type:AppActionTypes.SET_ASSET_QRCODE,
+    payload:AssetQrCode
 }
 
 interface SetCurrentAssetAction {
@@ -49,3 +56,4 @@ export type CatalogActions = SetCurrentCatalogAction
     | SetCurrentCatalogItemAction
     | SetAssetsStorage
     | SetCurrentAssetAction
+|SetAssetQRCodeAction

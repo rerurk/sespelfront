@@ -9,7 +9,7 @@ import {SetAssetsStore} from "../../store/action_creator/CatalogStoreActions";
 
 let selectStore: StoreAssets
 
-const StoreSelect = () => {
+const StoresSelect = () => {
     const dispatch = useDispatch()
     const [assetStores, setAssetStores] = useState<StoreAssets[] | null>(null)
     useEffect(() => {
@@ -44,7 +44,7 @@ const StoreSelect = () => {
         return (
 
             <div className={cl.wrapper_allStores}>
-                <label>{StoresText.AllStoresLabel}</label>
+                <label>{StoresText.SelectStoreLabel}</label>
                 <select onChange={event => onSelectChange(event)}>
 
                     {
@@ -66,4 +66,4 @@ const StoreSelect = () => {
     return (<></>)
 };
 
-export default StoreSelect;
+export default StoresSelect;

@@ -21,3 +21,7 @@ export type AssetAndStore ={
 export type AssetUUID ={
     uuid:string
 }
+export type AssetQrCode ={
+    code:string
+    assetCatalogName:string
+}
