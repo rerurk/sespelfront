@@ -1,46 +1,79 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 // @ts-ignore
 import cl from "./NomenclatureShow.module.css"
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 
 
-import {NomenclatureItem, Item} from "../../structs/nomenclature";
+import {NomenclatureItem} from "../../structs/nomenclature";
 import NomenclatureItemView from "./NomenclatureItemView";
-import CatalogMenu from "../catalogMenu/CatalogMenu";
 import {Fetches} from "../../fetches/Fetches";
 import {useDispatch} from "react-redux";
-import {SetNomenclatureRootState} from "../../store/action_creator/AppStoreActions";
-
-
+import {SetNomenclatureRootState, SetSelectedNomenclatureGroupState} from "../../store/action_creator/AppStoreActions";
+import {OnNomenclatureDragEnter} from "../../gragAndDrops/Nomenclature/nomenclature";
+import {useNavigate} from "react-router-dom";
+import {RouterPath} from "../../router";
 
 
 const NomenclatureRoot: FC = () => {
 
-    const {nomenclatureRoot} = useTypeSelector(state => state.showCatalogNode)
-    const dispatch=useDispatch()
+    const {nomenclatureRoot,selectedNomenclatureGroup} = useTypeSelector(state => state.showCatalogNode)
+    const [hisItems,setHisItems]=useState<NomenclatureItem[]|null>(null)
+    const dispatch = useDispatch()
+    const navigate = useNavigate();
+
+
     useEffect(() => {
         if (nomenclatureRoot) {
-            Fetches.GetNomenclatureItems(nomenclatureRoot).then(r => {
-                if(!(r instanceof Error)&&r.length>0&&(nomenclatureRoot.items==null)) {
-                    r.map((it:NomenclatureItem)=>it.ownerItem=nomenclatureRoot)
-                    nomenclatureRoot.items = r
-                    // @ts-ignore
-                    dispatch(SetNomenclatureRootState(nomenclatureRoot))
-                }
-            })
+            console.log("useEffect",nomenclatureRoot)
+            nomenclatureRoot.callReBoot=()=>nomenclatureRootReboot()
+            nomenclatureRootReboot()
         }
     }, [nomenclatureRoot])
 
-    if (nomenclatureRoot && nomenclatureRoot.items) {
+
+    function nomenclatureRootReboot() {
+        if (nomenclatureRoot) {
+            Fetches.GetNomenclatureItems(nomenclatureRoot).then(r => {
+                console.log(r)
+                if (!(r instanceof Error) && r.length > 0) {
+                    r.map((it: NomenclatureItem) => it.ownerItem = nomenclatureRoot)
+                    nomenclatureRoot.items = r
+                    setHisItems(()=>r)
+
+                }
+            })
+        }
+    }
+
+    if (nomenclatureRoot) {
 
         return (
             <div className={cl.wrapper} onClick={event => event.stopPropagation()}>
-                <div className={cl.wrapper_head}>
-                    <span>тут будут кноки</span>
+
+                <div className={cl.wrapper_tools}>
+                    <span>Выбранная группа: {nomenclatureRoot.uuid!=selectedNomenclatureGroup?.uuid?selectedNomenclatureGroup?.name:nomenclatureRoot.name}</span>
+                    <button onClick={()=>navigate(RouterPath.MAKE_NOMENCLATURE_GROUP)}>Создать подгруппу</button>
+                    <button onClick={()=>navigate(RouterPath.MAKE_NOMENCLATURE_ITEM)}>Создать наименование</button>
+
+                </div>
+                <div className={cl.wrapper_content_nomenclature_group_name}
+                     onDragEnter={() => OnNomenclatureDragEnter(nomenclatureRoot)}
+                     onClick={()=>{
+                         // @ts-ignore
+                         dispatch(SetSelectedNomenclatureGroupState(nomenclatureRoot))
+                     }}
+                >
+
+                    <span>{nomenclatureRoot.name}:</span>
+
                 </div>
                 <div className={cl.wrapper_content}>
-                    {
-                        nomenclatureRoot.items.map((it:NomenclatureItem)=><NomenclatureItemView item={it} key={"NomenclatureItemView"+it.uuid}/>)
+                     {hisItems
+                        ?hisItems.map((it: NomenclatureItem) =>
+                            <NomenclatureItemView
+                                item={it}
+                               key={"NomenclatureItemView" + it.uuid}/>)
+                         :false
                     }
                 </div>
             </div>

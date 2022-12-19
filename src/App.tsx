@@ -8,7 +8,7 @@ import {Fetches} from "./fetches/Fetches";
 import {ItemMasks} from "./structs/Masks";
 import {
     SetNomenclatureRootState,
-    SetCurrentCatalogState,
+    SetSelectedNomenclatureGroupState,
     SetAssetsStore
 } from "./store/action_creator/AppStoreActions";
 import {useDispatch} from "react-redux";
@@ -30,7 +30,7 @@ function App() {
                 // @ts-ignore
                 dispatch(SetNomenclatureRootState(catalogRoot))
                 // @ts-ignore
-                dispatch(SetCurrentCatalogState(catalogRoot))
+                dispatch(SetSelectedNomenclatureGroupState(catalogRoot))
 
 
                 setIsAllConsist(()=>true)

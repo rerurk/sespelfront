@@ -6,7 +6,7 @@ import {AssetAndStore, AssetQrCode} from "../../structs/Asset";
 
 const initialState: AppState = {
     nomenclatureRoot: null,
-    currentCatalog: null,
+    selectedNomenclatureGroup: null,
     currCatalogItem: null,
     currentStore: null,
     currentAssetAndStore:null,
@@ -30,10 +30,10 @@ function setCurrentCatalogItem(catalogItem: NomenclatureItem): AppState {
     return initialState
 }
 
-function setCurrentCatalog(catalogItem: NomenclatureItem): AppState {
-    console.log("Store State catalogItem:", catalogItem)
+function setCurrentCatalog(selectedNomenclatureGroup: NomenclatureItem): AppState {
+    console.log("Store State catalogItem:", selectedNomenclatureGroup)
 
-    initialState.currentCatalog = catalogItem
+    initialState.selectedNomenclatureGroup = selectedNomenclatureGroup
     return initialState
 }
 
@@ -57,7 +57,7 @@ function setCurrentAssetAndStore(assetAndStore:AssetAndStore): AppState{
 export const showCatalogNodeReducer = (state = initialState, action: CatalogActions): AppState => {
 
     switch (action.type) {
-        case AppActionTypes.SET_CURRENT_CATALOG:
+        case AppActionTypes.SET_SELECTED_NOMENCLATURE_GROUP:
             return {...setCurrentCatalog(action.payload)}
         case AppActionTypes.SET_CATALOG_ROOT:
             return {...setCatalogRoot(action.payload)}

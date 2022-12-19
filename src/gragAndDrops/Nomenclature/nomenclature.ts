@@ -8,7 +8,7 @@ let dragItem: NomenclatureItem | null = null
 let dragItemEnter: NomenclatureItem | null = null
 let ownerCatalogItem: NomenclatureItem | null = null
 
-export function onNomenclatureGropeDrag(item: NomenclatureItem) {
+export function onNomenclatureGroupDrag(item: NomenclatureItem) {
      console.log(item)
     if (item != dragItem) {
         dragItem = item
@@ -19,7 +19,7 @@ export function onNomenclatureGropeDrag(item: NomenclatureItem) {
 }
 
 export function OnNomenclatureDragEnter(item: NomenclatureItem) {
-    console.log(item)
+
     if ((item.mask & AppItemMasks.CATALOG_MASK) != AppItemMasks.CATALOG_MASK) return
     if (dragItemEnter === item) return;
     dragItemEnter = item
@@ -83,7 +83,7 @@ function GetItems(): TransferCatalogItem | null {
         dragItem = null
         dragItemEnter = null
         ownerCatalogItem = null
-        console.log(dragItem, transferItem.item)
+
         return transferItem
     }
     return null

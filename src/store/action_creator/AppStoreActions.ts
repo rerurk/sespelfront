@@ -10,9 +10,9 @@ export const SetCurrentNomenclatureItemState = (catalogItem: NomenclatureItem) =
     }
 }
 
-export const SetCurrentCatalogState = (catalogItem: NomenclatureItem) => {
+export const SetSelectedNomenclatureGroupState = (catalogItem: NomenclatureItem) => {
     return (dispatch: Dispatch<CatalogActions>) => {
-        dispatch({type: AppActionTypes.SET_CURRENT_CATALOG, payload: catalogItem})
+        dispatch({type: AppActionTypes.SET_SELECTED_NOMENCLATURE_GROUP, payload: catalogItem})
     }
 }
 

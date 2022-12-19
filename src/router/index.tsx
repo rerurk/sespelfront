@@ -5,10 +5,8 @@ import Nomenclatures from "../pages/nomenclatures/Nomenclatures";
 import ShowAssetsStores from "../pages/showAssetsStores/ShowAssetsStores";
 import QrScan from "../pages/qrscan/QrScan";
 import CreateAsset from "../pages/createAsset/CreateAsset";
-
-
-
-
+import MakeNomenclatureGroup from "../pages/makeNomenclatureGroup/MakeNomenclatureGroup";
+import MakeNomenclatureItem from "../pages/makeNomenclatureItem/MakeNomenclatureItem";
 
 export type RouteNode = {
     isHide: boolean
@@ -18,7 +16,6 @@ export type RouteNode = {
     element: JSX.Element
 }
 
-
 export enum RouterTexts {
     MAIN = "Главная",
     CREATE_ASSET = "Создать ТМЦ",
@@ -26,7 +23,6 @@ export enum RouterTexts {
     NOMENCLATURE = "Номенклатура",
     ASSERTS_STORAGE = "Склады",
     QR_CODE_SCANNER = "Сканер",
-
 
 
 }
@@ -38,7 +34,9 @@ export enum RouterPath {
     CREATE_ASSET = "/CREATE_ASSET",
     ASSERTS_STORAGE = "/ASSERTS_STORAGE",
     QR_CODE_SCANNER = "/QR_CODE_SCANNER",
-    ALL_ASSETS_BY_CATALOG_NAME="/ALL_ASSETS_BY_CATALOG_NAME"
+    ALL_ASSETS_BY_CATALOG_NAME = "/ALL_ASSETS_BY_CATALOG_NAME",
+    MAKE_NOMENCLATURE_GROUP = "/MAKE_NOMENCLATURE_GROUP",
+    MAKE_NOMENCLATURE_ITEM="/MAKE_NOMENCLATURE_ITEM"
 }
 
 export const privateRoutes = []
@@ -51,8 +49,6 @@ export const publicRoutes: RouteNode[] = [
         name: RouterTexts.QR_CODE_SCANNER,
         element: <QrScan/>
     },
-
-
     {
         isHide: false,
         exact: false,
@@ -84,15 +80,24 @@ export const publicRoutes: RouteNode[] = [
     {
         isHide: true,
         exact: false,
+        path: RouterPath.MAKE_NOMENCLATURE_GROUP,
+        name: "",
+        element: <MakeNomenclatureGroup/>
+    },
+    {
+        isHide: true,
+        exact: false,
+        path: RouterPath.MAKE_NOMENCLATURE_ITEM,
+        name: "",
+        element: <MakeNomenclatureItem/>
+    },
+    {
+        isHide: true,
+        exact: false,
         path: RouterPath.ALL_ASSETS_BY_CATALOG_NAME,
         name: "",
         element: <ShowAllAssetsByCatalogName/>
     },
-
-
-
-
-
 
 
 ]
