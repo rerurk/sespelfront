@@ -1,11 +1,11 @@
-import {CatalogItem, Item} from "../../structs/catalog";
+import {NomenclatureItem, Item} from "../../structs/nomenclature";
 import {StoreAssets} from "../../structs/StoreAssets";
 import {AssetAndStore, AssetQrCode} from "../../structs/Asset";
 
-export interface AppState {
-    currentCatalog: CatalogItem | null// текущий выбранный каталог для отобрадения
-    catalogRoot: CatalogItem | null//корень каталога, его получаемс сервера
-    currCatalogItem: CatalogItem | null//
+export type AppState={
+    currentCatalog: NomenclatureItem | null// текущий выбранный каталог для отобрадения
+    nomenclatureRoot: NomenclatureItem | null//корень каталога, его получаемс сервера
+    currCatalogItem: NomenclatureItem | null//
     currentStore: StoreAssets | null// текущий отоброаемый склад
     currentAssetAndStore:AssetAndStore|null// текущий ТМЦ и его хранилище
     assetQrCode:AssetQrCode|null
@@ -14,7 +14,7 @@ export interface AppState {
 export enum AppActionTypes {
     SET_CURRENT_CATALOG = "SET_CURRENT_CATALOG",
     SET_CATALOG_ROOT = 'SET_CATALOG_ROOT',
-    SET_CURRENT_CATALOG_ITEM = "SET_CURRENT_CATALOG_ITEM",
+    SET_CURRENT_NOMENCLATURE_ITEM = "SET_CURRENT_NOMENCLATURE_ITEM",
     SET_CURRENT_ASSET_STORE = "SET_CURRENT_ASSET_STORE",
     SET_CURRENT_ASSET = "SET_CURRENT_ASSET",
     SET_ASSET_QRCODE="SET_ASSET_QRCODE"
@@ -31,19 +31,19 @@ interface SetCurrentAssetAction {
     payload: AssetAndStore
 }
 
-interface SetCurrentCatalogItemAction {
-    type: AppActionTypes.SET_CURRENT_CATALOG_ITEM
-    payload: CatalogItem
+interface SetCurrentNomenclatureItemAction {
+    type: AppActionTypes.SET_CURRENT_NOMENCLATURE_ITEM
+    payload: NomenclatureItem
 }
 
 interface SetCurrentCatalogAction {
     type: AppActionTypes.SET_CURRENT_CATALOG
-    payload: CatalogItem
+    payload: NomenclatureItem
 }
 
 interface SetCatalogRootAction {
     type: AppActionTypes.SET_CATALOG_ROOT
-    payload: CatalogItem
+    payload: NomenclatureItem
 }
 
 interface SetAssetsStorage {
@@ -53,7 +53,7 @@ interface SetAssetsStorage {
 
 export type CatalogActions = SetCurrentCatalogAction
     | SetCatalogRootAction
-    | SetCurrentCatalogItemAction
+    | SetCurrentNomenclatureItemAction
     | SetAssetsStorage
     | SetCurrentAssetAction
 |SetAssetQRCodeAction

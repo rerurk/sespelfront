@@ -1,4 +1,4 @@
-import {Item} from "./catalog";
+import {Item} from "./nomenclature";
 import {TAddress} from "../components/UI/address/Address";
 
 export type StoreAssets={

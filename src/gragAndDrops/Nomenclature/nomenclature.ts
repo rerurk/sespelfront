@@ -1,14 +1,15 @@
-import {CatalogItem, Item, TransferCatalogItem} from "../../structs/catalog";
+import {NomenclatureItem, Item, TransferCatalogItem} from "../../structs/nomenclature";
 import {Fetches} from "../../fetches/Fetches";
 import {AppItemMasks} from "../../App";
 
 
 
-let dragItem: CatalogItem | null = null
-let dragItemEnter: CatalogItem | null = null
-let ownerCatalogItem: CatalogItem | null = null
+let dragItem: NomenclatureItem | null = null
+let dragItemEnter: NomenclatureItem | null = null
+let ownerCatalogItem: NomenclatureItem | null = null
 
-export function onItemDrag(item: CatalogItem) {
+export function onNomenclatureGropeDrag(item: NomenclatureItem) {
+     console.log(item)
     if (item != dragItem) {
         dragItem = item
         ownerCatalogItem = item.ownerItem
@@ -17,7 +18,8 @@ export function onItemDrag(item: CatalogItem) {
 
 }
 
-export function OnItemDragEnter(item: CatalogItem) {
+export function OnNomenclatureDragEnter(item: NomenclatureItem) {
+    console.log(item)
     if ((item.mask & AppItemMasks.CATALOG_MASK) != AppItemMasks.CATALOG_MASK) return
     if (dragItemEnter === item) return;
     dragItemEnter = item
@@ -26,7 +28,7 @@ export function OnItemDragEnter(item: CatalogItem) {
 
 export async function ConfirmReplace(): Promise<any | Error | TransferCatalogItem> {
     let transferCatalogItem: TransferCatalogItem | null = GetItems()
-
+    console.log(transferCatalogItem)
 
 
 
@@ -91,7 +93,7 @@ function testToContains(): boolean {
     /*TODO тоже свмое сделть на в беке*/
     let test: boolean;
     if (dragItemEnter && dragItem) {
-        let owner: CatalogItem| null = dragItemEnter.ownerItem
+        let owner: NomenclatureItem| null = dragItemEnter.ownerItem
 
         // для гарантии выхода из цикла
         let count: number = 0

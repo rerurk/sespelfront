@@ -1,14 +1,14 @@
 
 /* Фильтр для отсечения не каталогов*/
 import React, {FC} from 'react';
-import {CatalogItem, Item} from "../../structs/catalog";
+import {NomenclatureItem, Item} from "../../structs/nomenclature";
 
 import CatalogTree from "./CatalogTree";
 import {AppItemMasks} from "../../App";
 
 
 interface FilterNodeProps  {
-    item:CatalogItem
+    item:NomenclatureItem
 }
 
 const FilterNode:FC<FilterNodeProps> = ({item}) => {

@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
-import {Item} from "../../structs/catalog";
+import {Item} from "../../structs/nomenclature";
 import {AppItemMasks} from "../../App";
 import {TAddress} from "../UI/address/Address";
 import {StoreAssets} from "../../structs/StoreAssets";
 import {useDispatch} from "react-redux";
-import {SetAssetsStore} from "../../store/action_creator/CatalogStoreActions";
+import {SetAssetsStore} from "../../store/action_creator/AppStoreActions";
 import {EmptyField} from "./StoreView";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 // @ts-ignore

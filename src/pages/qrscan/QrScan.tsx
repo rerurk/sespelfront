@@ -1,13 +1,13 @@
 import React, {FC, useEffect, useState} from 'react';
 // @ts-ignore
-import QrReader from 'modern-react-qr-reader'
+    import QrReader from 'modern-react-qr-reader'
 
 // @ts-ignore
 import cl from './QrScan.module.css'
 import ShowAssetState from "../../components/asset/showAssetState/ShowAssetState";
 import {useDispatch} from "react-redux";
 import {Fetches} from "../../fetches/Fetches";
-import {SetCurrentAsset} from "../../store/action_creator/CatalogStoreActions";
+import {SetCurrentAsset} from "../../store/action_creator/AppStoreActions";
 
 
 

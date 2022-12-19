@@ -8,11 +8,11 @@ import MenuItems from "./MenuItems";
 import {Menu, MenuAction, selectAction} from "./menuActions";
 
 
-import {CatalogItem, Item} from "../../structs/catalog";
+import {NomenclatureItem, Item} from "../../structs/nomenclature";
 
 
 interface CatalogMenuProps {
-    catalogItem:CatalogItem
+    catalogItem:NomenclatureItem
     isVisible:boolean
 
 }

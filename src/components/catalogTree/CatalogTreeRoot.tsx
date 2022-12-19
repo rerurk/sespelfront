@@ -3,17 +3,17 @@ import React, {FC} from 'react';
 import cl from "./TreeRoot.module.css"
 import CatalogTree from "./CatalogTree";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
-import AtalogItemsShow from "../catalogItemsShow/СatalogItemsShow";
+import AtalogItemsShow from "../nomenclatureItemsShow/NomenclatureRoot";
 
 const CatalogTreeRoot: FC = () => {
 
 
-    const {catalogRoot} = useTypeSelector(state => state.showCatalogNode)
+    const {nomenclatureRoot} = useTypeSelector(state => state.showCatalogNode)
 
     return (
         <div className={cl.wrapper}>{
-            (catalogRoot)
-                ? <CatalogTree item={catalogRoot} key={"CatalogTree"+catalogRoot.uuid} />
+            (nomenclatureRoot)
+                ? <CatalogTree item={nomenclatureRoot} key={"CatalogTree"+nomenclatureRoot.uuid} />
                 : false
         }
 

@@ -2,13 +2,13 @@ import React, {FC, useState} from 'react';
 import {AssetsInStore} from "../../../structs/Asset";
 // @ts-ignore
 import cl from "./AllAssetsByCatalogItem.module.css";
-import {CatalogItem, Item} from "../../../structs/catalog";
+import {NomenclatureItem, Item} from "../../../structs/nomenclature";
 import AssetView from "./AssetView";
 import {OnStoreDragEnter, OnStoreDragLive} from "../../../gragAndDrops/assets/assetsDrag";
 
 interface AllAssetsByStoreProps {
     ais: AssetsInStore
-    catalogItem: CatalogItem
+    catalogItem: NomenclatureItem
 }
 
 const AllAssetsByStore: FC<AllAssetsByStoreProps> = ({ais, catalogItem}) => {

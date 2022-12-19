@@ -3,13 +3,13 @@ import React, {FC, useEffect, useState} from 'react';
 import cl from "./TreeNode.module.css"
 
 
-import {CatalogItem, Item} from "../../structs/catalog";
+import {NomenclatureItem, Item} from "../../structs/nomenclature";
 import {Fetches} from "../../fetches/Fetches";
 
-import {ConfirmReplace, onItemDrag, OnItemDragEnter} from "../../gragAndDrops/catalog/catalog";
+import {ConfirmReplace, onNomenclatureGropeDrag, OnNomenclatureDragEnter} from "../../gragAndDrops/Nomenclature/nomenclature";
 import {useDispatch} from "react-redux";
 
-import {SetCurrentCatalogState} from "../../store/action_creator/CatalogStoreActions";
+import {SetCurrentCatalogState} from "../../store/action_creator/AppStoreActions";
 import {GetCurrentState} from "../../store/reducers/CatalogStoreReducer";
 import FilterNode from "./FilterNode";
 import {ErrorsText} from "../../texts/Texts";
@@ -17,7 +17,7 @@ import {Tools} from "../../tools/Tools";
 
 
 interface CatalogViewProps {
-    item: CatalogItem
+    item: NomenclatureItem
 
 
 }
@@ -89,7 +89,7 @@ const CatalogTree: FC<CatalogViewProps> = ({item}) => {
 
     }
 
-    const tryToSetItems = (items: CatalogItem[] | Error) => {
+    const tryToSetItems = (items: NomenclatureItem[] | Error) => {
 
         if (items instanceof Error) {
             alert(ErrorsText.ERROR_GET_DATA)
@@ -100,7 +100,7 @@ const CatalogTree: FC<CatalogViewProps> = ({item}) => {
 
         if (items && !(items instanceof Error) && items && item.items != items) {
 
-            items.forEach((it: CatalogItem) => {
+            items.forEach((it: NomenclatureItem) => {
                 it.ownerItem = item
             })
             item.items = items
@@ -108,9 +108,9 @@ const CatalogTree: FC<CatalogViewProps> = ({item}) => {
         }
     }
 
-    async function getItems(): Promise<CatalogItem[] | Error> {
+    async function getItems(): Promise<NomenclatureItem[] | Error> {
 
-        return Fetches.GetCatalogItems(item)
+        return Fetches.GetNomenclatureItems(item)
     }
 
 
@@ -118,13 +118,13 @@ const CatalogTree: FC<CatalogViewProps> = ({item}) => {
     const onDragEnterToItem = (e: React.MouseEvent<HTMLDivElement>) => {
 
         e.currentTarget.classList.add(cl.wrapper___catalog_name_onDragEnter)
-        OnItemDragEnter(item)
+        OnNomenclatureDragEnter(item)
     }
 
     const onDragLeaveFromItem = (e: React.MouseEvent<HTMLDivElement>) => {
 
         e.currentTarget.classList.remove(cl.wrapper___catalog_name_onDragEnter)
-        OnItemDragEnter(item)
+        OnNomenclatureDragEnter(item)
     }
 
    const onItemDragEnd=()=>{
@@ -150,7 +150,7 @@ const CatalogTree: FC<CatalogViewProps> = ({item}) => {
             <div>
                 <div className={cl.wrapper___catalog_name}
                      draggable={true}
-                     onDrag={() => onItemDrag(item)}
+                     onDrag={() => onNomenclatureGropeDrag(item)}
                      onDragEnter={(e) => onDragEnterToItem(e)}
                      onDragLeave={e => onDragLeaveFromItem(e)}
                      onDragEnd={onItemDragEnd}
@@ -175,7 +175,7 @@ const CatalogTree: FC<CatalogViewProps> = ({item}) => {
                 <div className={showClass}>
                     {
                         (item.items)
-                            ? item.items.map((it: CatalogItem) => <FilterNode item={it} key={"fn" + it.uuid}/>)
+                            ? item.items.map((it: NomenclatureItem) => <FilterNode item={it} key={"fn" + it.uuid}/>)
                             : false
                     }
                 </div>

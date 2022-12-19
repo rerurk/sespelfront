@@ -1,22 +1,22 @@
-import {CatalogItem, Item} from "../../structs/catalog";
+import {NomenclatureItem, Item} from "../../structs/nomenclature";
 import {Dispatch} from "redux";
-import {AppActionTypes, CatalogActions} from "../types/CatalogStoreTypes";
+import {AppActionTypes, CatalogActions} from "../types/AppStoreTypes";
 import {StoreAssets} from "../../structs/StoreAssets";
 import {AssetAndStore, AssetQrCode} from "../../structs/Asset";
 
-export const SetCurrentCatalogItemState = (catalogItem: CatalogItem) => {
+export const SetCurrentNomenclatureItemState = (catalogItem: NomenclatureItem) => {
     return (dispatch: Dispatch<CatalogActions>) => {
-        dispatch({type: AppActionTypes.SET_CURRENT_CATALOG_ITEM, payload: catalogItem})
+        dispatch({type: AppActionTypes.SET_CURRENT_NOMENCLATURE_ITEM, payload: catalogItem})
     }
 }
 
-export const SetCurrentCatalogState = (catalogItem: CatalogItem) => {
+export const SetCurrentCatalogState = (catalogItem: NomenclatureItem) => {
     return (dispatch: Dispatch<CatalogActions>) => {
         dispatch({type: AppActionTypes.SET_CURRENT_CATALOG, payload: catalogItem})
     }
 }
 
-export const SetCatalogRootState = (root: CatalogItem) => {
+export const SetNomenclatureRootState = (root: NomenclatureItem) => {
     return (dispatch: Dispatch<CatalogActions>) => {
         dispatch({type: AppActionTypes.SET_CATALOG_ROOT, payload: root})
     }

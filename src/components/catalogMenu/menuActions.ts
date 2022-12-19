@@ -1,4 +1,4 @@
-import {AddToItem, CatalogItem, Item, RenameCatalogItem} from "../../structs/catalog";
+import {AddToItem, NomenclatureItem, Item, RenameCatalogItem} from "../../structs/nomenclature";
 import {Fetches} from "../../fetches/Fetches";
 import {Tools} from "../../tools/Tools";
 import {AppItemMasks} from "../../App";
@@ -17,22 +17,22 @@ export enum Menu {
 
 interface MakeCatalogAction {
     type: Menu.MAKE_CATALOG
-    payload: CatalogItem | null
+    payload: NomenclatureItem | null
 }
 
 interface MakeCatalogItemAction {
     type: Menu.MAKE_CATALOG_ITEM
-    payload: CatalogItem | null
+    payload: NomenclatureItem | null
 }
 
 interface RenameCatalogItemAction {
     type: Menu.RENAME_CATALOG
-    payload:CatalogItem | null
+    payload:NomenclatureItem | null
 }
 
 interface RemoveCatalogItemAction {
     type: Menu.REMOVE
-    payload: CatalogItem| null
+    payload: NomenclatureItem| null
 }
 
 export type MenuAction = MakeCatalogAction | MakeCatalogItemAction | RemoveCatalogItemAction | RenameCatalogItemAction
@@ -70,7 +70,7 @@ export async function selectAction(menuAction: MenuAction):Promise<any|Error> {
 
 }
 
-async function removeCatalog(catalogItem: CatalogItem): Promise<any|Error> {
+async function removeCatalog(catalogItem: NomenclatureItem): Promise<any|Error> {
     if ((catalogItem.mask & AppItemMasks.CATALOG_MASK)==AppItemMasks.CATALOG_MASK && catalogItem.ownerItem){
             let isIt:boolean=window.confirm(` Удалить каталог ${catalogItem.name.toUpperCase()} `)
             if (isIt){
@@ -90,7 +90,7 @@ async function removeCatalog(catalogItem: CatalogItem): Promise<any|Error> {
 
 }
 
-async function renameCatalog(catalogItem: CatalogItem): Promise<any|Error> {
+async function renameCatalog(catalogItem: NomenclatureItem): Promise<any|Error> {
 
 
     if (catalogItem.ownerItem &&catalogItem.ownerItem.uuid) {
@@ -108,7 +108,7 @@ async function renameCatalog(catalogItem: CatalogItem): Promise<any|Error> {
 
 }
 
-async function makeCatalog(toCatalogItem: CatalogItem): Promise<any|Error> {
+async function makeCatalog(toCatalogItem: NomenclatureItem): Promise<any|Error> {
     let res = window.prompt("Введите новое имя для " + toCatalogItem.name)
     if (res) {
 
@@ -133,7 +133,7 @@ async function makeCatalog(toCatalogItem: CatalogItem): Promise<any|Error> {
     }
 }
 
-async function makeCatalogItem(toCatalogItem: CatalogItem): Promise<any|Error> {
+async function makeCatalogItem(toCatalogItem: NomenclatureItem): Promise<any|Error> {
 
     let res = prompt("Введите имя")
 

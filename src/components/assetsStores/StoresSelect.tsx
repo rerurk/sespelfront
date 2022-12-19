@@ -5,7 +5,7 @@ import {StoresText} from "../../texts/Texts";
 import {Fetches} from "../../fetches/Fetches";
 import {StoreAssets} from "../../structs/StoreAssets";
 import {useDispatch} from "react-redux";
-import {SetAssetsStore} from "../../store/action_creator/CatalogStoreActions";
+import {SetAssetsStore} from "../../store/action_creator/AppStoreActions";
 
 let selectStore: StoreAssets
 

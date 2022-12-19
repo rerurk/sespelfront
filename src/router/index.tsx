@@ -1,11 +1,11 @@
 import React from "react";
 import Main from "../pages/main/Main";
 import ShowAllAssetsByCatalogName from "../pages/showAllAssetsByCatalogName/ShowAllAssetsByCatalogName";
-import CatalogView from "../pages/сatalogView/CatalogView";
+import Nomenclatures from "../pages/nomenclatures/Nomenclatures";
 import ShowAssetsStores from "../pages/showAssetsStores/ShowAssetsStores";
 import QrScan from "../pages/qrscan/QrScan";
 import CreateAsset from "../pages/createAsset/CreateAsset";
-import AssetView from "../components/asset/allAssetsByCatalogItem/AssetView";
+
 
 
 
@@ -23,7 +23,7 @@ export enum RouterTexts {
     MAIN = "Главная",
     CREATE_ASSET = "Создать ТМЦ",
     MOVE_ASSET = "Перемещение",
-    SHOW_CATALOG = "Каталог",
+    NOMENCLATURE = "Номенклатура",
     ASSERTS_STORAGE = "Склады",
     QR_CODE_SCANNER = "Сканер",
 
@@ -34,7 +34,7 @@ export enum RouterTexts {
 export enum RouterPath {
     MAIN = "/",
     SHOW_CATALOG_ITEM = "/SHOW_CATALOG_ITEM",
-    SHOW_CATALOG = "/CATALOG_SETUP",
+    NOMENCLATURE = "/NOMENCLATURE",
     CREATE_ASSET = "/CREATE_ASSET",
     ASSERTS_STORAGE = "/ASSERTS_STORAGE",
     QR_CODE_SCANNER = "/QR_CODE_SCANNER",
@@ -70,9 +70,9 @@ export const publicRoutes: RouteNode[] = [
     {
         isHide: false,
         exact: false,
-        path: RouterPath.SHOW_CATALOG,
-        name: RouterTexts.SHOW_CATALOG,
-        element: <CatalogView/>
+        path: RouterPath.NOMENCLATURE,
+        name: RouterTexts.NOMENCLATURE,
+        element: <Nomenclatures/>
     },
     {
         isHide: false,

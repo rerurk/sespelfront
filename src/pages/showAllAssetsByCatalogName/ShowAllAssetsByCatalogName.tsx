@@ -14,7 +14,7 @@ const ShowAllAssetsByCatalogName: FC = () => {
         return (
             <div className={cl.wrapper}>
                 <div className={cl.wrapper_head}>
-                    <button onClick={() => navigate(RouterPath.SHOW_CATALOG)}>назад</button>
+                    <button onClick={() => navigate(RouterPath.NOMENCLATURE)}>назад</button>
                     <label key={"createAsset_" + currCatalogItem.uuid}>Наименование ТМЦ: {currCatalogItem.name}</label>
                 </div>
                 <AllAssetsByCatalogItem catalogItem={currCatalogItem}    key={"AllAssetsByCatalogItem_" + currCatalogItem.uuid}/>

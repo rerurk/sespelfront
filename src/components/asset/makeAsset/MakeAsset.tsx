@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 // @ts-ignore
 import cl from "./MakeAsset.module.css"
 import {useTypeSelector} from "../../../hooks/useTypeSelector";
-import {Item} from "../../../structs/catalog";
+import {Item} from "../../../structs/nomenclature";
 import {AppItemMasks} from "../../../App";
 import {Tools} from "../../../tools/Tools";
 
@@ -37,7 +37,7 @@ const MakeAsset:FC = () => {
         }
     return (
         <div onClick={e=>e.stopPropagation()} className={cl.wrapper}>
-            <button onClick={()=>navigate(RouterPath.SHOW_CATALOG)}>вернуться</button>
+            <button onClick={()=>navigate(RouterPath.NOMENCLATURE)}>вернуться</button>
             <h3>создать ТМЦ {currCatalogItem?.name}</h3>
             <h3>на складе</h3>
             <StoresSelect/>

@@ -1,11 +1,11 @@
-import {CatalogItem, Item} from "../../structs/catalog";
-import {CatalogActions, AppActionTypes, AppState} from "../types/CatalogStoreTypes";
+import {NomenclatureItem, Item} from "../../structs/nomenclature";
+import {CatalogActions, AppActionTypes, AppState} from "../types/AppStoreTypes";
 import {StoreAssets} from "../../structs/StoreAssets";
 import {AssetAndStore, AssetQrCode} from "../../structs/Asset";
 
 
 const initialState: AppState = {
-    catalogRoot: null,
+    nomenclatureRoot: null,
     currentCatalog: null,
     currCatalogItem: null,
     currentStore: null,
@@ -24,22 +24,22 @@ function setAssetQrCode(assetQrCode:AssetQrCode):AppState {
 return initialState
 }
 
-function setCurrentCatalogItem(catalogItem: CatalogItem): AppState {
+function setCurrentCatalogItem(catalogItem: NomenclatureItem): AppState {
 
     initialState.currCatalogItem = catalogItem
     return initialState
 }
 
-function setCurrentCatalog(catalogItem: CatalogItem): AppState {
+function setCurrentCatalog(catalogItem: NomenclatureItem): AppState {
     console.log("Store State catalogItem:", catalogItem)
 
     initialState.currentCatalog = catalogItem
     return initialState
 }
 
-function setCatalogRoot(root: CatalogItem): AppState {
+function setCatalogRoot(root: NomenclatureItem): AppState {
 
-    initialState.catalogRoot = root
+    initialState.nomenclatureRoot = root
     return initialState
 }
 
@@ -61,7 +61,7 @@ export const showCatalogNodeReducer = (state = initialState, action: CatalogActi
             return {...setCurrentCatalog(action.payload)}
         case AppActionTypes.SET_CATALOG_ROOT:
             return {...setCatalogRoot(action.payload)}
-        case AppActionTypes.SET_CURRENT_CATALOG_ITEM:
+        case AppActionTypes.SET_CURRENT_NOMENCLATURE_ITEM:
             return {...setCurrentCatalogItem(action.payload)}
         case AppActionTypes.SET_CURRENT_ASSET_STORE:
             return {...setCurrentAssetStore(action.payload)}

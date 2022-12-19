@@ -21,15 +21,15 @@ export type Item={
     owner_uuid:string|null
 }
 
-export interface CatalogItem extends Item{
+export interface NomenclatureItem extends Item{
     id: number
     name: string
     mask:number
     uuid: string
     owner_uuid:string|null
 
-    ownerItem:CatalogItem|null
-    items: CatalogItem[]|null
+    ownerItem:NomenclatureItem|null
+    items: NomenclatureItem[]|null
     callReBoot?:Function
     callShow?:Function
     isOpen?:boolean
@@ -41,9 +41,9 @@ export type AddToItem = {
 }
 
 export type  TransferCatalogItem = {
-    from: CatalogItem
-    to: CatalogItem
-    item: CatalogItem
+    from: NomenclatureItem
+    to: NomenclatureItem
+    item: NomenclatureItem
 }
 
 export type RemoveItem ={

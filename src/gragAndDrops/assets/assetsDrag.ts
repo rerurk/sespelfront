@@ -1,4 +1,4 @@
-import {Item} from "../../structs/catalog";
+import {Item} from "../../structs/nomenclature";
 
 let dragItem:Item;
 let onDragEnterItem:Item

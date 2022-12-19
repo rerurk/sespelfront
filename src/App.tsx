@@ -7,10 +7,10 @@ import Route from "./router/route/Route";
 import {Fetches} from "./fetches/Fetches";
 import {ItemMasks} from "./structs/Masks";
 import {
-    SetCatalogRootState,
+    SetNomenclatureRootState,
     SetCurrentCatalogState,
     SetAssetsStore
-} from "./store/action_creator/CatalogStoreActions";
+} from "./store/action_creator/AppStoreActions";
 import {useDispatch} from "react-redux";
 
 export let AppItemMasks: ItemMasks
@@ -28,7 +28,7 @@ function App() {
                 AppItemMasks=appM
 
                 // @ts-ignore
-                dispatch(SetCatalogRootState(catalogRoot))
+                dispatch(SetNomenclatureRootState(catalogRoot))
                 // @ts-ignore
                 dispatch(SetCurrentCatalogState(catalogRoot))
 

@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import {CatalogItem,} from "../../../structs/catalog";
+import {NomenclatureItem,} from "../../../structs/nomenclature";
 import {Fetches} from "../../../fetches/Fetches";
 import {AssetsInStore} from "../../../structs/Asset";
 // @ts-ignore
@@ -9,7 +9,7 @@ import AllAssetsByStore from "./AllAssetsByStore";
 
 interface AllAssetsByCatalogItemProps {
     // наименование ТМЦ в каталоге
-    catalogItem: CatalogItem
+    catalogItem: NomenclatureItem
 }
 
 const AllAssetsByCatalogItem: FC<AllAssetsByCatalogItemProps> = ({catalogItem}) => {

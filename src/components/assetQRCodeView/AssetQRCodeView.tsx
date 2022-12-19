@@ -4,7 +4,7 @@ import cl from "./AssetQRCodeView.module.css"
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 import QRCode from "react-qr-code";
 import {useDispatch} from "react-redux";
-import {SetAssetQRCode} from "../../store/action_creator/CatalogStoreActions";
+import {SetAssetQRCode} from "../../store/action_creator/AppStoreActions";
 
 const AssetQRCodeView: FC = () => {
     const dispatch=useDispatch()

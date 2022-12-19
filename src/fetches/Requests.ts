@@ -1,10 +1,10 @@
-const domen = "http://192.168.1.95:8080"
+const domen = "http://192.168.1.103:8080"
 //const domen = ""
 type RequestT = {
     MAKE_NEW_ASSET: string,
-    GET_MAIN_CATALOG_ITEM: string,
+    GET_NOMENCLATURE_ROOT: string,
     SAVE_NEW_CATALOG_NODE: string,
-    GET_CATALOG_ITEMS: string,
+    GET_NOMENCLATURE_ITEMS: string,
     SAVE_NEW_CATALOG_ITEM: string,
     MAKE_CATALOG_ITEM: string,
     TRANSFER_CATALOG_ITEM: string,
@@ -22,9 +22,10 @@ type RequestT = {
 enum req {
 
 
-    GET_MAIN_CATALOG_ITEM = "/get_main_catalog_item",
+    GET_NOMENCLATURE_ROOT = "/get_nomenclature_root",
+    GET_NOMENCLATURE_ITEMS = "/get_nomenclature_items",
     SAVE_NEW_CATALOG_NODE = "/save_new_catalog_node",
-    GET_CATALOG_ITEMS = "/get_catalog_items",
+
     SAVE_NEW_CATALOG_ITEM = "/save_new_catalog_item",
     MAKE_CATALOG_ITEM = "/make_catalog_item",
     MAKE_NEW_STORE = "/make_new_store",
@@ -41,8 +42,8 @@ enum req {
 }
 
 export const Requests: RequestT = {
-    GET_CATALOG_ITEMS: domen + req.GET_CATALOG_ITEMS,
-    GET_MAIN_CATALOG_ITEM: domen + req.GET_MAIN_CATALOG_ITEM,
+    GET_NOMENCLATURE_ROOT: domen + req.GET_NOMENCLATURE_ROOT,
+    GET_NOMENCLATURE_ITEMS: domen + req.GET_NOMENCLATURE_ITEMS,
     MAKE_CATALOG_ITEM: domen + req.MAKE_CATALOG_ITEM,
     REMOVE_CATALOG_ITEM: domen + req.REMOVE_CATALOG_ITEM,
     RENAME_CATALOG_ITEM: domen + req.RENAME_CATALOG_ITEM,
