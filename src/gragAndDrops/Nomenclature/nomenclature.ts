@@ -28,7 +28,7 @@ export function OnNomenclatureDragEnter(item: NomenclatureItem) {
 
 export async function ConfirmReplace(): Promise<any | Error | TransferCatalogItem> {
     let transferCatalogItem: TransferCatalogItem | null = GetItems()
-    console.log(transferCatalogItem)
+
 
 
 

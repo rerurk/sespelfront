@@ -7,6 +7,7 @@ import QrScan from "../pages/qrscan/QrScan";
 import CreateAsset from "../pages/createAsset/CreateAsset";
 import MakeNomenclatureGroup from "../pages/makeNomenclatureGroup/MakeNomenclatureGroup";
 import MakeNomenclatureItem from "../pages/makeNomenclatureItem/MakeNomenclatureItem";
+import ModifyNomenclatureGroup from "../pages/modifyNomenclatureGroup/ModifyNomenclatureGroup";
 
 export type RouteNode = {
     isHide: boolean
@@ -36,7 +37,8 @@ export enum RouterPath {
     QR_CODE_SCANNER = "/QR_CODE_SCANNER",
     ALL_ASSETS_BY_CATALOG_NAME = "/ALL_ASSETS_BY_CATALOG_NAME",
     MAKE_NOMENCLATURE_GROUP = "/MAKE_NOMENCLATURE_GROUP",
-    MAKE_NOMENCLATURE_ITEM="/MAKE_NOMENCLATURE_ITEM"
+    MAKE_NOMENCLATURE_ITEM="/MAKE_NOMENCLATURE_ITEM",
+    MODIFY_NOMENCLATURE_GROUP="/MODIFY_NOMENCLATURE_GROUP"
 }
 
 export const privateRoutes = []
@@ -90,6 +92,13 @@ export const publicRoutes: RouteNode[] = [
         path: RouterPath.MAKE_NOMENCLATURE_ITEM,
         name: "",
         element: <MakeNomenclatureItem/>
+    },
+    {
+        isHide: true,
+        exact: false,
+        path: RouterPath.MODIFY_NOMENCLATURE_GROUP,
+        name: "",
+        element: <ModifyNomenclatureGroup/>
     },
     {
         isHide: true,

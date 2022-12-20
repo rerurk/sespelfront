@@ -22,37 +22,37 @@ interface ShowCatalogItemProps {
 
 const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
     Tools.LoadCatalogItemFields(item)
-    const dispatch=useDispatch()
-    const [hisItems, setHisItems] = useState<NomenclatureItem[] | null>(null)
-    const [isOpen, setIsOpen] = useState<boolean>(item.isOpen?item.isOpen:false)
+    const dispatch = useDispatch()
+    const [hisItems, setHisItems] = useState<NomenclatureItem[]|null>(null)
+    const [isOpen, setIsOpen] = useState<boolean>(item.isOpen ? item.isOpen : false)
 
-    item.callReBoot=()=>onNomenclatureGroupClick()
+    item.callReBoot =getHisItems
+    if(item.isOpen){
+        getHisItems()
+    }
 
-    useEffect(()=>{
-        console.log(item)
-        if(item.isOpen){
-            getHisItems()
-        }
-    })
-
-    const getHisItems=()=>{
+    function getHisItems() {
         Fetches.GetNomenclatureItems(item).then(r => {
-            if (!(r instanceof Error) && r.length > 0 && (hisItems == null)) {
-                r.map((it: NomenclatureItem) => it.ownerItem = item)
-                setHisItems(() => r)
+            if (!(r instanceof Error)) {
+                if (!Tools.isItemsIdentical(r, hisItems)) {
+                    if(r!=null) {
+                        r.map((it: NomenclatureItem) => it.ownerItem = item)
+
+                    }
+                    setHisItems(() => r)
+                }
             }
 
         })
     }
 
-    const onNomenclatureGroupClick = () => {
-         getHisItems()
-        item.isOpen=!isOpen
+    function onNomenclatureGroupClick () {
+        getHisItems()
+        item.isOpen = !isOpen
         Tools.SaveCatalogItemFields(item)
-        setIsOpen(()=>!isOpen)
+        setIsOpen(() => !isOpen)
         // @ts-ignore
         dispatch(SetSelectedNomenclatureGroupState(item))
-
 
     }
 
@@ -127,10 +127,10 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
         return (
             <div onClick={e => e.stopPropagation()} className={cl.wrapper_content_nomenclature_item}>
                 <div className={cl.wrapper_content_nomenclature_item_name}
-                    onClick={onCatalogItemClick}
-                    draggable={true}
-                    onDragStart={() => onNomenclatureGroupDrag(item)}
-                    key={"CatalogNode" + item.uuid}
+                     onClick={onCatalogItemClick}
+                     draggable={true}
+                     onDragStart={() => onNomenclatureGroupDrag(item)}
+                     key={"CatalogNode" + item.uuid}
 
                 >&#9679;  {item.name}</div>
 

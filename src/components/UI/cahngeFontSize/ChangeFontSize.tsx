@@ -47,7 +47,7 @@ const ChangeFontSize: FC = () => {
 
     return (
         <div className={cl.wrapper}>
-            <span>размер шрифта</span>
+            <span>FZ</span>
             <button onClick={() => change(+step)}>-</button>
             <button onClick={() => change(-step)}>+</button>
 

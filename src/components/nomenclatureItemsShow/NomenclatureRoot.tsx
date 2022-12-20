@@ -24,7 +24,6 @@ const NomenclatureRoot: FC = () => {
 
     useEffect(() => {
         if (nomenclatureRoot) {
-            console.log("useEffect",nomenclatureRoot)
             nomenclatureRoot.callReBoot=()=>nomenclatureRootReboot()
             nomenclatureRootReboot()
         }
@@ -34,7 +33,7 @@ const NomenclatureRoot: FC = () => {
     function nomenclatureRootReboot() {
         if (nomenclatureRoot) {
             Fetches.GetNomenclatureItems(nomenclatureRoot).then(r => {
-                console.log(r)
+
                 if (!(r instanceof Error) && r.length > 0) {
                     r.map((it: NomenclatureItem) => it.ownerItem = nomenclatureRoot)
                     nomenclatureRoot.items = r
@@ -54,6 +53,7 @@ const NomenclatureRoot: FC = () => {
                     <span>Выбранная группа: {nomenclatureRoot.uuid!=selectedNomenclatureGroup?.uuid?selectedNomenclatureGroup?.name:nomenclatureRoot.name}</span>
                     <button onClick={()=>navigate(RouterPath.MAKE_NOMENCLATURE_GROUP)}>Создать подгруппу</button>
                     <button onClick={()=>navigate(RouterPath.MAKE_NOMENCLATURE_ITEM)}>Создать наименование</button>
+                    <img src={"images/rename.png"} title={"изменить"} onClick={()=>navigate(RouterPath.MODIFY_NOMENCLATURE_GROUP)}/>
 
                 </div>
                 <div className={cl.wrapper_content_nomenclature_group_name}

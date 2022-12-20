@@ -14,24 +14,26 @@
         z-index: 1000;
     }
 
-    .wrapper_show{
+    .wrapper_show {
         right: 0;
     }
-    .wrapper_hide{
+
+    .wrapper_hide {
         right: -15rem;
     }
 
-    .wrapper_showRoutes_BT{
+    .wrapper_showRoutes_BT {
         position: fixed;
-        right: 0 ;
+        right: 0;
         width: 2rem;
         height: 2rem;
         top: 0;
         color: red;
 
     }
+
     .wrapper_routeItem {
-       padding: 1rem 0 0 2rem;
+        padding: 1rem 0 0 2rem;
         text-align: left;
         width: 100%;
     }
@@ -42,24 +44,36 @@
 
     .wrapper {
         width: 100%;
-        height: 2rem;
         background: #aaa;
         color: #222;
         display: flex;
         flex-direction: row;
-        justify-content: left;
-        align-items: center;
+        justify-content: space-around;
+        align-items: center;;
     }
 
     .wrapper_routeItem {
-        border: solid 1px red;
-        width: 100%;
+
+        border: solid 1px grey;
+        background: white;
+        display: flex;
+        flex-direction: row;
+        margin-right: 1rem;
+        padding: 0.2rem 1rem 0.2rem 1rem;
+        white-space: nowrap;
+        border-radius: 0.3rem;
+    }
+    .wrapper_routeItem>span{
+
+        height: 1rem;
+        width: auto;
+
     }
 
     .defItem {
         color: black;
         background: lightgrey;
-        box-shadow: 0px 0px 0px 1px teal;
+        box-shadow: 0 0 0 1px teal;
     }
 
     .hidden_item {
@@ -74,8 +88,7 @@
     .selectedItem {
         color: #20b2aa;
         background-color: white;
-        box-shadow: 0px 0px 0px 3px teal;
-
+        box-shadow: 0 0 0 3px teal;
 
     }
 }

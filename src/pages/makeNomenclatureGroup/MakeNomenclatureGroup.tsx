@@ -38,7 +38,7 @@ const MakeNomenclatureGroup: FC = () => {
         }
 
             Fetches.MakeCatalogItem(addToItem).then(r=>{
-                console.log(r)
+
                 if(!(r instanceof Error) &&selectedNomenclatureGroup.callReBoot){
                     navigate(RouterPath.NOMENCLATURE)
                     selectedNomenclatureGroup.callReBoot()
@@ -54,7 +54,8 @@ const MakeNomenclatureGroup: FC = () => {
     }
     return (
         <div className={cl.wrapper}>
-            <div>
+            <div className={cl.wrapper_fields}>
+                <label>Группа:{selectedNomenclatureGroup?.name}</label>
                 <label>Называние: </label>
                 <input defaultValue={""} key={"MakeNomenclatureGroup_input"} onInput={onInputChange}/>
             </div>

@@ -13,10 +13,24 @@
     flex-direction: row;
     border: solid 1px black;
     padding: .3rem;
+
 }
 .wrapper_tools>button{
+    background: #eee;
     border-radius: 0.2rem;
     margin-left: 1rem;
+    cursor: pointer;
+}
+.wrapper_tools>img{
+    background: #eee;
+    border-radius: 0.2rem;
+    width: 1rem;
+    height: 1rem;
+    object-fit: contain;
+    margin-left: 1rem;
+    padding: 0.2rem;
+    border: solid 2px black;
+    cursor: pointer;
 }
 .wrapper_head {
     width: 100%;

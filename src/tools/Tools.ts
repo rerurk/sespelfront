@@ -63,6 +63,13 @@ export class Tools {
 
     }
 
+    public static isItemsIdentical(items1:Item[]|null,items2:Item[]|null):boolean{
+        if(items2!=null&&items1!=null) {
+            return items2.length == items1.length
+        }
+        return false
+    }
+
     public static GetStringAddress(address:TAddress):string{
         return address.region + ", " + address.city + ", " + address.street + ", " + address.building + ", " + address.phone
     }
