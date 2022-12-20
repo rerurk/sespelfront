@@ -19,6 +19,7 @@
     border: solid 4px black;
 }
 .wrapper_assetName{
-    font-size: 4rem;
+    font-size: 2rem;
+    width: 60vh;
     color: black;
 }

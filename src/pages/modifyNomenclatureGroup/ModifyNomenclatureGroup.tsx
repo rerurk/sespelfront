@@ -13,7 +13,7 @@ const ModifyNomenclatureGroup: FC = () => {
             <div className={cl.wrapper_fields}>
                 <label>Группа:{selectedNomenclatureGroup?.name}</label>
                 <label>Называние: </label>
-                <input defaultValue={""} key={"MakeNomenclatureGroup_input"}/>
+                <input defaultValue={selectedNomenclatureGroup?.name} key={"MakeNomenclatureGroup_input"}/>
             </div>
             <div className={cl.wrapper_bts}>
                 <button onClick={() => navigate(RouterPath.NOMENCLATURE)}>ОТМЕНА</button>

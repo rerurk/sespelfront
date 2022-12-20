@@ -11,6 +11,8 @@
 .wrapper_tools{
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
     border: solid 1px black;
     padding: .3rem;
 
@@ -100,7 +102,10 @@
    font-style: italic;
     font-size: 0.9rem;
 }
-
+.wrapper_content_nomenclature_item_name>strong{
+    color: #55ff55;
+    font-size: 2rem;
+}
 
 /* drags*/
 

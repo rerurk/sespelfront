@@ -54,7 +54,7 @@ const MakeNomenclatureItem: FC = () => {
         <div className={cl.wrapper}>
             <div>
                 <label>Называние: </label>
-                <input defaultValue={""} key={"MakeNomenclatureGroup_input"} onInput={onInputChange}/>
+                <input defaultValue={""} key={"MakeNomenclatureITEM_input"} onInput={onInputChange}/>
             </div>
             <div className={cl.wrapper_bts}>
                 <button onClick={() => navigate(RouterPath.NOMENCLATURE)}>ОТМЕНА</button>

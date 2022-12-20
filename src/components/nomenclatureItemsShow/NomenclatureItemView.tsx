@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useState} from 'react';
 import {NomenclatureItem} from "../../structs/nomenclature";
 // @ts-ignore
 import cl from "./NomenclatureShow.module.css"
@@ -10,8 +10,13 @@ import {
 import {AppItemMasks} from "../../App";
 import {Fetches} from "../../fetches/Fetches";
 import {useDispatch} from "react-redux";
-import {SetSelectedNomenclatureGroupState} from "../../store/action_creator/AppStoreActions";
+import {
+    SetCurrentNomenclatureItemState,
+    SetSelectedNomenclatureGroupState
+} from "../../store/action_creator/AppStoreActions";
 import {Tools} from "../../tools/Tools";
+import {RouterPath} from "../../router";
+import {useNavigate} from "react-router-dom";
 
 
 interface ShowCatalogItemProps {
@@ -23,11 +28,12 @@ interface ShowCatalogItemProps {
 const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
     Tools.LoadCatalogItemFields(item)
     const dispatch = useDispatch()
-    const [hisItems, setHisItems] = useState<NomenclatureItem[]|null>(null)
+    const navigate = useNavigate();
+    const [hisItems, setHisItems] = useState<NomenclatureItem[] | null>(null)
     const [isOpen, setIsOpen] = useState<boolean>(item.isOpen ? item.isOpen : false)
 
-    item.callReBoot =getHisItems
-    if(item.isOpen){
+    item.callReBoot = getHisItems
+    if (item.isOpen) {
         getHisItems()
     }
 
@@ -35,7 +41,7 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
         Fetches.GetNomenclatureItems(item).then(r => {
             if (!(r instanceof Error)) {
                 if (!Tools.isItemsIdentical(r, hisItems)) {
-                    if(r!=null) {
+                    if (r != null) {
                         r.map((it: NomenclatureItem) => it.ownerItem = item)
 
                     }
@@ -46,7 +52,7 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
         })
     }
 
-    function onNomenclatureGroupClick () {
+    function onNomenclatureGroupClick() {
         getHisItems()
         item.isOpen = !isOpen
         Tools.SaveCatalogItemFields(item)
@@ -57,7 +63,13 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
     }
 
     const onCatalogItemClick = () => {
+        // @ts-ignore
+        dispatch(SetCurrentNomenclatureItemState(item))
+        navigate(RouterPath.ALL_ASSETS_BY_CATALOG_NAME)
+    }
 
+    const onCreateAssetPress=()=>{
+        navigate(RouterPath.CREATE_ASSET)
     }
 
 
@@ -132,7 +144,9 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
                      onDragStart={() => onNomenclatureGroupDrag(item)}
                      key={"CatalogNode" + item.uuid}
 
-                >&#9679;  {item.name}</div>
+                > <strong onClick={(e)=>{e.stopPropagation();onCreateAssetPress()}}>+</strong> &#9679;  {item.name}
+
+                </div>
 
             </div>
         )

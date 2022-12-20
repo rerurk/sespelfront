@@ -8,23 +8,24 @@ import {NomenclatureItem} from "../../structs/nomenclature";
 import NomenclatureItemView from "./NomenclatureItemView";
 import {Fetches} from "../../fetches/Fetches";
 import {useDispatch} from "react-redux";
-import {SetNomenclatureRootState, SetSelectedNomenclatureGroupState} from "../../store/action_creator/AppStoreActions";
+import {SetSelectedNomenclatureGroupState} from "../../store/action_creator/AppStoreActions";
 import {OnNomenclatureDragEnter} from "../../gragAndDrops/Nomenclature/nomenclature";
 import {useNavigate} from "react-router-dom";
 import {RouterPath} from "../../router";
+import {NomenclatureGui} from "./Texts";
 
 
 const NomenclatureRoot: FC = () => {
 
-    const {nomenclatureRoot,selectedNomenclatureGroup} = useTypeSelector(state => state.showCatalogNode)
-    const [hisItems,setHisItems]=useState<NomenclatureItem[]|null>(null)
+    const {nomenclatureRoot, selectedNomenclatureGroup} = useTypeSelector(state => state.showCatalogNode)
+    const [hisItems, setHisItems] = useState<NomenclatureItem[] | null>(null)
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
 
     useEffect(() => {
         if (nomenclatureRoot) {
-            nomenclatureRoot.callReBoot=()=>nomenclatureRootReboot()
+            nomenclatureRoot.callReBoot = () => nomenclatureRootReboot()
             nomenclatureRootReboot()
         }
     }, [nomenclatureRoot])
@@ -37,7 +38,7 @@ const NomenclatureRoot: FC = () => {
                 if (!(r instanceof Error) && r.length > 0) {
                     r.map((it: NomenclatureItem) => it.ownerItem = nomenclatureRoot)
                     nomenclatureRoot.items = r
-                    setHisItems(()=>r)
+                    setHisItems(() => r)
 
                 }
             })
@@ -50,15 +51,26 @@ const NomenclatureRoot: FC = () => {
             <div className={cl.wrapper} onClick={event => event.stopPropagation()}>
 
                 <div className={cl.wrapper_tools}>
-                    <span>Выбранная группа: {nomenclatureRoot.uuid!=selectedNomenclatureGroup?.uuid?selectedNomenclatureGroup?.name:nomenclatureRoot.name}</span>
-                    <button onClick={()=>navigate(RouterPath.MAKE_NOMENCLATURE_GROUP)}>Создать подгруппу</button>
-                    <button onClick={()=>navigate(RouterPath.MAKE_NOMENCLATURE_ITEM)}>Создать наименование</button>
-                    <img src={"images/rename.png"} title={"изменить"} onClick={()=>navigate(RouterPath.MODIFY_NOMENCLATURE_GROUP)}/>
+                    <span title={NomenclatureGui.CURRENT_SELECTED_GROUP.title}>{NomenclatureGui.CURRENT_SELECTED_GROUP.text}: <strong>{nomenclatureRoot.uuid != selectedNomenclatureGroup?.uuid ? selectedNomenclatureGroup?.name : nomenclatureRoot.name}</strong></span>
+
+                    <button
+                        onClick={() => navigate(RouterPath.MAKE_NOMENCLATURE_GROUP)}
+                        title={NomenclatureGui.MAKE_SUB_GROUP.title}>{NomenclatureGui.MAKE_SUB_GROUP.text}
+                    </button>
+
+                    <button
+                        onClick={() => navigate(RouterPath.MAKE_NOMENCLATURE_ITEM)}
+                        title={NomenclatureGui.MAKE_GROUP_ITEM.title}
+                    >
+                        {NomenclatureGui.MAKE_GROUP_ITEM.text}
+                    </button>
+                    <img src={"images/rename.png"} title={NomenclatureGui.MODIFY_NOMENCLATURE_GROUP.title}
+                         onClick={() => navigate(RouterPath.MODIFY_NOMENCLATURE_GROUP)}/>
 
                 </div>
                 <div className={cl.wrapper_content_nomenclature_group_name}
                      onDragEnter={() => OnNomenclatureDragEnter(nomenclatureRoot)}
-                     onClick={()=>{
+                     onClick={() => {
                          // @ts-ignore
                          dispatch(SetSelectedNomenclatureGroupState(nomenclatureRoot))
                      }}
@@ -68,12 +80,12 @@ const NomenclatureRoot: FC = () => {
 
                 </div>
                 <div className={cl.wrapper_content}>
-                     {hisItems
-                        ?hisItems.map((it: NomenclatureItem) =>
+                    {hisItems
+                        ? hisItems.map((it: NomenclatureItem) =>
                             <NomenclatureItemView
                                 item={it}
-                               key={"NomenclatureItemView" + it.uuid}/>)
-                         :false
+                                key={"NomenclatureItemView" + it.uuid}/>)
+                        : false
                     }
                 </div>
             </div>

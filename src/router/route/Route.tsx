@@ -34,9 +34,10 @@ const Route: FC = () => {
     }
     return (
         <div className={showClass.join(" ")} onClick={event => event.stopPropagation()}>
-
-            <div className={cl.wrapper_showRoutes_BT} onClick={onClickShowRotes}>&#x2630;</div>
-
+            {window.innerHeight>window.innerWidth
+                ?<div className={cl.wrapper_showRoutes_BT} onClick={onClickShowRotes}>&#x2630;</div>
+                :false
+            }
             {
                 routes.map((node: RouteNode, ind: number) =>
                     <div
