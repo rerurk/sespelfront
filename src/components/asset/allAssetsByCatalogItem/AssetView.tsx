@@ -1,14 +1,13 @@
 import React, {FC} from 'react';
-import {Item} from "../../../structs/nomenclature";
+
 import QRCode from "react-qr-code";
 // @ts-ignore
 import cl from"./AssetView.module.css"
 import {AssetDrag, OnAssetDragEnd} from "../../../gragAndDrops/assets/assetsDrag";
 import {useDispatch} from "react-redux";
-import {CatalogActions} from "../../../store/types/AppStoreTypes";
-import {Dispatch} from "redux";
 import {AssetQrCode} from "../../../structs/Asset";
 import {SetAssetQRCode} from "../../../store/action_creator/AppStoreActions";
+import {Item} from "../../../structs/App";
 interface AssetViewProps {
     asset:Item;
     indexN:number;

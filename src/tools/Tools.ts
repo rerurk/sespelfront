@@ -1,5 +1,6 @@
-import {NomenclatureItem, Item} from "../structs/nomenclature";
+import {NomenclatureItem} from "../structs/nomenclature";
 import {TAddress} from "../components/UI/address/Address";
+import {Item} from "../structs/App";
 
 
 type CatalogItemLS = {
@@ -11,7 +12,7 @@ export class Tools {
     public static unRefCatalogItem(it: NomenclatureItem): Item {
         return {
             id: it.id,
-            mask: it.mask,
+            type: it.type,
             name: it.name,
             owner_uuid: it.owner_uuid,
             uuid: it.uuid

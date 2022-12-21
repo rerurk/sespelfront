@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Item} from "../../structs/nomenclature";
+
 import {AppItemMasks} from "../../App";
 import {TAddress} from "../UI/address/Address";
 import {StoreAssets} from "../../structs/StoreAssets";
@@ -9,14 +9,15 @@ import {EmptyField} from "./StoreView";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 // @ts-ignore
 import cl from "./AssetsStores.module.css";
+import {Item} from "../../structs/App";
 
 const CreateNewStore:FC = () => {
-    const {currentStore} = useTypeSelector(state => state.showCatalogNode)
+    const {currentStore} = useTypeSelector(state => state.appReducer)
     const dispatch=useDispatch()
     const  onCreateNewStore=()=>{
         let storeItem:Item={
             id: -1,
-            mask: AppItemMasks.STORE_MASK,
+            type: AppItemMasks.STORE_TYPE,
             name: EmptyField,
             owner_uuid: null,
             uuid: ""}

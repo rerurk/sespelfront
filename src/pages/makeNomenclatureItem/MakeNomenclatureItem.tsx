@@ -3,14 +3,15 @@ import {useNavigate} from "react-router-dom";
 import {RouterPath} from "../../router";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 import {AppItemMasks} from "../../App";
-import {AddToItem, Item} from "../../structs/nomenclature";
+import {AddToItem} from "../../structs/nomenclature";
 import {Tools} from "../../tools/Tools";
 import {Fetches} from "../../fetches/Fetches";
 // @ts-ignore
 import cl from "./MakeNomenclatureItem.module.css"
+import {Item} from "../../structs/App";
 let newGroup:Item ={
     id: -1,
-    mask: 0,
+    type: 0,
     name: "",
     owner_uuid: "",
     uuid: ""
@@ -19,14 +20,14 @@ let newGroup:Item ={
 const MakeNomenclatureItem: FC = () => {
     newGroup={
         id: -1,
-        mask: AppItemMasks.CATALOG_ITEM_MASK,
+        type: AppItemMasks.NOMENCLATURE_ITEM_TYPE,
         name: "",
         owner_uuid: "",
         uuid: ""
 
     }
     const navigate = useNavigate();
-    const {selectedNomenclatureGroup} = useTypeSelector(state => state.showCatalogNode)
+    const {selectedNomenclatureGroup} = useTypeSelector(state => state.appReducer)
     const onBtSaveClick=()=>{
         if(selectedNomenclatureGroup){
             let addToItem:AddToItem={
@@ -35,7 +36,7 @@ const MakeNomenclatureItem: FC = () => {
 
             }
 
-            Fetches.MakeCatalogItem(addToItem).then(r=>{
+            Fetches.MakeNomenclatureItem(addToItem).then(r=>{
                 console.log(r)
                 if(!(r instanceof Error) &&selectedNomenclatureGroup.callReBoot){
                     navigate(RouterPath.NOMENCLATURE)

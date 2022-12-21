@@ -1,4 +1,4 @@
-import {NomenclatureItem, Item} from "../../structs/nomenclature";
+import {NomenclatureItem} from "../../structs/nomenclature";
 import {CatalogActions, AppActionTypes, AppState} from "../types/AppStoreTypes";
 import {StoreAssets} from "../../structs/StoreAssets";
 import {AssetAndStore, AssetQrCode} from "../../structs/Asset";
@@ -54,7 +54,7 @@ function setCurrentAssetAndStore(assetAndStore:AssetAndStore): AppState{
     return initialState
 }
 
-export const showCatalogNodeReducer = (state = initialState, action: CatalogActions): AppState => {
+export const appReducer = (state = initialState, action: CatalogActions): AppState => {
 
     switch (action.type) {
         case AppActionTypes.SET_SELECTED_NOMENCLATURE_GROUP:

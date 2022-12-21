@@ -8,7 +8,7 @@ import {SetAssetQRCode} from "../../store/action_creator/AppStoreActions";
 
 const AssetQRCodeView: FC = () => {
     const dispatch=useDispatch()
-    const {assetQrCode} = useTypeSelector(state => state.showCatalogNode)
+    const {assetQrCode} = useTypeSelector(state => state.appReducer)
     const closeView=()=>{
         // @ts-ignore
         dispatch(SetAssetQRCode(null))

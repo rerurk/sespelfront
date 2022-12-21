@@ -13,11 +13,12 @@ import {OnNomenclatureDragEnter} from "../../gragAndDrops/Nomenclature/nomenclat
 import {useNavigate} from "react-router-dom";
 import {RouterPath} from "../../router";
 import {NomenclatureGui} from "./Texts";
+import {Tools} from "../../tools/Tools";
 
 
 const NomenclatureRoot: FC = () => {
 
-    const {nomenclatureRoot, selectedNomenclatureGroup} = useTypeSelector(state => state.showCatalogNode)
+    const {nomenclatureRoot, selectedNomenclatureGroup} = useTypeSelector(state => state.appReducer)
     const [hisItems, setHisItems] = useState<NomenclatureItem[] | null>(null)
     const dispatch = useDispatch()
     const navigate = useNavigate();
@@ -34,13 +35,16 @@ const NomenclatureRoot: FC = () => {
     function nomenclatureRootReboot() {
         if (nomenclatureRoot) {
             Fetches.GetNomenclatureItems(nomenclatureRoot).then(r => {
+                if (!(r instanceof Error)) {
+                    if (!Tools.isItemsIdentical(r, hisItems)) {
+                        if (r != null) {
+                            r.map((it: NomenclatureItem) => it.ownerItem = nomenclatureRoot)
 
-                if (!(r instanceof Error) && r.length > 0) {
-                    r.map((it: NomenclatureItem) => it.ownerItem = nomenclatureRoot)
-                    nomenclatureRoot.items = r
-                    setHisItems(() => r)
-
+                        }
+                        setHisItems(() => r)
+                    }
                 }
+
             })
         }
     }

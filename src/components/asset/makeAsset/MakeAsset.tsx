@@ -1,8 +1,7 @@
 import React, {FC} from 'react';
 // @ts-ignore
 import cl from "./MakeAsset.module.css"
-import {useTypeSelector} from "../../../hooks/useTypeSelector";
-import {Item} from "../../../structs/nomenclature";
+
 import {AppItemMasks} from "../../../App";
 import {Tools} from "../../../tools/Tools";
 
@@ -11,15 +10,17 @@ import {NewAsset} from "../../../structs/Asset";
 import StoresSelect from "../../assetsStores/StoresSelect";
 import {useNavigate} from "react-router-dom";
 import {RouterPath} from "../../../router";
+import {Item} from "../../../structs/App";
+import {useTypeSelector} from "../../../hooks/useTypeSelector";
 const MakeAsset:FC = () => {
-    const {currCatalogItem,currentStore} = useTypeSelector(state => state.showCatalogNode)
+    const {currCatalogItem,currentStore} = useTypeSelector(state => state.appReducer)
     const navigate = useNavigate();
     const onBtCreate=()=>{
         if(currCatalogItem) {
             // вместо имени присвоим sysid наименования owner будет место хранения по умолчнию задаться основной склад
             let newAsset: Item = {
                 id: -1,
-                mask: AppItemMasks.ASSET_MASK,
+                type: AppItemMasks.ASSET_TYPE,
                 name: "",
                 owner_uuid: null,
                 uuid:""

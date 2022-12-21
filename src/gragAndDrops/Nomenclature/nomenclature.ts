@@ -1,4 +1,4 @@
-import {NomenclatureItem, Item, TransferCatalogItem} from "../../structs/nomenclature";
+import {NomenclatureItem, TransferCatalogItem} from "../../structs/nomenclature";
 import {Fetches} from "../../fetches/Fetches";
 import {AppItemMasks} from "../../App";
 
@@ -20,7 +20,7 @@ export function onNomenclatureGroupDrag(item: NomenclatureItem) {
 
 export function OnNomenclatureDragEnter(item: NomenclatureItem) {
 
-    if ((item.mask & AppItemMasks.CATALOG_MASK) != AppItemMasks.CATALOG_MASK) return
+    if ((item.type & AppItemMasks.NOMENCLATURE_GROUP_TYPE) != AppItemMasks.NOMENCLATURE_GROUP_TYPE) return
     if (dragItemEnter === item) return;
     dragItemEnter = item
 

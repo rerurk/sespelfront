@@ -1,4 +1,4 @@
-import {NomenclatureItem, Item} from "../../structs/nomenclature";
+import {NomenclatureItem} from "../../structs/nomenclature";
 import {Dispatch} from "redux";
 import {AppActionTypes, CatalogActions} from "../types/AppStoreTypes";
 import {StoreAssets} from "../../structs/StoreAssets";

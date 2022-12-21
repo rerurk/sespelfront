@@ -1,16 +1,17 @@
 import axios from "axios";
 
 import {ReqErrors, Requests} from "./Requests";
-import {AddToItem, NomenclatureItem, Item, RemoveItem, RenameCatalogItem, TransferCatalogItem} from "../structs/nomenclature";
+import {AddToItem, NomenclatureItem, RemoveItem, RenameCatalogItem, TransferCatalogItem} from "../structs/nomenclature";
 import {Tools} from "../tools/Tools";
-import {ItemMasks} from "../structs/Masks";
+import {ItemTypes} from "../structs/ItemTypes";
 import {StoreAssets, UpdStore} from "../structs/StoreAssets";
 import {ErrorsText} from "../texts/Texts";
 import {AssetAndStore, AssetsInStore, AssetUUID, NewAsset} from "../structs/Asset";
+import {Item} from "../structs/App";
 
 
 export type FetchesResult = [
-    ItemMasks | Error,
+    ItemTypes | Error,
     Item | Error,//catalogRoot
     Item | Error//MainAssetsStorage
 
@@ -20,7 +21,7 @@ export class Fetches {
 
 
     public static async FetchAllData(): Promise<FetchesResult> {
-        return Promise.all([this.GetItemMasks(), this.GetNomenclatureRoot(), this.GetMainAssetsStorage()])
+        return Promise.all([this.GetItemTYPES(), this.GetNomenclatureRoot(), this.GetMainAssetsStorage()])
     }
 
     // запрос должен вернуть Массив ТМЦ и Склад AssetsInStore
@@ -67,9 +68,9 @@ export class Fetches {
         }
     }
 
-    public static async GetItemMasks(): Promise<ItemMasks | Error> {
+    public static async GetItemTYPES(): Promise<ItemTypes | Error> {
         try {
-            const res = await axios.get<ItemMasks>(Requests.GET_ITEM_MASKS)
+            const res = await axios.get<ItemTypes>(Requests.GET_ITEM_TYPES)
             if (res.status != 200) {
                 return Error("ошибка")
             }
@@ -151,11 +152,11 @@ export class Fetches {
         }
     }
 
-    public static async MakeCatalogItem(addToItem: AddToItem): Promise<any | Error> {
+    public static async MakeNomenclatureItem(addToItem: AddToItem): Promise<any | Error> {
 
 
         try {
-            const res = await axios.post<AddToItem>(Requests.MAKE_CATALOG_ITEM, addToItem)
+            const res = await axios.post<AddToItem>(Requests.MAKE_NOMENCLATURE_ITEM, addToItem)
             return res
         } catch (e) {
             return Error("ошибка")

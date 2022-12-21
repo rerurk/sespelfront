@@ -1,4 +1,5 @@
-import {Item} from "../../structs/nomenclature";
+import {Item} from "../../structs/App";
+
 
 let dragItem:Item;
 let onDragEnterItem:Item

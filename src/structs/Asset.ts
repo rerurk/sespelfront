@@ -1,4 +1,5 @@
-import {Item} from "./nomenclature";
+import {Item} from "./App";
+
 
 export type NewAsset = {
     asset_catalog_item: Item

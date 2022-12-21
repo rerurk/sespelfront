@@ -13,18 +13,20 @@ export interface Item {
 }
 */
 
-export type Item={
+/*export type Item={
     id: number
     name: string
     mask:number
     uuid: string
     owner_uuid:string|null
-}
+}*/
+
+import {Item} from "./App";
 
 export interface NomenclatureItem extends Item{
     id: number
     name: string
-    mask:number
+    type:number
     uuid: string
     owner_uuid:string|null
 

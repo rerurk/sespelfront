@@ -7,7 +7,7 @@ import {useTypeSelector} from "../../hooks/useTypeSelector";
 
 const ModifyNomenclatureGroup: FC = () => {
     const navigate = useNavigate();
-    const {selectedNomenclatureGroup} = useTypeSelector(state => state.showCatalogNode)
+    const {selectedNomenclatureGroup} = useTypeSelector(state => state.appReducer)
     return (
         <div className={cl.wrapper}>
             <div className={cl.wrapper_fields}>

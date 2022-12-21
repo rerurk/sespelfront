@@ -1,9 +1,9 @@
 import {combineReducers} from "redux";
-import {showCatalogNodeReducer} from "./CatalogStoreReducer";
+import {appReducer} from "./appStoreReducer";
 
 
 export const rootReducer =combineReducers({
- showCatalogNode:showCatalogNodeReducer
+ appReducer:appReducer
 
 })
 export type RootState = ReturnType<typeof rootReducer>

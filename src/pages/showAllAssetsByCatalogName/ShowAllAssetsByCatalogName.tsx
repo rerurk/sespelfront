@@ -9,7 +9,7 @@ import AssetQRCodeView from "../../components/assetQRCodeView/AssetQRCodeView";
 
 const ShowAllAssetsByCatalogName: FC = () => {
     const navigate = useNavigate();
-    const {currCatalogItem} = useTypeSelector(state => state.showCatalogNode)
+    const {currCatalogItem} = useTypeSelector(state => state.appReducer)
     if (currCatalogItem) {
         return (
             <div className={cl.wrapper}>

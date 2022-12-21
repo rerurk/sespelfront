@@ -85,7 +85,7 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
     }
 
 
-    if ((item.mask & AppItemMasks.CATALOG_MASK) == AppItemMasks.CATALOG_MASK) {
+    if ((item.type & AppItemMasks.NOMENCLATURE_GROUP_TYPE) == AppItemMasks.NOMENCLATURE_GROUP_TYPE) {
         return (
             <div
                 key={" NomenclatureItemView" + item.uuid}
@@ -135,7 +135,7 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
         );
     }
 
-    if ((item.mask & AppItemMasks.CATALOG_ITEM_MASK) == AppItemMasks.CATALOG_ITEM_MASK)
+    if ((item.type & AppItemMasks.NOMENCLATURE_ITEM_TYPE) == AppItemMasks.NOMENCLATURE_ITEM_TYPE)
         return (
             <div onClick={e => e.stopPropagation()} className={cl.wrapper_content_nomenclature_item}>
                 <div className={cl.wrapper_content_nomenclature_item_name}

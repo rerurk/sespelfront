@@ -1,5 +1,6 @@
-import {Item} from "./nomenclature";
+
 import {TAddress} from "../components/UI/address/Address";
+import {Item} from "./App";
 
 export type StoreAssets={
     item:Item,

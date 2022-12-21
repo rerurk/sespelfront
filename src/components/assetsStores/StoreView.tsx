@@ -16,7 +16,7 @@ export let EmptyField: string = "Не заданно"
 
 const StoreView: FC = () => {
 
-    const {currentStore} = useTypeSelector(state => state.showCatalogNode)
+    const {currentStore} = useTypeSelector(state => state.appReducer)
     // если новый обьект то снимаем защиту от изменения
     const [isDisable,setIsDisable]=useState<boolean>(false)
 

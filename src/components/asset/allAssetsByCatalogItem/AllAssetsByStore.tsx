@@ -2,9 +2,10 @@ import React, {FC, useState} from 'react';
 import {AssetsInStore} from "../../../structs/Asset";
 // @ts-ignore
 import cl from "./AllAssetsByCatalogItem.module.css";
-import {NomenclatureItem, Item} from "../../../structs/nomenclature";
+import {NomenclatureItem} from "../../../structs/nomenclature";
 import AssetView from "./AssetView";
 import {OnStoreDragEnter, OnStoreDragLive} from "../../../gragAndDrops/assets/assetsDrag";
+import {Item} from "../../../structs/App";
 
 interface AllAssetsByStoreProps {
     ais: AssetsInStore

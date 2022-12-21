@@ -4,15 +4,16 @@ import {RouterPath} from "../../router";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 // @ts-ignore
 import cl from "./MakeNomenclatureGroup.module.css"
-import {AddToItem, Item} from "../../structs/nomenclature";
+import {AddToItem} from "../../structs/nomenclature";
 import {Tools} from "../../tools/Tools";
 import {Fetches} from "../../fetches/Fetches";
 import {AppItemMasks} from "../../App";
 import {MakeNomenclatureGroupTexts} from "./makeNomenclatureGroupTexts";
+import {Item} from "../../structs/App";
 
 let newGroup: Item = {
     id: -1,
-    mask: 0,
+    type: 0,
     name: "",
     owner_uuid: "",
     uuid: ""
@@ -20,16 +21,16 @@ let newGroup: Item = {
 }
 
 const MakeNomenclatureGroup: FC = () => {
-    newGroup = {
+    newGroup= {
         id: -1,
-        mask: AppItemMasks.CATALOG_MASK,
+        type: AppItemMasks.NOMENCLATURE_GROUP_TYPE,
         name: "",
         owner_uuid: "",
         uuid: ""
 
     }
     const navigate = useNavigate();
-    const {selectedNomenclatureGroup} = useTypeSelector(state => state.showCatalogNode)
+    const {selectedNomenclatureGroup} = useTypeSelector(state => state.appReducer)
     const onBtSaveClick = () => {
         if (selectedNomenclatureGroup) {
             let addToItem: AddToItem = {
@@ -38,8 +39,8 @@ const MakeNomenclatureGroup: FC = () => {
 
             }
 
-            Fetches.MakeCatalogItem(addToItem).then(r => {
-
+            Fetches.MakeNomenclatureItem(addToItem).then(r => {
+                console.log(r)
                 if (!(r instanceof Error) && selectedNomenclatureGroup.callReBoot) {
                     navigate(RouterPath.NOMENCLATURE)
                     selectedNomenclatureGroup.callReBoot()

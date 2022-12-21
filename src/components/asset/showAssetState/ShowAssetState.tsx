@@ -12,7 +12,7 @@ interface ShowAssetProps {
 const ShowAssetState:FC<ShowAssetProps> = ({assetUUID}) => {
 
     /*TODO обработать если товар не найден*/
-    const {currentAssetAndStore} = useTypeSelector(state => state.showCatalogNode)
+    const {currentAssetAndStore} = useTypeSelector(state => state.appReducer)
 
     if (currentAssetAndStore && currentAssetAndStore.current_store.id>0) {
 

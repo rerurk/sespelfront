@@ -5,7 +5,7 @@ import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./components/UI/AppRouter";
 import Route from "./router/route/Route";
 import {Fetches} from "./fetches/Fetches";
-import {ItemMasks} from "./structs/Masks";
+import {ItemTypes} from "./structs/ItemTypes";
 import {
     SetNomenclatureRootState,
     SetSelectedNomenclatureGroupState,
@@ -13,7 +13,7 @@ import {
 } from "./store/action_creator/AppStoreActions";
 import {useDispatch} from "react-redux";
 
-export let AppItemMasks: ItemMasks
+export let AppItemMasks: ItemTypes
 
 
 function App() {
@@ -32,7 +32,8 @@ function App() {
                 // @ts-ignore
                 dispatch(SetSelectedNomenclatureGroupState(catalogRoot))
 
-
+                // @ts-ignore
+                dispatch(SetAssetsStore(mainAssetsStorage))
                 setIsAllConsist(()=>true)
             }
 

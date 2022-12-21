@@ -63,7 +63,7 @@
 .wrapper_content_nomenclature_group_name {
     display: flex;
     flex-direction: row;
-    border-bottom: solid 1px #555;
+    border-bottom: solid 1px #999;
 
 }
 .wrapper_content_nomenclature_group_name>img{
@@ -90,21 +90,21 @@
 
 .wrapper_content_nomenclature_item {
     margin-right: 1rem;
-    padding-left: 1rem;
+    padding: 0 0 0 1rem;
     display: flex;
     flex-direction: row;
-    border-bottom: solid 1px #555;
+    border-bottom: solid 1px #999;
     background: #eee;
 
 
 }
 .wrapper_content_nomenclature_item_name{
-   font-style: italic;
+    font-style: italic;
     font-size: 0.9rem;
 }
 .wrapper_content_nomenclature_item_name>strong{
     color: #55ff55;
-    font-size: 2rem;
+    font-size: 1rem;
 }
 
 /* drags*/
