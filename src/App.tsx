@@ -39,7 +39,7 @@ function App() {
 
         })
 
-    }, [])
+    }, )
     const [isAllConsist, setIsAllConsist] = useState<boolean>(false)
     if (isAllConsist) {
         return (

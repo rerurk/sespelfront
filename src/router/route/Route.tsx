@@ -43,7 +43,7 @@ const Route: FC = () => {
                     <div
                         className={!node.isHide ? cl.wrapper_routeItem : cl.wrapper_hide}
                         onClick={(e: React.MouseEvent<HTMLDivElement>) => onItemClick(e, node)}
-                        key={"r" + ind}>
+                        key={node.path}>
                         <span>{node.name}</span>
                     </div>)
             }

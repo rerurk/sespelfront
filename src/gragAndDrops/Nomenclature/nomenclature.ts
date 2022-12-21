@@ -10,7 +10,7 @@ let ownerCatalogItem: NomenclatureItem | null = null
 
 export function onNomenclatureGroupDrag(item: NomenclatureItem) {
      console.log(item)
-    if (item != dragItem) {
+    if (item !==dragItem) {
         dragItem = item
         ownerCatalogItem = item.ownerItem
 
@@ -20,7 +20,7 @@ export function onNomenclatureGroupDrag(item: NomenclatureItem) {
 
 export function OnNomenclatureDragEnter(item: NomenclatureItem) {
 
-    if ((item.type & AppItemMasks.NOMENCLATURE_GROUP_TYPE) != AppItemMasks.NOMENCLATURE_GROUP_TYPE) return
+    if ((item.type & AppItemMasks.NOMENCLATURE_GROUP_TYPE) !==AppItemMasks.NOMENCLATURE_GROUP_TYPE) return
     if (dragItemEnter === item) return;
     dragItemEnter = item
 
@@ -33,8 +33,8 @@ export async function ConfirmReplace(): Promise<any | Error | TransferCatalogIte
 
 
     if (transferCatalogItem
-        && transferCatalogItem.from.uuid != transferCatalogItem.to.uuid
-        && transferCatalogItem.to.uuid != transferCatalogItem.item.uuid
+        && transferCatalogItem.from.uuid !== transferCatalogItem.to.uuid
+        && transferCatalogItem.to.uuid !== transferCatalogItem.item.uuid
         && transferCatalogItem.item
         && transferCatalogItem.from
         && transferCatalogItem.to
@@ -101,7 +101,7 @@ function testToContains(): boolean {
         while (owner != null && count < 50) {
 
             count++
-            if (dragItem.name == owner?.name) {
+            if (dragItem.name === owner?.name) {
                 test = false
                 alert(`Каталог ${dragItem.name} содержить в себе ${dragItemEnter.name}`)
             }

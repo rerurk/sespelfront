@@ -29,7 +29,7 @@ export class Fetches {
 
         try {
             const res=await axios.post<AssetsInStore[]>(Requests.GET_ASSETS_QUANTITY,Tools.unRefCatalogItem(catalogItem))
-            if (res.status != 200) {
+            if (res.status !==200) {
                 return Error(ErrorsText.ERROR_GET_DATA)
             }
             return res.data
@@ -44,7 +44,7 @@ export class Fetches {
         }
         try {
             const res= await axios.post<AssetAndStore>(Requests.GET_ASSET_AND_STORE_BY_UUID,assetUUID)
-            if (res.status != 200) {
+            if (res.status !== 200) {
 
                 return Error()
             }
@@ -58,7 +58,7 @@ export class Fetches {
         try {
             const res = await axios.get<Item>(Requests.GET_MAIN_ASSETS_STORE)
 
-            if (res.status != 200) {
+            if (res.status !== 200) {
 
                 return Error()
             }
@@ -71,7 +71,7 @@ export class Fetches {
     public static async GetItemTYPES(): Promise<ItemTypes | Error> {
         try {
             const res = await axios.get<ItemTypes>(Requests.GET_ITEM_TYPES)
-            if (res.status != 200) {
+            if (res.status !== 200) {
                 return Error("ошибка")
             }
             return res.data
@@ -129,7 +129,7 @@ export class Fetches {
     public static async GetAllAssetsStores(): Promise<StoreAssets[] | Error> {
         try {
             const res = await axios.get<StoreAssets[]>(Requests.GET_ALL_ASSETS_STORES)
-            if (res.status != 200) {
+            if (res.status !== 200) {
                 return Error(ErrorsText.ERROR_GET_DATA)
             }
             return res.data
@@ -178,7 +178,7 @@ export class Fetches {
         console.log(newAsset)
         try {
             const res= await axios.post<NewAsset>(Requests.MAKE_NEW_ASSET,newAsset)
-            if (res.status != 200) {
+            if (res.status !== 200) {
                 return Error(ErrorsText.ERROR_SEND_DATA)
             }
             return res
@@ -237,7 +237,7 @@ export class Fetches {
         console.log(upd)
         try {
             const res = await axios.post<UpdStore>(Requests.UPD_STORE, upd)
-            if (res.status != 200) {
+            if (res.status !== 200) {
                 return Error(ErrorsText.ERROR_SEND_DATA)
             }
             return res

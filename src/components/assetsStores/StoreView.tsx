@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 // @ts-ignore
 import cl from "./AssetsStores.module.css";
-import Address, {GetAddress, TAddress} from "../UI/address/Address";
+import Address, {GetAddress} from "../UI/address/Address";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 import {StoreAssets, UpdStore} from "../../structs/StoreAssets";
 
@@ -53,7 +53,7 @@ const StoreView: FC = () => {
 
         hisAssetStore.address=GetAddress()
 
-        if (currentStore && JSON.stringify(currentStore) != JSON.stringify(hisAssetStore)) {
+        if (currentStore && JSON.stringify(currentStore) !==JSON.stringify(hisAssetStore)) {
             hisAssetStore.address=GetAddress()
             let upd:UpdStore={
                  store_before:JSON.parse(JSON.stringify(currentStore)),

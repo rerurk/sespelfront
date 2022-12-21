@@ -59,6 +59,7 @@ export class Tools {
         let nstr: string | null = localStorage.getItem("fontSize")
         if (nstr) {
             let n: number = Number(nstr)
+            return n
         }
         return null
 
@@ -66,7 +67,7 @@ export class Tools {
 
     public static isItemsIdentical(items1:Item[]|null,items2:Item[]|null):boolean{
         if(items2!=null&&items1!=null) {
-            return items2.length == items1.length
+            return items2.length === items1.length
         }
         return false
     }

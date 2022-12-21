@@ -29,7 +29,7 @@ const NomenclatureRoot: FC = () => {
             nomenclatureRoot.callReBoot = () => nomenclatureRootReboot()
             nomenclatureRootReboot()
         }
-    }, [nomenclatureRoot])
+    }, )
 
 
     function nomenclatureRootReboot() {
@@ -55,7 +55,7 @@ const NomenclatureRoot: FC = () => {
             <div className={cl.wrapper} onClick={event => event.stopPropagation()}>
 
                 <div className={cl.wrapper_tools}>
-                    <span title={NomenclatureGui.CURRENT_SELECTED_GROUP.title}>{NomenclatureGui.CURRENT_SELECTED_GROUP.text}: <strong>{nomenclatureRoot.uuid != selectedNomenclatureGroup?.uuid ? selectedNomenclatureGroup?.name : nomenclatureRoot.name}</strong></span>
+                    <span title={NomenclatureGui.CURRENT_SELECTED_GROUP.title}>{NomenclatureGui.CURRENT_SELECTED_GROUP.text}: <strong>{nomenclatureRoot.uuid !==selectedNomenclatureGroup?.uuid ? selectedNomenclatureGroup?.name : nomenclatureRoot.name}</strong></span>
 
                     <button
                         onClick={() => navigate(RouterPath.MAKE_NOMENCLATURE_GROUP)}
@@ -68,7 +68,7 @@ const NomenclatureRoot: FC = () => {
                     >
                         {NomenclatureGui.MAKE_GROUP_ITEM.text}
                     </button>
-                    <img src={"images/rename.png"} title={NomenclatureGui.MODIFY_NOMENCLATURE_GROUP.title}
+                    <img src="images/rename.png" alt={NomenclatureGui.MODIFY_NOMENCLATURE_GROUP.title}
                          onClick={() => navigate(RouterPath.MODIFY_NOMENCLATURE_GROUP)}/>
 
                 </div>

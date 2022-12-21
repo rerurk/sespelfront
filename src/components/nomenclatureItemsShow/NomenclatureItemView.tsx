@@ -69,6 +69,8 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
     }
 
     const onCreateAssetPress=()=>{
+        // @ts-ignore
+        dispatch(SetCurrentNomenclatureItemState(item))
         navigate(RouterPath.CREATE_ASSET)
     }
 
@@ -85,7 +87,7 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
     }
 
 
-    if ((item.type & AppItemMasks.NOMENCLATURE_GROUP_TYPE) == AppItemMasks.NOMENCLATURE_GROUP_TYPE) {
+    if ((item.type & AppItemMasks.NOMENCLATURE_GROUP_TYPE) ===AppItemMasks.NOMENCLATURE_GROUP_TYPE) {
         return (
             <div
                 key={" NomenclatureItemView" + item.uuid}
@@ -105,6 +107,7 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
                      onDragEnd={ConfirmReplace}
                 >
                     <img
+                        alt={""}
                         draggable={false}
                         src={isOpen
                             ? "/images/open_folder.png"
@@ -135,7 +138,7 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
         );
     }
 
-    if ((item.type & AppItemMasks.NOMENCLATURE_ITEM_TYPE) == AppItemMasks.NOMENCLATURE_ITEM_TYPE)
+    if ((item.type & AppItemMasks.NOMENCLATURE_ITEM_TYPE) ===AppItemMasks.NOMENCLATURE_ITEM_TYPE)
         return (
             <div onClick={e => e.stopPropagation()} className={cl.wrapper_content_nomenclature_item}>
                 <div className={cl.wrapper_content_nomenclature_item_name}

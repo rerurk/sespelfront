@@ -1,10 +1,8 @@
 import React, {FC} from 'react';
 // @ts-ignore
 import cl from "./MakeAsset.module.css"
-
 import {AppItemMasks} from "../../../App";
 import {Tools} from "../../../tools/Tools";
-
 import {Fetches} from "../../../fetches/Fetches";
 import {NewAsset} from "../../../structs/Asset";
 import StoresSelect from "../../assetsStores/StoresSelect";
@@ -16,6 +14,7 @@ const MakeAsset:FC = () => {
     const {currCatalogItem,currentStore} = useTypeSelector(state => state.appReducer)
     const navigate = useNavigate();
     const onBtCreate=()=>{
+
         if(currCatalogItem) {
             // вместо имени присвоим sysid наименования owner будет место хранения по умолчнию задаться основной склад
             let newAsset: Item = {

@@ -22,7 +22,7 @@ export enum RouterTexts {
     CREATE_ASSET = "Создать ТМЦ",
     MOVE_ASSET = "Перемещение",
     NOMENCLATURE = "Номенклатура",
-    ASSERTS_STORAGE = "Склады",
+    ASSERTS_STORAGE = "Места хранения",
     QR_CODE_SCANNER = "Сканер",
 
 

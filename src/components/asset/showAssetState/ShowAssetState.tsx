@@ -1,10 +1,9 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC} from 'react';
 // @ts-ignore
 import cl from "./ShowAssetState.module.css"
 import {useTypeSelector} from "../../../hooks/useTypeSelector";
 
 import {StoresText} from "../../../texts/Texts";
-import {Tools} from "../../../tools/Tools";
 interface ShowAssetProps {
     assetUUID:string|null
 }
