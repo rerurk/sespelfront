@@ -7,7 +7,7 @@ import {
     OnNomenclatureDragEnter,
     onNomenclatureGroupDrag
 } from "../../gragAndDrops/Nomenclature/nomenclature";
-import {AppItemMasks} from "../../App";
+import {AppItemTYPES} from "../../App";
 import {Fetches} from "../../fetches/Fetches";
 import {useDispatch} from "react-redux";
 import {
@@ -87,7 +87,7 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
     }
 
 
-    if ((item.type & AppItemMasks.NOMENCLATURE_GROUP_TYPE) ===AppItemMasks.NOMENCLATURE_GROUP_TYPE) {
+    if ((item.type & AppItemTYPES.NOMENCLATURE_GROUP_TYPE) ===AppItemTYPES.NOMENCLATURE_GROUP_TYPE) {
         return (
             <div
                 key={" NomenclatureItemView" + item.uuid}
@@ -138,7 +138,7 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
         );
     }
 
-    if ((item.type & AppItemMasks.NOMENCLATURE_ITEM_TYPE) ===AppItemMasks.NOMENCLATURE_ITEM_TYPE)
+    if ((item.type & AppItemTYPES.NOMENCLATURE_ITEM_TYPE) ===AppItemTYPES.NOMENCLATURE_ITEM_TYPE)
         return (
             <div onClick={e => e.stopPropagation()} className={cl.wrapper_content_nomenclature_item}>
                 <div className={cl.wrapper_content_nomenclature_item_name}

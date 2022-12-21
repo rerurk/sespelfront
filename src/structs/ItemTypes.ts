@@ -1,16 +1,7 @@
-export type ItemTypes={
+export type ItemTypes = {
     NOMENCLATURE_GROUP_TYPE: number,
     NOMENCLATURE_ITEM_TYPE: number,
-    STORE_GROPE_TYPE:number
+    STORE_GROPE_TYPE: number
     STORE_TYPE: number,
     ASSET_TYPE: number
 }
-
-/*
-* 	"NOMENCLATURE_GROUP_TYPE": NOMENCLATURE_GROUP_TYPE,
-	"NOMENCLATURE_ITEM_TYPE":  NOMENCLATURE_ITEM_TYPE,
-	"NOT_REMOVABLE_TYPE":      NOT_REMOVABLE_TYPE,
-	"STORE_TYPE":              STORE_TYPE,
-	"ASSET_TYPE":              ASSET_TYPE,
-* */
-

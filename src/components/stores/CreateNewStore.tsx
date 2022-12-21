@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 
-import {AppItemMasks} from "../../App";
+import {AppItemTYPES} from "../../App";
 import {TAddress} from "../UI/address/Address";
 import {StoreAssets} from "../../structs/StoreAssets";
 import {useDispatch} from "react-redux";
@@ -17,7 +17,7 @@ const CreateNewStore:FC = () => {
     const  onCreateNewStore=()=>{
         let storeItem:Item={
             id: -1,
-            type: AppItemMasks.STORE_TYPE,
+            type: AppItemTYPES.STORE_TYPE,
             name: EmptyField,
             owner_uuid: null,
             uuid: ""}

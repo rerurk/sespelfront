@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {useNavigate} from "react-router-dom";
 import {RouterPath} from "../../router";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
-import {AppItemMasks} from "../../App";
+import {AppItemTYPES} from "../../App";
 import {AddToItem} from "../../structs/nomenclature";
 import {Tools} from "../../tools/Tools";
 import {Fetches} from "../../fetches/Fetches";
@@ -20,7 +20,7 @@ let newGroup:Item ={
 const MakeNomenclatureItem: FC = () => {
     newGroup={
         id: -1,
-        type: AppItemMasks.NOMENCLATURE_ITEM_TYPE,
+        type: AppItemTYPES.NOMENCLATURE_ITEM_TYPE,
         name: "",
         owner_uuid: "",
         uuid: ""

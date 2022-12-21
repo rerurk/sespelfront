@@ -10,7 +10,8 @@ type RequestT = {
     RENAME_CATALOG_ITEM: string,
     REMOVE_CATALOG_ITEM: string,
     GET_ITEM_TYPES: string
-    GET_MAIN_ASSETS_STORE: string
+    GET_STORE_GROUP_ROOT: string
+    GET_STORE_GROUP_ITEMS: string
     GET_ASSETS_QUANTITY:string// (Item)=>AssetsInStore[]
     GET_ASSET_AND_STORE_BY_UUID:string //(assetUUID:string)=>Item (Asset)| Item где id <1
     GET_ALL_ASSETS_STORES: string
@@ -33,7 +34,8 @@ enum req {
     RENAME_CATALOG_ITEM = "/rename_catalog_item",
     REMOVE_CATALOG_ITEM = "/remove_catalog_item",
     GET_ITEM_TYPES = "/get_item_types",
-    GET_MAIN_ASSETS_STORE = '/get_main_assets_store',
+    GET_STORE_GROUP_ROOT = "/get_store_group_root",
+    GET_STORE_GROUP_ITEMS="/get_store_group_items",
     GET_ALL_ASSETS_STORES = "/get_all_assets_stores",
     GET_ASSET_AND_STORE_BY_UUID="/get_asset_and_store_by_uuid", //(assetuuid:string)=>:AssetAndStore
     GET_ASSETS_QUANTITY="/get_assets_quantity",// (Item)=>AssetsInStore[]
@@ -50,7 +52,8 @@ export const Requests: RequestT = {
     TRANSFER_CATALOG_ITEM: domen + req.TRANSFER_CATALOG_ITEM,
     MAKE_NEW_ASSET: domen + req.MAKE_NEW_ASSET,
     GET_ITEM_TYPES: domen + req.GET_ITEM_TYPES,
-    GET_MAIN_ASSETS_STORE: domen + req.GET_MAIN_ASSETS_STORE,
+    GET_STORE_GROUP_ROOT: domen + req.GET_STORE_GROUP_ROOT,
+    GET_STORE_GROUP_ITEMS:domen+req.GET_STORE_GROUP_ITEMS,
     GET_ALL_ASSETS_STORES: domen + req.GET_ALL_ASSETS_STORES,
     MAKE_NEW_STORE: domen + req.MAKE_NEW_STORE,
     UPD_STORE: domen + req.UPD_STORE,

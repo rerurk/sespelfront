@@ -2,7 +2,7 @@ import React from "react";
 import Main from "../pages/main/Main";
 import ShowAllAssetsByCatalogName from "../pages/showAllAssetsByCatalogName/ShowAllAssetsByCatalogName";
 import Nomenclatures from "../pages/nomenclatures/Nomenclatures";
-import ShowAssetsStores from "../pages/showAssetsStores/ShowAssetsStores";
+import AssetStores from "../pages/assetStores/AssetStores";
 import QrScan from "../pages/qrscan/QrScan";
 import CreateAsset from "../pages/createAsset/CreateAsset";
 import MakeNomenclatureGroup from "../pages/makeNomenclatureGroup/MakeNomenclatureGroup";
@@ -63,7 +63,7 @@ export const publicRoutes: RouteNode[] = [
         exact: false,
         path: RouterPath.ASSERTS_STORAGE,
         name: RouterTexts.ASSERTS_STORAGE,
-        element: <ShowAssetsStores/>
+        element: <AssetStores/>
     },
     {
         isHide: false,

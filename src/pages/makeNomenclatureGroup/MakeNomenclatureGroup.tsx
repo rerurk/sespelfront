@@ -7,7 +7,7 @@ import cl from "./MakeNomenclatureGroup.module.css"
 import {AddToItem} from "../../structs/nomenclature";
 import {Tools} from "../../tools/Tools";
 import {Fetches} from "../../fetches/Fetches";
-import {AppItemMasks} from "../../App";
+import {AppItemTYPES} from "../../App";
 import {MakeNomenclatureGroupTexts} from "./makeNomenclatureGroupTexts";
 import {Item} from "../../structs/App";
 
@@ -23,7 +23,7 @@ let newGroup: Item = {
 const MakeNomenclatureGroup: FC = () => {
     newGroup= {
         id: -1,
-        type: AppItemMasks.NOMENCLATURE_GROUP_TYPE,
+        type: AppItemTYPES.NOMENCLATURE_GROUP_TYPE,
         name: "",
         owner_uuid: "",
         uuid: ""

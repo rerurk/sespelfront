@@ -9,11 +9,11 @@ import {ItemTypes} from "./structs/ItemTypes";
 import {
     SetNomenclatureRootState,
     SetSelectedNomenclatureGroupState,
-    SetAssetsStore
+    SetAssetsStore, SetStoreGroupRoot
 } from "./store/action_creator/AppStoreActions";
 import {useDispatch} from "react-redux";
 
-export let AppItemMasks: ItemTypes
+export let AppItemTYPES: ItemTypes
 
 
 function App() {
@@ -22,10 +22,10 @@ function App() {
         // получим все нужные данные с сервера
         Fetches.FetchAllData().then(r => {
 
-            let [appM, catalogRoot,mainAssetsStorage] = r
+            let [itemTYPES, catalogRoot,storeGroupRoot] = r
             // проверим являетсья ли что то ошибкой
-            if (!((appM instanceof Error)||(catalogRoot instanceof Error)||(mainAssetsStorage instanceof Error))){
-                AppItemMasks=appM
+            if (!((itemTYPES instanceof Error)||(catalogRoot instanceof Error)||(storeGroupRoot instanceof Error))){
+                AppItemTYPES=itemTYPES
 
                 // @ts-ignore
                 dispatch(SetNomenclatureRootState(catalogRoot))
@@ -33,7 +33,7 @@ function App() {
                 dispatch(SetSelectedNomenclatureGroupState(catalogRoot))
 
                 // @ts-ignore
-                dispatch(SetAssetsStore(mainAssetsStorage))
+                dispatch(SetStoreGroupRoot(storeGroupRoot))
                 setIsAllConsist(()=>true)
             }
 

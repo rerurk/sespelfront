@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
 // @ts-ignore
 import cl from "./MakeAsset.module.css"
-import {AppItemMasks} from "../../../App";
+import {AppItemTYPES} from "../../../App";
 import {Tools} from "../../../tools/Tools";
 import {Fetches} from "../../../fetches/Fetches";
 import {NewAsset} from "../../../structs/Asset";
-import StoresSelect from "../../assetsStores/StoresSelect";
+import StoresSelect from "../../stores/StoresSelect";
 import {useNavigate} from "react-router-dom";
 import {RouterPath} from "../../../router";
 import {Item} from "../../../structs/App";
@@ -19,7 +19,7 @@ const MakeAsset:FC = () => {
             // вместо имени присвоим sysid наименования owner будет место хранения по умолчнию задаться основной склад
             let newAsset: Item = {
                 id: -1,
-                type: AppItemMasks.ASSET_TYPE,
+                type: AppItemTYPES.ASSET_TYPE,
                 name: "",
                 owner_uuid: null,
                 uuid:""

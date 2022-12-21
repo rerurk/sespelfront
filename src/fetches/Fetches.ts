@@ -4,7 +4,7 @@ import {ReqErrors, Requests} from "./Requests";
 import {AddToItem, NomenclatureItem, RemoveItem, RenameCatalogItem, TransferCatalogItem} from "../structs/nomenclature";
 import {Tools} from "../tools/Tools";
 import {ItemTypes} from "../structs/ItemTypes";
-import {StoreAssets, UpdStore} from "../structs/StoreAssets";
+import {StoreAssets, StoreItem, UpdStore} from "../structs/StoreAssets";
 import {ErrorsText} from "../texts/Texts";
 import {AssetAndStore, AssetsInStore, AssetUUID, NewAsset} from "../structs/Asset";
 import {Item} from "../structs/App";
@@ -21,7 +21,7 @@ export class Fetches {
 
 
     public static async FetchAllData(): Promise<FetchesResult> {
-        return Promise.all([this.GetItemTYPES(), this.GetNomenclatureRoot(), this.GetMainAssetsStorage()])
+        return Promise.all([this.GetItemTYPES(), this.GetNomenclatureRoot(), this.GetStoreGroupRoot()])
     }
 
     // запрос должен вернуть Массив ТМЦ и Склад AssetsInStore
@@ -54,9 +54,9 @@ export class Fetches {
         }
     }
 
-    public static async GetMainAssetsStorage(): Promise<Item | Error> {
+    public static async GetStoreGroupRoot(): Promise<Item | Error> {
         try {
-            const res = await axios.get<Item>(Requests.GET_MAIN_ASSETS_STORE)
+            const res = await axios.get<Item>(Requests.GET_STORE_GROUP_ROOT)
 
             if (res.status !== 200) {
 
@@ -66,6 +66,38 @@ export class Fetches {
         } catch (e) {
             return Error()
         }
+    }
+
+    public static async GetStoreGroupItems(item: StoreItem): Promise<NomenclatureItem[] | Error> {
+        if (item.id < 1) {
+            return Error("ошибка")
+        }
+
+
+        try {
+
+            const res = await axios.post<NomenclatureItem[]>(Requests.GET_STORE_GROUP_ITEMS, Tools.unRefCatalogItem(item))
+            return res.data
+
+            /*  const response =  await fetch(Requests.GET_CATALOG_ITEMS, {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json;charset=utf-8',
+                  },
+                  mode: 'no-cors', // no-cors, *cors, same-origin
+                  body: JSON.stringify(Tools.unRefCatalogItem(item)),
+
+              })
+
+              return await response.json();*/
+
+
+        } catch (e) {
+            console.log(e)
+            return Error("ошибка")
+
+        }
+
     }
 
     public static async GetItemTYPES(): Promise<ItemTypes | Error> {

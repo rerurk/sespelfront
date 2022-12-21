@@ -1,7 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 // @ts-ignore
 import cl from "./Adress.module.css"
-import {EmptyField} from "../../assetsStores/StoreView";
+import {EmptyField} from "../../stores/StoreView";
 
 export type TAddress = {
     reg_ind:string,

@@ -1,41 +1,51 @@
 import {NomenclatureItem} from "../../structs/nomenclature";
 import {Dispatch} from "redux";
-import {AppActionTypes, CatalogActions} from "../types/AppStoreTypes";
-import {StoreAssets} from "../../structs/StoreAssets";
+import {AppActions, AppActionTypes} from "../types/AppStoreTypes";
+import {StoreAssets, StoreItem} from "../../structs/StoreAssets";
 import {AssetAndStore, AssetQrCode} from "../../structs/Asset";
 
+
+
+export const SetNomenclatureRootState = (root: NomenclatureItem) => {
+    return (dispatch: Dispatch<AppActions>) => {
+        dispatch({type: AppActionTypes.SET_CATALOG_ROOT, payload: root})
+    }
+}
+
+
+export const SetStoreGroupRoot=(root:StoreItem)=>{
+    return (dispatch:Dispatch<AppActions>)=>{dispatch({type:AppActionTypes.SET_STORE_GROUP_ROOT,payload:root})}
+}
+
+
 export const SetCurrentNomenclatureItemState = (catalogItem: NomenclatureItem) => {
-    return (dispatch: Dispatch<CatalogActions>) => {
+    return (dispatch: Dispatch<AppActions>) => {
         dispatch({type: AppActionTypes.SET_CURRENT_NOMENCLATURE_ITEM, payload: catalogItem})
     }
 }
 
 export const SetSelectedNomenclatureGroupState = (catalogItem: NomenclatureItem) => {
-    return (dispatch: Dispatch<CatalogActions>) => {
+    return (dispatch: Dispatch<AppActions>) => {
         dispatch({type: AppActionTypes.SET_SELECTED_NOMENCLATURE_GROUP, payload: catalogItem})
     }
 }
 
-export const SetNomenclatureRootState = (root: NomenclatureItem) => {
-    return (dispatch: Dispatch<CatalogActions>) => {
-        dispatch({type: AppActionTypes.SET_CATALOG_ROOT, payload: root})
-    }
-}
+
 
 export const SetAssetsStore = (store: StoreAssets) => {
-    return (dispatch: Dispatch<CatalogActions>) => {
+    return (dispatch: Dispatch<AppActions>) => {
         dispatch({type: AppActionTypes.SET_CURRENT_ASSET_STORE, payload: store})
     }
 }
 
 export const SetCurrentAsset=(assetAndStore:AssetAndStore)=>{
-    return(dispatch:Dispatch<CatalogActions>)=>{
+    return(dispatch:Dispatch<AppActions>)=>{
         dispatch({type:AppActionTypes.SET_CURRENT_ASSET,payload:assetAndStore})
     }
 }
 
 export const SetAssetQRCode=(assetQrCode:AssetQrCode)=>{
-    return(dispatch:Dispatch<CatalogActions>)=>{
+    return(dispatch:Dispatch<AppActions>)=>{
         dispatch({type:AppActionTypes.SET_ASSET_QRCODE,payload:assetQrCode})
     }
 }
