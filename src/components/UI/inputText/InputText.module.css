@@ -1,0 +1,33 @@
+.wrapper{
+    position: fixed;
+     width: 100%;
+    height: 100%;
+    background:rgba(0,0,0,0.5);
+    display: flex;
+    padding-top: 10%;
+    justify-content: center;
+}
+.wrapper_content{
+    width: 20%;
+    height: 20%;
+    background: #999999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.wrapper_content_bts{
+    margin-top: 20%;
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+
+     justify-content: space-around;
+}
+.wrapper_content>input{
+    width: 80%;
+
+}
+.wrapper_hide{
+    display: none;
+}

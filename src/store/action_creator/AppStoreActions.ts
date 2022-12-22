@@ -8,15 +8,13 @@ import {AssetAndStore, AssetQrCode} from "../../structs/Asset";
 
 export const SetNomenclatureRootState = (root: NomenclatureItem) => {
     return (dispatch: Dispatch<AppActions>) => {
-        dispatch({type: AppActionTypes.SET_CATALOG_ROOT, payload: root})
+        dispatch({type: AppActionTypes.SET_NOMENCLATURE_ROOT, payload: root})
     }
 }
-
 
 export const SetStoreGroupRoot=(root:StoreItem)=>{
     return (dispatch:Dispatch<AppActions>)=>{dispatch({type:AppActionTypes.SET_STORE_GROUP_ROOT,payload:root})}
 }
-
 
 export const SetCurrentNomenclatureItemState = (catalogItem: NomenclatureItem) => {
     return (dispatch: Dispatch<AppActions>) => {
@@ -30,7 +28,11 @@ export const SetSelectedNomenclatureGroupState = (catalogItem: NomenclatureItem)
     }
 }
 
-
+export const SetSelectedStoreGroupState = (storeGroupItem: StoreItem) => {
+    return (dispatch: Dispatch<AppActions>) => {
+        dispatch({type: AppActionTypes.SET_SELECTED_STORE_GROUP, payload: storeGroupItem})
+    }
+}
 
 export const SetAssetsStore = (store: StoreAssets) => {
     return (dispatch: Dispatch<AppActions>) => {

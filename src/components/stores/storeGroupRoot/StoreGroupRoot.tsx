@@ -7,34 +7,36 @@ import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {Fetches} from "../../../fetches/Fetches";
 import {Tools} from "../../../tools/Tools";
-
-import {RouterPath} from "../../../router";
-import {OnNomenclatureDragEnter} from "../../../gragAndDrops/Nomenclature/nomenclature";
-import {SetSelectedNomenclatureGroupState} from "../../../store/action_creator/AppStoreActions";
-import NomenclatureItemView from "../../nomenclatureItemsShow/NomenclatureItemView";
 import {StoreGroupGui} from "./storeGroupTexts";
+import {StoreItem} from "../../../structs/StoreAssets";
+import StoreGroupItem from "../storeGroupItem/StoreGroupItem";
+import InputText from "../../UI/inputText/InputText";
+
 
 const StoreGroupRoot = () => {
 
-    const {storeGroupRoot} = useTypeSelector(state => state.appReducer)
-    const [hisItems, setHisItems] = useState<NomenclatureItem[] | null>(null)
+    const {storeGroupRoot, selectedStoreGroup} = useTypeSelector(state => state.appReducer)
+    const [hisItems, setHisItems] = useState<StoreItem[] | null>(null)
     const dispatch = useDispatch()
     const navigate = useNavigate();
-
+    let s:Function
 
     useEffect(() => {
+
         if (storeGroupRoot) {
-            storeGroupRoot.callReBoot = () => storeGroupRootReboot()
+            storeGroupRoot.callReBoot = storeGroupRootReboot
             storeGroupRootReboot()
         }
-    }, )
+
+    },[storeGroupRoot])
 
 
     function storeGroupRootReboot() {
+
         if (storeGroupRoot) {
             Fetches.GetStoreGroupItems(storeGroupRoot).then(r => {
-                console.log(r)
                 if (!(r instanceof Error)) {
+                    console.log("StoreGroupRoot СРАБАТЫВАЕТ ")
                     if (!Tools.isItemsIdentical(r, hisItems)) {
                         if (r != null) {
                             r.map((it: NomenclatureItem) => it.ownerItem = storeGroupRoot)
@@ -47,6 +49,9 @@ const StoreGroupRoot = () => {
             })
         }
     }
+    function showInput() {
+
+    }
 
     if (storeGroupRoot) {
 
@@ -54,43 +59,33 @@ const StoreGroupRoot = () => {
             <div className={cl.wrapper} onClick={event => event.stopPropagation()}>
 
                 <div className={cl.wrapper_tools}>
-                    <span title={StoreGroupGui.CURRENT_SELECTED_GROUP.title}>{StoreGroupGui.CURRENT_SELECTED_GROUP.text}: {storeGroupRoot.name} </span>
 
-                    <button
-                        onClick={() => navigate(RouterPath.MAKE_NOMENCLATURE_GROUP)}
-                        title={StoreGroupGui.MAKE_SUB_GROUP.title}>{StoreGroupGui.MAKE_SUB_GROUP.text}
-                    </button>
+                    <div className={cl.wrapper_tools_BTS}>
+                        <img
+                            onClick={()=>showInput()}
+                             alt={StoreGroupGui.MAKE_SUB_GROUP.title}
+                             src="/images/add_folder.png"
+                        />
 
-                    <button
-                        onClick={() => navigate(RouterPath.MAKE_NOMENCLATURE_ITEM)}
-                        title={StoreGroupGui.MAKE_GROUP_ITEM.title}
-                    >
-                        {StoreGroupGui.MAKE_GROUP_ITEM.text}
-                    </button>
-                    <img src="images/rename.png" alt={StoreGroupGui.MODIFY_STORE_GROUP.title}
-                         onClick={() => navigate(RouterPath.MODIFY_NOMENCLATURE_GROUP)}/>
+                        <button
 
+                            title={StoreGroupGui.MAKE_GROUP_ITEM.title}
+                        >
+                            {StoreGroupGui.MAKE_GROUP_ITEM.text}
+                        </button>
+                        <img src="images/rename.png" alt={StoreGroupGui.MODIFY_STORE_GROUP.title}/>
+
+                    </div>
+                    <span
+                        title={StoreGroupGui.CURRENT_SELECTED_GROUP.title}>{StoreGroupGui.CURRENT_SELECTED_GROUP.text}: {selectedStoreGroup?.name}
+                    </span>
                 </div>
-              {/*  <div className={cl.wrapper_content_nomenclature_group_name}
-                     onDragEnter={() => OnNomenclatureDragEnter(nomenclatureRoot)}
-                     onClick={() => {
-                         // @ts-ignore
-                         dispatch(SetSelectedNomenclatureGroupState(nomenclatureRoot))
-                     }}
-                >
-
-                    <span>{nomenclatureRoot.name}:</span>
-
-                </div>
-                <div className={cl.wrapper_content}>
-                    {hisItems
-                        ? hisItems.map((it: NomenclatureItem) =>
-                            <NomenclatureItemView
-                                item={it}
-                                key={"NomenclatureItemView" + it.uuid}/>)
+                {
+                    hisItems
+                        ? hisItems.map((it: StoreItem) => <StoreGroupItem item={it} key={"StoreGroupItem_" + it.uuid} />)
                         : false
-                    }
-                </div>*/}
+                }
+                <InputText />
             </div>
         );
     }

@@ -25,14 +25,16 @@ const NomenclatureRoot: FC = () => {
 
 
     useEffect(() => {
+
         if (nomenclatureRoot) {
             nomenclatureRoot.callReBoot = () => nomenclatureRootReboot()
             nomenclatureRootReboot()
         }
-    }, )
+    },[nomenclatureRoot])
 
 
     function nomenclatureRootReboot() {
+        console.log("nomenclatureRootReboot()")
         if (nomenclatureRoot) {
             Fetches.GetNomenclatureItems(nomenclatureRoot).then(r => {
                 if (!(r instanceof Error)) {
@@ -55,22 +57,26 @@ const NomenclatureRoot: FC = () => {
             <div className={cl.wrapper} onClick={event => event.stopPropagation()}>
 
                 <div className={cl.wrapper_tools}>
-                    <span title={NomenclatureGui.CURRENT_SELECTED_GROUP.title}>{NomenclatureGui.CURRENT_SELECTED_GROUP.text}: <strong>{nomenclatureRoot.uuid !==selectedNomenclatureGroup?.uuid ? selectedNomenclatureGroup?.name : nomenclatureRoot.name}</strong></span>
 
-                    <button
-                        onClick={() => navigate(RouterPath.MAKE_NOMENCLATURE_GROUP)}
-                        title={NomenclatureGui.MAKE_SUB_GROUP.title}>{NomenclatureGui.MAKE_SUB_GROUP.text}
-                    </button>
+                    <div className={cl.wrapper_tools_BTS}>
+                        <img onClick={() => navigate(RouterPath.MAKE_NOMENCLATURE_GROUP)}
+                             alt={NomenclatureGui.MAKE_SUB_GROUP.title}
+                             src="/images/add_folder.png"
+                        />
 
-                    <button
-                        onClick={() => navigate(RouterPath.MAKE_NOMENCLATURE_ITEM)}
-                        title={NomenclatureGui.MAKE_GROUP_ITEM.title}
-                    >
-                        {NomenclatureGui.MAKE_GROUP_ITEM.text}
-                    </button>
-                    <img src="images/rename.png" alt={NomenclatureGui.MODIFY_NOMENCLATURE_GROUP.title}
-                         onClick={() => navigate(RouterPath.MODIFY_NOMENCLATURE_GROUP)}/>
 
+                        <button
+                            onClick={() => navigate(RouterPath.MAKE_NOMENCLATURE_ITEM)}
+                            title={NomenclatureGui.MAKE_GROUP_ITEM.title}
+                        >
+                            {NomenclatureGui.MAKE_GROUP_ITEM.text}
+                        </button>
+                        <img src="images/rename.png" alt={NomenclatureGui.MODIFY_NOMENCLATURE_GROUP.title}
+                             onClick={() => navigate(RouterPath.MODIFY_NOMENCLATURE_GROUP)}/>
+                    </div>
+                    <span
+                        title={NomenclatureGui.CURRENT_SELECTED_GROUP.title}>{NomenclatureGui.CURRENT_SELECTED_GROUP.text}: <strong>{nomenclatureRoot.uuid !== selectedNomenclatureGroup?.uuid ? selectedNomenclatureGroup?.name : nomenclatureRoot.name}</strong>
+                    </span>
                 </div>
                 <div className={cl.wrapper_content_nomenclature_group_name}
                      onDragEnter={() => OnNomenclatureDragEnter(nomenclatureRoot)}

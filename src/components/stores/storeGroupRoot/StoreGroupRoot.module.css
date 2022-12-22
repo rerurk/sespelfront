@@ -10,23 +10,31 @@
 }
 .wrapper_tools{
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: flex-start;
     border: solid 1px black;
     padding: .3rem;
 
 }
-.wrapper_tools>button{
+.wrapper_tools_BTS {
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.wrapper_tools_BTS>button{
     background: #eee;
     border-radius: 0.2rem;
     margin-left: 1rem;
     cursor: pointer;
 }
-.wrapper_tools>img{
+.wrapper_tools_BTS>img{
     background: #eee;
     border-radius: 0.2rem;
-    width: 1rem;
+    width: 2rem;
     height: 1rem;
     object-fit: contain;
     margin-left: 1rem;

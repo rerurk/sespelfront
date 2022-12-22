@@ -9,7 +9,7 @@ import {ItemTypes} from "./structs/ItemTypes";
 import {
     SetNomenclatureRootState,
     SetSelectedNomenclatureGroupState,
-    SetAssetsStore, SetStoreGroupRoot
+    SetAssetsStore, SetStoreGroupRoot, SetSelectedStoreGroupState
 } from "./store/action_creator/AppStoreActions";
 import {useDispatch} from "react-redux";
 
@@ -31,9 +31,10 @@ function App() {
                 dispatch(SetNomenclatureRootState(catalogRoot))
                 // @ts-ignore
                 dispatch(SetSelectedNomenclatureGroupState(catalogRoot))
-
                 // @ts-ignore
                 dispatch(SetStoreGroupRoot(storeGroupRoot))
+                // @ts-ignore
+                dispatch(SetSelectedStoreGroupState(storeGroupRoot))
                 setIsAllConsist(()=>true)
             }
 

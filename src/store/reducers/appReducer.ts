@@ -9,6 +9,7 @@ const initialState: AppState = {
     nomenclatureRoot: null,
     storeGroupRoot: null,
     selectedNomenclatureGroup: null,
+    selectedStoreGroup:null,
     currCatalogItem: null,
     currentStore: null,
     currentAssetAndStore: null,
@@ -45,6 +46,12 @@ function setCurrentNomenclatureGroup(selectedNomenclatureGroup: NomenclatureItem
     return initialState
 }
 
+function setCurrentStoreGroup(selectedStoreGroup: StoreItem): AppState {
+
+    initialState.selectedStoreGroup = selectedStoreGroup
+    return initialState
+}
+
 function setCatalogRoot(root: NomenclatureItem): AppState {
 
     initialState.nomenclatureRoot = root
@@ -67,7 +74,7 @@ export const appReducer = (state = initialState, action: AppActions): AppState =
     switch (action.type) {
         case AppActionTypes.SET_SELECTED_NOMENCLATURE_GROUP:
             return {...setCurrentNomenclatureGroup(action.payload)}
-        case AppActionTypes.SET_CATALOG_ROOT:
+        case AppActionTypes.SET_NOMENCLATURE_ROOT:
             return {...setCatalogRoot(action.payload)}
         case AppActionTypes.SET_CURRENT_NOMENCLATURE_ITEM:
             return {...setCurrentCatalogItem(action.payload)}
@@ -79,7 +86,8 @@ export const appReducer = (state = initialState, action: AppActions): AppState =
             return {...setAssetQrCode(action.payload)}
         case AppActionTypes.SET_STORE_GROUP_ROOT:
             return {...setStoreGroupRootItem(action.payload)}
-
+        case AppActionTypes.SET_SELECTED_STORE_GROUP:
+            return {...setCurrentStoreGroup(action.payload)}
         default:
             return state
     }
