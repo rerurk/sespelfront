@@ -2,7 +2,7 @@ import {Item} from "./App";
 
 
 export type NewAsset = {
-    asset_catalog_item: Item
+    asset_nomenclature_item: Item
     asset_store:Item
     asset:Item
 

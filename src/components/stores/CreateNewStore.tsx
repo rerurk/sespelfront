@@ -17,7 +17,7 @@ const CreateNewStore:FC = () => {
     const  onCreateNewStore=()=>{
         let storeItem:Item={
             id: -1,
-            type: AppItemTYPES.STORE_TYPE,
+            type: AppItemTYPES.ASSETS_STORE_TYPE,
             name: EmptyField,
             owner_uuid: null,
             uuid: ""}

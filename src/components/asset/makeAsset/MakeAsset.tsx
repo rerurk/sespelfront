@@ -27,7 +27,7 @@ const MakeAsset:FC = () => {
             let   assetCatalogItem:Item=Tools.unRefCatalogItem(currCatalogItem)
             if(currentStore) {
                 let makeAsset: NewAsset = {
-                    asset_catalog_item: assetCatalogItem,
+                    asset_nomenclature_item: assetCatalogItem,
                     asset_store: currentStore.item,
                     asset: newAsset
                 }
