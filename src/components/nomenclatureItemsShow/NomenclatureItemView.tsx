@@ -3,9 +3,9 @@ import {NomenclatureItem} from "../../structs/nomenclature";
 // @ts-ignore
 import cl from "./NomenclatureShow.module.css"
 import {
-    ConfirmReplace,
-    OnNomenclatureDragEnter,
-    onNomenclatureGroupDrag
+    ConfirmReplaceItem,
+    OnItemDragEnter,
+    OnItemDragStart
 } from "../../gragAndDrops/Nomenclature/nomenclature";
 import {AppItemTYPES} from "../../App";
 import {Fetches} from "../../fetches/Fetches";
@@ -38,7 +38,7 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
     }
 
     function getHisItems() {
-        Fetches.GetNomenclatureItems(item).then(r => {
+        Fetches.GetItems(item).then(r => {
             if (!(r instanceof Error)) {
                 if (!Tools.isItemsIdentical(r, hisItems)) {
                     if (r != null) {
@@ -78,7 +78,7 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
     const onDragEnterToItem = (e: React.DragEvent<HTMLDivElement>) => {
 
         e.currentTarget.classList.add(cl.dragEnter)
-        OnNomenclatureDragEnter(item)
+        OnItemDragEnter(item)
     }
 
     const onDragLeaveFromItem = (e: React.DragEvent<HTMLDivElement>) => {
@@ -101,10 +101,10 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
             >
                 <div className={cl.wrapper_content_nomenclature_group_name}
                      draggable={true}
-                     onDragStart={() => onNomenclatureGroupDrag(item)}
+                     onDragStart={() => OnItemDragStart(item)}
                      onDragEnter={(e: React.DragEvent<HTMLDivElement>) => onDragEnterToItem(e)}
                      onDragLeave={(e: React.DragEvent<HTMLDivElement>) => onDragLeaveFromItem(e)}
-                     onDragEnd={ConfirmReplace}
+                     onDragEnd={ConfirmReplaceItem}
                 >
                     <img
                         alt={""}
@@ -144,7 +144,8 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
                 <div className={cl.wrapper_content_nomenclature_item_name}
                      onClick={onCatalogItemClick}
                      draggable={true}
-                     onDragStart={() => onNomenclatureGroupDrag(item)}
+                     onDragStart={() => OnItemDragStart(item)}
+                     onDragEnd={ConfirmReplaceItem}
                      key={"CatalogNode" + item.uuid}
 
                 > <strong onClick={(e)=>{e.stopPropagation();onCreateAssetPress()}}>+</strong> &#9679;  {item.name}

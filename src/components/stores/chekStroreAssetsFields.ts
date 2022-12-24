@@ -1,14 +1,14 @@
-import {StoreAssets} from "../../structs/StoreAssets";
-import {EmptyField} from "./StoreView";
 
-export function CheckStoreFields(store:StoreAssets):boolean {
-   return !(store.item.name==EmptyField
-       ||store.address.region==EmptyField
-       ||store.address.reg_ind==EmptyField
-       ||store.address.phone==EmptyField
-       ||store.address.building==EmptyField
-       ||store.address.street==EmptyField
-       ||store.address.city==EmptyField
+import {EmptyField} from "./StoreView";
+import {TAddress} from "../UI/address/Address";
+
+export function CheckAddressFields(address:TAddress):boolean {
+   return !(
+       address.region==EmptyField
+       ||address.reg_ind==EmptyField
+       ||address.phone==EmptyField
+       ||address.street==EmptyField
+       ||address.city==EmptyField
 
 
    )

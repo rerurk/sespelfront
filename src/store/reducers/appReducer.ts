@@ -1,6 +1,6 @@
 import {NomenclatureItem} from "../../structs/nomenclature";
 import {AppActions, AppActionTypes, AppState} from "../types/AppStoreTypes";
-import {StoreAssets, StoreItem} from "../../structs/StoreAssets";
+import {StoreItem} from "../../structs/StoreAssets";
 import {AssetAndStore, AssetQrCode} from "../../structs/Asset";
 
 
@@ -11,7 +11,7 @@ const initialState: AppState = {
     selectedNomenclatureGroup: null,
     selectedStoreGroup:null,
     currCatalogItem: null,
-    currentStore: null,
+    selectedStore: null,
     currentAssetAndStore: null,
     assetQrCode: null
 
@@ -58,9 +58,9 @@ function setCatalogRoot(root: NomenclatureItem): AppState {
     return initialState
 }
 
-function setCurrentAssetStore(currStore: StoreAssets): AppState {
+function setSelectedAssetStore(currStore: StoreItem): AppState {
     console.log(currStore)
-    initialState.currentStore = currStore
+    initialState.selectedStore = currStore
     return initialState
 }
 
@@ -78,8 +78,8 @@ export const appReducer = (state = initialState, action: AppActions): AppState =
             return {...setCatalogRoot(action.payload)}
         case AppActionTypes.SET_CURRENT_NOMENCLATURE_ITEM:
             return {...setCurrentCatalogItem(action.payload)}
-        case AppActionTypes.SET_CURRENT_ASSET_STORE:
-            return {...setCurrentAssetStore(action.payload)}
+        case AppActionTypes.SET_SELECTED_ASSET_STORE:
+            return {...setSelectedAssetStore(action.payload)}
         case AppActionTypes.SET_CURRENT_ASSET:
             return {...setCurrentAssetAndStore(action.payload)}
         case AppActionTypes.SET_ASSET_QRCODE:

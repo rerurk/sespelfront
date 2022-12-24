@@ -1,13 +1,13 @@
 import axios from "axios";
 
 import {ReqErrors, Requests} from "./Requests";
-import {AddToItem, NomenclatureItem, RemoveItem, RenameCatalogItem, TransferCatalogItem} from "../structs/nomenclature";
+import {NomenclatureItem, RemoveItem, TransferNomenclatureItem} from "../structs/nomenclature";
 import {Tools} from "../tools/Tools";
 import {ItemTypes} from "../structs/ItemTypes";
-import {StoreAssets, StoreItem, UpdStore} from "../structs/StoreAssets";
+
 import {ErrorsText} from "../texts/Texts";
 import {AssetAndStore, AssetsInStore, AssetUUID, NewAsset} from "../structs/Asset";
-import {Item} from "../structs/App";
+import {AddToItem, Item, RenameItem, TransferItem} from "../structs/App";
 
 
 export type FetchesResult = [
@@ -24,81 +24,7 @@ export class Fetches {
         return Promise.all([this.GetItemTYPES(), this.GetNomenclatureRoot(), this.GetStoreGroupRoot()])
     }
 
-    // запрос должен вернуть Массив ТМЦ и Склад AssetsInStore
-    public static async GetAssetsQuantity(catalogItem:NomenclatureItem):Promise<AssetsInStore[]|Error>{
 
-        try {
-            const res=await axios.post<AssetsInStore[]>(Requests.GET_ASSETS_QUANTITY,Tools.unRefCatalogItem(catalogItem))
-            if (res.status !==200) {
-                return Error(ErrorsText.ERROR_GET_DATA)
-            }
-            return res.data
-        }catch (e) {
-            return Error(ErrorsText.ERROR_GET_DATA)
-        }
-    }
-
-    public static async GetAssetAndStoreByUUID(uuid:string):Promise<AssetAndStore|Error>{
-        let assetUUID:AssetUUID={
-            uuid:uuid
-        }
-        try {
-            const res= await axios.post<AssetAndStore>(Requests.GET_ASSET_AND_STORE_BY_UUID,assetUUID)
-            if (res.status !== 200) {
-
-                return Error()
-            }
-            return res.data
-        }catch (e) {
-            return Error(ErrorsText.ERROR_GET_DATA)
-        }
-    }
-
-    public static async GetStoreGroupRoot(): Promise<Item | Error> {
-        try {
-            const res = await axios.get<Item>(Requests.GET_STORE_GROUP_ROOT)
-
-            if (res.status !== 200) {
-
-                return Error()
-            }
-            return res.data
-        } catch (e) {
-            return Error()
-        }
-    }
-
-    public static async GetStoreGroupItems(item: StoreItem): Promise<NomenclatureItem[] | Error> {
-        if (item.id < 1) {
-            return Error("ошибка")
-        }
-
-
-        try {
-
-            const res = await axios.post<NomenclatureItem[]>(Requests.GET_STORE_GROUP_ITEMS, Tools.unRefCatalogItem(item))
-            return res.data
-
-            /*  const response =  await fetch(Requests.GET_CATALOG_ITEMS, {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json;charset=utf-8',
-                  },
-                  mode: 'no-cors', // no-cors, *cors, same-origin
-                  body: JSON.stringify(Tools.unRefCatalogItem(item)),
-
-              })
-
-              return await response.json();*/
-
-
-        } catch (e) {
-            console.log(e)
-            return Error("ошибка")
-
-        }
-
-    }
 
     public static async GetItemTYPES(): Promise<ItemTypes | Error> {
         try {
@@ -126,15 +52,32 @@ export class Fetches {
         }
     }
 
-    public static async GetNomenclatureItems(item: NomenclatureItem): Promise<NomenclatureItem[] | Error> {
+    public static async GetStoreGroupRoot(): Promise<Item | Error> {
+        try {
+            const res = await axios.get<Item>(Requests.GET_STORE_GROUP_ROOT)
+
+            if (res.status !== 200) {
+
+                return Error()
+            }
+            return res.data
+        } catch (e) {
+            return Error()
+        }
+    }
+
+    public static async GetItems(item: Item): Promise<NomenclatureItem[] | Error> {
         if (item.id < 1) {
             return Error("ошибка")
         }
 
-
         try {
 
-            const res = await axios.post<NomenclatureItem[]>(Requests.GET_NOMENCLATURE_ITEMS, Tools.unRefCatalogItem(item))
+            const res = await axios.post<NomenclatureItem[]>(Requests.GET_ITEMS, item)
+            if (res.status !== 200) {
+
+                return Error()
+            }
             return res.data
 
             /*  const response =  await fetch(Requests.GET_CATALOG_ITEMS, {
@@ -158,37 +101,29 @@ export class Fetches {
 
     }
 
-    public static async GetAllAssetsStores(): Promise<StoreAssets[] | Error> {
+    public static async TransferItem(transferItem: TransferItem): Promise<any | Error> {
+
         try {
-            const res = await axios.get<StoreAssets[]>(Requests.GET_ALL_ASSETS_STORES)
+            const res = await axios.post<TransferNomenclatureItem>(Requests.TRANSFER_ITEM, transferItem)
             if (res.status !== 200) {
-                return Error(ErrorsText.ERROR_GET_DATA)
+                alert(res.data)
+                return Error(ErrorsText.ERROR_SEND_DATA)
             }
             return res.data
         } catch (e) {
-            return Error(ErrorsText.ERROR_GET_DATA)
+            return Error("Ошибка")
         }
     }
 
-    public static async SaveNewCatalogItem(item: Item): Promise<Item[] | Error> {
-
-        try {
-
-            const res = await axios.post<Item[]>(Requests.SAVE_NEW_CATALOG_ITEM, item)
-            return res.data
-
-
-        } catch (e) {
-            return Error("ошибка")
-
-        }
-    }
-
-    public static async MakeNomenclatureItem(addToItem: AddToItem): Promise<any | Error> {
+    public static async MakeItem(addToItem: AddToItem): Promise<any | Error> {
 
 
         try {
-            const res = await axios.post<AddToItem>(Requests.MAKE_NOMENCLATURE_ITEM, addToItem)
+            const res = await axios.post<AddToItem>(Requests.MAKE_ITEM, addToItem)
+            if (res.status !== 200) {
+                alert(res.data)
+                return Error(ErrorsText.ERROR_SEND_DATA)
+            }
             return res
         } catch (e) {
             return Error("ошибка")
@@ -196,50 +131,14 @@ export class Fetches {
 
     }
 
-    public static async MakeNewStore(newStore: StoreAssets): Promise<any | Error> {
-        try {
+    public static async ModifyItem(renameItem: RenameItem): Promise<any | Error> {
 
-            const res = axios.post(Requests.MAKE_NEW_STORE, newStore)
-            return res
-        } catch (e) {
-            return Error(ReqErrors.MakeStore)
-        }
-    }
-
-    public static async MakeNewAsset(newAsset:NewAsset):Promise<any|Error>{
-        console.log(newAsset)
         try {
-            const res= await axios.post<NewAsset>(Requests.MAKE_NEW_ASSET,newAsset)
+            const res = await axios.post<RenameItem>(Requests.MODIFY_ITEM, renameItem)
             if (res.status !== 200) {
+                alert(res.data)
                 return Error(ErrorsText.ERROR_SEND_DATA)
             }
-            return res
-
-        }catch (e) {
-            return Error(ErrorsText.ERROR_SEND_DATA)
-        }
-    }
-
-    public static async TransferCatalogItem(transferCatalogItem: TransferCatalogItem): Promise<any | Error> {
-
-        let sTransferCatalogItem = {
-            from: Tools.unRefCatalogItem(transferCatalogItem.from),
-            to: Tools.unRefCatalogItem(transferCatalogItem.to),
-            item: Tools.unRefCatalogItem(transferCatalogItem.item)
-        }
-
-        try {
-            const res = await axios.post<TransferCatalogItem>(Requests.TRANSFER_CATALOG_ITEM, sTransferCatalogItem)
-            return res.data
-        } catch (e) {
-            return Error("Ошибка")
-        }
-    }
-
-    public static async RenameCatalogItem(renameCatalogItem: RenameCatalogItem): Promise<any | Error> {
-
-        try {
-            const res = await axios.post<RenameCatalogItem>(Requests.RENAME_CATALOG_ITEM, renameCatalogItem)
             return res
 
         } catch (e) {
@@ -247,36 +146,8 @@ export class Fetches {
         }
     }
 
-    public static async RemoveCatalogItem(catalogItem: NomenclatureItem): Promise<any | Error> {
-        if (catalogItem.ownerItem) {
-            let removeItem: RemoveItem = {
-                remove_from_item: Tools.unRefCatalogItem(catalogItem.ownerItem),
-                removed_item: Tools.unRefCatalogItem(catalogItem)
 
 
-            }
-            try {
-                const res = await axios.post<RemoveItem>(Requests.REMOVE_CATALOG_ITEM, removeItem)
-                return res
-
-            } catch (e) {
-                return Error("Ошибка")
-            }
-        }
-    }
-
-    public static async UpdStore(upd: UpdStore): Promise<any | Error> {
-        console.log(upd)
-        try {
-            const res = await axios.post<UpdStore>(Requests.UPD_STORE, upd)
-            if (res.status !== 200) {
-                return Error(ErrorsText.ERROR_SEND_DATA)
-            }
-            return res
-        } catch (e) {
-            return Error(ErrorsText.ERROR_SEND_DATA)
-        }
-    }
 
 
 }

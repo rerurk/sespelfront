@@ -1,7 +1,7 @@
 import {NomenclatureItem} from "../../structs/nomenclature";
 import {Dispatch} from "redux";
 import {AppActions, AppActionTypes} from "../types/AppStoreTypes";
-import {StoreAssets, StoreItem} from "../../structs/StoreAssets";
+import {StoreItem} from "../../structs/StoreAssets";
 import {AssetAndStore, AssetQrCode} from "../../structs/Asset";
 
 
@@ -34,9 +34,9 @@ export const SetSelectedStoreGroupState = (storeGroupItem: StoreItem) => {
     }
 }
 
-export const SetAssetsStore = (store: StoreAssets) => {
+export const SetSelectedAssetsStoreState = (store: StoreItem) => {
     return (dispatch: Dispatch<AppActions>) => {
-        dispatch({type: AppActionTypes.SET_CURRENT_ASSET_STORE, payload: store})
+        dispatch({type: AppActionTypes.SET_SELECTED_ASSET_STORE, payload: store})
     }
 }
 

@@ -32,14 +32,7 @@ const QrScan: FC = () => {
 
         if (data) {
             setQrRes(data)
-            Fetches.GetAssetAndStoreByUUID(data).then(r => {
-
-                if (!(r instanceof Error)) {
-                    // @ts-ignore
-                    dispatch(SetCurrentAsset(r))
-                }
-
-            })
+            console.log(data)
 
 
         }

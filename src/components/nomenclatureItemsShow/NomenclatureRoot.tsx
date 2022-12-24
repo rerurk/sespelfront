@@ -9,11 +9,12 @@ import NomenclatureItemView from "./NomenclatureItemView";
 import {Fetches} from "../../fetches/Fetches";
 import {useDispatch} from "react-redux";
 import {SetSelectedNomenclatureGroupState} from "../../store/action_creator/AppStoreActions";
-import {OnNomenclatureDragEnter} from "../../gragAndDrops/Nomenclature/nomenclature";
+
 import {useNavigate} from "react-router-dom";
 import {RouterPath} from "../../router";
 import {NomenclatureGui} from "./Texts";
 import {Tools} from "../../tools/Tools";
+import {OnItemDragEnter} from "../../gragAndDrops/Nomenclature/nomenclature";
 
 
 const NomenclatureRoot: FC = () => {
@@ -36,7 +37,7 @@ const NomenclatureRoot: FC = () => {
     function nomenclatureRootReboot() {
         console.log("nomenclatureRootReboot()")
         if (nomenclatureRoot) {
-            Fetches.GetNomenclatureItems(nomenclatureRoot).then(r => {
+            Fetches.GetItems(nomenclatureRoot).then(r => {
                 if (!(r instanceof Error)) {
                     if (!Tools.isItemsIdentical(r, hisItems)) {
                         if (r != null) {
@@ -79,7 +80,7 @@ const NomenclatureRoot: FC = () => {
                     </span>
                 </div>
                 <div className={cl.wrapper_content_nomenclature_group_name}
-                     onDragEnter={() => OnNomenclatureDragEnter(nomenclatureRoot)}
+                     onDragEnter={() => OnItemDragEnter(nomenclatureRoot)}
                      onClick={() => {
                          // @ts-ignore
                          dispatch(SetSelectedNomenclatureGroupState(nomenclatureRoot))

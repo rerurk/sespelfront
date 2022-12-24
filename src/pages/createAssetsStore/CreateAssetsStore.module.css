@@ -1,0 +1,11 @@
+.wrapper{
+
+}
+.wrapper_fields{
+    width: 30rem;
+    display: flex;
+    flex-direction: column;
+}
+.wrapper_bts{
+    width: 30rem;
+}

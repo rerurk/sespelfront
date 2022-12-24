@@ -5,20 +5,17 @@ import cl from "./StoreGroupItem.module.css"
 import {AppItemTYPES} from "../../../App";
 import {Fetches} from "../../../fetches/Fetches";
 import {Tools} from "../../../tools/Tools";
-import {NomenclatureItem} from "../../../structs/nomenclature";
-import {
-    ConfirmReplace,
-    OnNomenclatureDragEnter,
-    onNomenclatureGroupDrag
-} from "../../../gragAndDrops/Nomenclature/nomenclature";
+
+
 import {useDispatch} from "react-redux";
-import {useNavigate} from "react-router-dom";
+
+import {SetSelectedAssetsStoreState, SetSelectedStoreGroupState} from "../../../store/action_creator/AppStoreActions";
+
 import {
-    SetAssetsStore,
-    SetCurrentNomenclatureItemState,
-    SetSelectedNomenclatureGroupState, SetSelectedStoreGroupState
-} from "../../../store/action_creator/AppStoreActions";
-import {RouterPath} from "../../../router";
+    ConfirmReplaceStoreItem,
+    OnStoreItemDragEnter,
+    OnStoreItemDragStart
+} from "../../../gragAndDrops/storeItemsDrag/storeItemsDrag";
 
 interface StoreGroupItemProps {
     item: StoreItem
@@ -27,8 +24,7 @@ interface StoreGroupItemProps {
 const StoreGroupItem: FC<StoreGroupItemProps> = ({item}) => {
     Tools.LoadCatalogItemFields(item)
     const dispatch = useDispatch()
-    const navigate = useNavigate();
-    const [hisItems, setHisItems] = useState<NomenclatureItem[] | null>(null)
+    const [hisItems, setHisItems] = useState<StoreItem[] | null>(null)
     const [isOpen, setIsOpen] = useState<boolean>(item.isOpen ? item.isOpen : false)
 
     item.callReBoot = getHisItems
@@ -37,11 +33,11 @@ const StoreGroupItem: FC<StoreGroupItemProps> = ({item}) => {
     }
 
     function getHisItems() {
-        Fetches.GetStoreGroupItems(item).then(r => {
+        Fetches.GetItems(item).then(r => {
             if (!(r instanceof Error)) {
                 if (!Tools.isItemsIdentical(r, hisItems)) {
                     if (r != null) {
-                        r.map((it: NomenclatureItem) => it.ownerItem = item)
+                        r.map((it: StoreItem) => it.ownerItem = item)
 
                     }
                     setHisItems(() => r)
@@ -58,17 +54,34 @@ const StoreGroupItem: FC<StoreGroupItemProps> = ({item}) => {
         setIsOpen(() => !isOpen)
         // @ts-ignore
         dispatch(SetSelectedStoreGroupState(item))
+        // @ts-ignore
+        dispatch(SetSelectedAssetsStoreState(null))
 
     }
 
     const onStoreClick = () => {
-     // @ts-ignore
-        dispatch(SetAssetsStore(item))
+        getHisItems()
+        item.isOpen = !isOpen
+        Tools.SaveCatalogItemFields(item)
+        setIsOpen(() => !isOpen)
+        // @ts-ignore
+        dispatch(SetSelectedStoreGroupState(null))
+        // @ts-ignore
+        dispatch(SetSelectedAssetsStoreState(item))
+    }
+
+    const onItemDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+        e.currentTarget.classList.add(cl.dragEnter)
+        OnStoreItemDragEnter(item)
+
+    }
+    const onItemDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+        e.currentTarget.classList.remove(cl.dragEnter)
+
     }
 
 
-
-    if ((item.type & AppItemTYPES.STORE_GROPE_TYPE) ===AppItemTYPES.STORE_GROPE_TYPE) {
+    if ((item.type & AppItemTYPES.STORE_GROPE_TYPE) === AppItemTYPES.STORE_GROPE_TYPE) {
         return (
             <div
                 className={cl.wrapper_store_grope_type}
@@ -81,6 +94,10 @@ const StoreGroupItem: FC<StoreGroupItemProps> = ({item}) => {
             >
                 <div className={cl.wrapper_store_grope_type_name}
                      draggable={true}
+                     onDragStart={() => OnStoreItemDragStart(item)}
+                     onDragEnter={(e) => onItemDragEnter(e)}
+                     onDragLeave={event => onItemDragLeave(event)}
+                     onDragEnd={ConfirmReplaceStoreItem}
 
                 >
                     <img
@@ -97,14 +114,14 @@ const StoreGroupItem: FC<StoreGroupItemProps> = ({item}) => {
 
                     className={
                         isOpen
-                            ? cl.wrapper_content_nomenclature_subGroups
-                            : cl.wrapper_content_nomenclature_subGroups_hidden
+                            ? cl.wrapper_content_assetStore_subGroups
+                            : cl.wrapper_content_assetStore_subGroups_hidden
                     }>
 
                     {
                         hisItems
                             ? hisItems.map((it) => <StoreGroupItem item={it}
-                                                                         key={"StoreGroupItem" + it.uuid}/>)
+                                                                   key={"StoreGroupItem" + it.uuid}/>)
                             : false
                     }
                 </div>
@@ -115,19 +132,56 @@ const StoreGroupItem: FC<StoreGroupItemProps> = ({item}) => {
         );
     }
 
-    if ((item.type & AppItemTYPES.ASSETS_STORE_TYPE) ===AppItemTYPES.ASSETS_STORE_TYPE)
+    if ((item.type & AppItemTYPES.ASSETS_STORE_TYPE) === AppItemTYPES.ASSETS_STORE_TYPE)
         return (
-            <div onClick={e => e.stopPropagation()} className={cl.wrapper_content_nomenclature_item}>
-                <div className={cl.wrapper_content_nomenclature_item_name}
-                     onClick={onStoreClick}
+            <div
+                className={cl.wrapper_store_grope_type}
+                onClick={(event) => {
+                    event.stopPropagation();
+
+                }}
+
+
+            >
+                <div className={cl.wrapper_store_grope_type_name}
                      draggable={true}
+                     onDragStart={() => OnStoreItemDragStart(item)}
+                     onDragEnter={(e) => onItemDragEnter(e)}
+                     onDragLeave={event => onItemDragLeave(event)}
+                     onDragEnd={ConfirmReplaceStoreItem}
+                     onClick={onStoreClick}
 
-                > <strong onClick={(e)=>{e.stopPropagation()}}>+</strong> &#9679;  {item.name}
+                >
+                    <img
+                        alt={""}
+                        draggable={false}
+                        src={isOpen
+                            ? "/images/store.png"
+                            : "/images/store.png"
+                        }
+                    />
+                    <span draggable={false}>{item.name}</span>
+                </div>
+                <div
 
+                    className={
+                        isOpen
+                            ? cl.wrapper_content_assetStore_subGroups
+                            : cl.wrapper_content_assetStore_subGroups_hidden
+                    }>
+
+                    {
+                        hisItems
+                            ? hisItems.map((it) => <StoreGroupItem item={it}
+                                                                   key={"StoreGroupItem" + it.uuid}/>)
+                            : false
+                    }
                 </div>
 
+
             </div>
-        )
+
+        );
     return (<div/>)
 };
 

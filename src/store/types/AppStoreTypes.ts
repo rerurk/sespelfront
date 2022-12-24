@@ -1,5 +1,5 @@
 import {NomenclatureItem} from "../../structs/nomenclature";
-import {StoreAssets, StoreItem} from "../../structs/StoreAssets";
+import {StoreItem} from "../../structs/StoreAssets";
 import {AssetAndStore, AssetQrCode} from "../../structs/Asset";
 
 
@@ -9,7 +9,7 @@ export type AppState = {
     currCatalogItem: NomenclatureItem | null//
     storeGroupRoot: StoreItem | null
     selectedStoreGroup: StoreItem | null// текущий выбранный каталог для отобрадения
-    currentStore: StoreAssets | null// текущий отоброаемый склад
+    selectedStore: StoreItem | null// текущий отоброаемый склад
     currentAssetAndStore: AssetAndStore | null// текущий ТМЦ и его хранилище
     assetQrCode: AssetQrCode | null
 }
@@ -21,7 +21,7 @@ export enum AppActionTypes {
     SET_SELECTED_NOMENCLATURE_GROUP = "SET_SELECTED_NOMENCLATURE_GROUP",
     SET_SELECTED_STORE_GROUP = "SET_SELECTED_STORE_GROUP",
     SET_CURRENT_NOMENCLATURE_ITEM = "SET_CURRENT_NOMENCLATURE_ITEM",
-    SET_CURRENT_ASSET_STORE = "SET_CURRENT_ASSET_STORE",
+    SET_SELECTED_ASSET_STORE = "SET_SELECTED_ASSET_STORE",
     SET_CURRENT_ASSET = "SET_CURRENT_ASSET",
     SET_ASSET_QRCODE = "SET_ASSET_QRCODE"
 
@@ -62,15 +62,15 @@ interface SetSelectedStoreGroupAction {
     payload: NomenclatureItem
 }
 
-interface SetAssetsStorageAction {
-    type: AppActionTypes.SET_CURRENT_ASSET_STORE
-    payload: StoreAssets
+interface SetSelectedAssetStoreAction {
+    type: AppActionTypes.SET_SELECTED_ASSET_STORE
+    payload: StoreItem
 }
 
 export type AppActions = SetSelectedNomenclatureGroupAction
     | SetCatalogRootAction
     | SetCurrentNomenclatureItemAction
-    | SetAssetsStorageAction
+    | SetSelectedAssetStoreAction
     | SetCurrentAssetAction
     | SetAssetQRCodeAction
     | SetStoreGroupRootAction

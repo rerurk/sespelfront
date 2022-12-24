@@ -9,26 +9,26 @@ type drags={
     dragItemEnter: StoreItem | null
     ownerStoreItem: StoreItem | null
 }
-let dragNomenclatureItems:drags={
+let dragStoreItems:drags={
     dragItem:null,
     dragItemEnter:null,
     ownerStoreItem:null
 }
-export function OnItemDragStart(item: StoreItem) {
+export function OnStoreItemDragStart(item: StoreItem) {
 
-    if (item !==dragNomenclatureItems.dragItem) {
-        dragNomenclatureItems.dragItem = item
-        dragNomenclatureItems.ownerStoreItem = item.ownerItem
+    if (item !==dragStoreItems.dragItem) {
+        dragStoreItems.dragItem = item
+        dragStoreItems.ownerStoreItem = item.ownerItem
 
     }
 
 }
 
-export function OnItemDragEnter(item: StoreItem) {
-    dragNomenclatureItems.dragItemEnter = item
+export function OnStoreItemDragEnter(item: StoreItem) {
+    dragStoreItems.dragItemEnter = item
 }
 
-export async function ConfirmReplaceItem(): Promise<any | Error | TransferItem> {
+export async function ConfirmReplaceStoreItem(): Promise<any | Error | TransferItem> {
     let transferItem: TransferItem | null = GetItems()
 
 
@@ -63,30 +63,30 @@ export async function ConfirmReplaceItem(): Promise<any | Error | TransferItem> 
 }
 
 function rebootItems() {
-    if (dragNomenclatureItems.ownerStoreItem&&dragNomenclatureItems.ownerStoreItem.callReBoot){
-        dragNomenclatureItems.ownerStoreItem.callReBoot()
+    if (dragStoreItems.ownerStoreItem&&dragStoreItems.ownerStoreItem.callReBoot){
+        dragStoreItems.ownerStoreItem.callReBoot()
 
     }
-    if (dragNomenclatureItems.dragItemEnter&&dragNomenclatureItems.dragItemEnter.callReBoot){
-        dragNomenclatureItems.dragItemEnter.callReBoot()
+    if (dragStoreItems.dragItemEnter&&dragStoreItems.dragItemEnter.callReBoot){
+        dragStoreItems.dragItemEnter.callReBoot()
 
     }
 
 }
 
 function GetItems(): TransferItem | null {
-    if (dragNomenclatureItems.dragItem && dragNomenclatureItems.dragItemEnter && dragNomenclatureItems.ownerStoreItem && testToContains()) {
+    if (dragStoreItems.dragItem && dragStoreItems.dragItemEnter && dragStoreItems.ownerStoreItem && testToContains()) {
 
         let transferItem: TransferItem = {
-            from: Tools.unRefCatalogItem(dragNomenclatureItems.ownerStoreItem),
-            to: Tools.unRefCatalogItem(dragNomenclatureItems.dragItemEnter),
-            item: Tools.unRefCatalogItem(dragNomenclatureItems.dragItem)
+            from: Tools.unRefCatalogItem(dragStoreItems.ownerStoreItem),
+            to: Tools.unRefCatalogItem(dragStoreItems.dragItemEnter),
+            item: Tools.unRefCatalogItem(dragStoreItems.dragItem)
 
         }
 
-        dragNomenclatureItems.dragItem = null
-        dragNomenclatureItems.dragItemEnter = null
-        dragNomenclatureItems.ownerStoreItem = null
+        dragStoreItems.dragItem = null
+        dragStoreItems.dragItemEnter = null
+        dragStoreItems.ownerStoreItem = null
 
         return transferItem
     }
@@ -96,17 +96,17 @@ function GetItems(): TransferItem | null {
 function testToContains(): boolean {
     /*TODO тоже свмое сделть на в беке*/
     let test: boolean;
-    if (dragNomenclatureItems.dragItemEnter && dragNomenclatureItems.dragItem) {
-        let owner: StoreItem| null = dragNomenclatureItems.dragItemEnter.ownerItem
+    if (dragStoreItems.dragItemEnter && dragStoreItems.dragItem) {
+        let owner: StoreItem| null = dragStoreItems.dragItemEnter.ownerItem
 
         // для гарантии выхода из цикла
         let count: number = 0
         test = true
         while (owner != null && count < 50) {
             count++
-            if (dragNomenclatureItems.dragItem.name === owner?.name) {
+            if (dragStoreItems.dragItem.name === owner?.name) {
                 test = false
-                alert(`Каталог ${dragNomenclatureItems.dragItem.name} содержить в себе ${dragNomenclatureItems.dragItemEnter.name}`)
+                alert(`Каталог ${dragStoreItems.dragItem.name} содержить в себе ${dragStoreItems.dragItemEnter.name}`)
             }
             owner = owner.ownerItem
 

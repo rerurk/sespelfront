@@ -8,6 +8,8 @@ import CreateAsset from "../pages/createAsset/CreateAsset";
 import MakeNomenclatureGroup from "../pages/makeNomenclatureGroup/MakeNomenclatureGroup";
 import MakeNomenclatureItem from "../pages/makeNomenclatureItem/MakeNomenclatureItem";
 import ModifyNomenclatureGroup from "../pages/modifyNomenclatureGroup/ModifyNomenclatureGroup";
+import CreateStoreGrope from "../pages/createStoreGrope/CreateStoreGrope";
+import CreateAssetsStore from "../pages/createAssetsStore/CreateAssetsStore";
 
 export type RouteNode = {
     isHide: boolean
@@ -33,12 +35,14 @@ export enum RouterPath {
     SHOW_CATALOG_ITEM = "/SHOW_CATALOG_ITEM",
     NOMENCLATURE = "/NOMENCLATURE",
     CREATE_ASSET = "/CREATE_ASSET",
-    ASSERTS_STORAGE = "/ASSERTS_STORAGE",
+    ASSETS_STORAGE = "/ASSETS_STORAGE",
     QR_CODE_SCANNER = "/QR_CODE_SCANNER",
     ALL_ASSETS_BY_CATALOG_NAME = "/ALL_ASSETS_BY_CATALOG_NAME",
     MAKE_NOMENCLATURE_GROUP = "/MAKE_NOMENCLATURE_GROUP",
-    MAKE_NOMENCLATURE_ITEM="/MAKE_NOMENCLATURE_ITEM",
-    MODIFY_NOMENCLATURE_GROUP="/MODIFY_NOMENCLATURE_GROUP"
+    MAKE_NOMENCLATURE_ITEM = "/MAKE_NOMENCLATURE_ITEM",
+    MODIFY_NOMENCLATURE_GROUP = "/MODIFY_NOMENCLATURE_GROUP",
+    CREATE_STORE_GROPE = "/CREATE_STORE_GROPE",
+    CREATE_ASSETS_STORE="/CREATE_ASSETS_STORE"
 }
 
 export const privateRoutes = []
@@ -61,7 +65,7 @@ export const publicRoutes: RouteNode[] = [
     {
         isHide: false,
         exact: false,
-        path: RouterPath.ASSERTS_STORAGE,
+        path: RouterPath.ASSETS_STORAGE,
         name: RouterTexts.ASSERTS_STORAGE,
         element: <AssetStores/>
     },
@@ -106,6 +110,20 @@ export const publicRoutes: RouteNode[] = [
         path: RouterPath.ALL_ASSETS_BY_CATALOG_NAME,
         name: "",
         element: <ShowAllAssetsByCatalogName/>
+    },
+    {
+        isHide: true,
+        exact: false,
+        path: RouterPath.CREATE_STORE_GROPE,
+        name: "",
+        element: <CreateStoreGrope/>
+    },
+    {
+        isHide: true,
+        exact: false,
+        path: RouterPath.CREATE_ASSETS_STORE,
+        name: "",
+        element: <CreateAssetsStore/>
     },
 
 

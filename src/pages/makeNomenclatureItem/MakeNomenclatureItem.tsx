@@ -3,12 +3,12 @@ import {useNavigate} from "react-router-dom";
 import {RouterPath} from "../../router";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 import {AppItemTYPES} from "../../App";
-import {AddToItem} from "../../structs/nomenclature";
+
 import {Tools} from "../../tools/Tools";
 import {Fetches} from "../../fetches/Fetches";
 // @ts-ignore
 import cl from "./MakeNomenclatureItem.module.css"
-import {Item} from "../../structs/App";
+import {AddToItem, Item} from "../../structs/App";
 let newGroup:Item ={
     id: -1,
     type: 0,
@@ -36,7 +36,7 @@ const MakeNomenclatureItem: FC = () => {
 
             }
 
-            Fetches.MakeNomenclatureItem(addToItem).then(r=>{
+            Fetches.MakeItem(addToItem).then(r=>{
                 console.log(r)
                 if(!(r instanceof Error) &&selectedNomenclatureGroup.callReBoot){
                     navigate(RouterPath.NOMENCLATURE)

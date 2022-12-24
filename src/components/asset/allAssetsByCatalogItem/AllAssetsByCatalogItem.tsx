@@ -17,12 +17,7 @@ const AllAssetsByCatalogItem: FC<AllAssetsByCatalogItemProps> = ({catalogItem}) 
     const [allCatalogItemAssets, setAllCatalogItemAssets] = useState<AssetsInStore[] | null>(null)
     useEffect(() => {
         // тут получим через фетч все ТМЦ с этим наименоавпнием
-        Fetches.GetAssetsQuantity(catalogItem).then(r => {
-                if (!(r instanceof Error)) {
-                    setAllCatalogItemAssets(r)
-                }
-            }
-        )
+
     }, [catalogItem])
     if (allCatalogItemAssets) {
         return (

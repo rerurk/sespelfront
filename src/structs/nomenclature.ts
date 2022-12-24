@@ -39,12 +39,8 @@ export interface NomenclatureItem extends Item{
 
 
 
-export type AddToItem = {
-    adding_item: Item,
-    to_add_item: Item
-}
 
-export type  TransferCatalogItem = {
+export type  TransferNomenclatureItem = {
     from: NomenclatureItem
     to: NomenclatureItem
     item: NomenclatureItem
@@ -55,7 +51,3 @@ export type RemoveItem ={
     removed_item:Item
 }
 
-export type RenameCatalogItem={
-    item:Item
-    renamed_item:Item,
-}

@@ -11,7 +11,7 @@ import {RouterPath} from "../../../router";
 import {Item} from "../../../structs/App";
 import {useTypeSelector} from "../../../hooks/useTypeSelector";
 const MakeAsset:FC = () => {
-    const {currCatalogItem,currentStore} = useTypeSelector(state => state.appReducer)
+    const {currCatalogItem,selectedStore} = useTypeSelector(state => state.appReducer)
     const navigate = useNavigate();
     const onBtCreate=()=>{
 
@@ -25,13 +25,13 @@ const MakeAsset:FC = () => {
                 uuid:""
             }
             let   assetCatalogItem:Item=Tools.unRefCatalogItem(currCatalogItem)
-            if(currentStore) {
+            if(selectedStore) {
                 let makeAsset: NewAsset = {
                     asset_nomenclature_item: assetCatalogItem,
-                    asset_store: currentStore.item,
+                    asset_store: selectedStore,
                     asset: newAsset
                 }
-                Fetches.MakeNewAsset(makeAsset).then(r => console.log(r))
+
             }
         }
         }

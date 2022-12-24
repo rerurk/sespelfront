@@ -23,21 +23,21 @@
     margin-right: 0.5rem;
 }
 
-.wrapper_content_nomenclature_subGroups {
+.wrapper_content_assetStore_subGroups {
     margin-right: 1rem;
     display: flex;
     flex-direction: column;
-
+    border-top: solid 1px #999;
 
 }
 
-.wrapper_content_nomenclature_subGroups_hidden {
+.wrapper_content_assetStore_subGroups_hidden {
     display: none;
 
 }
 
 
-.wrapper_content_nomenclature_item {
+.wrapper_content_assetStore_item {
     margin-right: 1rem;
     padding: 0 0 0 1rem;
     display: flex;
@@ -48,12 +48,12 @@
 
 }
 
-.wrapper_content_nomenclature_item_name {
+.wrapper_content_assetStore_item_name {
     font-style: italic;
     font-size: 0.9rem;
 }
 
-.wrapper_content_nomenclature_item_name > strong {
+.wrapper_content_assetStore_item_name > strong {
     color: #55ff55;
     font-size: 1rem;
 }

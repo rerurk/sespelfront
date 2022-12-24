@@ -9,7 +9,7 @@ import {ItemTypes} from "./structs/ItemTypes";
 import {
     SetNomenclatureRootState,
     SetSelectedNomenclatureGroupState,
-    SetAssetsStore, SetStoreGroupRoot, SetSelectedStoreGroupState
+    SetSelectedAssetsStoreState, SetStoreGroupRoot, SetSelectedStoreGroupState
 } from "./store/action_creator/AppStoreActions";
 import {useDispatch} from "react-redux";
 
@@ -21,7 +21,7 @@ function App() {
     useEffect(() => {
         // получим все нужные данные с сервера
         Fetches.FetchAllData().then(r => {
-
+           console.log(r)
             let [itemTYPES, catalogRoot,storeGroupRoot] = r
             // проверим являетсья ли что то ошибкой
             if (!((itemTYPES instanceof Error)||(catalogRoot instanceof Error)||(storeGroupRoot instanceof Error))){

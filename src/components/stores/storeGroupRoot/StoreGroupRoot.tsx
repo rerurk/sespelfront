@@ -10,16 +10,18 @@ import {Tools} from "../../../tools/Tools";
 import {StoreGroupGui} from "./storeGroupTexts";
 import {StoreItem} from "../../../structs/StoreAssets";
 import StoreGroupItem from "../storeGroupItem/StoreGroupItem";
-import InputText from "../../UI/inputText/InputText";
+import {RouterPath} from "../../../router";
+import {SetSelectedStoreGroupState} from "../../../store/action_creator/AppStoreActions";
+import {OnStoreItemDragEnter} from "../../../gragAndDrops/storeItemsDrag/storeItemsDrag";
 
 
 const StoreGroupRoot = () => {
 
-    const {storeGroupRoot, selectedStoreGroup} = useTypeSelector(state => state.appReducer)
+    const {storeGroupRoot, selectedStoreGroup,selectedStore} = useTypeSelector(state => state.appReducer)
     const [hisItems, setHisItems] = useState<StoreItem[] | null>(null)
     const dispatch = useDispatch()
     const navigate = useNavigate();
-    let s:Function
+    console.log(selectedStore,selectedStoreGroup)
 
     useEffect(() => {
 
@@ -28,13 +30,13 @@ const StoreGroupRoot = () => {
             storeGroupRootReboot()
         }
 
-    },[storeGroupRoot])
+    }, [storeGroupRoot])
 
 
     function storeGroupRootReboot() {
 
         if (storeGroupRoot) {
-            Fetches.GetStoreGroupItems(storeGroupRoot).then(r => {
+            Fetches.GetItems(storeGroupRoot).then(r => {
                 if (!(r instanceof Error)) {
                     console.log("StoreGroupRoot СРАБАТЫВАЕТ ")
                     if (!Tools.isItemsIdentical(r, hisItems)) {
@@ -49,43 +51,58 @@ const StoreGroupRoot = () => {
             })
         }
     }
-    function showInput() {
 
+    function onRootClick() {
+        // @ts-ignore
+        dispatch(SetSelectedStoreGroupState(storeGroupRoot))
+    }
+
+    const onItemDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+        e.currentTarget.classList.add(cl.dragEnter)
+        if (storeGroupRoot) {
+            OnStoreItemDragEnter(storeGroupRoot)
+        }
     }
 
     if (storeGroupRoot) {
 
         return (
-            <div className={cl.wrapper} onClick={event => event.stopPropagation()}>
+            <div draggable={false} className={cl.wrapper} onClick={event => event.stopPropagation()}>
 
-                <div className={cl.wrapper_tools}>
+                <div className={cl.wrapper_tools} onClick={() => onRootClick()}>
 
-                    <div className={cl.wrapper_tools_BTS}>
+                    <div className={cl.wrapper_tools_BTS} onClick={e => e.stopPropagation()}>
+
+                        <img className={selectedStore?cl.hidden:""}
+                            onClick={() => navigate(RouterPath.CREATE_STORE_GROPE)}
+                            alt={StoreGroupGui.MAKE_SUB_GROUP.title}
+                            src="/images/add_folder.png"
+                        />
                         <img
-                            onClick={()=>showInput()}
-                             alt={StoreGroupGui.MAKE_SUB_GROUP.title}
-                             src="/images/add_folder.png"
+                            onClick={() => navigate(RouterPath.CREATE_ASSETS_STORE)}
+                            alt={StoreGroupGui.MAKE_GROUP_ITEM.title}
+                            src="/images/add_store.png"
                         />
 
-                        <button
 
-                            title={StoreGroupGui.MAKE_GROUP_ITEM.title}
-                        >
-                            {StoreGroupGui.MAKE_GROUP_ITEM.text}
-                        </button>
                         <img src="images/rename.png" alt={StoreGroupGui.MODIFY_STORE_GROUP.title}/>
 
                     </div>
-                    <span
-                        title={StoreGroupGui.CURRENT_SELECTED_GROUP.title}>{StoreGroupGui.CURRENT_SELECTED_GROUP.text}: {selectedStoreGroup?.name}
-                    </span>
+                    <div onDragEnter={onItemDragEnter}>
+
+                        {selectedStoreGroup
+                            ?<span>Текущая группа: {selectedStoreGroup.name}</span>
+                            :<span>Текущий склад: {selectedStore?.name}</span>
+                        }
+
+                    </div>
                 </div>
                 {
                     hisItems
-                        ? hisItems.map((it: StoreItem) => <StoreGroupItem item={it} key={"StoreGroupItem_" + it.uuid} />)
+                        ? hisItems.map((it: StoreItem) => <StoreGroupItem item={it} key={"StoreGroupItem_" + it.uuid}/>)
                         : false
                 }
-                <InputText />
+
             </div>
         );
     }

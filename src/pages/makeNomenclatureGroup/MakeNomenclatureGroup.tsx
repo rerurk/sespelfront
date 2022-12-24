@@ -4,12 +4,12 @@ import {RouterPath} from "../../router";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 // @ts-ignore
 import cl from "./MakeNomenclatureGroup.module.css"
-import {AddToItem} from "../../structs/nomenclature";
+
 import {Tools} from "../../tools/Tools";
 import {Fetches} from "../../fetches/Fetches";
 import {AppItemTYPES} from "../../App";
 import {MakeNomenclatureGroupTexts} from "./makeNomenclatureGroupTexts";
-import {Item} from "../../structs/App";
+import {AddToItem, Item} from "../../structs/App";
 
 let newGroup: Item = {
     id: -1,
@@ -39,8 +39,8 @@ const MakeNomenclatureGroup: FC = () => {
 
             }
 
-            Fetches.MakeNomenclatureItem(addToItem).then(r => {
-                console.log(r)
+            Fetches.MakeItem(addToItem).then(r => {
+
                 if (!(r instanceof Error) && selectedNomenclatureGroup.callReBoot) {
                     navigate(RouterPath.NOMENCLATURE)
                     selectedNomenclatureGroup.callReBoot()
