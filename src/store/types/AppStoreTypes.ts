@@ -1,15 +1,16 @@
-import {NomenclatureItem} from "../../structs/nomenclature";
-import {StoreItem} from "../../structs/StoreAssets";
+
 import {AssetAndStore, AssetQrCode} from "../../structs/Asset";
+import {ExtendedItem} from "../../structs/App";
 
 
 export type AppState = {
-    selectedNomenclatureGroup: NomenclatureItem | null// текущий выбранный каталог для отобрадения
-    nomenclatureRoot: NomenclatureItem | null//корень каталога, его получаемс сервера
-    currCatalogItem: NomenclatureItem | null//
-    storeGroupRoot: StoreItem | null
-    selectedStoreGroup: StoreItem | null// текущий выбранный каталог для отобрадения
-    selectedStore: StoreItem | null// текущий отоброаемый склад
+
+    nomenclatureRoot: ExtendedItem | null//корень каталога, его получаемс сервера
+    storeGroupRoot: ExtendedItem | null
+    selectedNomenclatureItem: ExtendedItem | null//
+    selectedNomenclatureGroup: ExtendedItem | null// текущий выбранный каталог для отобрадения
+    selectedStoreGroup: ExtendedItem | null// текущий выбранный каталог для отобрадения
+    selectedStore: ExtendedItem | null// текущий отоброаемый склад
     currentAssetAndStore: AssetAndStore | null// текущий ТМЦ и его хранилище
     assetQrCode: AssetQrCode | null
 }
@@ -20,7 +21,7 @@ export enum AppActionTypes {
     SET_STORE_GROUP_ROOT = "SET_STORE_GROUP_ROOT",
     SET_SELECTED_NOMENCLATURE_GROUP = "SET_SELECTED_NOMENCLATURE_GROUP",
     SET_SELECTED_STORE_GROUP = "SET_SELECTED_STORE_GROUP",
-    SET_CURRENT_NOMENCLATURE_ITEM = "SET_CURRENT_NOMENCLATURE_ITEM",
+    SET_SELECTED_NOMENCLATURE_ITEM = "SET_SELECTED_NOMENCLATURE_ITEM",
     SET_SELECTED_ASSET_STORE = "SET_SELECTED_ASSET_STORE",
     SET_CURRENT_ASSET = "SET_CURRENT_ASSET",
     SET_ASSET_QRCODE = "SET_ASSET_QRCODE"
@@ -29,12 +30,12 @@ export enum AppActionTypes {
 
 interface SetStoreGroupRootAction {
     type: AppActionTypes.SET_STORE_GROUP_ROOT
-    payload: StoreItem
+    payload: ExtendedItem
 }
 
 interface SetCatalogRootAction {
     type: AppActionTypes.SET_NOMENCLATURE_ROOT
-    payload: NomenclatureItem
+    payload: ExtendedItem
 }
 
 interface SetAssetQRCodeAction {
@@ -47,29 +48,29 @@ interface SetCurrentAssetAction {
     payload: AssetAndStore
 }
 
-interface SetCurrentNomenclatureItemAction {
-    type: AppActionTypes.SET_CURRENT_NOMENCLATURE_ITEM
-    payload: NomenclatureItem
+interface SetCurrentExtendedItemAction {
+    type: AppActionTypes.SET_SELECTED_NOMENCLATURE_ITEM
+    payload: ExtendedItem
 }
 
 interface SetSelectedNomenclatureGroupAction {
     type: AppActionTypes.SET_SELECTED_NOMENCLATURE_GROUP
-    payload: NomenclatureItem
+    payload: ExtendedItem
 }
 
 interface SetSelectedStoreGroupAction {
     type: AppActionTypes.SET_SELECTED_STORE_GROUP
-    payload: NomenclatureItem
+    payload: ExtendedItem
 }
 
 interface SetSelectedAssetStoreAction {
     type: AppActionTypes.SET_SELECTED_ASSET_STORE
-    payload: StoreItem
+    payload: ExtendedItem
 }
 
 export type AppActions = SetSelectedNomenclatureGroupAction
     | SetCatalogRootAction
-    | SetCurrentNomenclatureItemAction
+    | SetCurrentExtendedItemAction
     | SetSelectedAssetStoreAction
     | SetCurrentAssetAction
     | SetAssetQRCodeAction

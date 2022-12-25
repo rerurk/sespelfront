@@ -3,8 +3,6 @@ import React, {FC, useEffect, useState} from 'react';
 import cl from "./NomenclatureShow.module.css"
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 
-
-import {NomenclatureItem} from "../../structs/nomenclature";
 import NomenclatureItemView from "./NomenclatureItemView";
 import {Fetches} from "../../fetches/Fetches";
 import {useDispatch} from "react-redux";
@@ -15,12 +13,13 @@ import {RouterPath} from "../../router";
 import {NomenclatureGui} from "./Texts";
 import {Tools} from "../../tools/Tools";
 import {OnItemDragEnter} from "../../gragAndDrops/Nomenclature/nomenclature";
+import {ExtendedItem} from "../../structs/App";
 
 
 const NomenclatureRoot: FC = () => {
 
-    const {nomenclatureRoot, selectedNomenclatureGroup} = useTypeSelector(state => state.appReducer)
-    const [hisItems, setHisItems] = useState<NomenclatureItem[] | null>(null)
+    const {nomenclatureRoot, selectedNomenclatureGroup,selectedNomenclatureItem} = useTypeSelector(state => state.appReducer)
+    const [hisItems, setHisItems] = useState<ExtendedItem[] | null>(null)
     const dispatch = useDispatch()
     const navigate = useNavigate();
 
@@ -35,13 +34,13 @@ const NomenclatureRoot: FC = () => {
 
 
     function nomenclatureRootReboot() {
-        console.log("nomenclatureRootReboot()")
+
         if (nomenclatureRoot) {
             Fetches.GetItems(nomenclatureRoot).then(r => {
                 if (!(r instanceof Error)) {
                     if (!Tools.isItemsIdentical(r, hisItems)) {
                         if (r != null) {
-                            r.map((it: NomenclatureItem) => it.ownerItem = nomenclatureRoot)
+                            r.map((it: ExtendedItem) => it.ownerItem = nomenclatureRoot)
 
                         }
                         setHisItems(() => r)
@@ -76,7 +75,10 @@ const NomenclatureRoot: FC = () => {
                              onClick={() => navigate(RouterPath.MODIFY_NOMENCLATURE_GROUP)}/>
                     </div>
                     <span
-                        title={NomenclatureGui.CURRENT_SELECTED_GROUP.title}>{NomenclatureGui.CURRENT_SELECTED_GROUP.text}: <strong>{nomenclatureRoot.uuid !== selectedNomenclatureGroup?.uuid ? selectedNomenclatureGroup?.name : nomenclatureRoot.name}</strong>
+                        title={NomenclatureGui.NOMENCLATURE_SELECTED_GROUP.title}>{NomenclatureGui.NOMENCLATURE_SELECTED_GROUP.text}: <strong>{nomenclatureRoot.uuid !== selectedNomenclatureGroup?.uuid ? selectedNomenclatureGroup?.name : nomenclatureRoot.name}</strong>
+                    </span>
+                    <span
+                        title={NomenclatureGui.NOMENCLATURE_SELECTED_ITEM.title}>{NomenclatureGui.NOMENCLATURE_SELECTED_ITEM.text}: <strong>{selectedNomenclatureItem?selectedNomenclatureItem.name:""}</strong>
                     </span>
                 </div>
                 <div className={cl.wrapper_content_nomenclature_group_name}
@@ -92,7 +94,7 @@ const NomenclatureRoot: FC = () => {
                 </div>
                 <div className={cl.wrapper_content}>
                     {hisItems
-                        ? hisItems.map((it: NomenclatureItem) =>
+                        ? hisItems.map((it: ExtendedItem) =>
                             <NomenclatureItemView
                                 item={it}
                                 key={"NomenclatureItemView" + it.uuid}/>)

@@ -1,13 +1,13 @@
-import React, {FC, useState} from 'react';
-// @ts-ignore
-import cl from "./ModifyNomenclatureGroup.module.css"
-import {RouterPath} from "../../router";
+import React, {useState} from 'react';
 import {useNavigate} from "react-router-dom";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
-import {Fetches} from "../../fetches/Fetches";
 import {ExtendedItem, Item, RenameItem} from "../../structs/App";
 import {Tools} from "../../tools/Tools";
+import {Fetches} from "../../fetches/Fetches";
+import {RouterPath} from "../../router";
 
+// @ts-ignore
+import cl from "./ModifyStoreGrope.module.css"
 
 let newItem: Item = {
     id: 0,
@@ -16,11 +16,13 @@ let newItem: Item = {
     type: 0,
     uuid: ""
 }
-const ModifyNomenclatureGroup: FC = () => {
-    const navigate = useNavigate();
-    const {selectedNomenclatureGroup, selectedNomenclatureItem} = useTypeSelector(state => state.appReducer)
 
-    const [modifyItem, setModifyItem] = useState<ExtendedItem | null>(selectedNomenclatureItem ? selectedNomenclatureItem : selectedNomenclatureGroup)
+const ModifyStoreGrope = () => {
+
+    const navigate = useNavigate();
+    const {selectedStoreGroup,selectedStore} = useTypeSelector(state => state.appReducer)
+
+    const [modifyItem, setModifyItem] = useState<ExtendedItem | null>(selectedStoreGroup ? selectedStoreGroup : selectedStore)
 
 
     const onSaveClick = () => {
@@ -32,17 +34,17 @@ const ModifyNomenclatureGroup: FC = () => {
             }
 
             Fetches.ModifyItem(renameItem).then(r => {
-                navigate(RouterPath.NOMENCLATURE)
+                navigate(RouterPath.ASSETS_STORAGE)
             })
         }
     }
     const onRemoveClick=()=>{
         if (modifyItem){
             Fetches.RemoveItem(Tools.unRefCatalogItem(modifyItem)).then(r=>{
-                navigate(RouterPath.NOMENCLATURE)
+                navigate(RouterPath.ASSETS_STORAGE)
             })
         }
-        }
+    }
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         newItem.name = e.target.value
 
@@ -51,7 +53,7 @@ const ModifyNomenclatureGroup: FC = () => {
         return (
             <div className={cl.wrapper}>
                 <div className={cl.wrapper_fields}>
-                    <label>Группа:{selectedNomenclatureGroup?.name}</label>
+                    <label>Группа:{modifyItem?.name}</label>
                     <label>Новое наименование: </label>
                     <input onChange={e => onInputChange(e)} defaultValue={modifyItem?.name}
                            key={"ModifyNomenclatureGroup_input"}/>
@@ -67,4 +69,4 @@ const ModifyNomenclatureGroup: FC = () => {
     return (<div/>)
 };
 
-export default ModifyNomenclatureGroup;
+export default ModifyStoreGrope;

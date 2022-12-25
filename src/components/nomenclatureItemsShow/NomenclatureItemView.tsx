@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {NomenclatureItem} from "../../structs/nomenclature";
+
 // @ts-ignore
 import cl from "./NomenclatureShow.module.css"
 import {
@@ -11,16 +11,17 @@ import {AppItemTYPES} from "../../App";
 import {Fetches} from "../../fetches/Fetches";
 import {useDispatch} from "react-redux";
 import {
-    SetCurrentNomenclatureItemState,
+    SetSelectedNomenclatureItemState,
     SetSelectedNomenclatureGroupState
 } from "../../store/action_creator/AppStoreActions";
 import {Tools} from "../../tools/Tools";
 import {RouterPath} from "../../router";
 import {useNavigate} from "react-router-dom";
+import {ExtendedItem} from "../../structs/App";
 
 
 interface ShowCatalogItemProps {
-    item: NomenclatureItem
+    item: ExtendedItem
 
 
 }
@@ -29,7 +30,7 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
     Tools.LoadCatalogItemFields(item)
     const dispatch = useDispatch()
     const navigate = useNavigate();
-    const [hisItems, setHisItems] = useState<NomenclatureItem[] | null>(null)
+    const [hisItems, setHisItems] = useState<ExtendedItem[] | null>(null)
     const [isOpen, setIsOpen] = useState<boolean>(item.isOpen ? item.isOpen : false)
 
     item.callReBoot = getHisItems
@@ -42,7 +43,7 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
             if (!(r instanceof Error)) {
                 if (!Tools.isItemsIdentical(r, hisItems)) {
                     if (r != null) {
-                        r.map((it: NomenclatureItem) => it.ownerItem = item)
+                        r.map((it: ExtendedItem) => it.ownerItem = item)
 
                     }
                     setHisItems(() => r)
@@ -60,17 +61,20 @@ const NomenclatureItemView: FC<ShowCatalogItemProps> = ({item}) => {
         // @ts-ignore
         dispatch(SetSelectedNomenclatureGroupState(item))
 
+        // @ts-ignore
+        dispatch(SetSelectedNomenclatureItemState(null))
+
     }
 
     const onCatalogItemClick = () => {
         // @ts-ignore
-        dispatch(SetCurrentNomenclatureItemState(item))
-        navigate(RouterPath.ALL_ASSETS_BY_CATALOG_NAME)
+        dispatch(SetSelectedNomenclatureItemState(item))
+
     }
 
     const onCreateAssetPress=()=>{
         // @ts-ignore
-        dispatch(SetCurrentNomenclatureItemState(item))
+        dispatch(SetSelectedNomenclatureItemState(item))
         navigate(RouterPath.CREATE_ASSET)
     }
 

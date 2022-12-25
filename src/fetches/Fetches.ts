@@ -1,13 +1,9 @@
 import axios from "axios";
 
 import {ReqErrors, Requests} from "./Requests";
-import {NomenclatureItem, RemoveItem, TransferNomenclatureItem} from "../structs/nomenclature";
-import {Tools} from "../tools/Tools";
 import {ItemTypes} from "../structs/ItemTypes";
-
 import {ErrorsText} from "../texts/Texts";
-import {AssetAndStore, AssetsInStore, AssetUUID, NewAsset} from "../structs/Asset";
-import {AddToItem, Item, RenameItem, TransferItem} from "../structs/App";
+import {AddToItem, ExtendedItem, Item, RenameItem, TransferItem} from "../structs/App";
 
 
 export type FetchesResult = [
@@ -24,8 +20,6 @@ export class Fetches {
         return Promise.all([this.GetItemTYPES(), this.GetNomenclatureRoot(), this.GetStoreGroupRoot()])
     }
 
-
-
     public static async GetItemTYPES(): Promise<ItemTypes | Error> {
         try {
             const res = await axios.get<ItemTypes>(Requests.GET_ITEM_TYPES)
@@ -38,11 +32,11 @@ export class Fetches {
         }
     }
 
-    public static async GetNomenclatureRoot(): Promise<NomenclatureItem | Error> {
+    public static async GetNomenclatureRoot(): Promise<ExtendedItem | Error> {
 
         try {
 
-            const res = await axios.get<NomenclatureItem >(Requests.GET_NOMENCLATURE_ROOT)
+            const res = await axios.get<ExtendedItem>(Requests.GET_NOMENCLATURE_ROOT)
             return res.data
 
 
@@ -66,16 +60,15 @@ export class Fetches {
         }
     }
 
-    public static async GetItems(item: Item): Promise<NomenclatureItem[] | Error> {
+    public static async GetItems(item: Item): Promise<ExtendedItem[] | Error> {
         if (item.id < 1) {
             return Error("ошибка")
         }
 
         try {
 
-            const res = await axios.post<NomenclatureItem[]>(Requests.GET_ITEMS, item)
+            const res = await axios.post<ExtendedItem[]>(Requests.GET_ITEMS, item)
             if (res.status !== 200) {
-
                 return Error()
             }
             return res.data
@@ -104,7 +97,7 @@ export class Fetches {
     public static async TransferItem(transferItem: TransferItem): Promise<any | Error> {
 
         try {
-            const res = await axios.post<TransferNomenclatureItem>(Requests.TRANSFER_ITEM, transferItem)
+            const res = await axios.post<TransferItem>(Requests.TRANSFER_ITEM, transferItem)
             if (res.status !== 200) {
                 alert(res.data)
                 return Error(ErrorsText.ERROR_SEND_DATA)
@@ -142,6 +135,23 @@ export class Fetches {
             return res
 
         } catch (e) {
+            alert("Ошибка")
+            return Error("Ошибка")
+        }
+    }
+
+    public static async RemoveItem(item: Item): Promise<any | Error> {
+
+        try {
+            const res = await axios.post<Item>(Requests.REMOVE_ITEM, item)
+            if (res.status !== 200) {
+                alert(res.data)
+                return Error(ErrorsText.ERROR_SEND_DATA)
+            }
+            return res
+
+        } catch (e) {
+            alert("Ошибка")
             return Error("Ошибка")
         }
     }

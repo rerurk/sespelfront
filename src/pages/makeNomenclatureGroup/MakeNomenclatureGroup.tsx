@@ -23,7 +23,7 @@ let newGroup: Item = {
 const MakeNomenclatureGroup: FC = () => {
     newGroup= {
         id: -1,
-        type: AppItemTYPES.NOMENCLATURE_GROUP_TYPE,
+        type: AppItemTYPES.NOMENCLATURE_GROUP_TYPE|AppItemTYPES.NOMENCLATURE_TYPE,
         name: "",
         owner_uuid: "",
         uuid: ""

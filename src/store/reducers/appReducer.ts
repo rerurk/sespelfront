@@ -1,8 +1,7 @@
-import {NomenclatureItem} from "../../structs/nomenclature";
-import {AppActions, AppActionTypes, AppState} from "../types/AppStoreTypes";
-import {StoreItem} from "../../structs/StoreAssets";
-import {AssetAndStore, AssetQrCode} from "../../structs/Asset";
 
+import {AppActions, AppActionTypes, AppState} from "../types/AppStoreTypes";
+import {AssetAndStore, AssetQrCode} from "../../structs/Asset";
+import {ExtendedItem} from "../../structs/App";
 
 
 const initialState: AppState = {
@@ -10,7 +9,7 @@ const initialState: AppState = {
     storeGroupRoot: null,
     selectedNomenclatureGroup: null,
     selectedStoreGroup:null,
-    currCatalogItem: null,
+    selectedNomenclatureItem: null,
     selectedStore: null,
     currentAssetAndStore: null,
     assetQrCode: null
@@ -22,7 +21,7 @@ export function GetCurrentState(): AppState {
     return initialState
 }
 
-function setStoreGroupRootItem(root: StoreItem): AppState {
+function setStoreGroupRootItem(root: ExtendedItem): AppState {
 
     initialState.storeGroupRoot = root
     return initialState
@@ -33,32 +32,32 @@ function setAssetQrCode(assetQrCode: AssetQrCode): AppState {
     return initialState
 }
 
-function setCurrentCatalogItem(catalogItem: NomenclatureItem): AppState {
+function setCurrentCatalogItem(catalogItem: ExtendedItem): AppState {
 
-    initialState.currCatalogItem = catalogItem
+    initialState.selectedNomenclatureItem = catalogItem
     return initialState
 }
 
-function setCurrentNomenclatureGroup(selectedNomenclatureGroup: NomenclatureItem): AppState {
+function setCurrentNomenclatureGroup(selectedNomenclatureGroup: ExtendedItem): AppState {
 
 
     initialState.selectedNomenclatureGroup = selectedNomenclatureGroup
     return initialState
 }
 
-function setCurrentStoreGroup(selectedStoreGroup: StoreItem): AppState {
+function setCurrentStoreGroup(selectedStoreGroup: ExtendedItem): AppState {
 
     initialState.selectedStoreGroup = selectedStoreGroup
     return initialState
 }
 
-function setCatalogRoot(root: NomenclatureItem): AppState {
+function setCatalogRoot(root: ExtendedItem): AppState {
 
     initialState.nomenclatureRoot = root
     return initialState
 }
 
-function setSelectedAssetStore(currStore: StoreItem): AppState {
+function setSelectedAssetStore(currStore: ExtendedItem): AppState {
     console.log(currStore)
     initialState.selectedStore = currStore
     return initialState
@@ -76,7 +75,7 @@ export const appReducer = (state = initialState, action: AppActions): AppState =
             return {...setCurrentNomenclatureGroup(action.payload)}
         case AppActionTypes.SET_NOMENCLATURE_ROOT:
             return {...setCatalogRoot(action.payload)}
-        case AppActionTypes.SET_CURRENT_NOMENCLATURE_ITEM:
+        case AppActionTypes.SET_SELECTED_NOMENCLATURE_ITEM:
             return {...setCurrentCatalogItem(action.payload)}
         case AppActionTypes.SET_SELECTED_ASSET_STORE:
             return {...setSelectedAssetStore(action.payload)}

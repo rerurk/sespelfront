@@ -31,7 +31,7 @@ const CreateStoreGrope:FC = () => {
 
     const onCreateBtClick=()=>{
         if (selectedStoreGroup) {
-             newStoreItem.type=AppItemTYPES.STORE_GROPE_TYPE
+             newStoreItem.type=AppItemTYPES.STORE_GROPE_TYPE|AppItemTYPES.STORE_TYPE
             let addToItem: AddToItem = {
                 adding_item: newStoreItem,
                 to_add_item: Tools.unRefCatalogItem(selectedStoreGroup)

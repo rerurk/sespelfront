@@ -1,22 +1,22 @@
-
 import {Fetches} from "../../fetches/Fetches";
-import {StoreItem} from "../../structs/StoreAssets";
-import {TransferItem} from "../../structs/App";
+
+import {ExtendedItem, TransferItem} from "../../structs/App";
 import {Tools} from "../../tools/Tools";
 
-type drags={
-    dragItem:StoreItem | null
-    dragItemEnter: StoreItem | null
-    ownerStoreItem: StoreItem | null
+type drags = {
+    dragItem: ExtendedItem | null
+    dragItemEnter: ExtendedItem | null
+    ownerStoreItem: ExtendedItem | null
 }
-let dragNomenclatureItems:drags={
-    dragItem:null,
-    dragItemEnter:null,
-    ownerStoreItem:null
+let dragNomenclatureItems: drags = {
+    dragItem: null,
+    dragItemEnter: null,
+    ownerStoreItem: null
 }
-export function OnItemDragStart(item: StoreItem) {
 
-    if (item !==dragNomenclatureItems.dragItem) {
+export function OnItemDragStart(item: ExtendedItem) {
+
+    if (item !== dragNomenclatureItems.dragItem) {
         dragNomenclatureItems.dragItem = item
         dragNomenclatureItems.ownerStoreItem = item.ownerItem
 
@@ -24,15 +24,13 @@ export function OnItemDragStart(item: StoreItem) {
 
 }
 
-export function OnItemDragEnter(item: StoreItem) {
+export function OnItemDragEnter(item: ExtendedItem) {
     dragNomenclatureItems.dragItemEnter = item
 }
 
-export async function ConfirmReplaceItem(): Promise<any | Error | TransferItem> {
+export async function ConfirmReplaceItem(): Promise<any | Error> {
+
     let transferItem: TransferItem | null = GetItems()
-
-
-
 
     if (transferItem
         && transferItem.from.uuid !== transferItem.to.uuid
@@ -43,7 +41,7 @@ export async function ConfirmReplaceItem(): Promise<any | Error | TransferItem> 
     ) {
         let isIt = window.confirm(`Перенести  ${transferItem?.item.name.toUpperCase()} в каталог ${transferItem?.to.name.toLocaleUpperCase()} ?`)
 
-        if (isIt ) {
+        if (isIt) {
             return Fetches.TransferItem(transferItem).then(r => {
 
                     if (!(r instanceof Error)) {
@@ -63,15 +61,18 @@ export async function ConfirmReplaceItem(): Promise<any | Error | TransferItem> 
 }
 
 function rebootItems() {
-    if (dragNomenclatureItems.ownerStoreItem&&dragNomenclatureItems.ownerStoreItem.callReBoot){
+    if (dragNomenclatureItems.ownerStoreItem && dragNomenclatureItems.ownerStoreItem.callReBoot) {
         dragNomenclatureItems.ownerStoreItem.callReBoot()
 
     }
-    if (dragNomenclatureItems.dragItemEnter&&dragNomenclatureItems.dragItemEnter.callReBoot){
+    if (dragNomenclatureItems.dragItemEnter && dragNomenclatureItems.dragItemEnter.callReBoot) {
         dragNomenclatureItems.dragItemEnter.callReBoot()
 
     }
 
+    dragNomenclatureItems.dragItem = null
+    dragNomenclatureItems.dragItemEnter = null
+    dragNomenclatureItems.ownerStoreItem = null
 }
 
 function GetItems(): TransferItem | null {
@@ -84,9 +85,6 @@ function GetItems(): TransferItem | null {
 
         }
 
-        dragNomenclatureItems.dragItem = null
-        dragNomenclatureItems.dragItemEnter = null
-        dragNomenclatureItems.ownerStoreItem = null
 
         return transferItem
     }
@@ -97,7 +95,7 @@ function testToContains(): boolean {
     /*TODO тоже свмое сделть на в беке*/
     let test: boolean;
     if (dragNomenclatureItems.dragItemEnter && dragNomenclatureItems.dragItem) {
-        let owner: StoreItem| null = dragNomenclatureItems.dragItemEnter.ownerItem
+        let owner: ExtendedItem | null = dragNomenclatureItems.dragItemEnter.ownerItem
 
         // для гарантии выхода из цикла
         let count: number = 0

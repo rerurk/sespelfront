@@ -1,6 +1,6 @@
-import {NomenclatureItem} from "../structs/nomenclature";
+
 import {TAddress} from "../components/UI/address/Address";
-import {Item} from "../structs/App";
+import {ExtendedItem, Item} from "../structs/App";
 
 
 type CatalogItemLS = {
@@ -9,7 +9,7 @@ type CatalogItemLS = {
 }
 
 export class Tools {
-    public static unRefCatalogItem(it: NomenclatureItem): Item {
+    public static unRefCatalogItem(it: ExtendedItem): Item {
         return {
             id: it.id,
             type: it.type,
@@ -19,7 +19,7 @@ export class Tools {
         }
     }
 
-    public static SaveCatalogItemFields(catalogItem: NomenclatureItem) {
+    public static SaveCatalogItemFields(catalogItem: ExtendedItem) {
         if (catalogItem.uuid) {
             let catItLS: CatalogItemLS = {
                 isOpen: catalogItem.isOpen,
@@ -31,7 +31,7 @@ export class Tools {
         }
     }
 
-    public static LoadCatalogItemFields(catalogItem: NomenclatureItem) {
+    public static LoadCatalogItemFields(catalogItem: ExtendedItem) {
         let str: string | null
         if (catalogItem.uuid) {
             str = localStorage.getItem(catalogItem.uuid)

@@ -7,9 +7,9 @@ import {Tools} from "../../tools/Tools";
 import {Fetches} from "../../fetches/Fetches";
 import {RouterPath} from "../../router";
 import {CreateStoreGropeTexts} from "../createStoreGrope/CreateStoreGropeTexts";
-import {AddToItem, Item} from "../../structs/App";
+import {AddToItem, ExtendedItem, Item} from "../../structs/App";
 import {AppItemTYPES} from "../../App";
-import {StoreItem} from "../../structs/StoreAssets";
+
 let newStoreItem: Item = {
     id: -1,
     name: "",
@@ -29,8 +29,8 @@ const CreateAssetsStore = () => {
 
     const onCreateBtClick=()=>{
         if (selectedStoreGroup||selectedStore) {
-            newStoreItem.type=AppItemTYPES.ASSETS_STORE_TYPE
-            let to_add_item:StoreItem|null=null
+            newStoreItem.type=AppItemTYPES.ASSETS_STORE_TYPE|AppItemTYPES.STORE_TYPE
+            let to_add_item:ExtendedItem|null=null
             if(selectedStoreGroup){
                 to_add_item=selectedStoreGroup
             }

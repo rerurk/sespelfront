@@ -1,5 +1,5 @@
 import React, {FC, useState} from 'react';
-import {StoreItem} from "../../../structs/StoreAssets";
+
 // @ts-ignore
 import cl from "./StoreGroupItem.module.css"
 import {AppItemTYPES} from "../../../App";
@@ -16,15 +16,16 @@ import {
     OnStoreItemDragEnter,
     OnStoreItemDragStart
 } from "../../../gragAndDrops/storeItemsDrag/storeItemsDrag";
+import {ExtendedItem} from "../../../structs/App";
 
 interface StoreGroupItemProps {
-    item: StoreItem
+    item: ExtendedItem
 }
 
 const StoreGroupItem: FC<StoreGroupItemProps> = ({item}) => {
     Tools.LoadCatalogItemFields(item)
     const dispatch = useDispatch()
-    const [hisItems, setHisItems] = useState<StoreItem[] | null>(null)
+    const [hisItems, setHisItems] = useState<ExtendedItem[] | null>(null)
     const [isOpen, setIsOpen] = useState<boolean>(item.isOpen ? item.isOpen : false)
 
     item.callReBoot = getHisItems
@@ -37,7 +38,7 @@ const StoreGroupItem: FC<StoreGroupItemProps> = ({item}) => {
             if (!(r instanceof Error)) {
                 if (!Tools.isItemsIdentical(r, hisItems)) {
                     if (r != null) {
-                        r.map((it: StoreItem) => it.ownerItem = item)
+                        r.map((it: ExtendedItem) => it.ownerItem = item)
 
                     }
                     setHisItems(() => r)

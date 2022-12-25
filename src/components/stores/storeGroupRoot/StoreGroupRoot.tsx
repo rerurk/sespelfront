@@ -2,26 +2,27 @@ import React, {useEffect, useState} from 'react';
 import {useTypeSelector} from "../../../hooks/useTypeSelector";
 // @ts-ignore
 import cl from "./StoreGroupRoot.module.css"
-import {NomenclatureItem} from "../../../structs/nomenclature";
+
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {Fetches} from "../../../fetches/Fetches";
 import {Tools} from "../../../tools/Tools";
 import {StoreGroupGui} from "./storeGroupTexts";
-import {StoreItem} from "../../../structs/StoreAssets";
+
 import StoreGroupItem from "../storeGroupItem/StoreGroupItem";
 import {RouterPath} from "../../../router";
-import {SetSelectedStoreGroupState} from "../../../store/action_creator/AppStoreActions";
+import {SetSelectedAssetsStoreState, SetSelectedStoreGroupState} from "../../../store/action_creator/AppStoreActions";
 import {OnStoreItemDragEnter} from "../../../gragAndDrops/storeItemsDrag/storeItemsDrag";
+import {ExtendedItem} from "../../../structs/App";
 
 
 const StoreGroupRoot = () => {
 
     const {storeGroupRoot, selectedStoreGroup,selectedStore} = useTypeSelector(state => state.appReducer)
-    const [hisItems, setHisItems] = useState<StoreItem[] | null>(null)
+    const [hisItems, setHisItems] = useState<ExtendedItem[] | null>(null)
     const dispatch = useDispatch()
     const navigate = useNavigate();
-    console.log(selectedStore,selectedStoreGroup)
+
 
     useEffect(() => {
 
@@ -37,11 +38,12 @@ const StoreGroupRoot = () => {
 
         if (storeGroupRoot) {
             Fetches.GetItems(storeGroupRoot).then(r => {
+                console.log("storeGroupRootReboot: FETCH",r)
                 if (!(r instanceof Error)) {
-                    console.log("StoreGroupRoot СРАБАТЫВАЕТ ")
                     if (!Tools.isItemsIdentical(r, hisItems)) {
                         if (r != null) {
-                            r.map((it: NomenclatureItem) => it.ownerItem = storeGroupRoot)
+                            let items:ExtendedItem[]=r
+                            items.map((it:ExtendedItem) => it.ownerItem = storeGroupRoot)
 
                         }
                         setHisItems(() => r)
@@ -55,6 +57,8 @@ const StoreGroupRoot = () => {
     function onRootClick() {
         // @ts-ignore
         dispatch(SetSelectedStoreGroupState(storeGroupRoot))
+        // @ts-ignore
+        dispatch(SetSelectedAssetsStoreState(null))
     }
 
     const onItemDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
@@ -85,7 +89,9 @@ const StoreGroupRoot = () => {
                         />
 
 
-                        <img src="images/rename.png" alt={StoreGroupGui.MODIFY_STORE_GROUP.title}/>
+                        <img src="images/rename.png" alt={StoreGroupGui.MODIFY_STORE_GROUP.title}
+                          onClick={()=>navigate(RouterPath.MODIFY_STORE_GROPE)}
+                        />
 
                     </div>
                     <div onDragEnter={onItemDragEnter}>
@@ -99,7 +105,7 @@ const StoreGroupRoot = () => {
                 </div>
                 {
                     hisItems
-                        ? hisItems.map((it: StoreItem) => <StoreGroupItem item={it} key={"StoreGroupItem_" + it.uuid}/>)
+                        ? hisItems.map((it: ExtendedItem) => <StoreGroupItem item={it} key={"StoreGroupItem_" + it.uuid}/>)
                         : false
                 }
 

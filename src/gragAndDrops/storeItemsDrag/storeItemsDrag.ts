@@ -1,20 +1,20 @@
 
 import {Fetches} from "../../fetches/Fetches";
-import {StoreItem} from "../../structs/StoreAssets";
-import {TransferItem} from "../../structs/App";
+
+import {ExtendedItem, TransferItem} from "../../structs/App";
 import {Tools} from "../../tools/Tools";
 
 type drags={
-    dragItem:StoreItem | null
-    dragItemEnter: StoreItem | null
-    ownerStoreItem: StoreItem | null
+    dragItem:ExtendedItem | null
+    dragItemEnter: ExtendedItem | null
+    ownerStoreItem: ExtendedItem | null
 }
 let dragStoreItems:drags={
     dragItem:null,
     dragItemEnter:null,
     ownerStoreItem:null
 }
-export function OnStoreItemDragStart(item: StoreItem) {
+export function OnStoreItemDragStart(item: ExtendedItem) {
 
     if (item !==dragStoreItems.dragItem) {
         dragStoreItems.dragItem = item
@@ -24,15 +24,12 @@ export function OnStoreItemDragStart(item: StoreItem) {
 
 }
 
-export function OnStoreItemDragEnter(item: StoreItem) {
+export function OnStoreItemDragEnter(item: ExtendedItem) {
     dragStoreItems.dragItemEnter = item
 }
 
 export async function ConfirmReplaceStoreItem(): Promise<any | Error | TransferItem> {
     let transferItem: TransferItem | null = GetItems()
-
-
-
 
     if (transferItem
         && transferItem.from.uuid !== transferItem.to.uuid
@@ -63,6 +60,7 @@ export async function ConfirmReplaceStoreItem(): Promise<any | Error | TransferI
 }
 
 function rebootItems() {
+    console.log("function rebootItems()")
     if (dragStoreItems.ownerStoreItem&&dragStoreItems.ownerStoreItem.callReBoot){
         dragStoreItems.ownerStoreItem.callReBoot()
 
@@ -71,6 +69,9 @@ function rebootItems() {
         dragStoreItems.dragItemEnter.callReBoot()
 
     }
+    dragStoreItems.dragItem = null
+    dragStoreItems.dragItemEnter = null
+    dragStoreItems.ownerStoreItem = null
 
 }
 
@@ -84,9 +85,7 @@ function GetItems(): TransferItem | null {
 
         }
 
-        dragStoreItems.dragItem = null
-        dragStoreItems.dragItemEnter = null
-        dragStoreItems.ownerStoreItem = null
+
 
         return transferItem
     }
@@ -97,7 +96,7 @@ function testToContains(): boolean {
     /*TODO тоже свмое сделть на в беке*/
     let test: boolean;
     if (dragStoreItems.dragItemEnter && dragStoreItems.dragItem) {
-        let owner: StoreItem| null = dragStoreItems.dragItemEnter.ownerItem
+        let owner: ExtendedItem| null = dragStoreItems.dragItemEnter.ownerItem
 
         // для гарантии выхода из цикла
         let count: number = 0

@@ -4,7 +4,8 @@ type texts={
     MAKE_SUB_GROUP:GuiTextTitle
     MAKE_GROUP_ITEM:GuiTextTitle
     MODIFY_NOMENCLATURE_GROUP:GuiTextTitle
-    CURRENT_SELECTED_GROUP:GuiTextTitle
+    NOMENCLATURE_SELECTED_GROUP:GuiTextTitle
+    NOMENCLATURE_SELECTED_ITEM:GuiTextTitle
 }
 
 export const NomenclatureGui:texts={
@@ -21,9 +22,13 @@ export const NomenclatureGui:texts={
         text:"",
         title:"Изменить"
     },
-    CURRENT_SELECTED_GROUP:{
+    NOMENCLATURE_SELECTED_GROUP:{
         text:"Текущая группа",
         title:"Текущая выбранная группа"
+    },
+    NOMENCLATURE_SELECTED_ITEM:{
+        text:"Выбранный товар",
+        title:""
     }
 
 }

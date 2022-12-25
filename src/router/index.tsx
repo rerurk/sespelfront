@@ -1,6 +1,6 @@
 import React from "react";
 import Main from "../pages/main/Main";
-import ShowAllAssetsByCatalogName from "../pages/showAllAssetsByCatalogName/ShowAllAssetsByCatalogName";
+
 import Nomenclatures from "../pages/nomenclatures/Nomenclatures";
 import AssetStores from "../pages/assetStores/AssetStores";
 import QrScan from "../pages/qrscan/QrScan";
@@ -10,6 +10,7 @@ import MakeNomenclatureItem from "../pages/makeNomenclatureItem/MakeNomenclature
 import ModifyNomenclatureGroup from "../pages/modifyNomenclatureGroup/ModifyNomenclatureGroup";
 import CreateStoreGrope from "../pages/createStoreGrope/CreateStoreGrope";
 import CreateAssetsStore from "../pages/createAssetsStore/CreateAssetsStore";
+import ModifyStoreGrope from "../pages/modifyStoreGrope/ModifyStoreGrope";
 
 export type RouteNode = {
     isHide: boolean
@@ -36,11 +37,12 @@ export enum RouterPath {
     NOMENCLATURE = "/NOMENCLATURE",
     CREATE_ASSET = "/CREATE_ASSET",
     ASSETS_STORAGE = "/ASSETS_STORAGE",
+
     QR_CODE_SCANNER = "/QR_CODE_SCANNER",
-    ALL_ASSETS_BY_CATALOG_NAME = "/ALL_ASSETS_BY_CATALOG_NAME",
     MAKE_NOMENCLATURE_GROUP = "/MAKE_NOMENCLATURE_GROUP",
     MAKE_NOMENCLATURE_ITEM = "/MAKE_NOMENCLATURE_ITEM",
     MODIFY_NOMENCLATURE_GROUP = "/MODIFY_NOMENCLATURE_GROUP",
+    MODIFY_STORE_GROPE="/MODIFY_STORE_GROPE",
     CREATE_STORE_GROPE = "/CREATE_STORE_GROPE",
     CREATE_ASSETS_STORE="/CREATE_ASSETS_STORE"
 }
@@ -107,10 +109,11 @@ export const publicRoutes: RouteNode[] = [
     {
         isHide: true,
         exact: false,
-        path: RouterPath.ALL_ASSETS_BY_CATALOG_NAME,
+        path: RouterPath.MODIFY_STORE_GROPE,
         name: "",
-        element: <ShowAllAssetsByCatalogName/>
+        element: <ModifyStoreGrope/>
     },
+
     {
         isHide: true,
         exact: false,
