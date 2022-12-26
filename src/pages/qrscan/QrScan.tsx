@@ -21,8 +21,7 @@ const QrScan: FC = () => {
         wmin = Math.min(window.innerHeight, window.innerWidth)
         setCamSize(wmin * 0.9)
 
-        // @ts-ignore
-        dispatch(SetCurrentAsset(null))
+
 
 
     }, [])

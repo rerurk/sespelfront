@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 // @ts-ignore
 import cl from "./MakeAsset.module.css"
@@ -9,6 +9,7 @@ import {TAsset, TMakeNewAsset} from "../../structs/Asset";
 import {Tools} from "../../tools/Tools";
 import {Fetches} from "../../fetches/Fetches";
 import QRCode from "react-qr-code";
+import AssetQRCode from "../../components/assetQRCodeView/AssetQRCode";
 
 let newAsset: TMakeNewAsset = {
     asset_nomenclature_item: null,
@@ -20,6 +21,15 @@ let newAsset: TMakeNewAsset = {
 const MakeAsset: FC = () => {
     const {storeGroupRoot, nomenclatureRoot, selectedStore, selectedNomenclatureItem} = useTypeSelector(state => state.appReducer)
     const [newMakedAssets, setNewMakedAssets] = useState<TAsset[]>([])
+    useEffect(()=>{
+        Fetches.GetNotAcceptedAssets().then(r=> {
+          if(!(r instanceof Error)){
+              setNewMakedAssets(r)
+          }
+        })
+
+    },[])
+
     const onMakeClick = () => {
         if (selectedStore && selectedNomenclatureItem) {
             let conf = window.confirm(` Содать ТМЦ ${selectedNomenclatureItem.name} в ${selectedStore.name}?`)
@@ -60,8 +70,8 @@ const MakeAsset: FC = () => {
                     {
                         newMakedAssets
                             ? newMakedAssets.map((a: TAsset) =>
-                                <div>
-                                    <QRCode value={a.asset.uuid} style={{height: "auto", maxWidth: "5rem", width: "5rem"}}/>
+                                <div key={"QRCode_"+a.asset.uuid}>
+                                  <AssetQRCode asset={a}/>
                                 </div>
                             )
                             : false

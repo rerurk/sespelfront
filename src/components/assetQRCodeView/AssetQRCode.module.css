@@ -1,0 +1,23 @@
+.wrapper{
+    margin: 0;
+    padding: 0;
+    width: 8rem;
+    height: 8rem;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+    align-items: center;
+
+}
+.wrapper_qrcode{
+    width: 70%;
+    height: 70%;
+
+
+}
+.wrapper_assetName{
+    font-size: 50%;
+    width: 100%;
+    color: black;
+}

@@ -173,6 +173,23 @@ export class Fetches {
         }
     }
 
+    public static async GetNotAcceptedAssets ():Promise<TAsset[]|Error>{
+        try {
+
+
+            const res = await axios.get<TAsset[]>(Requests.GET_NOT_ACCEPTED_ASSETS)
+            if (res.status !== 200) {
+                alert(res.data)
+                return Error(ErrorsText.ERROR_SEND_DATA)
+            }
+            return res.data
+        }
+        catch (e) {
+            alert("Ошибка")
+            return Error("Ошибка")
+        }
+    }
+
 
 
 

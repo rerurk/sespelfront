@@ -7,6 +7,7 @@ export type ItemTypes = {
     ASSETS_STORE_TYPE: number,
     ASSETS_STORE_HAS_ADDRESS_TYPE: number,
     ASSET_TYPE: number,
+    ASSET_ACCEPTED_TYPE:number,
     NOT_REMOVABLE_TYPE: number,
 
 }
