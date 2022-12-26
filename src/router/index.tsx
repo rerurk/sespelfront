@@ -4,7 +4,7 @@ import Main from "../pages/main/Main";
 import Nomenclatures from "../pages/nomenclatures/Nomenclatures";
 import AssetStores from "../pages/assetStores/AssetStores";
 import QrScan from "../pages/qrscan/QrScan";
-import CreateAsset from "../pages/createAsset/CreateAsset";
+import MakeAsset from "../pages/makeAsset/MakeAsset";
 import MakeNomenclatureGroup from "../pages/makeNomenclatureGroup/MakeNomenclatureGroup";
 import MakeNomenclatureItem from "../pages/makeNomenclatureItem/MakeNomenclatureItem";
 import ModifyNomenclatureGroup from "../pages/modifyNomenclatureGroup/ModifyNomenclatureGroup";
@@ -62,7 +62,7 @@ export const publicRoutes: RouteNode[] = [
         exact: false,
         path: RouterPath.CREATE_ASSET,
         name: RouterTexts.CREATE_ASSET,
-        element: <CreateAsset/>
+        element: <MakeAsset/>
     },
     {
         isHide: false,

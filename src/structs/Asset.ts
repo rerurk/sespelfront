@@ -1,11 +1,9 @@
 import {Item} from "./App";
 
 
-export type NewAsset = {
-    asset_nomenclature_item: Item
-    asset_store:Item
-    asset:Item
-
+export type TMakeNewAsset = {
+    asset_nomenclature_item: Item|null
+    asset_store:Item|null
 }
 
 export type AssetsInStore ={
@@ -13,11 +11,13 @@ export type AssetsInStore ={
     assets:Item[]
 }
 
+
 export type AssetAndStore ={
     current_store:Item
     catalog_item:Item
     asset:Item
 }
+
 
 export type AssetUUID ={
     uuid:string
