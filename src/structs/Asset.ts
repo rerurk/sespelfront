@@ -6,6 +6,14 @@ export type TMakeNewAsset = {
     asset_store:Item|null
 }
 
+export type TAsset = {
+    asset:Item
+    store:Item
+    nomenclature:Item
+}
+
+
+/*
 export type AssetsInStore ={
     store:Item
     assets:Item[]
@@ -21,7 +29,7 @@ export type AssetAndStore ={
 
 export type AssetUUID ={
     uuid:string
-}
+}*/
 export type AssetQrCode ={
     code:string
     assetCatalogName:string

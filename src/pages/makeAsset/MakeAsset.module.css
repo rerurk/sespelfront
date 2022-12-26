@@ -19,6 +19,10 @@
 .wrapper_selectStoreAngNomenclature>div{
     width: 40%;
 }
+.wrapper_newAssets>div{
+    padding: 1rem;
+    margin: 1rem;
+}
 .wrapper_makeAsset{
 
 }

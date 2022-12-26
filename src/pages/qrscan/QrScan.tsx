@@ -7,7 +7,7 @@ import cl from './QrScan.module.css'
 
 import {useDispatch} from "react-redux";
 
-import {SetCurrentAsset} from "../../store/action_creator/AppStoreActions";
+
 
 
 

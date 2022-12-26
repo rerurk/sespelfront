@@ -2,7 +2,7 @@
 import {Dispatch} from "redux";
 import {AppActions, AppActionTypes} from "../types/AppStoreTypes";
 
-import {AssetAndStore, AssetQrCode} from "../../structs/Asset";
+import { AssetQrCode} from "../../structs/Asset";
 import {ExtendedItem} from "../../structs/App";
 
 
@@ -41,11 +41,6 @@ export const SetSelectedAssetsStoreState = (store: ExtendedItem) => {
     }
 }
 
-export const SetCurrentAsset=(assetAndStore:AssetAndStore)=>{
-    return(dispatch:Dispatch<AppActions>)=>{
-        dispatch({type:AppActionTypes.SET_CURRENT_ASSET,payload:assetAndStore})
-    }
-}
 
 export const SetAssetQRCode=(assetQrCode:AssetQrCode)=>{
     return(dispatch:Dispatch<AppActions>)=>{

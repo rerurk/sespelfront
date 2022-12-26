@@ -4,7 +4,7 @@ import {ReqErrors, Requests} from "./Requests";
 import {ItemTypes} from "../structs/ItemTypes";
 import {ErrorsText} from "../texts/Texts";
 import {AddToItem, ExtendedItem, Item, RenameItem, TransferItem} from "../structs/App";
-import {TMakeNewAsset} from "../structs/Asset";
+import {TAsset, TMakeNewAsset} from "../structs/Asset";
 
 
 export type FetchesResult = [
@@ -157,15 +157,15 @@ export class Fetches {
         }
     }
 
-    public static async MakeAsset(makeNewAsset:TMakeNewAsset): Promise<any | Error> {
+    public static async MakeAsset(makeNewAsset:TMakeNewAsset): Promise<TAsset | Error> {
 
         try {
-            const res = await axios.post<TMakeNewAsset>(Requests.MAKE_ASSET, makeNewAsset)
+            const res = await axios.post<TAsset>(Requests.MAKE_ASSET, makeNewAsset)
             if (res.status !== 200) {
                 alert(res.data)
                 return Error(ErrorsText.ERROR_SEND_DATA)
             }
-            return res
+            return res.data
 
         } catch (e) {
             alert("Ошибка")

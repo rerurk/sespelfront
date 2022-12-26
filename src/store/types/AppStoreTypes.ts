@@ -1,5 +1,5 @@
 
-import {AssetAndStore, AssetQrCode} from "../../structs/Asset";
+import {AssetQrCode} from "../../structs/Asset";
 import {ExtendedItem} from "../../structs/App";
 
 
@@ -11,8 +11,7 @@ export type AppState = {
     selectedNomenclatureGroup: ExtendedItem | null// текущий выбранный каталог для отобрадения
     selectedStoreGroup: ExtendedItem | null// текущий выбранный каталог для отобрадения
     selectedStore: ExtendedItem | null// текущий отоброаемый склад
-    currentAssetAndStore: AssetAndStore | null// текущий ТМЦ и его хранилище
-    assetQrCode: AssetQrCode | null
+
 }
 
 export enum AppActionTypes {
@@ -43,10 +42,7 @@ interface SetAssetQRCodeAction {
     payload: AssetQrCode
 }
 
-interface SetCurrentAssetAction {
-    type: AppActionTypes.SET_CURRENT_ASSET,
-    payload: AssetAndStore
-}
+
 
 interface SetCurrentExtendedItemAction {
     type: AppActionTypes.SET_SELECTED_NOMENCLATURE_ITEM
@@ -72,7 +68,6 @@ export type AppActions = SetSelectedNomenclatureGroupAction
     | SetCatalogRootAction
     | SetCurrentExtendedItemAction
     | SetSelectedAssetStoreAction
-    | SetCurrentAssetAction
     | SetAssetQRCodeAction
     | SetStoreGroupRootAction
     | SetSelectedStoreGroupAction
