@@ -9,6 +9,9 @@ import {useDispatch} from "react-redux";
 import {Fetches} from "../../fetches/Fetches";
 import {StrSend} from "../../structs/App";
 import {TAsset} from "../../structs/Asset";
+import {useNavigate} from "react-router-dom";
+import {SetSelectedAssetState} from "../../store/action_creator/AppStoreActions";
+import {RouterPath} from "../../router";
 
 
 
@@ -17,6 +20,8 @@ import {TAsset} from "../../structs/Asset";
 let wmin: number = 200
 
 const QrScan: FC = () => {
+    const navigate = useNavigate();
+    const dispatch=useDispatch()
     const [qrRes, setQrRes] = useState<string | null>(null)
     const [camSize, setCamSize] = useState<number>(200)
 
@@ -34,15 +39,16 @@ const QrScan: FC = () => {
 
         if (data) {
             setQrRes(data)
-            console.log(data)
+
             let strSend:StrSend={
                 str:data
             }
             Fetches.GetAssetByUUID(strSend).then(r=>{
-                if(!(r instanceof Error)){
-                    let as:TAsset=r
-                    console.log("Намиенование:",as.nomenclature.name)
-                    console.log("Склад:",as.store.name)
+                let as:TAsset|Error=r
+                if(!(as instanceof Error )&&as.asset.id>0){
+                        // @ts-ignore
+                    dispatch(SetSelectedAssetState(as))
+                    navigate(RouterPath.QR_SCAN_RESULT)
                 }
             })
 
@@ -52,9 +58,7 @@ const QrScan: FC = () => {
     const handleError = (err: Error) => {
         alert(err)
     }
-    const onRepeatBtClick = () => {
-        setQrRes(() => null)
-    }
+
     if (!qrRes) {
         return (
             <div className={cl.wrapper}>
@@ -81,7 +85,6 @@ const QrScan: FC = () => {
         <div>
              <label>{qrRes}</label>
 
-            <button onClick={onRepeatBtClick}>повторить</button>
         </div>
     )
 };

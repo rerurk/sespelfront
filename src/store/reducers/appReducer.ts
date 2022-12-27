@@ -1,6 +1,6 @@
 
 import {AppActions, AppActionTypes, AppState} from "../types/AppStoreTypes";
-import { AssetQrCode} from "../../structs/Asset";
+import {AssetQrCode, TAsset} from "../../structs/Asset";
 import {ExtendedItem} from "../../structs/App";
 
 
@@ -11,6 +11,7 @@ const initialState: AppState = {
     selectedStoreGroup:null,
     selectedNomenclatureItem: null,
     selectedStore: null,
+    selectedAsset:null
 
 
 
@@ -56,7 +57,10 @@ function setSelectedAssetStore(currStore: ExtendedItem): AppState {
     initialState.selectedStore = currStore
     return initialState
 }
-
+function setSelectedAsset(asset:TAsset):AppState{
+    initialState.selectedAsset=asset
+    return initialState
+}
 
 
 export const appReducer = (state = initialState, action: AppActions): AppState => {
@@ -70,12 +74,12 @@ export const appReducer = (state = initialState, action: AppActions): AppState =
             return {...setCurrentCatalogItem(action.payload)}
         case AppActionTypes.SET_SELECTED_ASSET_STORE:
             return {...setSelectedAssetStore(action.payload)}
-
-
         case AppActionTypes.SET_STORE_GROUP_ROOT:
             return {...setStoreGroupRootItem(action.payload)}
         case AppActionTypes.SET_SELECTED_STORE_GROUP:
             return {...setCurrentStoreGroup(action.payload)}
+        case AppActionTypes.SET_SELECTED_ASSET:
+            return {...setSelectedAsset(action.payload)}
         default:
             return state
     }

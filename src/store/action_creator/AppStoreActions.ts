@@ -2,7 +2,7 @@
 import {Dispatch} from "redux";
 import {AppActions, AppActionTypes} from "../types/AppStoreTypes";
 
-import { AssetQrCode} from "../../structs/Asset";
+import {AssetQrCode, TAsset} from "../../structs/Asset";
 import {ExtendedItem} from "../../structs/App";
 
 
@@ -38,6 +38,12 @@ export const SetSelectedStoreGroupState = (storeGroupItem: ExtendedItem) => {
 export const SetSelectedAssetsStoreState = (store: ExtendedItem) => {
     return (dispatch: Dispatch<AppActions>) => {
         dispatch({type: AppActionTypes.SET_SELECTED_ASSET_STORE, payload: store})
+    }
+}
+
+export const SetSelectedAssetState=(asset:TAsset)=>{
+    return(dispatch:Dispatch<AppActions>)=>{
+        dispatch({type:AppActionTypes.SET_SELECTED_ASSET,payload:asset})
     }
 }
 
