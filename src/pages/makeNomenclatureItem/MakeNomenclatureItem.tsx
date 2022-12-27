@@ -29,21 +29,25 @@ const MakeNomenclatureItem: FC = () => {
     const navigate = useNavigate();
     const {selectedNomenclatureGroup} = useTypeSelector(state => state.appReducer)
     const onBtSaveClick=()=>{
-        if(selectedNomenclatureGroup){
-            let addToItem:AddToItem={
-                adding_item:newGroup,
-                to_add_item:Tools.unRefCatalogItem(selectedNomenclatureGroup)
 
-            }
-
-            Fetches.MakeItem(addToItem).then(r=>{
-                console.log(r)
-                if(!(r instanceof Error) &&selectedNomenclatureGroup.callReBoot){
-                    navigate(RouterPath.NOMENCLATURE)
-                    selectedNomenclatureGroup.callReBoot()
+        if(selectedNomenclatureGroup) {
+            let conf: boolean = window.confirm(`Добавить ${newGroup.name} в ${selectedNomenclatureGroup.name}?`)
+            {
+                let addToItem: AddToItem = {
+                    adding_item: newGroup,
+                    to_add_item: Tools.unRefCatalogItem(selectedNomenclatureGroup)
 
                 }
-            })
+
+                Fetches.MakeItem(addToItem).then(r => {
+
+                    if (!(r instanceof Error) && selectedNomenclatureGroup.callReBoot) {
+                        navigate(RouterPath.NOMENCLATURE)
+                        selectedNomenclatureGroup.callReBoot()
+
+                    }
+                })
+            }
         }
 
     }

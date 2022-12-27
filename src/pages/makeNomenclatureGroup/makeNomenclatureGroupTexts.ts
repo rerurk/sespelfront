@@ -5,6 +5,7 @@ type texts={
     BT_CANCEL:GuiTextTitle
     GROUP_LABEL:GuiTextTitle
     SUB_GROUP_LABEL:GuiTextTitle
+
 }
 export const MakeNomenclatureGroupTexts:texts={
     GROUP_LABEL:{
@@ -12,7 +13,7 @@ export const MakeNomenclatureGroupTexts:texts={
       title:""
     },
     SUB_GROUP_LABEL:{
-        text:"наименование создоваемой подгруппы",
+        text:"наименование создаваемой подгруппы",
         title:""
     },
     BT_MAKE:{
@@ -23,4 +24,6 @@ export const MakeNomenclatureGroupTexts:texts={
         text:"отмена",
         title:"вернуться"
     }
+
+
 }

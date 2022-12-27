@@ -1,0 +1,23 @@
+.wrapper {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: lightgrey;
+    display: flex;
+    justify-content: center;
+    z-index: 200;
+
+}
+
+.wrapper_bts {
+}
+
+.wrapper_printPage {
+    height: 90vh;
+    width: 70vh;
+    background: white;
+    color: black;
+
+
+
+}

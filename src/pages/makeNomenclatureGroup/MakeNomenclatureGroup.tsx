@@ -33,20 +33,23 @@ const MakeNomenclatureGroup: FC = () => {
     const {selectedNomenclatureGroup} = useTypeSelector(state => state.appReducer)
     const onBtSaveClick = () => {
         if (selectedNomenclatureGroup) {
-            let addToItem: AddToItem = {
-                adding_item: newGroup,
-                to_add_item: Tools.unRefCatalogItem(selectedNomenclatureGroup)
-
-            }
-
-            Fetches.MakeItem(addToItem).then(r => {
-
-                if (!(r instanceof Error) && selectedNomenclatureGroup.callReBoot) {
-                    navigate(RouterPath.NOMENCLATURE)
-                    selectedNomenclatureGroup.callReBoot()
+            let conf: boolean = window.confirm(`Добавить ${newGroup.name} в ${selectedNomenclatureGroup.name}?`)
+            if (conf) {
+                let addToItem: AddToItem = {
+                    adding_item: newGroup,
+                    to_add_item: Tools.unRefCatalogItem(selectedNomenclatureGroup)
 
                 }
-            })
+
+                Fetches.MakeItem(addToItem).then(r => {
+
+                    if (!(r instanceof Error) && selectedNomenclatureGroup.callReBoot) {
+                        navigate(RouterPath.NOMENCLATURE)
+                        selectedNomenclatureGroup.callReBoot()
+
+                    }
+                })
+            }
         }
 
     }

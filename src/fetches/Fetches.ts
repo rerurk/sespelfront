@@ -3,7 +3,7 @@ import axios from "axios";
 import {ReqErrors, Requests} from "./Requests";
 import {ItemTypes} from "../structs/ItemTypes";
 import {ErrorsText} from "../texts/Texts";
-import {AddToItem, ExtendedItem, Item, RenameItem, TransferItem} from "../structs/App";
+import {AddToItem, ExtendedItem, Item, RenameItem, StrSend, TransferItem} from "../structs/App";
 import {TAsset, TMakeNewAsset} from "../structs/Asset";
 
 
@@ -178,6 +178,23 @@ export class Fetches {
 
 
             const res = await axios.get<TAsset[]>(Requests.GET_NOT_ACCEPTED_ASSETS)
+            if (res.status !== 200) {
+                alert(res.data)
+                return Error(ErrorsText.ERROR_SEND_DATA)
+            }
+            return res.data
+        }
+        catch (e) {
+            alert("Ошибка")
+            return Error("Ошибка")
+        }
+    }
+
+    public static async GetAssetByUUID (strSend:StrSend):Promise<TAsset|Error>{
+        try {
+
+
+            const res = await axios.post<TAsset>(Requests.GET_ASSET_BY_UUID,strSend)
             if (res.status !== 200) {
                 alert(res.data)
                 return Error(ErrorsText.ERROR_SEND_DATA)

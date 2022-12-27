@@ -14,6 +14,7 @@ const AssetQRCode: FC<AssetQRCodeProps> = ({asset}) => {
 
     return (
         <div className={cl.wrapper}>
+
             <span className={cl.wrapper_assetName}>{asset.nomenclature.name}</span>
             <div className={cl.wrapper_qrcode}>
                 <QRCode value={asset.asset.uuid} style={{height: "auto", maxWidth: "100%", width: "100%"}}/>

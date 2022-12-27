@@ -2,17 +2,19 @@
     margin: 0;
     padding: 0;
     width: 8rem;
-    height: 8rem;
+    height: 10rem;
     background: white;
     display: flex;
     flex-direction: column;
     justify-content:space-around;
     align-items: center;
+    border: solid 1px black;
+    float: left;
 
 }
 .wrapper_qrcode{
-    width: 70%;
-    height: 70%;
+    width: 7rem;
+    height: 7rem;
 
 
 }

@@ -27,3 +27,15 @@ body {
     justify-content: space-around;
 
 }
+
+@media print {
+    #qrCodePrint {
+        -webkit-print-color-adjust: exact;
+        position: fixed;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: white;
+        color:black;
+    }
+}

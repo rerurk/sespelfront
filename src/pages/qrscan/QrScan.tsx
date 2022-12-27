@@ -6,6 +6,9 @@ import React, {FC, useEffect, useState} from 'react';
 import cl from './QrScan.module.css'
 
 import {useDispatch} from "react-redux";
+import {Fetches} from "../../fetches/Fetches";
+import {StrSend} from "../../structs/App";
+import {TAsset} from "../../structs/Asset";
 
 
 
@@ -16,7 +19,7 @@ let wmin: number = 200
 const QrScan: FC = () => {
     const [qrRes, setQrRes] = useState<string | null>(null)
     const [camSize, setCamSize] = useState<number>(200)
-    const dispatch = useDispatch()
+
     useEffect(() => {
         wmin = Math.min(window.innerHeight, window.innerWidth)
         setCamSize(wmin * 0.9)
@@ -32,6 +35,16 @@ const QrScan: FC = () => {
         if (data) {
             setQrRes(data)
             console.log(data)
+            let strSend:StrSend={
+                str:data
+            }
+            Fetches.GetAssetByUUID(strSend).then(r=>{
+                if(!(r instanceof Error)){
+                    let as:TAsset=r
+                    console.log("Намиенование:",as.nomenclature.name)
+                    console.log("Склад:",as.store.name)
+                }
+            })
 
 
         }

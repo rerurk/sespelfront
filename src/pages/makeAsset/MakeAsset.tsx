@@ -8,8 +8,11 @@ import StoreGroupItem from "../../components/stores/storeGroupItem/StoreGroupIte
 import {TAsset, TMakeNewAsset} from "../../structs/Asset";
 import {Tools} from "../../tools/Tools";
 import {Fetches} from "../../fetches/Fetches";
-import QRCode from "react-qr-code";
+
 import AssetQRCode from "../../components/assetQRCodeView/AssetQRCode";
+import {useNavigate} from "react-router-dom";
+import {RouterPath} from "../../router";
+import {SetAssetsForPrint} from "../printQrCodes/PrintQrCodes";
 
 let newAsset: TMakeNewAsset = {
     asset_nomenclature_item: null,
@@ -19,17 +22,23 @@ let newAsset: TMakeNewAsset = {
 
 
 const MakeAsset: FC = () => {
+
+    const navigate = useNavigate();
     const {storeGroupRoot, nomenclatureRoot, selectedStore, selectedNomenclatureItem} = useTypeSelector(state => state.appReducer)
     const [newMakedAssets, setNewMakedAssets] = useState<TAsset[]>([])
-    useEffect(()=>{
-        Fetches.GetNotAcceptedAssets().then(r=> {
-          if(!(r instanceof Error)){
-              setNewMakedAssets(r)
-          }
+    useEffect(() => {
+        Fetches.GetNotAcceptedAssets().then(r => {
+            if (!(r instanceof Error)) {
+                setNewMakedAssets(r)
+            }
         })
 
-    },[])
+    }, [])
+    const onPrintClick = () => {
 
+        SetAssetsForPrint(newMakedAssets)
+        navigate(RouterPath.PRINT_QR_CODES)
+    }
     const onMakeClick = () => {
         if (selectedStore && selectedNomenclatureItem) {
             let conf = window.confirm(` Содать ТМЦ ${selectedNomenclatureItem.name} в ${selectedStore.name}?`)
@@ -67,11 +76,18 @@ const MakeAsset: FC = () => {
                 </div>
 
                 <div className={cl.wrapper_newAssets}>
+                    <button style={{
+                        position: "absolute",
+                        left: "0"
+                    }}
+                            onClick={onPrintClick}
+                    >печать
+                    </button>
                     {
                         newMakedAssets
                             ? newMakedAssets.map((a: TAsset) =>
-                                <div key={"QRCode_"+a.asset.uuid}>
-                                  <AssetQRCode asset={a}/>
+                                <div key={"QRCode_" + a.asset.uuid} className={cl.wrapper_newAssets_qrCode}>
+                                    <AssetQRCode asset={a}/>
                                 </div>
                             )
                             : false

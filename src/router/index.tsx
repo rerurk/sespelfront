@@ -11,6 +11,7 @@ import ModifyNomenclatureGroup from "../pages/modifyNomenclatureGroup/ModifyNome
 import CreateStoreGrope from "../pages/createStoreGrope/CreateStoreGrope";
 import CreateAssetsStore from "../pages/createAssetsStore/CreateAssetsStore";
 import ModifyStoreGrope from "../pages/modifyStoreGrope/ModifyStoreGrope";
+import PrintQrCodes from "../pages/printQrCodes/PrintQrCodes";
 
 export type RouteNode = {
     isHide: boolean
@@ -42,9 +43,10 @@ export enum RouterPath {
     MAKE_NOMENCLATURE_GROUP = "/MAKE_NOMENCLATURE_GROUP",
     MAKE_NOMENCLATURE_ITEM = "/MAKE_NOMENCLATURE_ITEM",
     MODIFY_NOMENCLATURE_GROUP = "/MODIFY_NOMENCLATURE_GROUP",
-    MODIFY_STORE_GROPE="/MODIFY_STORE_GROPE",
+    MODIFY_STORE_GROPE = "/MODIFY_STORE_GROPE",
     CREATE_STORE_GROPE = "/CREATE_STORE_GROPE",
-    CREATE_ASSETS_STORE="/CREATE_ASSETS_STORE"
+    CREATE_ASSETS_STORE = "/CREATE_ASSETS_STORE",
+    PRINT_QR_CODES = '/PRINT_QR_CODES'
 }
 
 export const privateRoutes = []
@@ -127,6 +129,13 @@ export const publicRoutes: RouteNode[] = [
         path: RouterPath.CREATE_ASSETS_STORE,
         name: "",
         element: <CreateAssetsStore/>
+    },
+    {
+        isHide: true,
+        exact: false,
+        path: RouterPath.PRINT_QR_CODES,
+        name: "",
+        element: <PrintQrCodes/>
     },
 
 

@@ -1,4 +1,4 @@
-const domen = "http://192.168.1.95:8080"
+const domen = "http://192.168.1.103:8080"
 //const domen = ""
 type RequestT = {
     MAKE_ITEM: string,
@@ -11,6 +11,7 @@ type RequestT = {
     GET_ITEMS: string
     MAKE_ASSET: string
     GET_NOT_ACCEPTED_ASSETS: string
+    GET_ASSET_BY_UUID: string
 }
 
 enum req {
@@ -22,9 +23,10 @@ enum req {
     GET_NOMENCLATURE_ROOT = "/get_nomenclature_root",
     GET_STORE_GROUP_ROOT = "/get_store_group_root",
     GET_ITEMS = "/get_items",
-
+    //???
     MAKE_ASSET = "/make_asset",
-    GET_NOT_ACCEPTED_ASSETS = "/get_not_accepted_assets"
+    GET_NOT_ACCEPTED_ASSETS = "/get_not_accepted_assets",
+    GET_ASSET_BY_UUID = "/get_asset_by_uuid"
 }
 
 export const Requests: RequestT = {
@@ -38,7 +40,8 @@ export const Requests: RequestT = {
     GET_ITEMS: domen + req.GET_ITEMS,
 
     MAKE_ASSET: domen + req.MAKE_ASSET,
-    GET_NOT_ACCEPTED_ASSETS:domen+req.GET_NOT_ACCEPTED_ASSETS
+    GET_NOT_ACCEPTED_ASSETS: domen + req.GET_NOT_ACCEPTED_ASSETS,
+    GET_ASSET_BY_UUID: domen+req.GET_ASSET_BY_UUID
 }
 
 

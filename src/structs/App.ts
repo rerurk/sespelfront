@@ -37,6 +37,10 @@ export type RenameItem={
 
 }
 
+export type StrSend = {
+    str:string
+}
+
 export type RemoveItem ={
     remove_from_item:Item,
     removed_item:Item

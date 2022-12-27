@@ -21,7 +21,7 @@
 }
 
 .wrapper_fields > input {
-    min-width: 20rem;
+    min-width: 50rem;
 }
 .wrapper_bts {
     position: relative;
