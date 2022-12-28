@@ -43,7 +43,7 @@ const QrScan: FC = () => {
             let strSend:StrSend={
                 str:data
             }
-            Fetches.GetAssetByUUID(strSend).then(r=>{
+            Fetches.GetAssetBySTRUUID(strSend).then(r=>{
                 let as:TAsset|Error=r
                 if(!(as instanceof Error )&&as.asset.id>0){
                         // @ts-ignore

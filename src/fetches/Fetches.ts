@@ -190,7 +190,7 @@ export class Fetches {
         }
     }
 
-    public static async GetAssetByUUID (strSend:StrSend):Promise<TAsset|Error>{
+    public static async GetAssetBySTRUUID (strSend:StrSend):Promise<TAsset|Error>{
         try {
 
 

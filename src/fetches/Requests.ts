@@ -1,4 +1,4 @@
-const domen = "http://192.168.1.95:8080"
+const domen = "https://192.168.1.95:443"
 //const domen = ""
 type RequestT = {
     MAKE_ITEM: string,

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 // @ts-ignore
 import cl from "./QrScanResult.module.css"
 import {useTypeSelector} from "../../hooks/useTypeSelector";
@@ -10,13 +10,20 @@ import StoreGroupItem from "../../components/stores/storeGroupItem/StoreGroupIte
 import {Fetches} from "../../fetches/Fetches";
 import {TransferItem} from "../../structs/App";
 import {Tools} from "../../tools/Tools";
+import {TAsset} from "../../structs/Asset";
 
 const QrScanResult = () => {
     const {selectedAsset, storeGroupRoot, selectedStore} = useTypeSelector(state => state.appReducer)
+    useEffect(() => {
+        if (selectedStore?.uuid === selectedAsset?.store.uuid&&isShowStores) {
+            alert(`"${selectedAsset?.nomenclature.name}" уже на складе ` + `"${selectedStore?.name}".`)
+        }
+    }, [selectedStore])
     const navigate = useNavigate();
     const dispatch = useDispatch()
 
     const [isShowStores, setIsShowStores] = useState<boolean>(false)
+
 
     const onBtScanClick = () => {
         // @ts-ignore
@@ -34,9 +41,21 @@ const QrScanResult = () => {
                 from: selectedAsset.store,
                 to: Tools.unRefCatalogItem(selectedStore)
             }
-            Fetches.TransferItem(transfer).then(r => console.log(r))
+            Fetches.TransferItem(transfer).then(r => {
+                if (!(r instanceof Error)) {
+                    Fetches.GetAssetBySTRUUID({str: selectedAsset.asset.uuid}).then(r => {
+                        let as: TAsset | Error = r
+                        if (!(as instanceof Error)) {
+                            // @ts-ignore
+                            dispatch(SetSelectedAssetState(as))
+                        }
+                    })
+
+                }
+            })
         }
     }
+
 
     if (selectedAsset && storeGroupRoot) {
         return (
