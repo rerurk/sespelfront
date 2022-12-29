@@ -25,6 +25,7 @@ const MakeAsset: FC = () => {
 
     const navigate = useNavigate();
     const {storeGroupRoot, nomenclatureRoot, selectedStore, selectedNomenclatureItem} = useTypeSelector(state => state.appReducer)
+
     const [newMakedAssets, setNewMakedAssets] = useState<TAsset[]>([])
     useEffect(() => {
         Fetches.GetNotAcceptedAssets().then(r => {
