@@ -6,22 +6,23 @@ import {DefSrc} from "../../texts/Texts";
 
 
 export type NewImageFile = {
-    fileName: string
-    fileBytes: Array<any>
+    file_extension: string
+    file_bytes: Array<any>
 
 }
 
 let fileReader: FileReader = new FileReader()
 
-export function GetImage(): NewImageFile | undefined {
-        return gettingImage
+export function GetImage(): NewImageFile | null {
+       if (gettingImage.file_bytes.length>0&&gettingImage.file_extension.length>0){
+           return gettingImage
+       }
+        return null
 }
 let gettingImage: NewImageFile={
-    fileBytes:[],
-    fileName:""
+    file_bytes:[],
+    file_extension:""
 }
-
-
 
 const ImageRedactor: FC = () => {
     const [img,setImg]=useState<string>(DefSrc.ADD_IMAGE)
@@ -29,8 +30,8 @@ const ImageRedactor: FC = () => {
         let blobURL: string = URL.createObjectURL(file)
         setImg(()=>blobURL)
 
-        gettingImage.fileName = getFileNameFromBlobURL(blobURL) + "." + getFileExtension(file.name)
-        gettingImage.fileBytes=getArrBytesFromFile(file)
+        gettingImage.file_extension =getFileExtension(file.name)
+        gettingImage.file_bytes=getArrBytesFromFile(file)
 
 
 

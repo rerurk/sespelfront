@@ -3,7 +3,16 @@ import axios from "axios";
 import {ReqErrors, Requests} from "./Requests";
 import {ItemTypes} from "../structs/ItemTypes";
 import {ErrorsText} from "../texts/Texts";
-import {AddToItem, ExtendedItem, Item, RenameItem, StrSend, TransferItem} from "../structs/App";
+import {
+    AddNomenclatureItem,
+    AddToItem,
+    ExtendedItem,
+    Item,
+    RenameItem,
+    RenameNomenclatureItem,
+    StrSend,
+    TransferItem
+} from "../structs/App";
 import {TAsset, TMakeNewAsset} from "../structs/Asset";
 
 
@@ -202,6 +211,36 @@ export class Fetches {
             return res.data
         }
         catch (e) {
+            alert("Ошибка")
+            return Error("Ошибка")
+        }
+    }
+
+    public static async MakeNomenclatureItem(item: AddNomenclatureItem): Promise<any | Error> {
+        try {
+            const res = await axios.post(Requests.MAKE_NOMENCLATURE_ITEM, item)
+            if (res.status !== 200) {
+                alert(res.data)
+                return Error(ErrorsText.ERROR_SEND_DATA)
+            }
+            return res
+        } catch (e) {
+            return Error("ошибка")
+        }
+
+    }
+
+    public static async ModifyNomenclatureItem(renameItem: RenameNomenclatureItem): Promise<any | Error> {
+
+        try {
+            const res = await axios.post<RenameItem>(Requests.MODIFY_NOMENCLATURE_ITEM, renameItem)
+            if (res.status !== 200) {
+                alert(res.data)
+                return Error(ErrorsText.ERROR_SEND_DATA)
+            }
+            return res
+
+        } catch (e) {
             alert("Ошибка")
             return Error("Ошибка")
         }

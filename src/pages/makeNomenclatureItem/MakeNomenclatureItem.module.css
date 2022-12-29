@@ -18,10 +18,12 @@
     align-items: flex-start;
     justify-content: space-evenly;
     height: 5rem;
+    width: 20rem;
+    border: solid 1px red;
 }
 
 .wrapper_fields > input {
-    min-width: 50rem;
+    width: 100%
 }
 .wrapper_bts {
     position: relative;

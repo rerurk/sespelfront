@@ -11,6 +11,7 @@ import {Fetches} from "../../fetches/Fetches";
 import {TransferItem} from "../../structs/App";
 import {Tools} from "../../tools/Tools";
 import {TAsset} from "../../structs/Asset";
+import {Domen} from "../../fetches/Requests";
 
 const QrScanResult = () => {
     const {selectedAsset, storeGroupRoot, selectedStore} = useTypeSelector(state => state.appReducer)
@@ -68,7 +69,7 @@ const QrScanResult = () => {
                     <span>Наименование: {selectedAsset.nomenclature.name}</span>
                     <span>Место Хранение: {selectedAsset.store.name}</span>
                     <span>QrCode: {selectedAsset.asset.uuid}</span>
-
+                    <img src={Domen+"/images/items_img/"+selectedAsset.nomenclature.uuid+".jpg"}/>
                 </div>
                 {
                     isShowStores

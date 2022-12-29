@@ -8,8 +8,9 @@ import {Tools} from "../../tools/Tools";
 import {Fetches} from "../../fetches/Fetches";
 // @ts-ignore
 import cl from "./MakeNomenclatureItem.module.css"
-import {AddToItem, Item} from "../../structs/App";
-let newGroup:Item ={
+import {AddNomenclatureItem, AddToItem, Item} from "../../structs/App";
+import ImageRedactor, {GetImage} from "../../components/imageRedactor/ImageRedactor";
+let newItem:Item ={
     id: -1,
     type: 0,
     name: "",
@@ -18,7 +19,7 @@ let newGroup:Item ={
 
 }
 const MakeNomenclatureItem: FC = () => {
-    newGroup={
+    newItem={
         id: -1,
         type: AppItemTYPES.NOMENCLATURE_ITEM_TYPE|AppItemTYPES.NOMENCLATURE_TYPE,
         name: "",
@@ -29,17 +30,21 @@ const MakeNomenclatureItem: FC = () => {
     const navigate = useNavigate();
     const {selectedNomenclatureGroup} = useTypeSelector(state => state.appReducer)
     const onBtSaveClick=()=>{
+        console.log(GetImage())
 
         if(selectedNomenclatureGroup) {
-            let conf: boolean = window.confirm(`Добавить ${newGroup.name} в ${selectedNomenclatureGroup.name}?`)
+            let conf: boolean = window.confirm(`Добавить ${newItem.name} в ${selectedNomenclatureGroup.name}?`)
+            if (conf)
             {
-                let addToItem: AddToItem = {
-                    adding_item: newGroup,
-                    to_add_item: Tools.unRefCatalogItem(selectedNomenclatureGroup)
+                let addToItem: AddNomenclatureItem = {
+                    adding_item: newItem,
+                    to_add_item: Tools.unRefCatalogItem(selectedNomenclatureGroup),
+                    item_img:GetImage()
+
 
                 }
-
-                Fetches.MakeItem(addToItem).then(r => {
+               console.log(addToItem)
+                Fetches.MakeNomenclatureItem(addToItem).then(r => {
 
                     if (!(r instanceof Error) && selectedNomenclatureGroup.callReBoot) {
                         navigate(RouterPath.NOMENCLATURE)
@@ -52,12 +57,12 @@ const MakeNomenclatureItem: FC = () => {
 
     }
     const onInputChange=(e:React.ChangeEvent<HTMLInputElement>)=>{
-        newGroup.name=e.target.value
+        newItem.name=e.target.value
 
     }
     return (
         <div className={cl.wrapper}>
-            <div>
+            <div className={cl.wrapper_fields}>
                 <label>Называние: </label>
                 <input defaultValue={""} key={"MakeNomenclatureITEM_input"} onInput={onInputChange}/>
             </div>
@@ -65,6 +70,7 @@ const MakeNomenclatureItem: FC = () => {
                 <button onClick={() => navigate(RouterPath.NOMENCLATURE)}>ОТМЕНА</button>
                 <button onClick={onBtSaveClick}>СОХРАНИТЬ</button>
             </div>
+            <ImageRedactor/>
         </div>
     );
 };

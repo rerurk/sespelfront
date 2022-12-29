@@ -1,12 +1,15 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 // @ts-ignore
 import cl from "./ModifyNomenclatureGroup.module.css"
 import {RouterPath} from "../../router";
 import {useNavigate} from "react-router-dom";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 import {Fetches} from "../../fetches/Fetches";
-import {ExtendedItem, Item, RenameItem} from "../../structs/App";
+import {ExtendedItem, Item, RenameItem, RenameNomenclatureItem} from "../../structs/App";
 import {Tools} from "../../tools/Tools";
+import {AppItemTYPES} from "../../App";
+import {Domen} from "../../fetches/Requests";
+import ImageRedactor, {GetImage} from "../../components/imageRedactor/ImageRedactor";
 
 
 let newItem: Item = {
@@ -19,30 +22,46 @@ let newItem: Item = {
 const ModifyNomenclatureGroup: FC = () => {
     const navigate = useNavigate();
     const {selectedNomenclatureGroup, selectedNomenclatureItem} = useTypeSelector(state => state.appReducer)
-
     const [modifyItem, setModifyItem] = useState<ExtendedItem | null>(selectedNomenclatureItem ? selectedNomenclatureItem : selectedNomenclatureGroup)
+    const [showIMG, setShowIMG] = useState<boolean>(false)
+    useEffect(() => {
+        if (selectedNomenclatureItem && (selectedNomenclatureItem.type & AppItemTYPES.NOMENCLATURE_ITEM_TYPE_HAS_IMG) === AppItemTYPES.NOMENCLATURE_ITEM_TYPE_HAS_IMG) {
+            setShowIMG(() => true)
+        }
+
+    })
 
 
     const onSaveClick = () => {
         if (modifyItem) {
-
-            let renameItem: RenameItem = {
-                new_item: newItem,
-                renamed_item: Tools.unRefCatalogItem(modifyItem)
+            if(!GetImage()) {
+                let renameItem: RenameItem = {
+                    new_item: newItem,
+                    renamed_item: Tools.unRefCatalogItem(modifyItem)
+                }
+                Fetches.ModifyItem(renameItem).then(r => {
+                    navigate(RouterPath.NOMENCLATURE)
+                })
             }
+            if(GetImage()){
 
-            Fetches.ModifyItem(renameItem).then(r => {
+                let  renameItem:RenameNomenclatureItem={
+                    new_item: newItem,
+                    renamed_item: Tools.unRefCatalogItem(modifyItem),
+                    new_img:GetImage()
+                }
+                console.log(renameItem)
+                Fetches.ModifyNomenclatureItem(renameItem).then(r=>{  navigate(RouterPath.NOMENCLATURE)})
+            }
+        }
+    }
+    const onRemoveClick = () => {
+        if (modifyItem) {
+            Fetches.RemoveItem(Tools.unRefCatalogItem(modifyItem)).then(r => {
                 navigate(RouterPath.NOMENCLATURE)
             })
         }
     }
-    const onRemoveClick=()=>{
-        if (modifyItem){
-            Fetches.RemoveItem(Tools.unRefCatalogItem(modifyItem)).then(r=>{
-                navigate(RouterPath.NOMENCLATURE)
-            })
-        }
-        }
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         newItem.name = e.target.value
 
@@ -61,6 +80,10 @@ const ModifyNomenclatureGroup: FC = () => {
                     <button onClick={onSaveClick}>СОХРАНИТЬ</button>
                     <button onClick={onRemoveClick}>удалить</button>
                 </div>
+                {showIMG
+                    ?<img src={Domen+"/images/items_img/"+selectedNomenclatureItem?.uuid+".jpg"}/>
+                    :<ImageRedactor/>
+                }
             </div>
         );
     }

@@ -4,6 +4,7 @@ import {Item} from "./App";
 export type TMakeNewAsset = {
     asset_nomenclature_item: Item|null
     asset_store:Item|null
+
 }
 
 export type TAsset = {

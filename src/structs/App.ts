@@ -1,3 +1,5 @@
+import {NewImageFile} from "../components/imageRedactor/ImageRedactor";
+
 export type GuiTextTitle = {
     text: string,
     title: string
@@ -11,18 +13,18 @@ export type Item = {
     owner_uuid: string | null
 }
 
-export interface ExtendedItem extends Item{
+export interface ExtendedItem extends Item {
     id: number
     name: string
-    type:number
+    type: number
     uuid: string
-    owner_uuid:string|null
+    owner_uuid: string | null
 
-    ownerItem:ExtendedItem|null
-    items: ExtendedItem[]|null
-    callReBoot?:Function
-    callShow?:Function
-    isOpen?:boolean
+    ownerItem: ExtendedItem | null
+    items: ExtendedItem[] | null
+    callReBoot?: Function
+    callShow?: Function
+    isOpen?: boolean
 }
 
 export type  TransferItem = {
@@ -31,22 +33,37 @@ export type  TransferItem = {
     item: Item
 }
 
-export type RenameItem={
-    new_item:Item
-    renamed_item:Item,
+export type RenameItem = {
+    new_item: Item
+    renamed_item: Item,
+
+
+}
+
+export type RenameNomenclatureItem = {
+    new_item: Item
+    renamed_item: Item,
+    new_img:NewImageFile|null
+
 
 }
 
 export type StrSend = {
-    str:string
+    str: string
 }
 
-export type RemoveItem ={
-    remove_from_item:Item,
-    removed_item:Item
+export type RemoveItem = {
+    remove_from_item: Item,
+    removed_item: Item
 }
 
 export type AddToItem = {
     adding_item: Item,
     to_add_item: Item
+}
+
+export type AddNomenclatureItem  = {
+    adding_item: Item,
+    to_add_item: Item,
+    item_img:NewImageFile|null
 }
