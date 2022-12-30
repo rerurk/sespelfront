@@ -23,6 +23,7 @@
 .wrapper_fields > input {
     min-width: 20rem;
 }
+
 .wrapper_bts {
     position: relative;
     display: flex;
@@ -32,6 +33,12 @@
 
     margin: 1rem;
     width: 10rem;
+}
 
+.wrapper_img {
+    width: 6rem;
+    height: 6rem;
+}
+.wrapper_img>input{
 
 }

@@ -34,6 +34,7 @@ const ModifyNomenclatureGroup: FC = () => {
 
     const onSaveClick = () => {
         if (modifyItem) {
+            newItem.name=newItem.name.length<1?modifyItem.name:newItem.name
             if(!GetImage()) {
                 let renameItem: RenameItem = {
                     new_item: newItem,
@@ -50,7 +51,7 @@ const ModifyNomenclatureGroup: FC = () => {
                     renamed_item: Tools.unRefCatalogItem(modifyItem),
                     new_img:GetImage()
                 }
-                console.log(renameItem)
+
                 Fetches.ModifyNomenclatureItem(renameItem).then(r=>{  navigate(RouterPath.NOMENCLATURE)})
             }
         }
@@ -80,10 +81,11 @@ const ModifyNomenclatureGroup: FC = () => {
                     <button onClick={onSaveClick}>СОХРАНИТЬ</button>
                     <button onClick={onRemoveClick}>удалить</button>
                 </div>
-                {showIMG
-                    ?<img src={Domen+"/images/items_img/"+selectedNomenclatureItem?.uuid+".jpg"}/>
-                    :<ImageRedactor/>
-                }
+                  <div className={cl.wrapper_img}>
+                    <img src={Domen+"/images/items_img/"+selectedNomenclatureItem?.uuid+".jpg"} alt={""}/>
+                    <ImageRedactor/>
+                    </div>
+
             </div>
         );
     }

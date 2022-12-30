@@ -12,11 +12,12 @@ import {TransferItem} from "../../structs/App";
 import {Tools} from "../../tools/Tools";
 import {TAsset} from "../../structs/Asset";
 import {Domen} from "../../fetches/Requests";
+import AssetTransferHistory from "../../components/assetTransferHistory/AssetTransferHistory";
 
 const QrScanResult = () => {
     const {selectedAsset, storeGroupRoot, selectedStore} = useTypeSelector(state => state.appReducer)
     useEffect(() => {
-        if (selectedStore?.uuid === selectedAsset?.store.uuid&&isShowStores) {
+        if (selectedStore?.uuid === selectedAsset?.store.uuid && isShowStores) {
             alert(`"${selectedAsset?.nomenclature.name}" уже на складе ` + `"${selectedStore?.name}".`)
         }
     }, [selectedStore])
@@ -24,6 +25,8 @@ const QrScanResult = () => {
     const dispatch = useDispatch()
 
     const [isShowStores, setIsShowStores] = useState<boolean>(false)
+    const [isShowTransferHistory, setIsShowTransferHistory] = useState<boolean>(false)
+
 
 
     const onBtScanClick = () => {
@@ -49,6 +52,7 @@ const QrScanResult = () => {
                         if (!(as instanceof Error)) {
                             // @ts-ignore
                             dispatch(SetSelectedAssetState(as))
+                            setIsShowStores(()=>false)
                         }
                     })
 
@@ -56,6 +60,10 @@ const QrScanResult = () => {
             })
         }
     }
+    const onBtShowTransferHistoryClick=()=>{
+        setIsShowTransferHistory(()=>!isShowTransferHistory)
+    }
+
 
 
     if (selectedAsset && storeGroupRoot) {
@@ -64,12 +72,7 @@ const QrScanResult = () => {
                 <div className={cl.wrapper_tools}>
                     <button onClick={() => onBtScanClick()}>Сканировать</button>
                     <button onClick={() => onBtMakeTransferClick()}>переместить</button>
-                </div>
-                <div className={cl.wrapper_scan_res}>
-                    <span>Наименование: {selectedAsset.nomenclature.name}</span>
-                    <span>Место Хранение: {selectedAsset.store.name}</span>
-                    <span>QrCode: {selectedAsset.asset.uuid}</span>
-                    <img src={Domen+"/images/items_img/"+selectedAsset.nomenclature.uuid+".jpg"}/>
+                    <button onClick={()=>onBtShowTransferHistoryClick()}>история перемещений</button>
                 </div>
                 {
                     isShowStores
@@ -80,6 +83,30 @@ const QrScanResult = () => {
                         </div>
                         : false
                 }
+                {isShowTransferHistory
+                    ?<AssetTransferHistory onClickBack={onBtShowTransferHistoryClick}/>
+                    :false
+                }
+                <div className={cl.wrapper_scan_res}>
+
+                    <div className={cl.wrapper_scan_res_field}>
+                        <div className={cl.wrapper_scan_res_field_name}><span> Наименование</span></div>
+                        <div className={cl.wrapper_scan_res_field_value}>{selectedAsset.nomenclature.name}</div>
+                    </div>
+                    <div className={cl.wrapper_scan_res_field}>
+                        <div className={cl.wrapper_scan_res_field_name}><span> Место Хранение</span></div>
+                        <div className={cl.wrapper_scan_res_field_value}>{selectedAsset.store.name}</div>
+                    </div>
+                    <div className={cl.wrapper_scan_res_field}>
+                        <div className={cl.wrapper_scan_res_field_name}><span> Индефикатор</span></div>
+                        <div className={cl.wrapper_scan_res_field_value}>{selectedAsset.asset.uuid}</div>
+                    </div>
+
+                    <div className={cl.wrapper_scan_res_field_img}>
+                        <img src={Domen + "/images/items_img/" + selectedAsset.nomenclature.uuid + ".jpg"}/>
+                    </div>
+                </div>
+
 
             </div>
         );

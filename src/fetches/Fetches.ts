@@ -246,6 +246,23 @@ export class Fetches {
         }
     }
 
+    public static async GetAssetTransferHistory (uuid:StrSend):Promise<TAsset|Error>{
+        try {
+
+
+            const res = await axios.post<TAsset>(Requests.GET_ASSET_TRANSFER_HISTORY,uuid)
+            if (res.status !== 200) {
+                alert(res.data)
+                return Error(ErrorsText.ERROR_SEND_DATA)
+            }
+            return res.data
+        }
+        catch (e) {
+            alert("Ошибка")
+            return Error("Ошибка")
+        }
+    }
+
 
 
 

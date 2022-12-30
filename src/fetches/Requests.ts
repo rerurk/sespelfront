@@ -1,4 +1,4 @@
-export const Domen = "http://192.168.1.95:8080"
+export const Domen = "http://192.168.1.103:8080"
 //const Domen = ""
 type RequestT = {
     MAKE_ITEM: string,
@@ -14,6 +14,7 @@ type RequestT = {
     GET_ASSET_BY_UUID: string
     MAKE_NOMENCLATURE_ITEM: string
     MODIFY_NOMENCLATURE_ITEM: string,
+    GET_ASSET_TRANSFER_HISTORY: string
 }
 
 enum req {
@@ -31,7 +32,8 @@ enum req {
     GET_ASSET_BY_UUID = "/get_asset_by_uuid",
     //это отдельно потомучто может нужна будет картинка
     MAKE_NOMENCLATURE_ITEM = "/make_nomenclature_item",
-    MODIFY_NOMENCLATURE_ITEM = "/modify_nomenclature_item"
+    MODIFY_NOMENCLATURE_ITEM = "/modify_nomenclature_item",
+    GET_ASSET_TRANSFER_HISTORY = "/get_asset_transfer_history"
 }
 
 export const Requests: RequestT = {
@@ -48,7 +50,8 @@ export const Requests: RequestT = {
     GET_NOT_ACCEPTED_ASSETS: Domen + req.GET_NOT_ACCEPTED_ASSETS,
     GET_ASSET_BY_UUID: Domen + req.GET_ASSET_BY_UUID,
     MAKE_NOMENCLATURE_ITEM: Domen + req.MAKE_NOMENCLATURE_ITEM,
-    MODIFY_NOMENCLATURE_ITEM:Domen+req.MODIFY_NOMENCLATURE_ITEM
+    MODIFY_NOMENCLATURE_ITEM: Domen + req.MODIFY_NOMENCLATURE_ITEM,
+    GET_ASSET_TRANSFER_HISTORY:Domen+req.GET_ASSET_TRANSFER_HISTORY
 }
 
 

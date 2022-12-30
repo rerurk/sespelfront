@@ -29,8 +29,8 @@ const ImageRedactor: FC = () => {
     function addToNewImages(file: File) {
         let blobURL: string = URL.createObjectURL(file)
         setImg(()=>blobURL)
-
-        gettingImage.file_extension =getFileExtension(file.name)
+        gettingImage.file_extension ='jpg'
+       // gettingImage.file_extension =getFileExtension(file.name)
         gettingImage.file_bytes=getArrBytesFromFile(file)
 
 
