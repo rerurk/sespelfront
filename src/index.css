@@ -1,41 +1,78 @@
-body {
-    font-family: "Arial";
-    background: gray;
-    width: 100vw;
-    height: 100vh;
-    user-select: none;
-    box-sizing: content-box;
-    padding: 0;
-    margin: 0;
-}
 
+@media (orientation: portrait){
+    body {
+        font-family: "Arial";
+        background: gray;
+        width: 100vw;
+        height: 100vh;
+        user-select: none;
+        box-sizing: content-box;
+        padding: 0;
+        margin: 0;
+        font-size: 3vw;
+    }
 
-
-#root {
-    background: grey;
-    position: fixed;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-}
-
-#header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-
-}
-
-@media print {
-    #qrCodePrint {
-        -webkit-print-color-adjust: exact;
+    #root {
+        background: grey;
         position: fixed;
         left: 0;
-        height: 100%;
+        right: 0;
         width: 100%;
-        background: white;
-        color:black;
+        height: 100%;
+    }
+
+    #header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+
+    }
+    button{
+        font-size: 3vw;
+    }
+
+}
+
+@media (orientation: landscape) {
+    body {
+        font-family: "Arial";
+        background: gray;
+        width: 100vw;
+        height: 100vh;
+        user-select: none;
+        box-sizing: content-box;
+        padding: 0;
+        margin: 0;
+    }
+
+
+    #root {
+        background: grey;
+        position: fixed;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    #header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+
+    }
+
+    @media print {
+        #qrCodePrint {
+            -webkit-print-color-adjust: exact;
+            position: fixed;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: white;
+            color: black;
+        }
     }
 }

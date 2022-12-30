@@ -51,7 +51,7 @@ export class Tools {
 
     }
 
-    public static SaveFrontSize(n: number) {
+/*    public static SaveFrontSize(n: number) {
         localStorage.setItem("fontSize", String(n))
     }
 
@@ -63,7 +63,7 @@ export class Tools {
         }
         return null
 
-    }
+    }*/
 
     public static isItemsIdentical(items1:Item[]|null,items2:Item[]|null):boolean{
         if(items2!=null&&items1!=null) {

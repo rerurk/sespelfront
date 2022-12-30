@@ -13,7 +13,7 @@ import {
     StrSend,
     TransferItem
 } from "../structs/App";
-import {TAsset, TMakeNewAsset} from "../structs/Asset";
+import {AssetHistory, TAsset, TMakeNewAsset} from "../structs/Asset";
 
 
 export type FetchesResult = [
@@ -246,11 +246,11 @@ export class Fetches {
         }
     }
 
-    public static async GetAssetTransferHistory (uuid:StrSend):Promise<TAsset|Error>{
+    public static async GetAssetTransferHistory (uuid:StrSend):Promise<AssetHistory[]|Error>{
         try {
 
 
-            const res = await axios.post<TAsset>(Requests.GET_ASSET_TRANSFER_HISTORY,uuid)
+            const res = await axios.post<AssetHistory[]>(Requests.GET_ASSET_TRANSFER_HISTORY,uuid)
             if (res.status !== 200) {
                 alert(res.data)
                 return Error(ErrorsText.ERROR_SEND_DATA)

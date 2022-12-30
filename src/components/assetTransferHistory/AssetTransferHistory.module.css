@@ -2,8 +2,47 @@
     position: fixed;
     width: 100%;
     height: 100%;
-    background: #55ff55;
+    background: lightgrey;
 }
 .wrapper_bts{
+
+}
+.wrapper_history{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.wrapper_history_field {
+    width: 100%;
+    border: solid 1px grey;
+    display: flex;
+    flex-direction: row;
+
+
+}
+
+.wrapper_history_field_store_name {
+
+    border-right: solid 1px grey;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    height: 3rem;
+    width: 30%;
+    background: white;
+    padding-left: 1rem;
+}
+
+.wrapper_history_field_time {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    height: 3rem;
+    background: white;
+    padding-left: 1rem;
 
 }

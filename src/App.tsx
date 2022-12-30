@@ -21,7 +21,7 @@ function App() {
     useEffect(() => {
         // получим все нужные данные с сервера
         Fetches.FetchAllData().then(r => {
-           console.log(r)
+
             let [itemTYPES, catalogRoot,storeGroupRoot] = r
             // проверим являетсья ли что то ошибкой
             if (!((itemTYPES instanceof Error)||(catalogRoot instanceof Error)||(storeGroupRoot instanceof Error))){

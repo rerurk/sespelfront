@@ -13,6 +13,12 @@ export type TAsset = {
     nomenclature:Item
 }
 
+export type AssetHistory= {
+    store:Item
+    create_time:string
+
+}
+
 
 /*
 export type AssetsInStore ={

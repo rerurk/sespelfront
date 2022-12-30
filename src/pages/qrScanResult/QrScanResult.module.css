@@ -114,13 +114,13 @@
         align-items: center;
         justify-content: flex-start;
         height: 3rem;
-        width: 30%;
+        width: 35%;
         background: white;
         padding-left: 1rem;
     }
 
     .wrapper_scan_res_field_value {
-        width: 70%;
+        width: 65%;
         display: flex;
         align-items: center;
         justify-content: flex-start;

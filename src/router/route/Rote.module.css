@@ -1,13 +1,13 @@
 @media (orientation: portrait) {
     .wrapper {
-        position: absolute;
-        top: 0;
-        width: 15rem;
-        height: 100%;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 2rem;
         background: #000;
         color: #fff;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         justify-content: left;
         align-items: center;
         transition: all 0.5s;
@@ -15,11 +15,11 @@
     }
 
     .wrapper_show {
-        right: 0;
+        left: 0;
     }
 
     .wrapper_hide {
-        right: -15rem;
+
     }
 
     .wrapper_showRoutes_BT {
@@ -33,9 +33,14 @@
     }
 
     .wrapper_routeItem {
-        padding: 1rem 0 0 2rem;
-        text-align: left;
-        width: 100%;
+
+        width: 8rem;
+        height: 2rem;
+        border: solid 1px red;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
     }
 
 }
