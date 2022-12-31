@@ -4,7 +4,7 @@ import cl from "./AssetTransferHistory.module.css"
 import {useNavigate} from "react-router-dom";
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 import {Fetches} from "../../fetches/Fetches";
-import {StrSend} from "../../structs/App";
+import {StrUUID} from "../../structs/App";
 import {AssetHistory} from "../../structs/Asset";
 
 
@@ -18,8 +18,8 @@ const AssetTransferHistory:FC<AssetTransferHistoryProps> = ({onClickBack}) => {
     const [history,setHistory]=useState<AssetHistory[]|null>(null)
    useEffect(()=>{
        if(selectedAsset){
-           let strUUID:StrSend={
-               str:selectedAsset.asset.uuid
+           let strUUID:StrUUID={
+               uuid:selectedAsset.asset.uuid
            }
            Fetches.GetAssetTransferHistory(strUUID).then(r=>{
                if(!(r instanceof Error)){

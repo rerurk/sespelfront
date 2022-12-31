@@ -9,7 +9,7 @@ import {Fetches} from "../../../fetches/Fetches";
 import {Tools} from "../../../tools/Tools";
 import {StoreGroupGui} from "./storeGroupTexts";
 
-import StoreGroupItem from "../storeGroupItem/StoreGroupItem";
+import StoreTree from "../storeTree/StoreTree";
 import {RouterPath} from "../../../router";
 import {SetSelectedAssetsStoreState, SetSelectedStoreGroupState} from "../../../store/action_creator/AppStoreActions";
 import {OnStoreItemDragEnter} from "../../../gragAndDrops/storeItemsDrag/storeItemsDrag";
@@ -105,7 +105,7 @@ const StoreGroupRoot = () => {
                 </div>
                 {
                     hisItems
-                        ? hisItems.map((it: ExtendedItem) => <StoreGroupItem item={it} key={"StoreGroupItem_" + it.uuid}/>)
+                        ? hisItems.map((it: ExtendedItem) => <StoreTree item={it} key={"StoreGroupItem_" + it.uuid}/>)
                         : false
                 }
 

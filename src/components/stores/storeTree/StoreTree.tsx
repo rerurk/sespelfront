@@ -1,7 +1,7 @@
 import React, {FC, useState} from 'react';
 
 // @ts-ignore
-import cl from "./StoreGroupItem.module.css"
+import cl from "./StoreTree.module.css"
 import {AppItemTYPES} from "../../../App";
 import {Fetches} from "../../../fetches/Fetches";
 import {Tools} from "../../../tools/Tools";
@@ -22,7 +22,7 @@ interface StoreGroupItemProps {
     item: ExtendedItem
 }
 
-const StoreGroupItem: FC<StoreGroupItemProps> = ({item}) => {
+const StoreTree: FC<StoreGroupItemProps> = ({item}) => {
     Tools.LoadCatalogItemFields(item)
     const dispatch = useDispatch()
     const [hisItems, setHisItems] = useState<ExtendedItem[] | null>(null)
@@ -121,8 +121,8 @@ const StoreGroupItem: FC<StoreGroupItemProps> = ({item}) => {
 
                     {
                         hisItems
-                            ? hisItems.map((it) => <StoreGroupItem item={it}
-                                                                   key={"StoreGroupItem" + it.uuid}/>)
+                            ? hisItems.map((it) => <StoreTree item={it}
+                                                              key={"StoreTree" + it.uuid}/>)
                             : false
                     }
                 </div>
@@ -173,8 +173,8 @@ const StoreGroupItem: FC<StoreGroupItemProps> = ({item}) => {
 
                     {
                         hisItems
-                            ? hisItems.map((it) => <StoreGroupItem item={it}
-                                                                   key={"StoreGroupItem" + it.uuid}/>)
+                            ? hisItems.map((it) => <StoreTree item={it}
+                                                              key={"StoreTree" + it.uuid}/>)
                             : false
                     }
                 </div>
@@ -186,4 +186,4 @@ const StoreGroupItem: FC<StoreGroupItemProps> = ({item}) => {
     return (<div/>)
 };
 
-export default StoreGroupItem;
+export default StoreTree;

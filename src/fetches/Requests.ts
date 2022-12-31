@@ -1,4 +1,5 @@
-export const Domen = "https://192.168.1.95"
+export const Domen = "http://192.168.1.95:8080"
+//export const Domen = "https://192.168.1.95"
 //const Domen = ""
 type RequestT = {
     MAKE_ITEM: string,
@@ -15,6 +16,7 @@ type RequestT = {
     MAKE_NOMENCLATURE_ITEM: string
     MODIFY_NOMENCLATURE_ITEM: string,
     GET_ASSET_TRANSFER_HISTORY: string
+    GET_STORE_BALANCE:string
 }
 
 enum req {
@@ -33,7 +35,8 @@ enum req {
     //это отдельно потомучто может нужна будет картинка
     MAKE_NOMENCLATURE_ITEM = "/make_nomenclature_item",
     MODIFY_NOMENCLATURE_ITEM = "/modify_nomenclature_item",
-    GET_ASSET_TRANSFER_HISTORY = "/get_asset_transfer_history"
+    GET_ASSET_TRANSFER_HISTORY = "/get_asset_transfer_history",
+    GET_STORE_BALANCE="/get_store_balance"
 }
 
 export const Requests: RequestT = {
@@ -51,7 +54,8 @@ export const Requests: RequestT = {
     GET_ASSET_BY_UUID: Domen + req.GET_ASSET_BY_UUID,
     MAKE_NOMENCLATURE_ITEM: Domen + req.MAKE_NOMENCLATURE_ITEM,
     MODIFY_NOMENCLATURE_ITEM: Domen + req.MODIFY_NOMENCLATURE_ITEM,
-    GET_ASSET_TRANSFER_HISTORY:Domen+req.GET_ASSET_TRANSFER_HISTORY
+    GET_ASSET_TRANSFER_HISTORY:Domen+req.GET_ASSET_TRANSFER_HISTORY,
+    GET_STORE_BALANCE:Domen+req.GET_STORE_BALANCE
 }
 
 

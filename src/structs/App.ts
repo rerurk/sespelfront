@@ -48,8 +48,8 @@ export type RenameNomenclatureItem = {
 
 }
 
-export type StrSend = {
-    str: string
+export type StrUUID = {
+    uuid: string
 }
 
 export type RemoveItem = {

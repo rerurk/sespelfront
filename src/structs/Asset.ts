@@ -14,10 +14,15 @@ export type TAsset = {
 }
 
 export type AssetHistory= {
-    store:Item
-    create_time:string
+    store: Item
+    create_time: string
 
 }
+export type AssetQuantity ={
+    name:string,
+    quantity:number
+}
+
 
 
 /*

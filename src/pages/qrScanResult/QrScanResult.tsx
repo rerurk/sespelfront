@@ -6,7 +6,7 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {SetSelectedAssetState} from "../../store/action_creator/AppStoreActions";
 import {RouterPath} from "../../router";
-import StoreGroupItem from "../../components/stores/storeGroupItem/StoreGroupItem";
+import StoreTree from "../../components/stores/storeTree/StoreTree";
 import {Fetches} from "../../fetches/Fetches";
 import {TransferItem} from "../../structs/App";
 import {Tools} from "../../tools/Tools";
@@ -47,7 +47,7 @@ const QrScanResult = () => {
             }
             Fetches.TransferItem(transfer).then(r => {
                 if (!(r instanceof Error)) {
-                    Fetches.GetAssetBySTRUUID({str: selectedAsset.asset.uuid}).then(r => {
+                    Fetches.GetAssetBySTRUUID({uuid: selectedAsset.asset.uuid}).then(r => {
                         let as: TAsset | Error = r
                         if (!(as instanceof Error)) {
                             // @ts-ignore
@@ -78,7 +78,7 @@ const QrScanResult = () => {
                     isShowStores
                         ? <div>
                             <button onClick={onBtTransferClick}>переместить в {selectedStore?.name}</button>
-                            <StoreGroupItem item={storeGroupRoot}/>
+                            <StoreTree item={storeGroupRoot}/>
 
                         </div>
                         : false

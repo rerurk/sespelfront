@@ -3,7 +3,7 @@ import {useTypeSelector} from "../../hooks/useTypeSelector";
 // @ts-ignore
 import cl from "./MakeAsset.module.css"
 import NomenclatureItemView from "../../components/nomenclatureItemsShow/NomenclatureItemView";
-import StoreGroupItem from "../../components/stores/storeGroupItem/StoreGroupItem";
+import StoreTree from "../../components/stores/storeTree/StoreTree";
 
 import {TAsset, TMakeNewAsset} from "../../structs/Asset";
 import {Tools} from "../../tools/Tools";
@@ -73,7 +73,7 @@ const MakeAsset: FC = () => {
                 </div>
                 <div className={cl.wrapper_selectStoreAngNomenclature}>
                     <NomenclatureItemView item={nomenclatureRoot}/>
-                    <StoreGroupItem item={storeGroupRoot}/>
+                    <StoreTree item={storeGroupRoot}/>
                 </div>
 
                 <div className={cl.wrapper_newAssets}>

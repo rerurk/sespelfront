@@ -10,10 +10,11 @@ import {
     Item,
     RenameItem,
     RenameNomenclatureItem,
-    StrSend,
+    StrUUID,
     TransferItem
 } from "../structs/App";
 import {AssetHistory, TAsset, TMakeNewAsset} from "../structs/Asset";
+import {StoreBalance} from "../structs/storesTypes";
 
 
 export type FetchesResult = [
@@ -199,7 +200,7 @@ export class Fetches {
         }
     }
 
-    public static async GetAssetBySTRUUID (strSend:StrSend):Promise<TAsset|Error>{
+    public static async GetAssetBySTRUUID (strSend:StrUUID):Promise<TAsset|Error>{
         try {
 
 
@@ -246,7 +247,7 @@ export class Fetches {
         }
     }
 
-    public static async GetAssetTransferHistory (uuid:StrSend):Promise<AssetHistory[]|Error>{
+    public static async GetAssetTransferHistory (uuid:StrUUID):Promise<AssetHistory[]|Error>{
         try {
 
 
@@ -263,6 +264,22 @@ export class Fetches {
         }
     }
 
+    public static async GetStoreBalance (storeItem:Item):Promise<StoreBalance|Error>{
+        try {
+
+
+            const res = await axios.post<StoreBalance>(Requests.GET_STORE_BALANCE,storeItem)
+            if (res.status !== 200) {
+                alert(res.data)
+                return Error(ErrorsText.ERROR_SEND_DATA)
+            }
+            return res.data
+        }
+        catch (e) {
+            alert("Ошибка")
+            return Error("Ошибка")
+        }
+    }
 
 
 

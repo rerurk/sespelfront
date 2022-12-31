@@ -13,6 +13,7 @@ import CreateAssetsStore from "../pages/createAssetsStore/CreateAssetsStore";
 import ModifyStoreGrope from "../pages/modifyStoreGrope/ModifyStoreGrope";
 import PrintQrCodes from "../pages/printQrCodes/PrintQrCodes";
 import QrScanResult from "../pages/qrScanResult/QrScanResult";
+import StoreBalanceView from "../pages/storeBalanceView/StoreBalanceView";
 
 export type RouteNode = {
     isHide: boolean
@@ -29,6 +30,7 @@ export enum RouterTexts {
     NOMENCLATURE = "Номенклатура",
     ASSERTS_STORAGE = "Места хранения",
     QR_CODE_SCANNER = "Сканер",
+    STORE_BALANCE="складской остаток"
 
 
 }
@@ -47,8 +49,9 @@ export enum RouterPath {
     MODIFY_STORE_GROPE = "/MODIFY_STORE_GROPE",
     CREATE_STORE_GROPE = "/CREATE_STORE_GROPE",
     CREATE_ASSETS_STORE = "/CREATE_ASSETS_STORE",
-    PRINT_QR_CODES = '/PRINT_QR_CODES',
-    QR_SCAN_RESULT = "/QR_SCAN_RESULT"
+    PRINT_QR_CODES = "/PRINT_QR_CODES",
+    QR_SCAN_RESULT = "/QR_SCAN_RESULT",
+    STORE_BALANCE="/STORE_BALANCE"
 }
 
 export const privateRoutes = []
@@ -145,6 +148,13 @@ export const publicRoutes: RouteNode[] = [
         path: RouterPath.QR_SCAN_RESULT,
         name: "",
         element: <QrScanResult/>
+    },
+    {
+        isHide:false,
+        exact: false,
+        path: RouterPath.STORE_BALANCE,
+        name: RouterTexts.STORE_BALANCE,
+        element: <StoreBalanceView/>
     },
 
 

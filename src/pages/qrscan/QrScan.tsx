@@ -7,7 +7,7 @@ import cl from './QrScan.module.css'
 
 import {useDispatch} from "react-redux";
 import {Fetches} from "../../fetches/Fetches";
-import {StrSend} from "../../structs/App";
+import {StrUUID} from "../../structs/App";
 import {TAsset} from "../../structs/Asset";
 import {useNavigate} from "react-router-dom";
 import {SetSelectedAssetState} from "../../store/action_creator/AppStoreActions";
@@ -40,8 +40,8 @@ const QrScan: FC = () => {
         if (data) {
             setQrRes(data)
 
-            let strSend:StrSend={
-                str:data
+            let strSend:StrUUID={
+                uuid:data
             }
             Fetches.GetAssetBySTRUUID(strSend).then(r=>{
                 let as:TAsset|Error=r
