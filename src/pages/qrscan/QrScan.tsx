@@ -35,6 +35,7 @@ const QrScan: FC = () => {
     }, [])
 
 
+
     const handleScan = (data: any) => {
 
         if (data) {

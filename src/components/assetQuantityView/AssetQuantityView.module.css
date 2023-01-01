@@ -3,7 +3,8 @@
     height: 3rem;
     display: flex;
     flex-direction: row;
-    border: solid 1px grey;
+    border-bottom: solid 1px grey;
+    background: white;
 
 }
 .wrapper_ind{

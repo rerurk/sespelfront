@@ -8,11 +8,10 @@ import StoreTree from "../../components/stores/storeTree/StoreTree";
 import {TAsset, TMakeNewAsset} from "../../structs/Asset";
 import {Tools} from "../../tools/Tools";
 import {Fetches} from "../../fetches/Fetches";
-
 import AssetQRCode from "../../components/assetQRCodeView/AssetQRCode";
 import {useNavigate} from "react-router-dom";
-import {RouterPath} from "../../router";
-import {SetAssetsForPrint} from "../printQrCodes/PrintQrCodes";
+import PrintQrCodes from "../printQrCodes/PrintQrCodes";
+
 
 let newAsset: TMakeNewAsset = {
     asset_nomenclature_item: null,
@@ -25,8 +24,8 @@ const MakeAsset: FC = () => {
 
     const navigate = useNavigate();
     const {storeGroupRoot, nomenclatureRoot, selectedStore, selectedNomenclatureItem} = useTypeSelector(state => state.appReducer)
-
     const [newMakedAssets, setNewMakedAssets] = useState<TAsset[]>([])
+    const [showPrintQrCodes,setShowPrintQrCodes]=useState<boolean>(false)
     useEffect(() => {
         Fetches.GetNotAcceptedAssets().then(r => {
             if (!(r instanceof Error)) {
@@ -36,9 +35,7 @@ const MakeAsset: FC = () => {
 
     }, [])
     const onPrintClick = () => {
-
-        SetAssetsForPrint(newMakedAssets)
-        navigate(RouterPath.PRINT_QR_CODES)
+          setShowPrintQrCodes(()=>!showPrintQrCodes)
     }
     const onMakeClick = () => {
         if (selectedStore && selectedNomenclatureItem) {
@@ -75,7 +72,6 @@ const MakeAsset: FC = () => {
                     <NomenclatureItemView item={nomenclatureRoot}/>
                     <StoreTree item={storeGroupRoot}/>
                 </div>
-
                 <div className={cl.wrapper_newAssets}>
                     <button style={{
                         position: "absolute",
@@ -94,7 +90,10 @@ const MakeAsset: FC = () => {
                             : false
                     }
                 </div>
-
+                {showPrintQrCodes
+                    ?<PrintQrCodes assetsToPrint={newMakedAssets} close={() => onPrintClick()}/>
+                    :false
+                }
             </div>
         );
     return (<div/>)

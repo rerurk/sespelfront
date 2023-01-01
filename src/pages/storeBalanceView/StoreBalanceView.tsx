@@ -21,7 +21,7 @@ const StoreBalanceView: FC = () => {
 
             Fetches.GetStoreBalance(Tools.unRefCatalogItem(selectedStore)).then(r => {
                 if (!(r instanceof Error)) {
-                    console.log(r)
+
                     if (r.assets && r.assets.length > 0) {
                         setStoreBalance(() => r)
                     }
@@ -36,7 +36,6 @@ const StoreBalanceView: FC = () => {
 
                 {selectedStore
                     ? <div className={cl.wrapper_tools}>
-
                         <span>Выбранный склад:{selectedStore.name}</span>
                         <button onClick={onShowBalanceClick}>показать остатки</button>
                     </div>
@@ -44,12 +43,13 @@ const StoreBalanceView: FC = () => {
                     : false
 
                 }
-
+                <div className={cl.wrapper_StoreTree}>
                 <StoreTree item={storeGroupRoot}/>
+                </div>
                 {storeBalance
                     ? <div className={cl.wrapper_storeBalance}>
 
-                        <span> остатки на складе:{storeBalance.store.name} </span>
+                        <span> СКЛАД:{storeBalance.store.name} </span>
                         <div className={cl.wrapper_storeBalance_close} onClick={()=>setStoreBalance(null)}>x</div>
                         <div className={cl.wrapper_storeBalance_head}>
                             <div className={cl.wrapper_storeBalance_head_name}>

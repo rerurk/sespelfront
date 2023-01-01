@@ -49,7 +49,7 @@ export enum RouterPath {
     MODIFY_STORE_GROPE = "/MODIFY_STORE_GROPE",
     CREATE_STORE_GROPE = "/CREATE_STORE_GROPE",
     CREATE_ASSETS_STORE = "/CREATE_ASSETS_STORE",
-    PRINT_QR_CODES = "/PRINT_QR_CODES",
+
     QR_SCAN_RESULT = "/QR_SCAN_RESULT",
     STORE_BALANCE="/STORE_BALANCE"
 }
@@ -135,13 +135,7 @@ export const publicRoutes: RouteNode[] = [
         name: "",
         element: <CreateAssetsStore/>
     },
-    {
-        isHide: true,
-        exact: false,
-        path: RouterPath.PRINT_QR_CODES,
-        name: "",
-        element: <PrintQrCodes/>
-    },
+
     {
         isHide: true,
         exact: false,

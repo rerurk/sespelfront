@@ -8,7 +8,7 @@
     flex-direction: column;
     justify-content:space-around;
     align-items: center;
-    border: solid 1px black;
+    outline: solid 1px black;
     float: left;
 
 }
@@ -17,9 +17,11 @@
     height: 7rem;
 
 
+
 }
 .wrapper_assetName{
-    font-size: 50%;
+    font-size: 0.5rem;
+    line-height: 0.45rem;
     width: 100%;
     color: black;
 }
