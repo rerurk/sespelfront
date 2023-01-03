@@ -13,6 +13,8 @@ import {Tools} from "../../tools/Tools";
 import {TAsset} from "../../structs/Asset";
 import {Domen} from "../../fetches/Requests";
 import AssetTransferHistory from "../../components/assetTransferHistory/AssetTransferHistory";
+import QRCode from "react-qr-code";
+import AssetQRCode from "../../components/assetQRCodeView/AssetQRCode";
 
 const QrScanResult = () => {
     const {selectedAsset, storeGroupRoot, selectedStore} = useTypeSelector(state => state.appReducer)
@@ -105,6 +107,10 @@ const QrScanResult = () => {
                     <div className={cl.wrapper_scan_res_field_img}>
                         <img src={Domen + "/images/items_img/" + selectedAsset.nomenclature.uuid + ".jpg"}/>
                     </div>
+                    <AssetQRCode assetQrCodeFields={{
+                        assetNomenclatureName:selectedAsset.nomenclature.name,
+                        assetUUID:selectedAsset.asset.uuid
+                    }}/>
                 </div>
 
 

@@ -5,6 +5,7 @@ import {ExtendedItem} from "../../structs/App";
 
 
 const initialState: AppState = {
+    isAuth:true,
     nomenclatureRoot: null,
     storeGroupRoot: null,
     selectedNomenclatureGroup: null,
@@ -18,6 +19,11 @@ const initialState: AppState = {
 }
 
 export function GetCurrentState(): AppState {
+    return initialState
+}
+
+function setAuthToState(isAuth:boolean):AppState {
+  initialState.isAuth=isAuth
     return initialState
 }
 
@@ -53,7 +59,7 @@ function setCatalogRoot(root: ExtendedItem): AppState {
 }
 
 function setSelectedAssetStore(currStore: ExtendedItem): AppState {
-    console.log(currStore)
+
     initialState.selectedStore = currStore
     return initialState
 }
@@ -80,6 +86,8 @@ export const appReducer = (state = initialState, action: AppActions): AppState =
             return {...setCurrentStoreGroup(action.payload)}
         case AppActionTypes.SET_SELECTED_ASSET:
             return {...setSelectedAsset(action.payload)}
+        case AppActionTypes.SET_IS_AUTH:
+            return {...setAuthToState(action.payload)}
         default:
             return state
     }

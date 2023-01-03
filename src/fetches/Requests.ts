@@ -1,7 +1,9 @@
-export const Domen = "http://192.168.1.95:8080"
-//export const Domen = "https://192.168.1.95"
-//const Domen = ""
+//export const Domen = "http://192.168.1.95:8080"
+export const Domen = "https://192.168.1.95"
+//export const Domen = ""
 type RequestT = {
+    AUTHORIZATION:string,
+
     MAKE_ITEM: string,
     TRANSFER_ITEM: string,
     MODIFY_ITEM: string,
@@ -20,6 +22,8 @@ type RequestT = {
 }
 
 enum req {
+    AUTHORIZATION="/authorization",
+
     MAKE_ITEM = "/make_item",
     TRANSFER_ITEM = "/transfer_item",
     MODIFY_ITEM = "/modify_item",
@@ -28,7 +32,7 @@ enum req {
     GET_NOMENCLATURE_ROOT = "/get_nomenclature_root",
     GET_STORE_GROUP_ROOT = "/get_store_group_root",
     GET_ITEMS = "/get_items",
-    //???
+
     MAKE_ASSET = "/make_asset",
     GET_NOT_ACCEPTED_ASSETS = "/get_not_accepted_assets",
     GET_ASSET_BY_UUID = "/get_asset_by_uuid",
@@ -40,6 +44,8 @@ enum req {
 }
 
 export const Requests: RequestT = {
+    AUTHORIZATION:Domen+req.AUTHORIZATION,
+
     MAKE_ITEM: Domen + req.MAKE_ITEM,
     MODIFY_ITEM: Domen + req.MODIFY_ITEM,
     REMOVE_ITEM: Domen + req.REMOVE_ITEM,
@@ -56,6 +62,7 @@ export const Requests: RequestT = {
     MODIFY_NOMENCLATURE_ITEM: Domen + req.MODIFY_NOMENCLATURE_ITEM,
     GET_ASSET_TRANSFER_HISTORY:Domen+req.GET_ASSET_TRANSFER_HISTORY,
     GET_STORE_BALANCE:Domen+req.GET_STORE_BALANCE
+
 }
 
 

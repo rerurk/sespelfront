@@ -1,22 +1,21 @@
-
 import {AssetQrCode, TAsset} from "../../structs/Asset";
 import {ExtendedItem} from "../../structs/App";
 
 
 export type AppState = {
-
+    isAuth: boolean
     nomenclatureRoot: ExtendedItem | null//корень каталога, его получаемс сервера
     storeGroupRoot: ExtendedItem | null
     selectedNomenclatureItem: ExtendedItem | null//
     selectedNomenclatureGroup: ExtendedItem | null// текущий выбранный каталог для отобрадения
     selectedStoreGroup: ExtendedItem | null// текущий выбранный каталог для отобрадения
     selectedStore: ExtendedItem | null// текущий отоброаемый склад
-    selectedAsset:TAsset|null
+    selectedAsset: TAsset | null
 
 }
 
 export enum AppActionTypes {
-
+    SET_IS_AUTH = "SET_IS_AUTH",
     SET_NOMENCLATURE_ROOT = 'SET_NOMENCLATURE_ROOT',
     SET_STORE_GROUP_ROOT = "SET_STORE_GROUP_ROOT",
     SET_SELECTED_NOMENCLATURE_GROUP = "SET_SELECTED_NOMENCLATURE_GROUP",
@@ -28,10 +27,16 @@ export enum AppActionTypes {
 
 }
 
-interface SetSelectedAssetAction {
-    type:AppActionTypes.SET_SELECTED_ASSET
-    payload:TAsset
+interface SetIsAuthAction {
+    type: AppActionTypes.SET_IS_AUTH
+    payload: boolean
 }
+
+interface SetSelectedAssetAction {
+    type: AppActionTypes.SET_SELECTED_ASSET
+    payload: TAsset
+}
+
 interface SetStoreGroupRootAction {
     type: AppActionTypes.SET_STORE_GROUP_ROOT
     payload: ExtendedItem
@@ -46,7 +51,6 @@ interface SetAssetQRCodeAction {
     type: AppActionTypes.SET_ASSET_QRCODE,
     payload: AssetQrCode
 }
-
 
 
 interface SetCurrentExtendedItemAction {
@@ -76,4 +80,5 @@ export type AppActions = SetSelectedNomenclatureGroupAction
     | SetAssetQRCodeAction
     | SetStoreGroupRootAction
     | SetSelectedStoreGroupAction
-     |SetSelectedAssetAction
+    | SetSelectedAssetAction
+    | SetIsAuthAction

@@ -53,3 +53,9 @@ export const SetAssetQRCode=(assetQrCode:AssetQrCode)=>{
         dispatch({type:AppActionTypes.SET_ASSET_QRCODE,payload:assetQrCode})
     }
 }
+
+export const SetIsAuthState=(auth:boolean)=>{
+    return(dispatch:Dispatch<AppActions>)=>{
+        dispatch({type:AppActionTypes.SET_IS_AUTH,payload:auth})
+    }
+}

@@ -26,14 +26,14 @@ const MakeAsset: FC = () => {
     const {storeGroupRoot, nomenclatureRoot, selectedStore, selectedNomenclatureItem} = useTypeSelector(state => state.appReducer)
     const [newMakedAssets, setNewMakedAssets] = useState<TAsset[]>([])
     const [showPrintQrCodes,setShowPrintQrCodes]=useState<boolean>(false)
-    useEffect(() => {
+/*    useEffect(() => {
         Fetches.GetNotAcceptedAssets().then(r => {
             if (!(r instanceof Error)) {
                 setNewMakedAssets(r)
             }
         })
 
-    }, [])
+    }, [])*/
     const onPrintClick = () => {
           setShowPrintQrCodes(()=>!showPrintQrCodes)
     }
@@ -84,7 +84,7 @@ const MakeAsset: FC = () => {
                         newMakedAssets
                             ? newMakedAssets.map((a: TAsset) =>
                                 <div key={"QRCode_" + a.asset.uuid} className={cl.wrapper_newAssets_qrCode}>
-                                    <AssetQRCode asset={a}/>
+                                    <AssetQRCode assetQrCodeFields={{assetNomenclatureName:a.nomenclature.name,assetUUID:a.asset.uuid}}/>
                                 </div>
                             )
                             : false

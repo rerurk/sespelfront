@@ -12,37 +12,43 @@ import {
     SetSelectedAssetsStoreState, SetStoreGroupRoot, SetSelectedStoreGroupState
 } from "./store/action_creator/AppStoreActions";
 import {useDispatch} from "react-redux";
+import Authorization from "./pages/authorization/Authorization";
+import {useTypeSelector} from "./hooks/useTypeSelector";
+import {DataLoader} from "./dataLoader/DataLoader";
 
 export let AppItemTYPES: ItemTypes
 
 
 function App() {
     const dispatch=useDispatch()
+    const {isAuth}=useTypeSelector(state => state.appReducer)
     useEffect(() => {
         // получим все нужные данные с сервера
-        Fetches.FetchAllData().then(r => {
+        if(isAuth) {
+            Fetches.FetchAllData().then(r => {
 
-            let [itemTYPES, catalogRoot,storeGroupRoot] = r
-            // проверим являетсья ли что то ошибкой
-            if (!((itemTYPES instanceof Error)||(catalogRoot instanceof Error)||(storeGroupRoot instanceof Error))){
-                AppItemTYPES=itemTYPES
+                let [itemTYPES, catalogRoot, storeGroupRoot] = r
+                // проверим являетсья ли что то ошибкой
+                if (!((itemTYPES instanceof Error) || (catalogRoot instanceof Error) || (storeGroupRoot instanceof Error))) {
+                    AppItemTYPES = itemTYPES
 
-                // @ts-ignore
-                dispatch(SetNomenclatureRootState(catalogRoot))
-                // @ts-ignore
-                dispatch(SetSelectedNomenclatureGroupState(catalogRoot))
-                // @ts-ignore
-                dispatch(SetStoreGroupRoot(storeGroupRoot))
-                // @ts-ignore
-                dispatch(SetSelectedStoreGroupState(storeGroupRoot))
-                setIsAllConsist(()=>true)
-            }
+                    // @ts-ignore
+                    dispatch(SetNomenclatureRootState(catalogRoot))
+                    // @ts-ignore
+                    dispatch(SetSelectedNomenclatureGroupState(catalogRoot))
+                    // @ts-ignore
+                    dispatch(SetStoreGroupRoot(storeGroupRoot))
+                    // @ts-ignore
+                    dispatch(SetSelectedStoreGroupState(storeGroupRoot))
+                    setIsAllConsist(() => true)
+                }
 
-        })
+            })
 
-    }, )
+        }
+    },[isAuth] )
     const [isAllConsist, setIsAllConsist] = useState<boolean>(false)
-    if (isAllConsist) {
+    if (isAllConsist&&isAuth) {
         return (
             <div className="App">
 
@@ -56,6 +62,10 @@ function App() {
                 </BrowserRouter>
             </div>
         );
+    }
+
+    if(!isAuth){
+        return (<Authorization/>)
     }
     return (<div>
 

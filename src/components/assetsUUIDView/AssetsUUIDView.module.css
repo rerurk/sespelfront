@@ -1,0 +1,15 @@
+.wrapper{
+    position: fixed;
+    right: 0;
+    width: 20rem;
+    height: 90%;
+    background: lightseagreen;
+}
+.wrapper_close{
+    position: absolute;
+    background: red;
+    top: 0;
+    right: 0;
+    width: 2rem;
+    height: 2rem;
+}

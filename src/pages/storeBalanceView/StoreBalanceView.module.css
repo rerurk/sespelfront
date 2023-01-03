@@ -20,7 +20,8 @@
     .wrapper_storeBalance {
         position: absolute;
         width: 50%;
-        height: 100vh;
+        height: 100%;
+
         background: #eee;
 
 
@@ -39,7 +40,8 @@
     .wrapper_storeBalance_head {
         margin-top: 3vh;
         width: 100%;
-        border: solid 1px grey;
+        border-bottom: solid 1px grey;
+        border-top: solid 1px grey;
         height: 5vh;
         display: flex;
         flex-direction: row;
@@ -63,8 +65,9 @@
     }
     .wrapper_storeBalance_assetsQuantity{
         width: 100%;
-        height: 80vh;
-        overflow-y: scroll;
+        height: 85%;
+        overflow: scroll;
+
     }
 
 }

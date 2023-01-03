@@ -1,19 +1,19 @@
 import React, {FC} from 'react';
-import {AssetQuantity} from "../../structs/Asset";
+import {AssetsUUIDByNomenclItem} from "../../structs/Asset";
 // @ts-ignore
 import cl from "./AssetQuantityView.module.css"
 interface AssetQuantityViewProps{
-    assetQuantity:AssetQuantity
+    assetsUUIDByName:AssetsUUIDByNomenclItem
     ind:number
+
 }
 
-const AssetQuantityView:FC<AssetQuantityViewProps> = ({assetQuantity,ind}) => {
+const AssetQuantityView:FC<AssetQuantityViewProps> = ({assetsUUIDByName,ind}) => {
     return (
         <div className={cl.wrapper}>
-
             <div className={cl.wrapper_ind}> <span>{ind}.</span></div>
-            <div className={cl.wrapper_name}> <span>{assetQuantity.name}</span></div>
-            <div className={cl.wrapper_quantity}> <span>{assetQuantity.quantity}</span></div>
+            <div className={cl.wrapper_name}> <span>{assetsUUIDByName.nomencl_item.name}</span></div>
+            <div className={cl.wrapper_quantity}> <span>{assetsUUIDByName.assets_uuid.length}</span></div>
         </div>
     );
 };

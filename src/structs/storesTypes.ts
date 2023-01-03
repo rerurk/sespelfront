@@ -1,7 +1,7 @@
 import {Item} from "./App";
-import {AssetQuantity} from "./Asset";
+import {AssetsUUIDByNomenclItem} from "./Asset";
 
 export type StoreBalance = {
     store:Item
-    assets:AssetQuantity[]
+    assets:AssetsUUIDByNomenclItem[]
 }

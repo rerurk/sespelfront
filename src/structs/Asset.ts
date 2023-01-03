@@ -13,17 +13,27 @@ export type TAsset = {
     nomenclature:Item
 }
 
+export type AssetQrCodeFields ={
+    assetNomenclatureName:string,
+    assetUUID:string,
+
+}
+
 export type AssetHistory= {
     store: Item
     create_time: string
 
 }
-export type AssetQuantity ={
-    name:string,
-    quantity:number
+export type AssetsUUIDByNomenclItem ={
+    nomencl_item:Item,
+    assets_uuid:string[]
 }
 
-
+/*
+type AssetQuantity struct {
+	Name     string `json:"name"`
+	AssetsUUID [] string `json:"assets_uuid"`
+} */
 
 /*
 export type AssetsInStore ={

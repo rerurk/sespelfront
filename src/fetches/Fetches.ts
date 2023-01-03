@@ -5,13 +5,13 @@ import {ItemTypes} from "../structs/ItemTypes";
 import {ErrorsText} from "../texts/Texts";
 import {
     AddNomenclatureItem,
-    AddToItem,
+    AddToItem, AuthRes,
     ExtendedItem,
     Item,
     RenameItem,
     RenameNomenclatureItem,
     StrUUID,
-    TransferItem
+    TransferItem, USRAuth
 } from "../structs/App";
 import {AssetHistory, TAsset, TMakeNewAsset} from "../structs/Asset";
 import {StoreBalance} from "../structs/storesTypes";
@@ -26,6 +26,17 @@ export type FetchesResult = [
 
 export class Fetches {
 
+    public static async Authorization(usr:USRAuth): Promise<AuthRes | Error> {
+        try {
+            const res = await axios.post<AuthRes>(Requests.AUTHORIZATION,usr)
+            if (res.status !== 200) {
+                return Error("ошибка")
+            }
+            return res.data
+        } catch (e) {
+            return Error(ReqErrors.GetData)
+        }
+    }
 
     public static async FetchAllData(): Promise<FetchesResult> {
         return Promise.all([this.GetItemTYPES(), this.GetNomenclatureRoot(), this.GetStoreGroupRoot()])

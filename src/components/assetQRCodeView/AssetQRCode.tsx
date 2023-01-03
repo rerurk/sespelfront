@@ -3,24 +3,26 @@ import React, {FC} from 'react';
 import cl from "./AssetQRCode.module.css"
 
 import QRCode from "react-qr-code";
-import {TAsset} from "../../structs/Asset";
+import {AssetQrCodeFields} from "../../structs/Asset";
+
 
 interface AssetQRCodeProps {
-    asset: TAsset
+    assetQrCodeFields:AssetQrCodeFields
+
 }
 
-const AssetQRCode: FC<AssetQRCodeProps> = ({asset}) => {
+const AssetQRCode: FC<AssetQRCodeProps> = ({assetQrCodeFields}) => {
 
 
     return (
         <div className={cl.wrapper}>
 
-            <span className={cl.wrapper_assetName}>{asset.nomenclature.name}</span>
+            <span className={cl.wrapper_assetName}>{assetQrCodeFields.assetNomenclatureName}</span>
             <div className={cl.wrapper_qrcode}>
-                <QRCode value={asset.asset.uuid} style={{height: "auto", maxWidth: "100%", width: "100%"}}/>
+                <QRCode value={assetQrCodeFields.assetUUID} style={{height: "auto", maxWidth: "100%", width: "100%"}}/>
 
             </div>
-            <span className={cl.wrapper_assetName}>{asset.asset.uuid}</span>
+            <span className={cl.wrapper_assetName}>{assetQrCodeFields.assetUUID}</span>
         </div>
     )
 

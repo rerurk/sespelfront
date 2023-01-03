@@ -67,3 +67,11 @@ export type AddNomenclatureItem  = {
     to_add_item: Item,
     item_img:NewImageFile|null
 }
+
+export type USRAuth={
+    login:string,
+    pass:string
+}
+export type AuthRes = {
+    is_auth:boolean
+}
