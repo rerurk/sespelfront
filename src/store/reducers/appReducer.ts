@@ -1,6 +1,6 @@
 
 import {AppActions, AppActionTypes, AppState} from "../types/AppStoreTypes";
-import {AssetQrCode, TAsset} from "../../structs/Asset";
+import {TAsset} from "../../structs/Asset";
 import {ExtendedItem} from "../../structs/App";
 
 

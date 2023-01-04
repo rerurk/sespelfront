@@ -49,6 +49,23 @@ const StoreBalanceView: FC = () => {
         }
     }
 
+    const onStoreNameClick=()=>{
+        console.log(storeBalance?.assets)
+        let assets: TAsset[] = []
+        if(storeBalance&&storeBalance.assets){
+            storeBalance.assets.forEach((a:AssetsUUIDByNomenclItem)=>{
+                a.assets_uuid.forEach((uuid: string) => {
+                    let as: TAsset = makeTAsset(a.nomencl_item,uuid)
+                    assets.push(as)
+                })
+
+            })
+            console.log(assets.length)
+            setShowAssets(() => assets)
+        }
+
+    }
+
     const showAssetsQrCodes = (a: AssetsUUIDByNomenclItem) => {
         let assets: TAsset[] = []
         if (selectedStore) {
@@ -105,7 +122,7 @@ const StoreBalanceView: FC = () => {
                 {storeBalance
                     ? <div className={cl.wrapper_storeBalance} onClick={event => event.stopPropagation()}>
 
-                        <span> СКЛАД:{storeBalance.store.name} </span>
+                        <span onClick={onStoreNameClick}> СКЛАД:{storeBalance.store.name} </span>
                         <div className={cl.wrapper_storeBalance_close} onClick={() => setStoreBalance(null)}>x</div>
                         <div className={cl.wrapper_storeBalance_head}>
                             <div className={cl.wrapper_storeBalance_head_name}>

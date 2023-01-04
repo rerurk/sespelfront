@@ -2,29 +2,31 @@ import React, {useEffect, useState} from 'react';
 
 import './App.css';
 import {BrowserRouter} from "react-router-dom";
-import AppRouter from "./components/UI/AppRouter";
-import Route from "./router/route/Route";
+import AppRouter from "./router/AppRouter";
+import RoutesView from "./router/routesView/RoutesView";
 import {Fetches} from "./fetches/Fetches";
 import {ItemTypes} from "./structs/ItemTypes";
 import {
     SetNomenclatureRootState,
     SetSelectedNomenclatureGroupState,
-    SetSelectedAssetsStoreState, SetStoreGroupRoot, SetSelectedStoreGroupState
+    SetSelectedStoreGroupState,
+    SetStoreGroupRoot
 } from "./store/action_creator/AppStoreActions";
 import {useDispatch} from "react-redux";
 import Authorization from "./pages/authorization/Authorization";
 import {useTypeSelector} from "./hooks/useTypeSelector";
-import {DataLoader} from "./dataLoader/DataLoader";
+
 
 export let AppItemTYPES: ItemTypes
 
 
 function App() {
-    const dispatch=useDispatch()
-    const {isAuth}=useTypeSelector(state => state.appReducer)
+
+    const dispatch = useDispatch()
+    const {isAuth} = useTypeSelector(state => state.appReducer)
     useEffect(() => {
         // получим все нужные данные с сервера
-        if(isAuth) {
+        if (isAuth) {
             Fetches.FetchAllData().then(r => {
 
                 let [itemTYPES, catalogRoot, storeGroupRoot] = r
@@ -46,25 +48,23 @@ function App() {
             })
 
         }
-    },[isAuth] )
+    }, [isAuth])
     const [isAllConsist, setIsAllConsist] = useState<boolean>(false)
-    if (isAllConsist&&isAuth) {
+    if (isAllConsist && isAuth) {
         return (
             <div className="App">
 
                 <BrowserRouter>
                     <div id="header">
-
                     </div>
-                    <Route/>
-
+                    <RoutesView/>
                     <AppRouter/>
                 </BrowserRouter>
             </div>
         );
     }
 
-    if(!isAuth){
+    if (!isAuth) {
         return (<Authorization/>)
     }
     return (<div>

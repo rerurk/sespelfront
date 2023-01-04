@@ -280,10 +280,15 @@ export class Fetches {
 
 
             const res = await axios.post<StoreBalance>(Requests.GET_STORE_BALANCE,storeItem)
+            if (res.status == 404) {
+
+                return Error(ErrorsText.ERROR_SEND_DATA)
+            }
             if (res.status !== 200) {
                 alert(res.data)
                 return Error(ErrorsText.ERROR_SEND_DATA)
             }
+
             return res.data
         }
         catch (e) {

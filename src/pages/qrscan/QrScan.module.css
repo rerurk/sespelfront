@@ -1,5 +1,72 @@
-.wrapper{
-    width: 100%;
-    height: 100%;
-    background: black;
+@media (orientation: portrait){
+    .wrapper{
+        width: 100%;
+        height: 100%;
+        background: black;
+    }
+    .wrapper_scanner{
+        width: 100vw;
+        height: 100vw;
+        overflow: hidden;
+        display: flex;
+
+    }
+
+    .wrapper_scanner_box{
+         position: absolute;
+        width: 100vw;
+        height: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+
+    }
+
+    .wrapper_scanner_box_reader{
+        border: solid 4px lightgrey;
+        box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 30vh;
+
+        width: 70%;
+        height: 70%;
+        overflow: hidden;
+
+    }
+    .wrapper_scanner_box_reader_line{
+        margin-top: 0;
+
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(to right, grey, white,grey);
+        animation-duration: 6s;
+        animation-name: slidein;
+        animation-iteration-count: infinite;
+
+    }
+
+    @keyframes slidein {
+        from {
+            margin-top: 0;
+        }
+        50%{
+            margin-top: 100%;
+        }
+        to {
+            margin-top: 0;
+
+        }
+    }
+
+
 }
+
+@media (orientation: landscape){
+    .wrapper{
+        width: 100%;
+        height: 100%;
+        background: black;
+    }
+}
+
+
+

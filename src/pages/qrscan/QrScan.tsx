@@ -23,18 +23,6 @@ const QrScan: FC = () => {
     const navigate = useNavigate();
     const dispatch=useDispatch()
     const [qrRes, setQrRes] = useState<string | null>(null)
-    const [camSize, setCamSize] = useState<number>(200)
-
-    useEffect(() => {
-        wmin = Math.min(window.innerHeight, window.innerWidth)
-        setCamSize(wmin * 0.9)
-
-
-
-
-    }, [])
-
-
 
     const handleScan = (data: any) => {
 
@@ -63,19 +51,25 @@ const QrScan: FC = () => {
     if (!qrRes) {
         return (
             <div className={cl.wrapper}>
-                <div style={{
-                    width: `${wmin}px`,
-                    height: `${wmin}px`,
-
-                }}>
+                <div className={cl.wrapper_scanner}>
                     <QrReader
-                        delay={500}
-                        facingMode={"environment"}
 
+                        showViewFinder={false}
+                        delay={200}
+                        facingMode={"environment"}
                         onError={handleError}
                         onScan={handleScan}
-                        style={{ width: '100%' }}
+                        style={{ width: '100%'}}
                     />
+                    <div className={cl.wrapper_scanner_box}>
+                        <div className={cl.wrapper_scanner_box_reader}>
+                            <div className={cl.wrapper_scanner_box_reader_line}>
+
+                            </div>
+                        </div>
+                    </div>
+
+
 
                 </div>
 

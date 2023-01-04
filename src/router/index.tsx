@@ -11,16 +11,16 @@ import ModifyNomenclatureGroup from "../pages/modifyNomenclatureGroup/ModifyNome
 import CreateStoreGrope from "../pages/createStoreGrope/CreateStoreGrope";
 import CreateAssetsStore from "../pages/createAssetsStore/CreateAssetsStore";
 import ModifyStoreGrope from "../pages/modifyStoreGrope/ModifyStoreGrope";
-import PrintQrCodes from "../pages/printQrCodes/PrintQrCodes";
 import QrScanResult from "../pages/qrScanResult/QrScanResult";
 import StoreBalanceView from "../pages/storeBalanceView/StoreBalanceView";
+import {Domen} from "../fetches/Requests";
 
 export type RouteNode = {
     isHide: boolean
-    exact: boolean,
     path: string,
     name: string,
     element: JSX.Element
+    img?:string
 }
 
 export enum RouterTexts {
@@ -30,7 +30,7 @@ export enum RouterTexts {
     NOMENCLATURE = "Номенклатура",
     ASSERTS_STORAGE = "Места хранения",
     QR_CODE_SCANNER = "Сканер",
-    STORE_BALANCE="складской остаток"
+    STORE_BALANCE = "складской остаток"
 
 
 }
@@ -51,106 +51,209 @@ export enum RouterPath {
     CREATE_ASSETS_STORE = "/CREATE_ASSETS_STORE",
 
     QR_SCAN_RESULT = "/QR_SCAN_RESULT",
-    STORE_BALANCE="/STORE_BALANCE"
+    STORE_BALANCE = "/STORE_BALANCE"
 }
 
-export const privateRoutes = []
-
-export const publicRoutes: RouteNode[] = [
+export const pcRoutes: RouteNode[] = [
     {
         isHide: false,
-        exact: false,
         path: RouterPath.QR_CODE_SCANNER,
         name: RouterTexts.QR_CODE_SCANNER,
         element: <QrScan/>
     },
     {
         isHide: false,
-        exact: false,
+
         path: RouterPath.CREATE_ASSET,
         name: RouterTexts.CREATE_ASSET,
         element: <MakeAsset/>
     },
     {
         isHide: false,
-        exact: false,
+
         path: RouterPath.ASSETS_STORAGE,
         name: RouterTexts.ASSERTS_STORAGE,
         element: <AssetStores/>
     },
     {
         isHide: false,
-        exact: false,
+
         path: RouterPath.NOMENCLATURE,
         name: RouterTexts.NOMENCLATURE,
         element: <Nomenclatures/>
     },
     {
         isHide: false,
-        exact: false,
+
         path: RouterPath.MAIN,
         name: RouterTexts.MAIN,
         element: <Main/>
     },
     {
         isHide: true,
-        exact: false,
+
         path: RouterPath.MAKE_NOMENCLATURE_GROUP,
         name: "",
         element: <MakeNomenclatureGroup/>
     },
     {
         isHide: true,
-        exact: false,
+
         path: RouterPath.MAKE_NOMENCLATURE_ITEM,
         name: "",
         element: <MakeNomenclatureItem/>
     },
     {
         isHide: true,
-        exact: false,
+
         path: RouterPath.MODIFY_NOMENCLATURE_GROUP,
         name: "",
         element: <ModifyNomenclatureGroup/>
     },
     {
         isHide: true,
-        exact: false,
+
         path: RouterPath.MODIFY_STORE_GROPE,
         name: "",
         element: <ModifyStoreGrope/>
     },
-
     {
         isHide: true,
-        exact: false,
+
         path: RouterPath.CREATE_STORE_GROPE,
         name: "",
         element: <CreateStoreGrope/>
     },
     {
         isHide: true,
-        exact: false,
+
         path: RouterPath.CREATE_ASSETS_STORE,
         name: "",
         element: <CreateAssetsStore/>
     },
-
     {
         isHide: true,
-        exact: false,
+
         path: RouterPath.QR_SCAN_RESULT,
         name: "",
         element: <QrScanResult/>
     },
     {
-        isHide:false,
-        exact: false,
+        isHide: false,
+
         path: RouterPath.STORE_BALANCE,
         name: RouterTexts.STORE_BALANCE,
         element: <StoreBalanceView/>
     },
 
+]
+
+export const mobileRoutes: RouteNode[] = [
+    {
+        isHide: false,
+        path: RouterPath.QR_CODE_SCANNER,
+        name: RouterTexts.QR_CODE_SCANNER,
+        element: <QrScan/>,
+        img:Domen+"/images/qrScanner.png"
+    },
+    {
+        isHide: true,
+        path: RouterPath.CREATE_ASSET,
+        name: RouterTexts.CREATE_ASSET,
+        element: <MakeAsset/>
+    },
+    {
+        isHide: true,
+
+        path: RouterPath.ASSETS_STORAGE,
+        name: RouterTexts.ASSERTS_STORAGE,
+        element: <AssetStores/>
+    },
+    {
+        isHide: true,
+        path: RouterPath.NOMENCLATURE,
+        name: RouterTexts.NOMENCLATURE,
+        element: <Nomenclatures/>
+    },
+    {
+        isHide: true,
+
+        path: RouterPath.MAIN,
+        name: RouterTexts.MAIN,
+        element: <Main/>
+    },
+    {
+        isHide: true,
+
+        path: RouterPath.MAKE_NOMENCLATURE_GROUP,
+        name: "",
+        element: <MakeNomenclatureGroup/>
+    },
+    {
+        isHide: true,
+
+        path: RouterPath.MAKE_NOMENCLATURE_ITEM,
+        name: "",
+        element: <MakeNomenclatureItem/>
+    },
+    {
+        isHide: true,
+
+        path: RouterPath.MODIFY_NOMENCLATURE_GROUP,
+        name: "",
+        element: <ModifyNomenclatureGroup/>
+    },
+    {
+        isHide: true,
+
+        path: RouterPath.MODIFY_STORE_GROPE,
+        name: "",
+        element: <ModifyStoreGrope/>
+    },
+    {
+        isHide: true,
+
+        path: RouterPath.CREATE_STORE_GROPE,
+        name: "",
+        element: <CreateStoreGrope/>
+    },
+    {
+        isHide: true,
+
+        path: RouterPath.CREATE_ASSETS_STORE,
+        name: "",
+        element: <CreateAssetsStore/>
+    },
+    {
+        isHide: true,
+        path: RouterPath.QR_SCAN_RESULT,
+        name: "",
+        element: <QrScanResult/>
+    },
+    {
+        isHide: false,
+
+        path: RouterPath.STORE_BALANCE,
+        name: RouterTexts.STORE_BALANCE,
+        element: <StoreBalanceView/>,
+        img:Domen+"/images/store.png"
+    },
 
 ]
+
+export let pubicRoutes: RouteNode[] = []
+
+export function SelectRotes() {
+
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i
+        .test(navigator.userAgent)) {
+        pubicRoutes = mobileRoutes
+
+    } else {
+
+        pubicRoutes = pcRoutes
+    }
+
+
+}
 
