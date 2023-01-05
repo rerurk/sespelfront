@@ -5,8 +5,12 @@
     flex-direction: row;
     border-bottom: solid 1px grey;
     background: white;
-
+    cursor: pointer;
 }
+.wrapper:hover{
+    background: lightgreen;
+}
+
 .wrapper_ind{
     margin: 0 0 0 0.5rem;
     display: flex;

@@ -6,6 +6,7 @@ import {useTypeSelector} from "../../hooks/useTypeSelector";
 import {Fetches} from "../../fetches/Fetches";
 import {StrUUID} from "../../structs/App";
 import {AssetHistory} from "../../structs/Asset";
+import CloseBt from "../UI/closeBt/CloseBt";
 
 
 interface AssetTransferHistoryProps {
@@ -31,10 +32,16 @@ const AssetTransferHistory:FC<AssetTransferHistoryProps> = ({onClickBack}) => {
    },[])
     return (
         <div className={cl.wrapper}>
-            <div className={cl.wrapper_bts}>
-                <button onClick={()=>onClickBack()}>назад</button>
-            </div>
+
+
             <div className={cl.wrapper_history}>
+                <CloseBt close={()=>onClickBack()}/>
+                <div className={cl.wrapper_head}>
+
+                    <div className={cl.wrapper_history_field_store_name}><span>Склад</span></div>
+                    <div className={cl.wrapper_history_field_time}><span>Дата перемещения</span></div>
+                </div>
+
                 {
                     history
                         ?history.map((h:AssetHistory,ind:number)=>

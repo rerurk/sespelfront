@@ -1,5 +1,6 @@
 import {AssetQrCode, TAsset} from "../../structs/Asset";
 import {ExtendedItem} from "../../structs/App";
+import {StoreBalance} from "../../structs/storesTypes";
 
 
 export type AppState = {
@@ -11,6 +12,8 @@ export type AppState = {
     selectedStoreGroup: ExtendedItem | null// текущий выбранный каталог для отобрадения
     selectedStore: ExtendedItem | null// текущий отоброаемый склад
     selectedAsset: TAsset | null
+    storeBalance: StoreBalance | null
+    selectedAssets: TAsset[] | null
 
 }
 
@@ -23,8 +26,20 @@ export enum AppActionTypes {
     SET_SELECTED_NOMENCLATURE_ITEM = "SET_SELECTED_NOMENCLATURE_ITEM",
     SET_SELECTED_ASSET_STORE = "SET_SELECTED_ASSET_STORE",
     SET_SELECTED_ASSET = "SET_SELECTED_ASSET",
-    SET_ASSET_QRCODE = "SET_ASSET_QRCODE"
+    SET_ASSET_QRCODE = "SET_ASSET_QRCODE",
+    SET_STORE_BALANCE = "SET_STORE_BALANCE",
+    SET_SELECTED_ASSETS = "SET_SELECTED_ASSETS"
 
+}
+
+interface SetSelectedAssetsAction {
+    type: AppActionTypes.SET_SELECTED_ASSETS,
+    payload: TAsset[] | null
+}
+
+interface SetStoreBalanceAction {
+    type: AppActionTypes.SET_STORE_BALANCE,
+    payload: StoreBalance
 }
 
 interface SetIsAuthAction {
@@ -82,3 +97,5 @@ export type AppActions = SetSelectedNomenclatureGroupAction
     | SetSelectedStoreGroupAction
     | SetSelectedAssetAction
     | SetIsAuthAction
+    | SetStoreBalanceAction
+    | SetSelectedAssetsAction

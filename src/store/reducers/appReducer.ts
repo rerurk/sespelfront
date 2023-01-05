@@ -2,17 +2,20 @@
 import {AppActions, AppActionTypes, AppState} from "../types/AppStoreTypes";
 import {TAsset} from "../../structs/Asset";
 import {ExtendedItem} from "../../structs/App";
+import {StoreBalance} from "../../structs/storesTypes";
 
 
 const initialState: AppState = {
-    isAuth:true,
+    isAuth:false,
+    storeBalance:null,
     nomenclatureRoot: null,
     storeGroupRoot: null,
     selectedNomenclatureGroup: null,
     selectedStoreGroup:null,
     selectedNomenclatureItem: null,
     selectedStore: null,
-    selectedAsset:null
+    selectedAsset:null,
+    selectedAssets:null
 
 
 
@@ -22,11 +25,20 @@ export function GetCurrentState(): AppState {
     return initialState
 }
 
+function setSelectedAssetsState(assets:TAsset[]|null):AppState {
+     initialState.selectedAssets=assets
+    return initialState
+}
+
 function setAuthToState(isAuth:boolean):AppState {
   initialState.isAuth=isAuth
     return initialState
 }
 
+function setStoreBalance(storeBalance: StoreBalance|null): AppState {
+    initialState.storeBalance = storeBalance
+    return initialState
+}
 function setStoreGroupRootItem(root: ExtendedItem): AppState {
 
     initialState.storeGroupRoot = root
@@ -88,6 +100,10 @@ export const appReducer = (state = initialState, action: AppActions): AppState =
             return {...setSelectedAsset(action.payload)}
         case AppActionTypes.SET_IS_AUTH:
             return {...setAuthToState(action.payload)}
+        case AppActionTypes.SET_STORE_BALANCE:
+            return {...setStoreBalance(action.payload)}
+        case AppActionTypes.SET_SELECTED_ASSETS:
+            return {...setSelectedAssetsState(action.payload)}
         default:
             return state
     }

@@ -24,7 +24,7 @@ export type FetchesResult = [
 
 ]
 
-export class Fetches {
+export class Fetches{
 
     public static async Authorization(usr:USRAuth): Promise<AuthRes | Error> {
         try {

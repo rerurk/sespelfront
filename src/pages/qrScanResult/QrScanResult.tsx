@@ -15,6 +15,7 @@ import {Domen} from "../../fetches/Requests";
 import AssetTransferHistory from "../../components/assetTransferHistory/AssetTransferHistory";
 import QRCode from "react-qr-code";
 import AssetQRCode from "../../components/assetQRCodeView/AssetQRCode";
+import BtImg from "../../components/UI/btImg/BtImg";
 
 const QrScanResult = () => {
     const {selectedAsset, storeGroupRoot, selectedStore} = useTypeSelector(state => state.appReducer)
@@ -30,13 +31,6 @@ const QrScanResult = () => {
     const [isShowTransferHistory, setIsShowTransferHistory] = useState<boolean>(false)
 
 
-
-    const onBtScanClick = () => {
-        // @ts-ignore
-        dispatch(SetSelectedAssetState(null))
-        navigate(RouterPath.QR_CODE_SCANNER)
-
-    }
     const onBtMakeTransferClick = () => {
         setIsShowStores(() => !isShowStores)
     }
@@ -71,24 +65,31 @@ const QrScanResult = () => {
     if (selectedAsset && storeGroupRoot) {
         return (
             <div className={cl.wrapper}>
-                <div className={cl.wrapper_tools}>
-                    <button onClick={() => onBtScanClick()}>Сканировать</button>
-                    <button onClick={() => onBtMakeTransferClick()}>переместить</button>
-                    <button onClick={()=>onBtShowTransferHistoryClick()}>история перемещений</button>
-                </div>
+
+                {isShowTransferHistory
+
+                    ?
+                    <div className={cl.wrapper_transferHistory}>
+                        <AssetTransferHistory onClickBack={onBtShowTransferHistoryClick}/>
+                    </div>
+                    :false
+                }
                 {
                     isShowStores
-                        ? <div>
+                        ? <div >
                             <button onClick={onBtTransferClick}>переместить в {selectedStore?.name}</button>
                             <StoreTree item={storeGroupRoot}/>
 
                         </div>
                         : false
                 }
-                {isShowTransferHistory
-                    ?<AssetTransferHistory onClickBack={onBtShowTransferHistoryClick}/>
-                    :false
-                }
+                <div className={cl.wrapper_tools}>
+                   <BtImg onBtClick={()=>onBtMakeTransferClick()} classN={cl.btImg} text={"переместить"} imgURL={Domen+"/images/tranferAsset.png"}/>
+
+                    <button onClick={()=>onBtShowTransferHistoryClick()}>история перемещений</button>
+                </div>
+
+
                 <div className={cl.wrapper_scan_res}>
 
                     <div className={cl.wrapper_scan_res_field}>

@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useEffect} from 'react';
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 // @ts-ignore
 import cl from "./StoreBalanceView.module.css"
@@ -8,83 +8,102 @@ import {Tools} from "../../tools/Tools";
 import {StoreBalance} from "../../structs/storesTypes";
 import {AssetsUUIDByNomenclItem, TAsset} from "../../structs/Asset";
 import AssetQuantityView from "../../components/assetQuantityView/AssetQuantityView";
-
 import PrintQrCodes from "../printQrCodes/PrintQrCodes";
 import {Item} from "../../structs/App";
+import {useDispatch} from "react-redux";
+import {SetSelectedAssetsState, SetStoreBalanceState} from "../../store/action_creator/AppStoreActions";
+import CloseBt from "../../components/UI/closeBt/CloseBt";
 
 
 /*
-* 1.Получем useEffect storeBalance {nomencItem:Item,assetsUUids:string[]}
+* 1.а useEffect получим storeBalance {nomencItem:Item,assetsUUids:string[]}
 * 2.отображаем как nomencl name:assetsUUids.lenght
-* 3. при клике на отображение показываем qrCode всех тмц принадлежащих этому наименованию на текущем складе
+* 3. при клике на отображение показываем qrCode всех тмц принадлежащих этому наименованию на текущем складе , пр клик на qr показываем тмц
 *
 * */
 
 const StoreBalanceView: FC = () => {
-    const {storeGroupRoot, selectedStoreGroup, selectedStore} = useTypeSelector(state => state.appReducer)
-    const [storeBalance, setStoreBalance] = useState<StoreBalance | null>(null)
-    const [showAssets, setShowAssets] = useState<TAsset[] | null>(null)
+    const dispatch = useDispatch()
+    const {storeGroupRoot, selectedStoreGroup, selectedStore, selectedAssets} = useTypeSelector(state => state.appReducer)
+
+    const {storeBalance} = useTypeSelector(state => state.appReducer)
     useEffect(() => {
+
+
+    })
+
+    const closeView = () => {
         setStoreBalance(null)
-    }, [selectedStoreGroup, selectedStore])
+    }
+
+    const setShowAssets = (assets: TAsset[] | null) => {
+        // @ts-ignore
+        dispatch(SetSelectedAssetsState(assets))
+    }
+
+    function setStoreBalance(sb: StoreBalance | null) {
+        // @ts-ignore
+        dispatch(SetStoreBalanceState(sb))
+    }
+
     const onShowBalanceClick = () => {
         if (selectedStore) {
 
             Fetches.GetStoreBalance(Tools.unRefCatalogItem(selectedStore)).then(r => {
+
                 if (!(r instanceof Error)) {
-                     let sb:StoreBalance=r
-                    sb.assets.sort((a, b) =>
-                    {
-                        if(a.nomencl_item.name>b.nomencl_item.name){return 1}
-                        return -1
-                    })
-                    if (r.assets && r.assets.length > 0) {
+                    let sb: StoreBalance = r
+                    if (sb.assets) {
 
-                        setStoreBalance(() => sb)
+                        sb.assets.sort((a, b) => {
+                            if (a.nomencl_item.name > b.nomencl_item.name) {
+                                return 1
+                            }
+                            return -1
+                        })
+                        console.log(sb)
+                        setStoreBalance(sb)
 
+                    } else {
+                        alert(" Склад " + sb.store.name + " пустой")
                     }
-
                 }
             })
         }
     }
 
-    const onStoreNameClick=()=>{
-        console.log(storeBalance?.assets)
+    const onStoreNameClick = () => {
+
         let assets: TAsset[] = []
-        if(storeBalance&&storeBalance.assets){
-            storeBalance.assets.forEach((a:AssetsUUIDByNomenclItem)=>{
+        if (storeBalance && storeBalance.assets) {
+            storeBalance.assets.forEach((a: AssetsUUIDByNomenclItem) => {
                 a.assets_uuid.forEach((uuid: string) => {
-                    let as: TAsset = makeTAsset(a.nomencl_item,uuid)
+                    let as: TAsset = makeTAsset(a.nomencl_item, uuid)
                     assets.push(as)
                 })
 
             })
-            console.log(assets.length)
-            setShowAssets(() => assets)
+            setShowAssets(assets)
         }
 
     }
-
     const showAssetsQrCodes = (a: AssetsUUIDByNomenclItem) => {
         let assets: TAsset[] = []
         if (selectedStore) {
             a.assets_uuid.forEach((uuid: string) => {
-                let as: TAsset = makeTAsset(a.nomencl_item,uuid)
+                let as: TAsset = makeTAsset(a.nomencl_item, uuid)
                 assets.push(as)
             })
-            setShowAssets(() => assets)
+            setShowAssets(assets)
         }
 
     }
     const setAssetNULL = () => {
-        setShowAssets(() => null)
+        setShowAssets(null)
     }
 
     function makeTAsset(nom: Item, assetUUID: string): TAsset {
-
-
-        let as: TAsset = {
+        return {
             // @ts-ignore
             store: selectedStore,
             nomenclature: nom,
@@ -98,7 +117,6 @@ const StoreBalanceView: FC = () => {
             }
 
         }
-        return as
 
     }
 
@@ -121,9 +139,10 @@ const StoreBalanceView: FC = () => {
                 </div>
                 {storeBalance
                     ? <div className={cl.wrapper_storeBalance} onClick={event => event.stopPropagation()}>
-
-                        <span onClick={onStoreNameClick}> СКЛАД:{storeBalance.store.name} </span>
-                        <div className={cl.wrapper_storeBalance_close} onClick={() => setStoreBalance(null)}>x</div>
+                        <div className={cl.wrapper_storeBalance_head_storeName} onClick={onStoreNameClick}>
+                            <span > СКЛАД:{storeBalance.store.name} </span>
+                        </div>
+                        <CloseBt close={() => closeView()}/>
                         <div className={cl.wrapper_storeBalance_head}>
                             <div className={cl.wrapper_storeBalance_head_name}>
                                 <span>Наименование</span>
@@ -151,8 +170,8 @@ const StoreBalanceView: FC = () => {
                     : false
                 }
                 {
-                    showAssets
-                        ? <PrintQrCodes assetsToPrint={showAssets} close={setAssetNULL}/>
+                    selectedAssets
+                        ? <PrintQrCodes assetsToPrint={selectedAssets} close={setAssetNULL}/>
                         : false
                 }
 

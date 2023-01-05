@@ -5,7 +5,6 @@ import cl from "./AssetQuantityView.module.css"
 interface AssetQuantityViewProps{
     assetsUUIDByName:AssetsUUIDByNomenclItem
     ind:number
-
 }
 
 const AssetQuantityView:FC<AssetQuantityViewProps> = ({assetsUUIDByName,ind}) => {

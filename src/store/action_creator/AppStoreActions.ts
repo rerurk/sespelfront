@@ -4,8 +4,15 @@ import {AppActions, AppActionTypes} from "../types/AppStoreTypes";
 
 import {AssetQrCode, TAsset} from "../../structs/Asset";
 import {ExtendedItem} from "../../structs/App";
+import {StoreBalance} from "../../structs/storesTypes";
 
 
+
+export const SetSelectedAssetsState = (assets: TAsset[]) => {
+    return (dispatch: Dispatch<AppActions>) => {
+        dispatch({type: AppActionTypes.SET_SELECTED_ASSETS, payload: assets})
+    }
+}
 
 export const SetNomenclatureRootState = (root: ExtendedItem) => {
     return (dispatch: Dispatch<AppActions>) => {
@@ -57,5 +64,10 @@ export const SetAssetQRCode=(assetQrCode:AssetQrCode)=>{
 export const SetIsAuthState=(auth:boolean)=>{
     return(dispatch:Dispatch<AppActions>)=>{
         dispatch({type:AppActionTypes.SET_IS_AUTH,payload:auth})
+    }
+}
+export const SetStoreBalanceState=(storeBalance:StoreBalance)=>{
+    return(dispatch:Dispatch<AppActions>)=>{
+        dispatch({type:AppActionTypes.SET_STORE_BALANCE,payload:storeBalance})
     }
 }
