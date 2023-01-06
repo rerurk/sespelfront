@@ -66,7 +66,7 @@ const NomenclatureRoot: FC = () => {
 
 
                         <button
-                            onClick={() => navigate(RouterPath.MAKE_NOMENCLATURE_ITEM)}
+                            onClick={() => navigate(RouterPath.MAKE_NOMENCLATURE_ITEM_PAGE)}
                             title={NomenclatureGui.MAKE_GROUP_ITEM.title}
                         >
                             {NomenclatureGui.MAKE_GROUP_ITEM.text}

@@ -12,7 +12,9 @@
     .wrapper_tools {
         width: 100%;
         height: 2rem;
-        background: grey;
+        background: #f4a460;
+        color: white;
+
     }
     .wrapper_StoreTree{
           width: 50%;
@@ -37,20 +39,7 @@
         cursor: pointer;
     }
 
-    .wrapper_storeBalance_head {
 
-        width: 100%;
-
-        border-top: solid 1px grey;
-        height: 5vh;
-        display: flex;
-        flex-direction: row;
-    }
-    .wrapper_storeBalance_head_storeName{
-        cursor: pointer;
-        height: 2rem;
-
-    }
     .wrapper_storeBalance_head_storeName:hover{
         background: lightgreen;
     }
@@ -87,6 +76,7 @@
         height: 100%;
 
 
+
     }
 
     .wrapper_tools {
@@ -95,20 +85,25 @@
         justify-content: center;
         width: 100%;
         height: 2rem;
-        background: grey;
+        background: #f4a460;
+        color: white;
+
     }
 
     .wrapper_tools > span {
         margin-right: 1rem;
     }
     .wrapper_tools > button {
+        background: white;
+        color: #f4a460;
+        height: 1.5rem;
 
 
-        height: 2rem;
     }
 
     .wrapper_StoreTree{
 
+        background: white;
     }
 
     .wrapper_storeBalance {
@@ -117,6 +112,7 @@
         width: 100vw;
         height: 100vh;
         background: #eee;
+
 
 
 
@@ -130,20 +126,8 @@
         height: 3vh;
     }
 
-    .wrapper_storeBalance_head {
-        margin-top: 3vh;
-        width: 100vw;
-        border-bottom: solid 1px grey;
-        border-top: solid 1px grey;;
-        height: 5vh;
-        display: flex;
-        flex-direction: row;
 
-    }
-    .wrapper_storeBalance_head_storeName{
-        cursor: pointer;
 
-    }
     .wrapper_storeBalance_head_storeName:hover{
         background: lightgreen;
     }
@@ -171,6 +155,29 @@
         overflow-y: scroll;
     }
 
+
+}
+.wrapper_storeBalance_head_storeName{
+    cursor: pointer;
+    height: 2rem;
+    background: #f0a059;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.wrapper_storeBalance_head {
+
+    width: 100%;
+    border-bottom: solid 1px grey;
+    border-top: solid 1px grey;;
+    height: 5vh;
+    display: flex;
+    flex-direction: row;
+    background: #f4a460;
+    color: white;
 
 }
 

@@ -38,6 +38,18 @@ export class Fetches{
         }
     }
 
+    public static async GetAuthStatus(): Promise<AuthRes | Error> {
+        try {
+            const res = await axios.post<AuthRes>(Requests.GET_AUTH_STATUS)
+            if (res.status !== 200) {
+                return Error("ошибка")
+            }
+            return res.data
+        } catch (e) {
+            return Error(ReqErrors.GetData)
+        }
+    }
+
     public static async FetchAllData(): Promise<FetchesResult> {
         return Promise.all([this.GetItemTYPES(), this.GetNomenclatureRoot(), this.GetStoreGroupRoot()])
     }

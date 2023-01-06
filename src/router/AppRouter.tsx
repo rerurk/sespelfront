@@ -17,17 +17,3 @@ const AppRouter:FC = () => {
 };
 
 export default AppRouter;
-
-/*
-*  <Routes>
-                {pubicRoutes.map((rout, ind) =>
-                    <RoutesView exact={rout.exact} path={rout.path} element={rout.element} key={"rout" + ind}/>
-                )}
-            </Routes>
-* */
-
-
-
-/*
-
-  }*/

@@ -4,7 +4,6 @@
     right: 0;
     width: 1rem;
     height: 1rem;
-
     border: solid 1px black;
     display: flex;
     align-items: center;
@@ -14,4 +13,5 @@
 }
 .wrapper:hover{
     background: white;
+    color: black;
 }

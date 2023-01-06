@@ -1,9 +1,9 @@
 //export const Domen = "http://192.168.1.95:8080"
-//export const Domen = "https://192.168.1.95"
-export const Domen = ""
+export const Domen = "https://192.168.1.95"
+//export const Domen = ""
 type RequestT = {
     AUTHORIZATION:string,
-
+    GET_AUTH_STATUS:string,
     MAKE_ITEM: string,
     TRANSFER_ITEM: string,
     MODIFY_ITEM: string,
@@ -23,7 +23,7 @@ type RequestT = {
 
 enum req {
     AUTHORIZATION="/authorization",
-
+    GET_AUTH_STATUS="/get_auth_status",
     MAKE_ITEM = "/make_item",
     TRANSFER_ITEM = "/transfer_item",
     MODIFY_ITEM = "/modify_item",
@@ -32,11 +32,9 @@ enum req {
     GET_NOMENCLATURE_ROOT = "/get_nomenclature_root",
     GET_STORE_GROUP_ROOT = "/get_store_group_root",
     GET_ITEMS = "/get_items",
-
     MAKE_ASSET = "/make_asset",
     GET_NOT_ACCEPTED_ASSETS = "/get_not_accepted_assets",
     GET_ASSET_BY_UUID = "/get_asset_by_uuid",
-    //это отдельно потомучто может нужна будет картинка
     MAKE_NOMENCLATURE_ITEM = "/make_nomenclature_item",
     MODIFY_NOMENCLATURE_ITEM = "/modify_nomenclature_item",
     GET_ASSET_TRANSFER_HISTORY = "/get_asset_transfer_history",
@@ -45,6 +43,7 @@ enum req {
 
 export const Requests: RequestT = {
     AUTHORIZATION:Domen+req.AUTHORIZATION,
+    GET_AUTH_STATUS:Domen+req.GET_AUTH_STATUS,
 
     MAKE_ITEM: Domen + req.MAKE_ITEM,
     MODIFY_ITEM: Domen + req.MODIFY_ITEM,

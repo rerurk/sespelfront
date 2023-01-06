@@ -2,10 +2,9 @@ import React, {useEffect, useState} from 'react';
 // @ts-ignore
 import cl from "./QrScanResult.module.css"
 import {useTypeSelector} from "../../hooks/useTypeSelector";
-import {useNavigate} from "react-router-dom";
+
 import {useDispatch} from "react-redux";
 import {SetSelectedAssetState} from "../../store/action_creator/AppStoreActions";
-import {RouterPath} from "../../router";
 import StoreTree from "../../components/stores/storeTree/StoreTree";
 import {Fetches} from "../../fetches/Fetches";
 import {TransferItem} from "../../structs/App";
@@ -13,9 +12,10 @@ import {Tools} from "../../tools/Tools";
 import {TAsset} from "../../structs/Asset";
 import {Domen} from "../../fetches/Requests";
 import AssetTransferHistory from "../../components/assetTransferHistory/AssetTransferHistory";
-import QRCode from "react-qr-code";
+
 import AssetQRCode from "../../components/assetQRCodeView/AssetQRCode";
 import BtImg from "../../components/UI/btImg/BtImg";
+import CloseBt from "../../components/UI/closeBt/CloseBt";
 
 const QrScanResult = () => {
     const {selectedAsset, storeGroupRoot, selectedStore} = useTypeSelector(state => state.appReducer)
@@ -24,7 +24,7 @@ const QrScanResult = () => {
             alert(`"${selectedAsset?.nomenclature.name}" уже на складе ` + `"${selectedStore?.name}".`)
         }
     }, [selectedStore])
-    const navigate = useNavigate();
+
     const dispatch = useDispatch()
 
     const [isShowStores, setIsShowStores] = useState<boolean>(false)
@@ -67,16 +67,14 @@ const QrScanResult = () => {
             <div className={cl.wrapper}>
 
                 {isShowTransferHistory
-
                     ?
-                    <div className={cl.wrapper_transferHistory}>
                         <AssetTransferHistory onClickBack={onBtShowTransferHistoryClick}/>
-                    </div>
                     :false
                 }
                 {
                     isShowStores
-                        ? <div >
+                        ? <div className={cl.wrapper_showStores}>
+                            <CloseBt close={()=>setIsShowStores(false)}/>
                             <button onClick={onBtTransferClick}>переместить в {selectedStore?.name}</button>
                             <StoreTree item={storeGroupRoot}/>
 

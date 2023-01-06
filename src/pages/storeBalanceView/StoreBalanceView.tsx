@@ -24,13 +24,13 @@ import CloseBt from "../../components/UI/closeBt/CloseBt";
 
 const StoreBalanceView: FC = () => {
     const dispatch = useDispatch()
-    const {storeGroupRoot, selectedStoreGroup, selectedStore, selectedAssets} = useTypeSelector(state => state.appReducer)
+    const {storeGroupRoot, selectedStore, selectedAssets,storeBalance} = useTypeSelector(state => state.appReducer)
 
-    const {storeBalance} = useTypeSelector(state => state.appReducer)
     useEffect(() => {
-
-
-    })
+             if(storeBalance){
+                 getStoreBalance(storeBalance)
+             }
+    },)
 
     const closeView = () => {
         setStoreBalance(null)
@@ -48,30 +48,48 @@ const StoreBalanceView: FC = () => {
 
     const onShowBalanceClick = () => {
         if (selectedStore) {
+            let newSB:StoreBalance={
+                store:selectedStore,
+                assets:[]
 
-            Fetches.GetStoreBalance(Tools.unRefCatalogItem(selectedStore)).then(r => {
+            }
+            getStoreBalance(newSB)
+
+        }
+    }
+
+    function getStoreBalance(sb:StoreBalance) {
+
+            Fetches.GetStoreBalance((sb.store)).then(r => {
 
                 if (!(r instanceof Error)) {
                     let sb: StoreBalance = r
                     if (sb.assets) {
-
                         sb.assets.sort((a, b) => {
                             if (a.nomencl_item.name > b.nomencl_item.name) {
                                 return 1
                             }
                             return -1
                         })
-                        console.log(sb)
-                        setStoreBalance(sb)
+                        if (JSON.stringify(storeBalance)!==JSON.stringify(sb)){
+
+                            setStoreBalance(sb)
+                            // @ts-ignore
+                            dispatch(SetSelectedAssetsState(null))
+                        }
+
 
                     } else {
+                        setStoreBalance(null)
+                        // @ts-ignore
+                        dispatch(SetSelectedAssetsState(null))
                         alert(" Склад " + sb.store.name + " пустой")
                     }
                 }
             })
-        }
-    }
 
+
+    }
     const onStoreNameClick = () => {
 
         let assets: TAsset[] = []
@@ -127,8 +145,8 @@ const StoreBalanceView: FC = () => {
 
                 {selectedStore
                     ? <div className={cl.wrapper_tools}>
-                        <span>Выбранный склад:{selectedStore.name}</span>
-                        <button onClick={onShowBalanceClick}>показать остатки</button>
+                        <span>Выбранный склад:<strong>{selectedStore.name}</strong></span>
+                        <button onClick={onShowBalanceClick}>баланс</button>
                     </div>
 
                     : false

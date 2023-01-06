@@ -97,7 +97,7 @@ const PrintQrCodes: FC<PrintQrCodesProps> = ({assetsToPrint, close}) => {
                             />
                         </div>)
                 }
-
+                <CloseBt close={()=>close()}/>
             </div>
             <div className={cl.wrapper_bts}>
                 <div className={cl.wrapper_bts_printItems}>
@@ -112,7 +112,7 @@ const PrintQrCodes: FC<PrintQrCodesProps> = ({assetsToPrint, close}) => {
                 <button onClick={() => window.print()}>печать</button>
 
             </div>
-            <CloseBt close={()=>close()}/>
+
         </div>
     );
 };

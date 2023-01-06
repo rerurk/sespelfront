@@ -14,11 +14,6 @@ import {SetSelectedAssetState} from "../../store/action_creator/AppStoreActions"
 import {RouterPath} from "../../router";
 
 
-
-
-
-let wmin: number = 200
-
 const QrScan: FC = () => {
     const navigate = useNavigate();
     const dispatch=useDispatch()
@@ -48,6 +43,7 @@ const QrScan: FC = () => {
         alert(err)
     }
 
+
     if (!qrRes) {
         return (
             <div className={cl.wrapper}>
@@ -76,12 +72,14 @@ const QrScan: FC = () => {
             </div>
         );
     }
+    if(qrRes)
     return (
         <div>
              <label>{qrRes}</label>
 
         </div>
     )
+    return (<div/>)
 };
 
 export default QrScan;

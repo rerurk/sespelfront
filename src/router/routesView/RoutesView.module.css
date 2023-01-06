@@ -4,7 +4,7 @@
         bottom: 0;
         width: 100%;
         height: 4rem;
-        background: #fff;
+        background: sandybrown;
         color: #fff;
         display: flex;
         flex-direction: row;
@@ -41,22 +41,22 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-
+        background: sandybrown;
+        color: white;
     }
     .wrapper_routeItem_name{
         font-size: 0.7rem;
-        color: lightseagreen;
+
     }
     .wrapper_routeItem_img{
         width: 2rem;
         height: 2rem;
         object-fit: contain;
-        background: white;
+
     }
     .selectedItem {
-        color: red;
-        background-color: white;
-
+        background: white;
+        color: sandybrown;
 
     }
 

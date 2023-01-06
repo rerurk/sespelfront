@@ -44,7 +44,7 @@ export enum RouterPath {
 
     QR_CODE_SCANNER = "/QR_CODE_SCANNER",
     MAKE_NOMENCLATURE_GROUP = "/MAKE_NOMENCLATURE_GROUP",
-    MAKE_NOMENCLATURE_ITEM = "/MAKE_NOMENCLATURE_ITEM",
+    MAKE_NOMENCLATURE_ITEM_PAGE = "/MAKE_NOMENCLATURE_ITEM_PAGE",
     MODIFY_NOMENCLATURE_GROUP = "/MODIFY_NOMENCLATURE_GROUP",
     MODIFY_STORE_GROPE = "/MODIFY_STORE_GROPE",
     CREATE_STORE_GROPE = "/CREATE_STORE_GROPE",
@@ -99,7 +99,7 @@ export const pcRoutes: RouteNode[] = [
     {
         isHide: true,
 
-        path: RouterPath.MAKE_NOMENCLATURE_ITEM,
+        path: RouterPath.MAKE_NOMENCLATURE_ITEM_PAGE,
         name: "",
         element: <MakeNomenclatureItem/>
     },
@@ -192,7 +192,7 @@ export const mobileRoutes: RouteNode[] = [
     {
         isHide: true,
 
-        path: RouterPath.MAKE_NOMENCLATURE_ITEM,
+        path: RouterPath.MAKE_NOMENCLATURE_ITEM_PAGE,
         name: "",
         element: <MakeNomenclatureItem/>
     },

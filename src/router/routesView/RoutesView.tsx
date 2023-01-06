@@ -12,9 +12,6 @@ const RoutesView: FC = () => {
 
     const navigate = useNavigate();
 
-
-
-
     const onItemClick = (e: React.MouseEvent<HTMLDivElement>, node: RouteNode) => {
         if (lastItem) {
             lastItem.classList.remove(cl.selectedItem)
