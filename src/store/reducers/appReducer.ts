@@ -1,8 +1,9 @@
 
 import {AppActions, AppActionTypes, AppState} from "../types/AppStoreTypes";
-import {TAsset} from "../../structs/Asset";
+import {QrCodeFields, TAsset} from "../../structs/Asset";
 import {ExtendedItem} from "../../structs/App";
 import {StoreBalance} from "../../structs/storesTypes";
+
 
 
 const initialState: AppState = {
@@ -15,7 +16,7 @@ const initialState: AppState = {
     selectedNomenclatureItem: null,
     selectedStore: null,
     selectedAsset:null,
-    selectedAssets:null
+    qrCodes:null
 
 
 
@@ -25,8 +26,31 @@ export function GetCurrentState(): AppState {
     return initialState
 }
 
+export function IsQrCodeCOntainsInState(code:string):boolean {
+    if (initialState.qrCodes) {
+    return initialState.qrCodes.filter((qr:QrCodeFields)=>qr.code==code).length>0
+        }
+    return false
+
+}
+function removeAssetFromState (qrFields: QrCodeFields):AppState {
+    if (initialState.qrCodes) {
+        initialState.qrCodes = initialState.qrCodes.filter((qr:QrCodeFields)=>qr.code!=qrFields.code)
+    }
+
+    return initialState
+}
+function addAssetToState (qr:QrCodeFields):AppState {
+    if(!initialState.qrCodes){
+        initialState.qrCodes=[]
+    }
+    initialState.qrCodes.push(qr)
+
+    return initialState
+}
+
 function setSelectedAssetsState(assets:TAsset[]|null):AppState {
-     initialState.selectedAssets=assets
+
     return initialState
 }
 
@@ -104,6 +128,10 @@ export const appReducer = (state = initialState, action: AppActions): AppState =
             return {...setStoreBalance(action.payload)}
         case AppActionTypes.SET_SELECTED_ASSETS:
             return {...setSelectedAssetsState(action.payload)}
+        case AppActionTypes.ADD_QR_CODE:
+            return {...addAssetToState(action.payload)}
+        case AppActionTypes.REMOVE_QR_CODE:
+            return {...removeAssetFromState(action.payload)}
         default:
             return state
     }

@@ -6,12 +6,12 @@
     outline: solid 1px red;
 
 }
-.wrapper>img{
+.btImage{
     width: 70%;
     height: 70%;
     object-fit: contain;
 }
-.wrapper>span{
+.btText{
     height: 20%;
     font-size: 0.5rem;
 }

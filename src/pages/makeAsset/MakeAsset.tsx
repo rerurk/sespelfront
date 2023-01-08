@@ -8,9 +8,7 @@ import StoreTree from "../../components/stores/storeTree/StoreTree";
 import {TAsset, TMakeNewAsset} from "../../structs/Asset";
 import {Tools} from "../../tools/Tools";
 import {Fetches} from "../../fetches/Fetches";
-import AssetQRCode from "../../components/assetQRCodeView/AssetQRCode";
-import {useNavigate} from "react-router-dom";
-import PrintQrCodes from "../printQrCodes/PrintQrCodes";
+
 
 
 let newAsset: TMakeNewAsset = {
@@ -22,21 +20,11 @@ let newAsset: TMakeNewAsset = {
 
 const MakeAsset: FC = () => {
 
-    const navigate = useNavigate();
+
     const {storeGroupRoot, nomenclatureRoot, selectedStore, selectedNomenclatureItem} = useTypeSelector(state => state.appReducer)
     const [newMakedAssets, setNewMakedAssets] = useState<TAsset[]>([])
-    const [showPrintQrCodes,setShowPrintQrCodes]=useState<boolean>(false)
-/*    useEffect(() => {
-        Fetches.GetNotAcceptedAssets().then(r => {
-            if (!(r instanceof Error)) {
-                setNewMakedAssets(r)
-            }
-        })
 
-    }, [])*/
-    const onPrintClick = () => {
-          setShowPrintQrCodes(()=>!showPrintQrCodes)
-    }
+
     const onMakeClick = () => {
         if (selectedStore && selectedNomenclatureItem) {
             let conf = window.confirm(` Содать ТМЦ ${selectedNomenclatureItem.name} в ${selectedStore.name}?`)
@@ -46,7 +34,6 @@ const MakeAsset: FC = () => {
                 Fetches.MakeAsset(newAsset).then(r => {
                     if (!(r instanceof Error)) {
                         newMakedAssets.push(r)
-                        console.log(newMakedAssets)
                         setNewMakedAssets(() => [...newMakedAssets])
                     }
                 })
@@ -72,28 +59,7 @@ const MakeAsset: FC = () => {
                     <NomenclatureItemView item={nomenclatureRoot}/>
                     <StoreTree item={storeGroupRoot}/>
                 </div>
-                <div className={cl.wrapper_newAssets}>
-                    <button style={{
-                        position: "absolute",
-                        left: "0"
-                    }}
-                            onClick={onPrintClick}
-                    >печать
-                    </button>
-                    {
-                        newMakedAssets
-                            ? newMakedAssets.map((a: TAsset) =>
-                                <div key={"QRCode_" + a.asset.uuid} className={cl.wrapper_newAssets_qrCode}>
-                                    <AssetQRCode assetQrCodeFields={{assetNomenclatureName:a.nomenclature.name,assetUUID:a.asset.uuid}}/>
-                                </div>
-                            )
-                            : false
-                    }
-                </div>
-                {showPrintQrCodes
-                    ?<PrintQrCodes assetsToPrint={newMakedAssets} close={() => onPrintClick()}/>
-                    :false
-                }
+
             </div>
         );
     return (<div/>)

@@ -22,6 +22,19 @@
     .wrapper_bts_printItems>input{
         width: 2rem;
     }
+    .bt_show{
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 3rem;
+        height: 3rem;
+        background: white;
+        border-radius: .5rem 0 0 .5rem;
+        border: solid 1px sandybrown;
+        z-index: 500;
+        cursor: pointer;
+
+    }
 
 }
 
@@ -52,6 +65,19 @@
     .wrapper_bts_printItems>input{
         width: 2rem;
     }
+    .bt_show{
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 3rem;
+        height: 3rem;
+        background: white;
+        border-radius: .5rem 0 0 .5rem;
+        border: solid 1px sandybrown;
+        z-index: 500;
+        cursor: pointer;
+
+    }
 
 }
 
@@ -68,12 +94,10 @@
     z-index: 600;
 
 }
-
-
-
-.bt_hide{
+.bts_hide{
     display: none;
 }
-.bt_show{
+.bts_show{
 
 }
+

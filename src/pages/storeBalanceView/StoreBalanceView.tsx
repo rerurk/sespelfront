@@ -1,18 +1,19 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 // @ts-ignore
 import cl from "./StoreBalanceView.module.css"
 import StoreTree from "../../components/stores/storeTree/StoreTree";
 import {Fetches} from "../../fetches/Fetches";
-import {Tools} from "../../tools/Tools";
+
 import {StoreBalance} from "../../structs/storesTypes";
-import {AssetsUUIDByNomenclItem, TAsset} from "../../structs/Asset";
+import {NomenclItemAndHisUUIDS, uuid_time, TAsset} from "../../structs/Asset";
 import AssetQuantityView from "../../components/assetQuantityView/AssetQuantityView";
-import PrintQrCodes from "../printQrCodes/PrintQrCodes";
+
 import {Item} from "../../structs/App";
 import {useDispatch} from "react-redux";
 import {SetSelectedAssetsState, SetStoreBalanceState} from "../../store/action_creator/AppStoreActions";
 import CloseBt from "../../components/UI/closeBt/CloseBt";
+import AssetsList from "../../components/assetsList/AssetsList";
 
 
 /*
@@ -24,13 +25,16 @@ import CloseBt from "../../components/UI/closeBt/CloseBt";
 
 const StoreBalanceView: FC = () => {
     const dispatch = useDispatch()
-    const {storeGroupRoot, selectedStore, selectedAssets,storeBalance} = useTypeSelector(state => state.appReducer)
+    const {storeGroupRoot, selectedStore,storeBalance} = useTypeSelector(state => state.appReducer)
+    const [assetsList,setAssetsList]=useState<NomenclItemAndHisUUIDS[]|null>(null)
 
     useEffect(() => {
              if(storeBalance){
                  getStoreBalance(storeBalance)
              }
     },)
+
+
 
     const closeView = () => {
         setStoreBalance(null)
@@ -50,7 +54,7 @@ const StoreBalanceView: FC = () => {
         if (selectedStore) {
             let newSB:StoreBalance={
                 store:selectedStore,
-                assets:[]
+                nomenclItemAndHisUUIDS:[]
 
             }
             getStoreBalance(newSB)
@@ -64,13 +68,15 @@ const StoreBalanceView: FC = () => {
 
                 if (!(r instanceof Error)) {
                     let sb: StoreBalance = r
-                    if (sb.assets) {
-                        sb.assets.sort((a, b) => {
+
+                    if (sb.nomenclItemAndHisUUIDS) {
+                        sb.nomenclItemAndHisUUIDS.sort((a, b) => {
                             if (a.nomencl_item.name > b.nomencl_item.name) {
                                 return 1
                             }
                             return -1
                         })
+
                         if (JSON.stringify(storeBalance)!==JSON.stringify(sb)){
 
                             setStoreBalance(sb)
@@ -90,32 +96,18 @@ const StoreBalanceView: FC = () => {
 
 
     }
+
     const onStoreNameClick = () => {
 
-        let assets: TAsset[] = []
-        if (storeBalance && storeBalance.assets) {
-            storeBalance.assets.forEach((a: AssetsUUIDByNomenclItem) => {
-                a.assets_uuid.forEach((uuid: string) => {
-                    let as: TAsset = makeTAsset(a.nomencl_item, uuid)
-                    assets.push(as)
-                })
-
-            })
-            setShowAssets(assets)
-        }
-
+          if(storeBalance){
+              setAssetsList(storeBalance.nomenclItemAndHisUUIDS)
+          }
     }
-    const showAssetsQrCodes = (a: AssetsUUIDByNomenclItem) => {
-        let assets: TAsset[] = []
-        if (selectedStore) {
-            a.assets_uuid.forEach((uuid: string) => {
-                let as: TAsset = makeTAsset(a.nomencl_item, uuid)
-                assets.push(as)
-            })
-            setShowAssets(assets)
-        }
 
+    const showAssetsList = (a: NomenclItemAndHisUUIDS) => {
+    setAssetsList([a])
     }
+
     const setAssetNULL = () => {
         setShowAssets(null)
     }
@@ -171,11 +163,11 @@ const StoreBalanceView: FC = () => {
                         </div>
                         <div className={cl.wrapper_storeBalance_assetsQuantity}>
                             {
-                                storeBalance.assets.map((a: AssetsUUIDByNomenclItem, ind) =>
-                                    <div onClick={() => showAssetsQrCodes(a)} key={"AssetQuantityView_wrapper" + ind}>
+                                storeBalance.nomenclItemAndHisUUIDS.map((a: NomenclItemAndHisUUIDS, ind) =>
+                                    <div onClick={() => showAssetsList(a)} key={"AssetQuantityView_wrapper" + ind}>
                                         <AssetQuantityView
                                             key={"AssetQuantityView+" + ind}
-                                            assetsUUIDByName={a}
+                                            nomenclItemAndHisUUIDS={a}
                                             ind={ind + 1}
 
                                         />
@@ -187,10 +179,9 @@ const StoreBalanceView: FC = () => {
                     </div>
                     : false
                 }
-                {
-                    selectedAssets
-                        ? <PrintQrCodes assetsToPrint={selectedAssets} close={setAssetNULL}/>
-                        : false
+                {assetsList&& selectedStore
+                    ?<AssetsList n={assetsList} close={()=>setAssetsList(null)} store={selectedStore}/>
+                    :false
                 }
 
             </div>

@@ -1,4 +1,4 @@
-import {AssetQrCode, TAsset} from "../../structs/Asset";
+import {AssetQrCode, QrCodeFields, TAsset} from "../../structs/Asset";
 import {ExtendedItem} from "../../structs/App";
 import {StoreBalance} from "../../structs/storesTypes";
 
@@ -8,12 +8,15 @@ export type AppState = {
     nomenclatureRoot: ExtendedItem | null//корень каталога, его получаемс сервера
     storeGroupRoot: ExtendedItem | null
     selectedNomenclatureItem: ExtendedItem | null//
-    selectedNomenclatureGroup: ExtendedItem | null// текущий выбранный каталог для отобрадения
-    selectedStoreGroup: ExtendedItem | null// текущий выбранный каталог для отобрадения
-    selectedStore: ExtendedItem | null// текущий отоброаемый склад
+    // текущий выбранный каталог для отобрадения
+    selectedNomenclatureGroup: ExtendedItem | null
+    // текущий выбранный каталог для отобрадения
+    selectedStoreGroup: ExtendedItem | null
+    // текущий отоброаемый склад
+    selectedStore: ExtendedItem | null
     selectedAsset: TAsset | null
     storeBalance: StoreBalance | null
-    selectedAssets: TAsset[] | null
+    qrCodes: QrCodeFields[] | null
 
 }
 
@@ -28,8 +31,20 @@ export enum AppActionTypes {
     SET_SELECTED_ASSET = "SET_SELECTED_ASSET",
     SET_ASSET_QRCODE = "SET_ASSET_QRCODE",
     SET_STORE_BALANCE = "SET_STORE_BALANCE",
-    SET_SELECTED_ASSETS = "SET_SELECTED_ASSETS"
+    SET_SELECTED_ASSETS = "SET_SELECTED_ASSETS",
+    ADD_QR_CODE = "ADD_QR_CODE",
+    REMOVE_QR_CODE = "REMOVE_QR_CODE",
 
+}
+
+interface RemoveQrCodeFields {
+    type: AppActionTypes.REMOVE_QR_CODE,
+    payload: QrCodeFields
+}
+
+interface AddQrCodeFields {
+    type: AppActionTypes.ADD_QR_CODE,
+    payload: QrCodeFields
 }
 
 interface SetSelectedAssetsAction {
@@ -99,3 +114,5 @@ export type AppActions = SetSelectedNomenclatureGroupAction
     | SetIsAuthAction
     | SetStoreBalanceAction
     | SetSelectedAssetsAction
+    | AddQrCodeFields
+    | RemoveQrCodeFields

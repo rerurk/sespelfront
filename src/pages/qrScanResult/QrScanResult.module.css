@@ -4,6 +4,10 @@
         height: 90vh;
         background: lightgrey;
     }
+    .wrapper_showStores{
+      display: flex;
+        flex-direction: column;
+    }
 
 
     .wrapper_tools {
@@ -115,7 +119,6 @@
     }
     .wrapper_showStores{
       position: absolute;
-
         left: 0;
         width: 25%;
     }
@@ -206,4 +209,9 @@
         height: 2rem;
 
     }
+}
+.wrapper_showStores>button{
+    background: lightgreen;
+    height: 2rem;
+    width: 80%;
 }

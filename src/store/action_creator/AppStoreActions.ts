@@ -2,11 +2,22 @@
 import {Dispatch} from "redux";
 import {AppActions, AppActionTypes} from "../types/AppStoreTypes";
 
-import {AssetQrCode, TAsset} from "../../structs/Asset";
+import {AssetQrCode, QrCodeFields, TAsset} from "../../structs/Asset";
 import {ExtendedItem} from "../../structs/App";
 import {StoreBalance} from "../../structs/storesTypes";
 
 
+export const AddQrCodeToState = (qrFields: QrCodeFields) => {
+    return (dispatch: Dispatch<AppActions>) => {
+        dispatch({type: AppActionTypes.ADD_QR_CODE, payload: qrFields})
+    }
+}
+
+export const RemoveQrCodeFromState = (qrFields: QrCodeFields) => {
+    return (dispatch: Dispatch<AppActions>) => {
+        dispatch({type: AppActionTypes.REMOVE_QR_CODE, payload: qrFields})
+    }
+}
 
 export const SetSelectedAssetsState = (assets: TAsset[]) => {
     return (dispatch: Dispatch<AppActions>) => {

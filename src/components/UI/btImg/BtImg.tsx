@@ -17,11 +17,11 @@ const BtImg:FC<BtImgProps> = ({onBtClick,imgURL,text,classN}) => {
         clN=cl.wrapper
     }
     return (
-        <div className={clN}
+        <div className={classN?classN:cl.wrapper}
         onClick={()=>onBtClick()}
         >
-            <img alt={""} src={imgURL}/>
-            <span>{text}</span>
+            <img alt={""} src={imgURL} className={cl.btImage}/>
+            <span className={cl.btText}>{text}</span>
         </div>
     );
 };

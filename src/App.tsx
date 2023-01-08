@@ -15,6 +15,7 @@ import {
 import {useDispatch} from "react-redux";
 import Authorization from "./pages/authorization/Authorization";
 import {useTypeSelector} from "./hooks/useTypeSelector";
+import PrintQrCodes from "./components/printQrCodes/PrintQrCodes";
 
 
 export let AppItemTYPES: ItemTypes
@@ -59,7 +60,9 @@ function App() {
                     </div>
                     <RoutesView/>
                     <AppRouter/>
+                    <PrintQrCodes/>
                 </BrowserRouter>
+
             </div>
         );
     }

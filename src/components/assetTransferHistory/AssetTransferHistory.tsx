@@ -39,7 +39,7 @@ const AssetTransferHistory:FC<AssetTransferHistoryProps> = ({onClickBack}) => {
                 <div className={cl.wrapper_head}>
                     <CloseBt close={()=>onClickBack()}/>
                     <div className={cl.wrapper_history_field_store_name}><span>Склад</span></div>
-                    <div className={cl.wrapper_history_field_time}><span>Дата перемещения</span></div>
+                    <div className={cl.wrapper_history_field_time}><span>дата перемещения (гггг.мм.чч)</span></div>
                 </div>
                 <div className={cl.wrapper_history_fields}>
                 {
@@ -47,7 +47,7 @@ const AssetTransferHistory:FC<AssetTransferHistoryProps> = ({onClickBack}) => {
                         ?
                         history.map((h:AssetHistory,ind:number)=>
 
-                            <div className={cl.wrapper_history_field} key={"AssetTransferHistory_"+ind}>
+                            <div className={ind%2==0?cl.wrapper_history_field:[cl.wrapper_history_field,cl.wrapper_nMod2].join(" ")} key={"AssetTransferHistory_"+ind}>
                                 <div className={cl.wrapper_history_field_store_name}><span>{h.store.name}</span></div>
                                 <div className={cl.wrapper_history_field_time}>{h.create_time}</div>
                             </div>)

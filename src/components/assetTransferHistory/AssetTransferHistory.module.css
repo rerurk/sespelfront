@@ -76,12 +76,10 @@
     border-bottom: solid 1px grey;
     display: flex;
     flex-direction: row;
-
-
-}
-.wrapper_history_field>div{
     background: white;
     height: 2rem;
+
+
 }
 
 .wrapper_history_field_store_name {
@@ -90,7 +88,6 @@
     text-align: left;
     align-items: center;
     justify-content: flex-start;
-
     width: 30%;
 
     padding-left: 1rem;
@@ -105,4 +102,7 @@
 
     padding-left: 1rem;
 
+}
+.wrapper_nMod2 {
+    background: #eee;
 }

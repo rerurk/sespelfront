@@ -21,7 +21,7 @@ const QrScanResult = () => {
     const {selectedAsset, storeGroupRoot, selectedStore} = useTypeSelector(state => state.appReducer)
     useEffect(() => {
         if (selectedStore?.uuid === selectedAsset?.store.uuid && isShowStores) {
-            alert(`"${selectedAsset?.nomenclature.name}" уже на складе ` + `"${selectedStore?.name}".`)
+           // alert(`"${selectedAsset?.nomenclature.name}" уже на складе ` + `"${selectedStore?.name}".`)
         }
     }, [selectedStore])
 
@@ -75,8 +75,11 @@ const QrScanResult = () => {
                     isShowStores
                         ? <div className={cl.wrapper_showStores}>
                             <CloseBt close={()=>setIsShowStores(false)}/>
-                            <button onClick={onBtTransferClick}>переместить в {selectedStore?.name}</button>
-                            <StoreTree item={storeGroupRoot}/>
+                            { selectedStore&&selectedStore.uuid !== selectedAsset?.store.uuid && isShowStores
+                                ?<button onClick={onBtTransferClick}>переместить в {selectedStore?.name}</button>
+                                :false
+                            }
+                                <StoreTree item={storeGroupRoot}/>
 
                         </div>
                         : false
@@ -107,8 +110,8 @@ const QrScanResult = () => {
                         <img src={Domen + "/images/items_img/" + selectedAsset.nomenclature.uuid + ".jpg"}/>
                     </div>
                     <AssetQRCode assetQrCodeFields={{
-                        assetNomenclatureName:selectedAsset.nomenclature.name,
-                        assetUUID:selectedAsset.asset.uuid
+                        name:selectedAsset.nomenclature.name,
+                        code:selectedAsset.asset.uuid
                     }}/>
                 </div>
 

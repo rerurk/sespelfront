@@ -13,9 +13,9 @@ export type TAsset = {
     nomenclature:Item
 }
 
-export type AssetQrCodeFields ={
-    assetNomenclatureName:string,
-    assetUUID:string,
+export type QrCodeFields ={
+    name:string,
+    code:string,
 
 }
 
@@ -24,34 +24,18 @@ export type AssetHistory= {
     create_time: string
 
 }
-export type AssetsUUIDByNomenclItem ={
+export type NomenclItemAndHisUUIDS ={
     nomencl_item:Item,
-    assets_uuid:string[]
-}
-
-/*
-type AssetQuantity struct {
-	Name     string `json:"name"`
-	AssetsUUID [] string `json:"assets_uuid"`
-} */
-
-/*
-export type AssetsInStore ={
-    store:Item
-    assets:Item[]
+    uuid_times:uuid_time[]
 }
 
 
-export type AssetAndStore ={
-    current_store:Item
-    catalog_item:Item
-    asset:Item
+// актуальный uuid и время создания
+export type uuid_time={
+    uuid:string,
+    time:string
 }
 
-
-export type AssetUUID ={
-    uuid:string
-}*/
 export type AssetQrCode ={
     code:string
     assetCatalogName:string
