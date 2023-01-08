@@ -1,6 +1,6 @@
-export const Domen = "http://192.168.1.95:8080"
+//export const Domen = "http://192.168.1.95:8080"
 //export const Domen = "https://192.168.1.95"
-//export const Domen = ""
+export const Domen = ""
 type RequestT = {
     AUTHORIZATION:string,
     GET_AUTH_STATUS:string,

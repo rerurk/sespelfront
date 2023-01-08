@@ -11,7 +11,7 @@ import {
 import {RouterPath} from "../../router";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {IsQrCodeCOntainsInState} from "../../store/reducers/appReducer";
+import {IsQrCodeContainsInState} from "../../store/reducers/appReducer";
 
 // @ts-ignore
 import cl from "./assetListView.module.css"
@@ -90,7 +90,7 @@ const AssetListView: FC<AssetListViewProps> = ({a, ind}) => {
                 </span>
             </div>
             <div className={cl.wrapper_printing} onClick={event => event.stopPropagation()}>
-                <input type="checkbox" defaultChecked={IsQrCodeCOntainsInState(a.uuid)} onChange={event => onChangeCheck(event)} />
+                <input type="checkbox" defaultChecked={IsQrCodeContainsInState(a.uuid)} onChange={event => onChangeCheck(event)} />
             </div>
 
         </div>

@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 
 import './App.css';
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, useNavigate} from "react-router-dom";
 import AppRouter from "./router/AppRouter";
 import RoutesView from "./router/routesView/RoutesView";
 import {Fetches} from "./fetches/Fetches";
@@ -18,12 +18,15 @@ import {useTypeSelector} from "./hooks/useTypeSelector";
 import PrintQrCodes from "./components/printQrCodes/PrintQrCodes";
 
 
+
+
 export let AppItemTYPES: ItemTypes
 
 
-function App() {
+const App:FC=()=>{
 
     const dispatch = useDispatch()
+
     const {isAuth} = useTypeSelector(state => state.appReducer)
     useEffect(() => {
         // получим все нужные данные с сервера
@@ -44,6 +47,7 @@ function App() {
                     // @ts-ignore
                     dispatch(SetSelectedStoreGroupState(storeGroupRoot))
                     setIsAllConsist(() => true)
+
                 }
 
             })

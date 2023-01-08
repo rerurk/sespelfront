@@ -48,7 +48,7 @@ export enum RouterPath {
     MODIFY_STORE_GROPE = "/MODIFY_STORE_GROPE",
     CREATE_STORE_GROPE = "/CREATE_STORE_GROPE",
     CREATE_ASSETS_STORE = "/CREATE_ASSETS_STORE",
-    QR_SCAN_RESULT = "/QR_SCAN_RESULT",
+    QR_SCAN_RESULT = "/",
     STORE_BALANCE = "/STORE_BALANCE"
 }
 
@@ -81,11 +81,10 @@ export const pcRoutes: RouteNode[] = [
         element: <Nomenclatures/>
     },
     {
-        isHide: false,
-
+        isHide: true,
         path: RouterPath.MAIN,
         name: RouterTexts.MAIN,
-        element: <Main/>
+        element: <QrScan/>
     },
     {
         isHide: true,
@@ -162,7 +161,6 @@ export const mobileRoutes: RouteNode[] = [
     },
     {
         isHide: true,
-
         path: RouterPath.ASSETS_STORAGE,
         name: RouterTexts.ASSERTS_STORAGE,
         element: <AssetStores/>
@@ -178,7 +176,7 @@ export const mobileRoutes: RouteNode[] = [
 
         path: RouterPath.MAIN,
         name: RouterTexts.MAIN,
-        element: <Main/>
+        element: <QrScan/>
     },
     {
         isHide: true,

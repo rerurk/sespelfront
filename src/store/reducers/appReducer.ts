@@ -26,7 +26,7 @@ export function GetCurrentState(): AppState {
     return initialState
 }
 
-export function IsQrCodeCOntainsInState(code:string):boolean {
+export function IsQrCodeContainsInState(code:string):boolean {
     if (initialState.qrCodes) {
     return initialState.qrCodes.filter((qr:QrCodeFields)=>qr.code==code).length>0
         }
