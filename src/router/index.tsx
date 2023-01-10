@@ -163,6 +163,13 @@ export const mobileRoutes: RouteNode[] = [
         img:Domen+"/images/qrScanner.png"
     },
     {
+        isHide: false,
+        path: RouterPath.BARCODE_SCANNER,
+        name: RouterTexts.BARCODE_SCANNER,
+        element: <BarcodeScanner/>,
+        img:Domen+"/images/qrScanner.png"
+    },
+    {
         isHide: true,
         path: RouterPath.CREATE_ASSET,
         name: RouterTexts.CREATE_ASSET,
