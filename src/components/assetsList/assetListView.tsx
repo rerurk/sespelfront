@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 
 import {StrUUID} from "../../structs/App";
 import {Fetches} from "../../fetches/Fetches";
@@ -15,6 +15,7 @@ import {IsQrCodeContainsInState} from "../../store/reducers/appReducer";
 
 // @ts-ignore
 import cl from "./assetListView.module.css"
+import {useTypeSelector} from "../../hooks/useTypeSelector";
 export type TAssetListView={
 
     nomenclatureName:string,
@@ -23,17 +24,22 @@ export type TAssetListView={
 
 }
 interface AssetListViewProps{
-    a:TAssetListView
+    as:TAssetListView
     ind:number,
 }
 
-const AssetListView: FC<AssetListViewProps> = ({a, ind}) => {
+const AssetListView: FC<AssetListViewProps> = ({as, ind}) => {
+    const {qrCodes} = useTypeSelector(state => state.appReducer)
+
+    useEffect(()=>{
+
+    },[qrCodes?.length])
     const navigate = useNavigate();
     const dispatch=useDispatch()
     const showAsset = () => {
 
         let strSend:StrUUID={
-            uuid:a.uuid
+            uuid:as.uuid
         }
             Fetches.GetAssetBySTRUUID(strSend).then(r=>{
                 let as:TAsset|Error=r
@@ -53,21 +59,22 @@ const AssetListView: FC<AssetListViewProps> = ({a, ind}) => {
 
         if(e.target.checked){
            let qrCode:QrCodeFields={
-               code:a.uuid,
-               name:a.nomenclatureName
+               code:as.uuid,
+               name:as.nomenclatureName
            }
            // @ts-ignore
             dispatch(AddQrCodeToState(qrCode))
         }else {
             let qrCode:QrCodeFields={
-                code:a.uuid,
-                name:a.nomenclatureName
+                code:as.uuid,
+                name:as.nomenclatureName
             }
             // @ts-ignore
             dispatch(RemoveQrCodeFromState(qrCode))
         }
 
     };
+
     return (
         <div className={ind%2==0?cl.wrapper:[cl.wrapper,cl.wrapper_nMod2].join(" ")} onClick={()=>showAsset()}>
             <div className={cl.wrapper_n}>
@@ -78,19 +85,23 @@ const AssetListView: FC<AssetListViewProps> = ({a, ind}) => {
             <div className={cl.wrapper_name}>
                 <span>
                 {
-                    a.nomenclatureName
+                    as.nomenclatureName
                 }
                 </span>
             </div>
             <div className={cl.wrapper_time}>
                 <span>
                 {
-                    a.time
+                    as.time
                 }
                 </span>
             </div>
             <div className={cl.wrapper_printing} onClick={event => event.stopPropagation()}>
-                <input type="checkbox" defaultChecked={IsQrCodeContainsInState(a.uuid)} onChange={event => onChangeCheck(event)} />
+                <input
+                    key={"AssetListView_key_"+as.uuid}
+                    type="checkbox"
+                    checked={IsQrCodeContainsInState(as.uuid)}
+                    onChange={event => onChangeCheck(event)} />
             </div>
 
         </div>

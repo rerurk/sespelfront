@@ -32,6 +32,7 @@ const StoreBalanceView: FC = () => {
              if(storeBalance){
                  getStoreBalance(storeBalance)
              }
+
     },)
 
 
@@ -40,10 +41,6 @@ const StoreBalanceView: FC = () => {
         setStoreBalance(null)
     }
 
-    const setShowAssets = (assets: TAsset[] | null) => {
-        // @ts-ignore
-        dispatch(SetSelectedAssetsState(assets))
-    }
 
     function setStoreBalance(sb: StoreBalance | null) {
         // @ts-ignore
@@ -107,29 +104,6 @@ const StoreBalanceView: FC = () => {
     const showAssetsList = (a: NomenclItemAndHisUUIDS) => {
     setAssetsList([a])
     }
-
-    const setAssetNULL = () => {
-        setShowAssets(null)
-    }
-
-    function makeTAsset(nom: Item, assetUUID: string): TAsset {
-        return {
-            // @ts-ignore
-            store: selectedStore,
-            nomenclature: nom,
-            asset: {
-                type: 0,
-                id: -1,
-                // @ts-ignore
-                owner_uuid: selectedStore.uuid,
-                name: nom.uuid,
-                uuid: assetUUID
-            }
-
-        }
-
-    }
-
 
     if (storeGroupRoot) {
         return (

@@ -4,7 +4,7 @@ import AssetQRCode from "../assetQRCodeView/AssetQRCode";
 import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {Fetches} from "../../fetches/Fetches";
-import {SetSelectedAssetState} from "../../store/action_creator/AppStoreActions";
+import {RemoveQrCodeFromState, SetSelectedAssetState} from "../../store/action_creator/AppStoreActions";
 import {RouterPath} from "../../router";
 import {StrUUID} from "../../structs/App";
 import CloseBt from "../UI/closeBt/CloseBt";
@@ -18,17 +18,21 @@ const PrintQrCodes: FC = () => {
 
     const {qrCodes} = useTypeSelector(state => state.appReducer)
 
-    const [codesToPrint, setCodesToPrint] = useState<QrCodeFields[] | null>(qrCodes)
+    const [codesToPrint, setCodesToPrint] = useState<QrCodeFields[]>(qrCodes?qrCodes:[])
+
     const [step, setStep] = useState<number>(codesToPrint ? codesToPrint.length : 0)
+
     const [curInd, setCurInd] = useState<number>(0)
+
     const [isShow, setIsShow] = useState<boolean>(false)
     const navigate = useNavigate();
     const dispatch = useDispatch()
-
+    console.log("qrCodes",qrCodes)
+    console.log("codesToPrint",codesToPrint)
     useEffect(() => {
-
-        setCodesToPrint(() => qrCodes)
-
+          if(qrCodes) {
+              setCodesToPrint(() => qrCodes)
+          }
     }, [qrCodes?.length])
     const onQrCodePress = (uuid: string) => {
         let strSend: StrUUID = {
@@ -39,57 +43,65 @@ const PrintQrCodes: FC = () => {
             if (!(as instanceof Error) && as.asset.id > 0) {
                 // @ts-ignore
                 dispatch(SetSelectedAssetState(as))
+                setIsShow(()=>false )
                 navigate(RouterPath.QR_SCAN_RESULT)
+
             }
         })
     }
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (codesToPrint) {
+        if (codesToPrint&&qrCodes) {
             let quantity: number
             if (e.target.value == "") {
                 quantity = codesToPrint.length
             } else {
                 quantity = Number(e.target.value)
-                if (quantity > codesToPrint.length) {
-                    quantity = codesToPrint.length
+                console.log(quantity)
+                if (quantity > qrCodes.length) {
+                    quantity = qrCodes.length
                 }
             }
-
-            setCodesToPrint(() => codesToPrint.slice(0, quantity))
+            console.log("quantity:",quantity)
+            setCodesToPrint(() => qrCodes.slice(0, quantity))
             setStep(() => quantity)
             setCurInd(() => 0)
+
         }
     }
     const onNextPress = () => {
-        if (codesToPrint && step) {
+        if (qrCodes && step) {
             let ind: number = curInd + step
-            if (ind > codesToPrint.length) {
-                ind = codesToPrint.length
+            if (ind > qrCodes.length) {
+                ind = qrCodes.length
 
             }
-            setCodesToPrint(() => codesToPrint.slice(ind, ind + step))
+            setCodesToPrint(() => qrCodes.slice(ind, ind + step))
             setCurInd(() => ind)
         }
 
     }
     const onPrevPress = () => {
-        if (codesToPrint && step) {
+        if (qrCodes && step) {
             let ind: number = curInd - step
 
             if (curInd - step < 1) {
 
-                setCodesToPrint(() => codesToPrint.slice(0, step))
+                setCodesToPrint(() => qrCodes.slice(0, step))
 
                 setCurInd(() => 0)
             } else {
-                setCodesToPrint(() => codesToPrint.slice(ind - step, ind))
+                setCodesToPrint(() => qrCodes.slice(ind - step, ind))
                 setCurInd(() => ind)
 
             }
         }
     }
+    const onRemoveClick=(qrFields:QrCodeFields)=>{
+       // @ts-ignore
+        dispatch(RemoveQrCodeFromState(qrFields))
+    }
 
-    if (codesToPrint && codesToPrint.length > 0 && isShow) {
+    if (qrCodes&&qrCodes.length > 0 && isShow) {
 
         return (
 
@@ -97,12 +109,19 @@ const PrintQrCodes: FC = () => {
 
                 <div className={cl.wrapper_printPage} id="qrCodePrint">
                     {
-                        codesToPrint.map((prints: QrCodeFields) =>
-                            <div onClick={() => onQrCodePress(prints.code)} key={"Qr_wrapper_" + prints.code}>
+                        codesToPrint.map((qrCodeFields: QrCodeFields) =>
+                            <div
+                                className={cl.wrapper_qrCode_wrapper}
+                                onClick={() => onQrCodePress(qrCodeFields.code)}
+                                key={"Qr_wrapper_" + qrCodeFields.code}
+                            >
                                 <AssetQRCode
-                                    assetQrCodeFields={prints}
-                                    key={"wrCodePrint_" + prints.code}
+                                    assetQrCodeFields={qrCodeFields}
+                                    key={"wrCodePrint_" + qrCodeFields.code}
                                 />
+                                <div className={cl.wrapper_qrCode_wrapper_bt} onClick={(event => event.stopPropagation())}>
+                                     <CloseBt close={()=>onRemoveClick(qrCodeFields)}/>
+                                </div>
                             </div>)
 
                     }
@@ -115,7 +134,7 @@ const PrintQrCodes: FC = () => {
                         <input defaultValue={codesToPrint.length} key={"PrintQrCodes_q"} onChange={onInputChange}
                                type={"number"}/>
                         <button onClick={onNextPress}
-                                className={curInd + step >= codesToPrint.length ? cl.bts_hide : cl.bts_show}
+                                className={curInd + step >= qrCodes.length ? cl.bts_hide : cl.bts_show}
                                 key={"PrintQrCodes_bt_next"}>&raquo; след {step}</button>
                     </div>
                     <button onClick={() => window.print()}>печать</button>
@@ -129,7 +148,7 @@ const PrintQrCodes: FC = () => {
         return (
             <div>
                 <BtImg onBtClick={() => setIsShow(true)} imgURL={Domen + "/images/printQrCodes.png"} text={"печать"}
-                       classN={cl.bt_show}/>
+                       classN={cl.bt_print}/>
             </div>)
     }
     return (<div/>)

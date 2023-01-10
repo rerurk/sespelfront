@@ -14,6 +14,7 @@ import ModifyStoreGrope from "../pages/modifyStoreGrope/ModifyStoreGrope";
 import QrScanResult from "../pages/qrScanResult/QrScanResult";
 import StoreBalanceView from "../pages/storeBalanceView/StoreBalanceView";
 import {Domen} from "../fetches/Requests";
+import BarcodeScanner from "../pages/barcodeScanner/BarcodeScanner";
 
 export type RouteNode = {
     isHide: boolean
@@ -30,6 +31,7 @@ export enum RouterTexts {
     NOMENCLATURE = "Номенклатура",
     ASSERTS_STORAGE = "Места хранения",
     QR_CODE_SCANNER = "Сканер",
+    BARCODE_SCANNER="Сканер штрих",
     STORE_BALANCE = "складской остаток"
 
 
@@ -49,6 +51,7 @@ export enum RouterPath {
     CREATE_STORE_GROPE = "/CREATE_STORE_GROPE",
     CREATE_ASSETS_STORE = "/CREATE_ASSETS_STORE",
     QR_SCAN_RESULT = "/QR_SCAN_RESULT",
+    BARCODE_SCANNER="/BARCODE_SCANNER",
     STORE_BALANCE = "/STORE_BALANCE"
 }
 
@@ -58,6 +61,12 @@ export const pcRoutes: RouteNode[] = [
         path: RouterPath.QR_CODE_SCANNER,
         name: RouterTexts.QR_CODE_SCANNER,
         element: <QrScan/>
+    },
+    {
+        isHide: false,
+        path: RouterPath.BARCODE_SCANNER,
+        name: RouterTexts.BARCODE_SCANNER,
+        element: <BarcodeScanner/>
     },
     {
         isHide: false,

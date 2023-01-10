@@ -10,6 +10,23 @@
         color: black;
 
     }
+    .wrapper_qrCode_wrapper{
+        cursor: pointer;
+        display: block;
+        float: left;
+
+    }
+    .wrapper_qrCode_wrapper:hover>.wrapper_qrCode_wrapper_bt{
+       display: block;
+
+    }
+    .wrapper_qrCode_wrapper_bt{
+        position: absolute;
+        display: none;
+        background: sandybrown;
+        width: 1rem;
+        height: 1rem;
+    }
 
     .wrapper_bts {
         position: absolute;
@@ -22,13 +39,14 @@
     .wrapper_bts_printItems>input{
         width: 2rem;
     }
-    .bt_show{
+    .bt_print{
         position: fixed;
         top: 0;
         right: 0;
-        width: 3rem;
-        height: 3rem;
+        width: 5em;
+        height: 4rem;
         background: white;
+        font-size: 1rem;
         border-radius: .5rem 0 0 .5rem;
         border: solid 1px sandybrown;
         z-index: 500;
@@ -65,12 +83,13 @@
     .wrapper_bts_printItems>input{
         width: 2rem;
     }
-    .bt_show{
+    .bt_print{
         position: fixed;
         bottom: 0;
         right: 0;
         width: 3rem;
         height: 3rem;
+        font-size: 2rem;
         background: white;
         border-radius: .5rem 0 0 .5rem;
         border: solid 1px sandybrown;
@@ -78,6 +97,7 @@
         cursor: pointer;
 
     }
+
 
 }
 

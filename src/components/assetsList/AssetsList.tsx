@@ -5,6 +5,7 @@ import {NomenclItemAndHisUUIDS, uuid_time} from "../../structs/Asset";
 import CloseBt from "../UI/closeBt/CloseBt";
 import AssetListView, {TAssetListView} from "./assetListView";
 import {ExtendedItem} from "../../structs/App";
+import {useTypeSelector} from "../../hooks/useTypeSelector";
 
 
 interface AssetsListProps {
@@ -15,13 +16,16 @@ interface AssetsListProps {
 
 
 const AssetsList: FC<AssetsListProps> = ({n, store, close}) => {
+
     const [list, setList] = useState<TAssetListView[] | null>(null)
 
     useEffect(() => {
         if (!list) {
             setList(makeList())
         }
-    })
+
+
+    },)
 
     function makeList(): TAssetListView[] {
         let tempList: TAssetListView[] = []
@@ -100,7 +104,7 @@ const AssetsList: FC<AssetsListProps> = ({n, store, close}) => {
                     {list
                         ? list.map((v: TAssetListView, ind: number) =>
                             <div key={"AssetListView_wrapper" + v.uuid}>
-                                <AssetListView a={v} ind={ind + 1} key={"AssetListView_" + v.uuid}/>
+                                <AssetListView as={v} ind={ind + 1} key={"AssetListView_" + v.uuid}/>
                             </div>
                         )
                         : false
