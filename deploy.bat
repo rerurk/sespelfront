@@ -6,3 +6,4 @@
     echo %backPath%
   xcopy "./build" %deployPath%\public\ /s /e /h
   xcopy "./build" %backPath%\public\ /s /e /h
+g
