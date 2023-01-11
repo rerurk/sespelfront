@@ -1,31 +1,44 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 // @ts-ignore
 import cl from "./MakeAsset.module.css"
 import NomenclatureItemView from "../../components/nomenclatureItemsShow/NomenclatureItemView";
 import StoreTree from "../../components/stores/storeTree/StoreTree";
 
-import {TMakeNewAsset} from "../../structs/Asset";
+import {QrCodeFields, TInitAssetsFields, TMakeNewAsset} from "../../structs/Asset";
 import {Tools} from "../../tools/Tools";
 import {Fetches} from "../../fetches/Fetches";
+import {IsQrCodeContainsInState} from "../../store/reducers/appReducer";
+import {AddQrCodeToState, RemoveQrCodeFromState} from "../../store/action_creator/AppStoreActions";
 
 
 let newAsset: TMakeNewAsset = {
     asset_nomenclature_item: null,
-    asset_store: null
+    asset_store: null,
+    init_fields:{
+        owner: "",
+        serial_number: "",
+        uuid: ""
+    }
 
 }
 
 
 const MakeAsset: FC = () => {
     const {storeGroupRoot, nomenclatureRoot, selectedStore, selectedNomenclatureItem} = useTypeSelector(state => state.appReducer)
-
+    const [serialNumber,setSerialNumber]=useState<string|null>(null)
     const onMakeClick = () => {
         if (selectedStore && selectedNomenclatureItem) {
+
             let conf = window.confirm(` Содать ТМЦ ${selectedNomenclatureItem.name} в ${selectedStore.name}?`)
             if (conf) {
                 newAsset.asset_store = Tools.unRefCatalogItem(selectedStore)
                 newAsset.asset_nomenclature_item = Tools.unRefCatalogItem(selectedNomenclatureItem)
+                if(serialNumber&&serialNumber.length>2){
+
+                    newAsset.init_fields.serial_number=serialNumber
+                }
+                console.log(newAsset)
                 Fetches.MakeAsset(newAsset).then(r => {
                     if (!(r instanceof Error)) {
 
@@ -33,6 +46,23 @@ const MakeAsset: FC = () => {
                 })
             }
         }
+    }
+
+    const onChangeCheck = (e:React.ChangeEvent<HTMLInputElement>) => {
+       console.log(e.target)
+        if(e.target.checked){
+          setSerialNumber(()=>"_")
+        }else {
+          setSerialNumber(()=>null)
+        }
+
+    };
+
+    const onSerialNumberEnter=(e:React.ChangeEvent<HTMLInputElement>)=>{
+        console.log(e.target.value)
+        setSerialNumber(()=>e.target.value)
+
+
     }
     if (storeGroupRoot && nomenclatureRoot)
         return (
@@ -50,7 +80,21 @@ const MakeAsset: FC = () => {
                     <button onClick={onMakeClick}>СОЗДАТЬ</button>
                     <div>
                         <span> указать серийный номер</span>
-                        <input type={"checkbox"}/>
+                        <input  key={"MakeAssety_setSerNum"}
+                                type="checkbox"
+
+                                onChange={event => onChangeCheck(event)}/>
+                        {
+                            serialNumber
+                                ?<div>
+                                    <input
+                                        key={"MakeAsset_serialNum"}
+                                        defaultValue={serialNumber?serialNumber:""}
+                                        onChange={e=>onSerialNumberEnter(e)}
+                                    />
+                            </div>
+                                :false
+                        }
                     </div>
                 </div>
                 <div className={cl.wrapper_selectStoreAngNomenclature}>

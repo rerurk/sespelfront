@@ -11,7 +11,7 @@ export type Item = {
     type: number
     uuid: string
     owner_uuid: string | null
-    serial_number?: string
+
 }
 
 export interface ExtendedItem extends Item {

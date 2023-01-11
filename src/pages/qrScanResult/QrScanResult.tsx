@@ -107,8 +107,16 @@ const QrScanResult = () => {
                     </div>
                     <div className={cl.wrapper_scan_res_field}>
                         <div className={cl.wrapper_scan_res_field_name}><span> Клиент</span></div>
-                        <div className={cl.wrapper_scan_res_field_value}>{selectedAsset.owner}</div>
+                        <div className={cl.wrapper_scan_res_field_value}>{selectedAsset.init_fields.owner}</div>
                     </div>
+                    {selectedAsset.init_fields.serial_number.length>4
+                        ? <div className={cl.wrapper_scan_res_field}>
+                            <div className={cl.wrapper_scan_res_field_name}><span>Серийный номер</span></div>
+                            <div className={cl.wrapper_scan_res_field_value}>{selectedAsset.init_fields.serial_number}</div>
+                        </div>
+                        :false
+
+                    }
 
 
                     <div className={cl.wrapper_scan_res_field_img}>

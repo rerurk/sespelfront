@@ -4,6 +4,7 @@ import {Item} from "./App";
 export type TMakeNewAsset = {
     asset_nomenclature_item: Item|null
     asset_store:Item|null
+    init_fields:TInitAssetsFields
 
 }
 
@@ -11,9 +12,14 @@ export type TAsset = {
     asset:Item
     store:Item
     nomenclature:Item
-    owner:string
-}
+    init_fields:TInitAssetsFields
 
+}
+export type TInitAssetsFields={
+    uuid:string
+    owner:string
+    serial_number: string
+}
 export type QrCodeFields ={
     name:string,
     code:string,
