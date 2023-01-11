@@ -3,7 +3,7 @@ import Main from "../pages/main/Main";
 
 import Nomenclatures from "../pages/nomenclatures/Nomenclatures";
 import AssetStores from "../pages/assetStores/AssetStores";
-import QrScan from "../pages/qrscan/QrScan";
+import QrScan from "../components/qrscan/QrScan";
 import MakeAsset from "../pages/makeAsset/MakeAsset";
 import MakeNomenclatureGroup from "../pages/makeNomenclatureGroup/MakeNomenclatureGroup";
 import MakeNomenclatureItem from "../pages/makeNomenclatureItem/MakeNomenclatureItem";
@@ -14,7 +14,9 @@ import ModifyStoreGrope from "../pages/modifyStoreGrope/ModifyStoreGrope";
 import QrScanResult from "../pages/qrScanResult/QrScanResult";
 import StoreBalanceView from "../pages/storeBalanceView/StoreBalanceView";
 import {Domen} from "../fetches/Requests";
-import BarcodeScanner from "../pages/barcodeScanner/BarcodeScanner";
+import BarcodeScanner from "../components/barcodeScanner/BarcodeScanner";
+import ScanAssetQrCode from "../pages/scanAssetQrCode/ScanAssetQrCode";
+import ScanAssetBarCode from "../pages/scanAssetBarCode/ScanAssetBarCode";
 
 export type RouteNode = {
     isHide: boolean
@@ -60,13 +62,13 @@ export const pcRoutes: RouteNode[] = [
         isHide: false,
         path: RouterPath.QR_CODE_SCANNER,
         name: RouterTexts.QR_CODE_SCANNER,
-        element: <QrScan/>
+        element: <ScanAssetQrCode/>
     },
     {
         isHide: false,
         path: RouterPath.BARCODE_SCANNER,
         name: RouterTexts.BARCODE_SCANNER,
-        element: <BarcodeScanner/>
+        element: <ScanAssetBarCode/>
     },
     {
         isHide: false,
@@ -93,7 +95,7 @@ export const pcRoutes: RouteNode[] = [
         isHide: true,
         path: RouterPath.MAIN,
         name: RouterTexts.MAIN,
-        element: <QrScan/>
+        element: <ScanAssetQrCode/>
     },
     {
         isHide: true,
@@ -159,14 +161,14 @@ export const mobileRoutes: RouteNode[] = [
         isHide: false,
         path: RouterPath.QR_CODE_SCANNER,
         name: RouterTexts.QR_CODE_SCANNER,
-        element: <QrScan/>,
+        element: <ScanAssetQrCode/>,
         img:Domen+"/images/qrScanner.png"
     },
     {
         isHide: false,
         path: RouterPath.BARCODE_SCANNER,
         name: RouterTexts.BARCODE_SCANNER,
-        element: <BarcodeScanner/>,
+        element: <ScanAssetBarCode/>,
         img:Domen+"/images/qrScanner.png"
     },
     {
@@ -192,7 +194,7 @@ export const mobileRoutes: RouteNode[] = [
 
         path: RouterPath.MAIN,
         name: RouterTexts.MAIN,
-        element: <QrScan/>
+        element:<ScanAssetQrCode/>
     },
     {
         isHide: true,

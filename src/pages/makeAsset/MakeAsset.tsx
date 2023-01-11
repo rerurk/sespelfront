@@ -1,14 +1,13 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC} from 'react';
 import {useTypeSelector} from "../../hooks/useTypeSelector";
 // @ts-ignore
 import cl from "./MakeAsset.module.css"
 import NomenclatureItemView from "../../components/nomenclatureItemsShow/NomenclatureItemView";
 import StoreTree from "../../components/stores/storeTree/StoreTree";
 
-import {TAsset, TMakeNewAsset} from "../../structs/Asset";
+import {TMakeNewAsset} from "../../structs/Asset";
 import {Tools} from "../../tools/Tools";
 import {Fetches} from "../../fetches/Fetches";
-
 
 
 let newAsset: TMakeNewAsset = {
@@ -19,11 +18,7 @@ let newAsset: TMakeNewAsset = {
 
 
 const MakeAsset: FC = () => {
-
-
     const {storeGroupRoot, nomenclatureRoot, selectedStore, selectedNomenclatureItem} = useTypeSelector(state => state.appReducer)
-    const [newMakedAssets, setNewMakedAssets] = useState<TAsset[]>([])
-
 
     const onMakeClick = () => {
         if (selectedStore && selectedNomenclatureItem) {
@@ -33,8 +28,7 @@ const MakeAsset: FC = () => {
                 newAsset.asset_nomenclature_item = Tools.unRefCatalogItem(selectedNomenclatureItem)
                 Fetches.MakeAsset(newAsset).then(r => {
                     if (!(r instanceof Error)) {
-                        newMakedAssets.push(r)
-                        setNewMakedAssets(() => [...newMakedAssets])
+
                     }
                 })
             }
@@ -54,6 +48,10 @@ const MakeAsset: FC = () => {
                 </div>
                 <div className={cl.wrapper_makeAsset}>
                     <button onClick={onMakeClick}>СОЗДАТЬ</button>
+                    <div>
+                        <span> указать серийный номер</span>
+                        <input type={"checkbox"}/>
+                    </div>
                 </div>
                 <div className={cl.wrapper_selectStoreAngNomenclature}>
                     <NomenclatureItemView item={nomenclatureRoot}/>

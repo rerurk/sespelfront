@@ -105,6 +105,11 @@ const QrScanResult = () => {
                         <div className={cl.wrapper_scan_res_field_name}><span> Индефикатор</span></div>
                         <div className={cl.wrapper_scan_res_field_value}>{selectedAsset.asset.uuid}</div>
                     </div>
+                    <div className={cl.wrapper_scan_res_field}>
+                        <div className={cl.wrapper_scan_res_field_name}><span> Клиент</span></div>
+                        <div className={cl.wrapper_scan_res_field_value}>{selectedAsset.owner}</div>
+                    </div>
+
 
                     <div className={cl.wrapper_scan_res_field_img}>
                         <img src={Domen + "/images/items_img/" + selectedAsset.nomenclature.uuid + ".jpg"}/>

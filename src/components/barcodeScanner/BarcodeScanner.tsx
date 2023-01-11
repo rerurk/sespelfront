@@ -3,8 +3,16 @@ import BarcodeScannerComponent from "react-qr-barcode-scanner";
 // @ts-ignore
 import cl from "./BarcodeScanner.module.css"
 
-const BarcodeScanner:FC = () => {
+interface BarcodeScannerProps {
+    onResult:(res:string)=>void
+}
+
+const BarcodeScanner:FC<BarcodeScannerProps> = ({onResult}) => {
     const [data, setData] = useState<string|null>(null);
+    const onScanResult=(data :string)=>{
+        onResult(data)
+        setData(data)
+    }
     if (!data) {
         return (
             <div className={cl.wrapper}>
@@ -14,8 +22,13 @@ const BarcodeScanner:FC = () => {
                     height={500}
                     delay={100}
                     onUpdate={(err, result) => {
-                        //@ts-ignore
-                        if (result) setData(result.text);
+
+                        if (result) {
+                            //@ts-ignore
+                            onScanResult(result.text)
+                            //setData(result.text)
+                            console.log(result)
+                        }
                         else setData(() => null);
                     }}
                 />
@@ -33,7 +46,7 @@ const BarcodeScanner:FC = () => {
         );
     }
     return (<div>
-        <p>{data}</p>
+
     </div>)
 };
 

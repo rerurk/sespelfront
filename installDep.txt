@@ -1,1 +1,8 @@
-npm i react-qr-barcode-scanner
+npx create-react-app . --template typescript
+npm i @types/react-redux redux react-redux redux-thunk axios
+npm i --save-dev @types/react-transition-group
+npm install react-transition-group --save
+npm install --save react-router-dom
+npm i react-qr-code
+npm add modern-react-qr-reader --legacy-peer-deps
+npm add react-qr-barcode-scanner --legacy-peer-deps

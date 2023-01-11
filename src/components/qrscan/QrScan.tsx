@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, {FC, useState} from 'react';
 // @ts-ignore
     import QrReader from 'modern-react-qr-reader'
 
@@ -13,29 +13,18 @@ import {useNavigate} from "react-router-dom";
 import {SetSelectedAssetState} from "../../store/action_creator/AppStoreActions";
 import {RouterPath} from "../../router";
 
+interface QrScanProps {
+    onResult:(result:string)=>void
+}
+const QrScan: FC<QrScanProps> = ({onResult}) => {
 
-const QrScan: FC = () => {
-    const navigate = useNavigate();
-    const dispatch=useDispatch()
     const [qrRes, setQrRes] = useState<string | null>(null)
 
-    const handleScan = (data: any) => {
+    const handleScan = (data: string) => {
 
         if (data) {
+            onResult(data)
             setQrRes(data)
-
-            let strSend:StrUUID={
-                uuid:data
-            }
-            Fetches.GetAssetBySTRUUID(strSend).then(r=>{
-                let as:TAsset|Error=r
-                if(!(as instanceof Error )&&as.asset.id>0){
-                        // @ts-ignore
-                    dispatch(SetSelectedAssetState(as))
-                    navigate(RouterPath.QR_SCAN_RESULT)
-                }
-            })
-
 
         }
     }

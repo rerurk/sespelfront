@@ -11,6 +11,7 @@ export type Item = {
     type: number
     uuid: string
     owner_uuid: string | null
+    serial_number?: string
 }
 
 export interface ExtendedItem extends Item {
@@ -43,7 +44,7 @@ export type RenameItem = {
 export type RenameNomenclatureItem = {
     new_item: Item
     renamed_item: Item,
-    new_img:NewImageFile|null
+    new_img: NewImageFile | null
 
 
 }
@@ -62,16 +63,16 @@ export type AddToItem = {
     to_add_item: Item
 }
 
-export type AddNomenclatureItem  = {
+export type AddNomenclatureItem = {
     adding_item: Item,
     to_add_item: Item,
-    item_img:NewImageFile|null
+    item_img: NewImageFile | null
 }
 
-export type USRAuth={
-    login:string,
-    pass:string
+export type USRAuth = {
+    login: string,
+    pass: string
 }
 export type AuthRes = {
-    is_auth:boolean
+    is_auth: boolean
 }

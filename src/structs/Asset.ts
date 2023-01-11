@@ -11,6 +11,7 @@ export type TAsset = {
     asset:Item
     store:Item
     nomenclature:Item
+    owner:string
 }
 
 export type QrCodeFields ={

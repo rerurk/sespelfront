@@ -229,7 +229,7 @@ export class Fetches{
 
             const res = await axios.post<TAsset>(Requests.GET_ASSET_BY_UUID,strSend)
             if (res.status !== 200) {
-                alert(res.data)
+
                 return Error(ErrorsText.ERROR_SEND_DATA)
             }
             return res.data
