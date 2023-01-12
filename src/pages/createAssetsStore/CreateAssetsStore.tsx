@@ -37,7 +37,7 @@ const CreateAssetsStore = () => {
             if(selectedStore){
                 to_add_item=selectedStore
             }
-            console.log(to_add_item)
+
             if (to_add_item) {
                 let addToItem: AddToItem = {
                     adding_item: newStoreItem,

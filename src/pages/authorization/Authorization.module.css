@@ -9,7 +9,7 @@
     align-items: flex-start;
     justify-content: center;
 }
-.wrapper_fields{
+.wrapper_fieldsWrapper{
    display: flex;
     flex-direction: column;
     width: 10rem;

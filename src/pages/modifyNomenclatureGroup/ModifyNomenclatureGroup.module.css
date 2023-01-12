@@ -11,7 +11,7 @@
 
 }
 
-.wrapper_fields {
+.wrapper_fieldsWrapper {
 
     display: flex;
     flex-direction: column;
@@ -20,7 +20,7 @@
     height: 5rem;
 }
 
-.wrapper_fields > input {
+.wrapper_fieldsWrapper > input {
     min-width: 20rem;
 }
 
