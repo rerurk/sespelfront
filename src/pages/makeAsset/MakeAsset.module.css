@@ -3,6 +3,16 @@
     height: 100%;
     background: lightgreen;
 }
+.wrapper_makeAsset_setSerial{
+    width: 10rem;
+    height: 2rem;
+    border:solid 1px red;
+}
+.wrapper_makeAsset_setSerial_serial{
+    width: 10rem;
+    height: 2rem;
+    border:solid 1px red;
+}
 .wrapper_selectedStoreAngNomenclature{
     height: 3rem;
     background: lightgrey;

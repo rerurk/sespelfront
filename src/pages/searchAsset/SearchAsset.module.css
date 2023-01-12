@@ -1,0 +1,35 @@
+@media (orientation: portrait) {
+    .wrapper_scanners{
+        width: 100%;
+        height: 4rem;
+        display: flex;
+        flex-direction: row ;
+        background: fuchsia;
+    }
+    .wrapper_scanner {
+        width: 4rem;
+        height: 4rem;
+
+    }
+}
+
+@media (orientation: landscape) {
+    .wrapper_scanners{
+        width: 100%;
+        height: 2rem;
+        display: flex;
+        flex-direction: row ;
+        background: sandybrown;
+    }
+     .wrapper_scanner {
+        width: 9rem;
+        height: 2rem;
+
+    }
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    background: white;
+}

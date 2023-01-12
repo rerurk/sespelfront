@@ -18,7 +18,7 @@ export type TAsset = {
 export type TInitAssetsFields={
     uuid:string
     owner:string
-    serial_number: string
+    serial_number: string|null
 }
 export type QrCodeFields ={
     name:string,
