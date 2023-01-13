@@ -26,8 +26,7 @@ const BarcodeScanner:FC<BarcodeScannerProps> = ({onResult}) => {
                         if (result) {
                             //@ts-ignore
                             onScanResult(result.text)
-                            //setData(result.text)
-                            console.log(result)
+
                         }
                         else setData(() => null);
                     }}

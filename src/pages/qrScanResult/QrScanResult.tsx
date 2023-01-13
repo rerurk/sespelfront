@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 // @ts-ignore
 import cl from "./QrScanResult.module.css"
 import {useTypeSelector} from "../../hooks/useTypeSelector";
-
 import {useDispatch} from "react-redux";
 import {SetSelectedAssetState} from "../../store/action_creator/AppStoreActions";
 import StoreTree from "../../components/stores/storeTree/StoreTree";
@@ -12,12 +11,11 @@ import {Tools} from "../../tools/Tools";
 import {TAsset} from "../../structs/Asset";
 import {Domen} from "../../fetches/Requests";
 import AssetTransferHistory from "../../components/assetTransferHistory/AssetTransferHistory";
-
 import AssetQRCode from "../../components/assetQRCodeView/AssetQRCode";
 import BtImg from "../../components/UI/btImg/BtImg";
 import CloseBt from "../../components/UI/closeBt/CloseBt";
 
-const QrScanResult = () => {
+const QrScanResult:FC = () => {
     const {selectedAsset, storeGroupRoot, selectedStore} = useTypeSelector(state => state.appReducer)
     useEffect(() => {
         if (selectedStore?.uuid === selectedAsset?.store.uuid && isShowStores) {

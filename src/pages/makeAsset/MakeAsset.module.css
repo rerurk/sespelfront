@@ -5,9 +5,31 @@
         background: #55ff55;
 
     }
+    .wrapper_BarcodeScanner{
+         position: absolute;
+         top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .bt_activate_barScanner{
+         width: 40%;
+         height: 100%;
+        border: solid 1px red;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 }
 @media (orientation: landscape) {
-
+    .wrapper_BarcodeScanner{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 30%;
+        height: 100%;
+    }
 }
 .wrapper {
     width: 100%;
@@ -33,6 +55,11 @@
 }
 
 .wrapper_fieldsWrapper_field_label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     width: 30%;
 
 }

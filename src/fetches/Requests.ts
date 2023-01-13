@@ -1,5 +1,5 @@
-export const Domen = "http://192.168.1.95:8080"
-//export const Domen = "https://192.168.1.95"
+export const Domen = "http://192.168.1.103:8080"
+//export const Domen = "https://192.168.1.103"
 //export const Domen = ""
 type RequestT = {
     AUTHORIZATION:string,

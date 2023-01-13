@@ -50,9 +50,10 @@
 
 @media (orientation: landscape){
     .wrapper{
-        width: 30vw;
+        width: 100%;
         height: 100%;
         background: black;
+        overflow: hidden;
     }
     .wrapper_scanner{
         width: 100%;
@@ -64,21 +65,22 @@
 
     .wrapper_scanner_box{
         position: absolute;
-        width: 30vw;
-        height: 30vw;
+        width: 100%;
+        height: 100%;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
+        overflow: hidden;
 
 
     }
 
     .wrapper_scanner_box_reader{
-        border: solid 2px lightgrey;
-        box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 30vh;
-
-        width: 70%;
-        height: 70%;
+        margin-top: 20%;
+        border: solid 2px lawngreen;
+        box-shadow: rgba(0, 0, 0, 0.8) 0 0 0 30vh;
+        width: 99%;
+        height: 20%;
         overflow: hidden;
 
     }
@@ -86,8 +88,9 @@
         margin-top: 0;
         width: 2px;
         height: 100%;
-        background: linear-gradient(to right, grey, white,grey);
-        animation-duration: 6s;
+
+        background: linear-gradient(to right, lightgreen, white,lightgreen);
+        animation-duration: 2s;
         animation-name: slidein;
         animation-iteration-count: infinite;
 

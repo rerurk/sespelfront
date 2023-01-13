@@ -13,6 +13,9 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {SetSelectedAssetState} from "../../store/action_creator/AppStoreActions";
 import {RouterPath} from "../../router";
+import BarcodeScanner from "../../components/barcodeScanner/BarcodeScanner";
+import BtImg from "../../components/UI/btImg/BtImg";
+import {Domen} from "../../fetches/Requests";
 
 
 let newAsset: TMakeNewAsset = {
@@ -29,18 +32,19 @@ let newAsset: TMakeNewAsset = {
 
 const MakeAsset: FC = () => {
     const navigate = useNavigate();
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
     const {storeGroupRoot, nomenclatureRoot, selectedStore, selectedNomenclatureItem} = useTypeSelector(state => state.appReducer)
     const [serialNumber, setSerialNumber] = useState<string>("")
     const [showSerialInput, setShowSerialInput] = useState<boolean>(false)
-    const [testNewAsset,setTestNewAsset]=useState<TestFields>({IsOk: false, Msg: ""})
+    const [testNewAsset, setTestNewAsset] = useState<TestFields>({IsOk: false, Msg: ""})
+    const [showBarScanner, setShowBarScanner] = useState<boolean>(false)
 
-    useEffect(()=>{
-        newAsset.asset_nomenclature_item=selectedNomenclatureItem
-        newAsset.asset_store=selectedStore
-        setTestNewAsset(()=>TestItems.TestNewAsset(newAsset))
+    useEffect(() => {
+        newAsset.asset_nomenclature_item = selectedNomenclatureItem
+        newAsset.asset_store = selectedStore
+        setTestNewAsset(() => TestItems.TestNewAsset(newAsset))
 
-    },[selectedStore,selectedNomenclatureItem])
+    }, [selectedStore, selectedNomenclatureItem])
 
     const onMakeClick = () => {
         if (selectedStore && selectedNomenclatureItem) {
@@ -78,26 +82,39 @@ const MakeAsset: FC = () => {
         }
     }
 
+    const onShowBarScannerClick = () => {
+        setShowBarScanner(() => true)
+
+    }
+
+    const onResultBarCodeScanner = (data: string) => {
+        setSerialNumber(()=>data)
+        setShowBarScanner(() => false)
+        newAsset.init_fields.serial_number=data
+        setTestNewAsset(() => TestItems.TestNewAsset(newAsset))
+
+    }
+
     const onChangeCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
 
         if (e.target.checked) {
             setSerialNumber(() => "")
             setShowSerialInput(() => true)
             newAsset.init_fields.serial_number = ""
-            setTestNewAsset(()=>TestItems.TestNewAsset(newAsset))
+            setTestNewAsset(() => TestItems.TestNewAsset(newAsset))
 
         } else {
             newAsset.init_fields.serial_number = null
             setShowSerialInput(() => false)
-            setTestNewAsset(()=>TestItems.TestNewAsset(newAsset))
+            setTestNewAsset(() => TestItems.TestNewAsset(newAsset))
 
         }
 
     };
 
     const onSerialNumberEnter = (e: React.ChangeEvent<HTMLInputElement>) => {
-        newAsset.init_fields.serial_number=e.target.value
-        setTestNewAsset(()=>TestItems.TestNewAsset(newAsset))
+        newAsset.init_fields.serial_number = e.target.value
+        setTestNewAsset(() => TestItems.TestNewAsset(newAsset))
 
 
     }
@@ -119,7 +136,15 @@ const MakeAsset: FC = () => {
                     {
                         showSerialInput
                             ? <div className={cl.wrapper_fieldsWrapper_field}>
-                                <div className={cl.wrapper_fieldsWrapper_field_label}><label>S/N:</label></div>
+                                <div className={cl.wrapper_fieldsWrapper_field_label}>
+                                    <label>S/N:</label>
+                                    <BtImg
+                                        onBtClick={onShowBarScannerClick}
+                                        imgURL={Domen + "/images/barCodeScanner.png"}
+                                        text={""}
+                                        classN={cl.bt_activate_barScanner}
+                                    />
+                                </div>
                                 <div className={cl.wrapper_fieldsWrapper_field_item}>
                                     <input
                                         height={"2rem"}
@@ -159,7 +184,12 @@ const MakeAsset: FC = () => {
                     <StoreTree item={storeGroupRoot}/>
 
                 </div>
-
+                {showBarScanner
+                    ? <div className={cl.wrapper_BarcodeScanner}>
+                        <BarcodeScanner onResult={onResultBarCodeScanner}/>
+                    </div>
+                    : false
+                }
             </div>
         );
     return (<div/>)
