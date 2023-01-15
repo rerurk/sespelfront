@@ -1,0 +1,182 @@
+@media (orientation: landscape) {
+    .wrapper {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+
+    }
+
+    .wrapper_tools {
+        width: 100%;
+        height: 2rem;
+        background: #f4a460;
+        color: white;
+
+    }
+    .wrapper_StoreTree{
+          width: 50%;
+    }
+    .wrapper_storeBalance {
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        background: #eee;
+
+
+
+    }
+    .wrapper_storeBalance_close{
+        position: absolute;
+        top: 0;
+        background: red;
+        right: 0;
+        width: 3vh;
+        height: 3vh;
+        cursor: pointer;
+    }
+
+
+    .wrapper_storeBalance_head_storeName:hover{
+        background: lightgreen;
+    }
+
+
+    .wrapper_storeBalance_head_name {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+        height: 100%;
+    }
+
+    .wrapper_storeBalance_head_quantity {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 10%;
+        height: 100%;
+        border-left: solid 1px grey;
+    }
+    .wrapper_storeBalance_assetsQuantity{
+        width: 100%;
+        height: 85%;
+        overflow: scroll;
+
+    }
+
+}
+
+@media (orientation: portrait) {
+    .wrapper {
+        width: 100%;
+        height: 100%;
+
+
+
+    }
+
+    .wrapper_tools {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 2rem;
+        background: #f4a460;
+        color: white;
+
+    }
+
+    .wrapper_tools > span {
+        margin-right: 1rem;
+    }
+    .wrapper_tools > button {
+        background: white;
+        color: #f4a460;
+        height: 1.5rem;
+
+
+    }
+
+    .wrapper_StoreTree{
+
+        background: white;
+    }
+
+    .wrapper_storeBalance {
+        position: fixed;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #eee;
+
+
+
+
+    }
+    .wrapper_storeBalance_close{
+        position: fixed;
+        top: 0;
+        background: red;
+        right: 0;
+        width: 3vh;
+        height: 3vh;
+    }
+
+
+
+    .wrapper_storeBalance_head_storeName:hover{
+        background: lightgreen;
+    }
+
+
+    .wrapper_storeBalance_head_name {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 91%;
+        height: 100%;
+    }
+
+    .wrapper_storeBalance_head_quantity {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 9%;
+        height: 100%;
+        border-left: solid 1px grey;
+    }
+    .wrapper_storeBalance_assetsQuantity{
+       width: 100vw;
+        height: 80vh;
+        overflow-y: scroll;
+    }
+
+
+}
+.wrapper_storeBalance_head_storeName{
+    cursor: pointer;
+    height: 2rem;
+    background: #f0a059;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.wrapper_storeBalance_head {
+
+    width: 100%;
+    border-bottom: solid 1px grey;
+    border-top: solid 1px grey;;
+    height: 5vh;
+    display: flex;
+    flex-direction: row;
+    background: #f4a460;
+    color: white;
+
+}
+

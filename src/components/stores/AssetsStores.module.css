@@ -1,0 +1,68 @@
+.wrapper {
+    width: 100%;
+    height: 100%;
+    background: lightgrey;
+    display: flex;
+    flex-direction: column;
+}
+.wrapper>button{
+
+}
+.wrapper_allStores{
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: white;
+
+}
+
+.wrapper_allStores>select{
+    text-align: left;
+    width: 80%;
+    padding-left: 1rem;
+    border: solid 1px grey;
+    cursor: pointer;
+    font-size: 1rem;
+    background: white;
+}
+
+
+.wrapper_store_fields {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+
+}
+.wrapper_wrapper_store_name{
+     padding-top: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.wrapper_wrapper_store_name>label{
+    width: 18%;
+    text-align: right;
+    padding-right: 1rem ;
+}
+.wrapper_wrapper_store_name>input{
+    width: 72%;
+}
+
+.wrapper_create_new_assetStore_bt{
+    background: blue;
+    color: white;
+    width: 8rem;
+    cursor: pointer;
+}
+.wrapper_make_new_assetStore_bt{
+    background: #55ff55;
+    color: teal;
+    width: 8rem;
+    cursor: pointer;
+}
+.hidden {
+    display: none;
+}
